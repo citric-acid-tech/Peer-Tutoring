@@ -334,8 +334,7 @@
                 <!-- FRAME FOOTER -->
 
                 <div id="frame-footer">
-                    Powered By
-                    <a href="http://easyappointments.org" target="_blank">Easy!Appointments</a>
+                    <a href="https://cle.sustech.edu.cn/">CENTER FOR LANGUAGE EDUCATION</a>
                     |
                     <span id="select-language" class="label label-success">
     		        	<?= ucfirst($this->config->item('language')) ?>

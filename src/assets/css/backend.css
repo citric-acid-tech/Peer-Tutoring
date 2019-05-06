@@ -20,8 +20,8 @@ root {
 /* BACKEND GENERAL ELEMENTS
    -------------------------------------------------------------------- */
 #header {
-    background-color: #39c678;
-    border-bottom: 4px solid #c0f1d6;
+    background-color: #296d97;
+    border-bottom: 4px solid #4197cb;
     box-shadow: none;
     border-radius: 0;
     margin-bottom: 15px;
@@ -33,12 +33,12 @@ root {
 
 #header #header-logo img {
     float: left;
-    width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 
 #header #header-logo span {
+    display: none;
     float: left;
     font-size: 16px;
     color: white;
@@ -66,12 +66,12 @@ root {
 }
 
 #header #header-menu .menu-item:hover:not(.active) {
-    background-color: #2A8F57;
+    background-color: #1e506f;
 }
 
 #header #header-menu .active {
     color: #C5FFD6;
-    background: #29A067;
+    background: #245f83;
 }
 
 #footer {
@@ -155,8 +155,8 @@ body .modal .modal-title {
 
 body .modal-header {
     padding: 12px 15px;
-    background: #39c678;
-    border-bottom: 4px solid #c0f1d6;
+    background: #296d97;
+    border-bottom: 4px solid #4197cb;
 }
 
 body .modal-header h3 {
@@ -252,7 +252,7 @@ body legend {
 
 .backend-page .filter-records .results .entry.selected {
     background-color: #F4F4F4;
-    border-right: 5px solid #39c678;
+    border-right: 5px solid #296d97;
 }
 
 .backend-page .filter-records .results hr {
@@ -629,7 +629,7 @@ body .form-horizontal .controls {
 
 #users-page #providers .switch-view .current {
     color: #FFF;
-    background: #39c678;
+    background: #296d97;
 }
 
 #users-page #providers .details-view,
