@@ -4,10 +4,12 @@ services:
     image: mysql
     command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_ROOT_PASSWORD=veryhardpassword
+      - MYSQL_ROOT_PASSWORD=UdiZCA7cya1WDpRkYUMJOg
       - MYSQL_DATABASE=easyapp
       - MYSQL_USER=easyapp
-      - MYSQL_PASSWORD=veryhardpassword
+      - MYSQL_PASSWORD=UdiZCA7cya1WDpRkYUMJOg
+    volumes:
+      - ./data:/var/lib/mysql
 
   application:
     image: easyappointments
@@ -17,10 +19,13 @@ services:
       - ./src:/var/www/html
     command: dev
     ports:
-      - ${APP_HOST}:80:80
+      - ${APP_HOST}:8080:80
     environment:
       - DB_HOST=database:3306
-      - APP_URL=localhost
+      - APP_URL=peertutor.citric-acid.com.cn
+      - EMAIL_PROTOCOL=smtp
+      - SMTP_HOST=172.16.0.3
+      - SMTP_PORT=25
     depends_on:
       - database
     env_file:

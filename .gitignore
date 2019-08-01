@@ -19,3 +19,4 @@
 /src/storage/uploads/*
 /!src/storage/uploads/index.html
 /vendor/
+data/
