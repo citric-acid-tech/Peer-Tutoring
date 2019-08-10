@@ -122,7 +122,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4 platform">
-				<a href= <?= site_url('book') ?> >
+				<a href= <?= site_url('appointments') ?> >
 					<?= lang('home_selection_student') ?>
 				</a>
 			</div>

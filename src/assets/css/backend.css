@@ -21,19 +21,19 @@ root {
    -------------------------------------------------------------------- */
 #header {
     background-color: #296d97;
-    border-bottom: 4px solid #4197cb;
-    box-shadow: none;
+    border-bottom: 1px solid #4197cb;
     border-radius: 0;
     margin-bottom: 15px;
 }
 
 #header #header-logo {
-    padding: 6px;
+    padding: 24px;
+	padding-left: 40px;
+	height: 100px;
 }
 
 #header #header-logo img {
     float: left;
-    height: 50px;
     margin-right: 10px;
 }
 
@@ -56,8 +56,21 @@ root {
     color: #FFF;
     text-align: center;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     transition: background-color 0.2s;
+}
+
+#header #header-menu ul {
+	height: 100px;
+}
+
+#header #header-menu ul li {
+	height: 100px;
+}
+
+#header #header-menu ul li a {
+	height: 100px;
+	padding: 40px 0;
 }
 
 #header #header-menu .menu-item:focus {
