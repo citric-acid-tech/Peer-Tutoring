@@ -97,7 +97,7 @@ $config['language'] = defined('Config::LANGUAGE') ? Config::LANGUAGE : 'english'
 $config['available_languages'] = [
     'arabic',
     'bulgarian',
-    'chinese',
+    '简体中文',
     'danish',
     'dutch',
     'english',
@@ -108,7 +108,7 @@ $config['available_languages'] = [
     'hindi',
     'hungarian',
     'italian',
-    'japanese',
+    '日本語',
     'luxembourgish',
     'polish',
     'portuguese',
