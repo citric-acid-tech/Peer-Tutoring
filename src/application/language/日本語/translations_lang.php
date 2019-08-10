@@ -298,7 +298,7 @@ $lang['delete_personal_information_hint'] = 'Delete all personal information fro
 $lang['delete_personal_information'] = 'Delete Personal Information';
 $lang['delete_personal_information_prompt'] = 'Are you sure that you want to delete your personal information? This action cannot be undone.';
 
-$lang['home_selection_tutor'] = 'Tutor';
-$lang['home_selection_student'] = 'Student';
-$lang['home_selection_admin'] = 'Administrator';
+$lang['home_selection_tutor'] = '先生';
+$lang['home_selection_student'] = '学生';
+$lang['home_selection_admin'] = '管理者';
 $lang['test_dev_tool'] = 'content';
