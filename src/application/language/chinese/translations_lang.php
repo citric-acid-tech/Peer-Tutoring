@@ -300,3 +300,4 @@ $lang['delete_personal_information_prompt'] = '您确定删除所有个人信息
 $lang['home_selection_tutor'] = '导师';
 $lang['home_selection_student'] = '学生';
 $lang['home_selection_admin'] = '管理员';
+$lang['test_dev_tool'] = 'content';

@@ -301,3 +301,4 @@ $lang['delete_personal_information_prompt'] = 'Are you sure that you want to del
 $lang['home_selection_tutor'] = 'Tutor';
 $lang['home_selection_student'] = 'Student';
 $lang['home_selection_admin'] = 'Administrator';
+$lang['test_dev_tool'] = 'content';
