@@ -297,3 +297,6 @@ $lang['read_and_agree_to_privacy_policy'] = '我已阅读并同意 {$link}Privac
 $lang['delete_personal_information_hint'] = '从系统中删除所有的个人信息';
 $lang['delete_personal_information'] = '删除个人信息';
 $lang['delete_personal_information_prompt'] = '您确定删除所有个人信息吗？该操作无法被撤销.';
+$lang['home_selection_tutor'] = '导师';
+$lang['home_selection_student'] = '学生';
+$lang['home_selection_admin'] = '管理员';
