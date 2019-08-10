@@ -9,8 +9,7 @@
 -->
 
 <head>
-	<title>
-		<?= $company_name ?>| Easy!Appointments</title>
+	<title>CLE Peer Tutoring | <?= $company_name ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -41,17 +40,17 @@
 		/* Styles of Home Header */
 		#header {
 			background-color: #296d97;
-			border-bottom: 4px solid #4197cb;
-			box-shadow: none;
+			border-bottom: 1px solid #4197cb;
 			border-radius: 0;
 			margin-bottom: 15px;
 		}
 		#header #header-logo {
-			padding: 6px;
+			padding: 24px;
+			padding-left: 40px;
+			height: 100px;
 		}
 		#header #header-logo img {
 			float: left;
-			height: 50px;
 			margin-right: 10px;
 		}
 	</style>
@@ -73,6 +72,30 @@
 		}
 	</style>
 	
+	<style>
+		/* Additional Styles */
+		#branching_home {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.platform {
+			text-align: center;
+		}
+		.platform a {
+			text-decoration: none;
+			font-size: 36px;
+			color: rgba(41, 109, 151, 0.6);
+			font-weight: bold;
+			font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial," sans-serif", "微软雅黑";
+			transition: color 0.2s;
+		}
+		.platform a:hover, .platform a:focus {
+			color: rgba(41, 109, 151, 1.0);
+		}
+	</style>
+	
 </head>
 
 <body>
@@ -83,9 +106,6 @@
 			<div class="navbar-header">
 				<div id="header-logo" class="navbar-brand">
 					<img src="<?= base_url('assets/img/logo.png') ?>">
-					<span>
-						<?= $company_name ?>
-					</span>
 				</div>
 			</div>
 		</div>
@@ -94,7 +114,25 @@
 	
 	
 	<!-- CONTENTS -->
-	
+	<div id="branching_home" class="container">
+		<div class="row">
+			<div class="col-sm-4 platform">
+				<a href= <?= site_url('backend') ?> >
+					<?= lang('home_selection_admin') ?>
+				</a>
+			</div>
+			<div class="col-sm-4 platform">
+				<a href= <?= site_url('book') ?> >
+					<?= lang('home_selection_student') ?>
+				</a>
+			</div>
+			<div class="col-sm-4 platform">
+				<a href= <?= site_url('backend') ?> >
+					<?= lang('home_selection_tutor') ?>
+				</a>
+			</div>
+		</div>
+	</div>
 	<!-- CONTENTS -->
 	
 	
@@ -109,6 +147,14 @@
 		</div>
 	</div>
 	<!-- End of Home Footer -->
+	
+	<script>
+		//	Language Selection
+    	var GlobalVariables = {
+    	    'csrfToken'             : <?= json_encode($this->security->get_csrf_hash()) ?>,
+    	    'baseUrl'               : <?= json_encode($base_url) ?>
+    	};
+	</script>
 	
 	<script src="<?= asset_url('assets/js/backend.js') ?>"></script>
 	<script src="<?= asset_url('assets/js/general_functions.js') ?>"></script>
