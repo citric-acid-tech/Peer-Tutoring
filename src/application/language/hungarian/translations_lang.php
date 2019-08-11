@@ -321,3 +321,5 @@ $lang['evaluation_about_tutor'] = 'Evaluation';
 $lang['comment_or_suggestion'] = 'Comment/Advice';
 $lang['please_write_down_com_or_sug'] = 'Please write down your comment of advice!';
 $lang['size_too_small'] = 'Your screen is too small, please resize it!';
+$lang['my_appointment_hint'] = 'Check your appointments here :)';
+$lang['available-appointments_hint'] = 'You can find the newest available appointments list and make appointments here :)';
