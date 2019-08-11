@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>">
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome.css') ?>">
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome.css', NULL, 'css') ?>">
 
 	<script src="<?= asset_url('assets/ext/jquery/jquery.min.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.min.js', NULL, 'js') ?>"></script>
@@ -73,7 +73,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4 platform">
-				<a href= <?= site_url('appointments') ?> >
+				<a href= <?= site_url('students') ?> >
 					<div class="platform_icons">
 						<i class="fas fa-user-edit fa-2x"></i>
 					</div>

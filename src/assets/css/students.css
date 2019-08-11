@@ -1,0 +1,485 @@
+/**
+ * STUDENTS CSS FILE FOR PEER-TUTORING CLE SUSTECH
+ */
+
+root {
+    display: block;
+}
+
+/* BACKEND GENERAL ELEMENTS
+   -------------------------------------------------------------------- */
+
+/* Header */
+#header {
+    background-color: #296d97;
+    border-bottom: 1px solid #4197cb;
+    border-radius: 0;
+    margin-bottom: 15px;
+}
+
+#header #header-logo {
+    padding: 24px;
+	padding-left: 40px;
+	height: 100px;
+	transition: all 0.3s;
+}
+
+#header #header-logo img {
+    float: left;
+    margin-right: 10px;
+	width: 100%;
+	transition: all 0.3s;
+}
+
+#header .navbar-header .navbar-toggle .icon-bar {
+    background: white;
+}
+
+#header #header-menu .menu-item {
+    cursor: pointer;
+    min-width: 130px;
+    color: #FFF;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+#header #header-menu ul {
+	height: 100px;
+}
+
+#header #header-menu ul li {
+	height: 100px;
+}
+
+#header #header-menu ul li a {
+	height: 100px;
+	padding: 40px 50px;
+}
+
+#header #header-menu .menu-item:focus {
+    background-color: inherit;
+    outline: none;
+}
+
+#header #header-menu .menu-item:hover:not(.active) {
+    background-color: #1e506f;
+}
+
+#header #header-menu .active {
+    color: #C5FFD6;
+    background: #245f83;
+}
+/* Header */
+
+
+
+
+
+/* Footer */
+#footer {
+    background-color: #F7F7F7;
+    border-top: 1px solid #DDD;
+    font-size: 11px;
+    overflow: auto;
+}
+
+#footer #footer-content {
+    padding: 10px 15px;
+    display: inline-block;
+    float: left;
+    line-height: 2;
+}
+
+#footer #footer-user-display-name {
+    display: inline-block;
+    float: right;
+    text-align: right;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+/* Footer */
+
+
+
+
+
+/* Notification */
+#notification {
+    margin: 15px;
+}
+
+#notification strong {
+    margin-right: 15px;
+}
+
+#notification .alert button {
+    margin-right: 15px;
+}
+
+#notification .alert {
+    margin-bottom: 0;
+    background-color: #f5e8a8;
+    color: #9E9980;
+    box-shadow: 1px 1px 1px #a0a0a0;
+    padding: 15px;
+    position: fixed;
+    z-index: 200;
+    right: 15px;
+    bottom: 15px;
+    min-width: 300px;
+    max-width: 750px;
+}
+
+#notification .close {
+    color: #9E9980;
+    font-size: 25px;
+    line-height: 0.8;
+    margin-right: 0 !important;
+}
+/* Notification */
+
+
+
+
+
+/* Loading */
+#loading {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    background: rgba(255, 255, 255, 0.75);
+}
+
+#loading img {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+}
+/* Loading */
+
+
+
+
+
+.modal-message {
+    margin-bottom: 10px;
+}
+
+body .modal .modal-title {
+    color: white;
+}
+
+body .modal-header {
+    padding: 12px 15px;
+    background: #296d97;
+    border-bottom: 4px solid #4197cb;
+}
+
+body .modal-header h3 {
+    color: #FFF;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+body .modal-header .close {
+    margin-top: 2px;
+    color: #12482a;
+}
+
+body .modal-content {
+    border: none;
+}
+
+/* Full screen modal */
+body .modal.full-screen .modal-dialog {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body .modal.full-screen .modal-content {
+    height: 100%;
+    border: none;
+    box-shadow: none;
+    overflow-y: auto;
+}
+
+body .modal.full-screen .wrapper {
+    min-height: 100%;
+    margin-bottom: -67px; /* modal-footer height */
+}
+
+body .modal.full-screen .modal-footer {
+    background-color: #f5f5f5;
+    width: 100%;
+    height: 67px;
+}
+
+body .modal.full-screen .modal-push {
+    height: 67px;
+}
+
+body .jspDrag {
+    background: #D3D3D3;
+}
+
+body .jspTrack {
+    background: #EBEBEB;
+}
+
+body legend {
+    color: #666;
+}
+
+/* BACKEND COMPONENTS
+   -------------------------------------------------------------------- */
+
+.backend-page .filter-records {
+    max-width: 350px;
+    margin-bottom: 20px;
+}
+
+.backend-page .filter-records form .input-group-addon {
+    padding-top: 0;
+    padding-right: 0;
+    border-top: none;
+}
+
+.backend-page .filter-records form .key {
+    margin-right: 15px;
+    float: left;
+}
+
+.backend-page .filter-records .results {
+    overflow-y: auto;
+    max-height: 650px;
+    outline: none;
+}
+
+.backend-page .filter-records .results .entry {
+    padding: 10px 7px;
+}
+
+.backend-page .filter-records .results .entry:hover:not(.selected) {
+    background-color: #F3F3F3;
+    cursor: pointer;
+}
+
+.backend-page .filter-records .results .entry.selected {
+    background-color: #F4F4F4;
+    border-right: 5px solid #296d97;
+}
+
+.backend-page .filter-records .results hr {
+    margin: 5px 0;
+}
+
+.record-details {
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.record-details input:read-only,
+.record-details select:disabled,
+.record-details textarea:read-only {
+    opacity: 0.85;
+    box-shadow: none;
+}
+
+
+
+
+
+/* BACKEND USERS PAGE
+   -------------------------------------------------------------------- */
+#users-page h2 {
+    color: #525252;
+}
+
+#users-page .nav {
+    background-color: #F4F4F4;
+    margin-bottom: 15px;
+}
+
+#users-page .nav li {
+    cursor: pointer;
+}
+
+#users-page #secretary-notifications.active,
+#users-page #provider-notifications.active,
+#users-page #admin-notifications.active {
+    background: #B6DCFF;
+    box-shadow: none;
+}
+
+#users-page #secretary-providers,
+#users-page #provider-services {
+    max-width: 315px;
+    width: 100%;
+    height: 387px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+#users-page #providers .switch-view {
+    overflow: auto;
+    margin-bottom: 5px;
+}
+
+#users-page #providers .switch-view div {
+    display: inline-block;
+    padding: 6px 13px;
+    color: #333;
+    float: left;
+    margin-right: 3px;
+    cursor: pointer;
+    min-width: 100px;
+    text-align: center;
+}
+
+#users-page #providers .switch-view div:hover:not(.current) {
+    background: #F5F5F5;
+}
+
+#users-page #providers .switch-view strong {
+    display: inline-block;
+    float: left;
+    margin: 3px 20px;
+    font-size: 17px;
+}
+
+#users-page #providers .switch-view .current {
+    color: #FFF;
+    background: #296d97;
+}
+
+#users-page #providers .details-view,
+#users-page #providers .working-plan-view {
+    clear: both;
+    overflow: auto;
+}
+
+#users-page #providers .working-plan-view .work-start,
+#users-page #providers .working-plan-view .work-end {
+    max-width: 88px;
+}
+
+#users-page .btn-toolbar {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#users-page #providers .form-message {
+    clear: both;
+}
+
+#users-page #providers .breaks .btn {
+    margin-right: 5px;
+    padding: 4px 7px;
+}
+
+@-moz-document url-prefix() {
+    .breaks .break-day select {
+        height: 36px;
+    }
+}
+
+#users-page .working-plan .checkbox,
+#users-page .working-plan input[type="text"],
+#users-page .working-plan button {
+    margin: 2px 0;
+}
+
+#users-page .working-plan td input[type="text"] {
+    width: 55px;
+}
+
+#users-page .editable form,
+#users-page .editable select,
+#users-page .editable input {
+    margin: 0px;
+}
+
+#users-page #providers .record-details h3 a {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+#users-page #providers .record-details #provider-services .checkbox a {
+    margin-left: 5px;
+}
+
+
+
+
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    #header #header-menu .menu-item {
+        min-width: 100px;
+    }
+
+    #calendar-page #calendar-actions {
+        text-align: left;
+    }
+}
+
+@media (max-width: 860px) {
+    #header #header-menu .menu-item {
+        min-width: 85px;
+    }
+
+    #footer #footer-user-display-name {
+        text-align: left;
+    }
+
+    #calendar-page #calendar-filter label {
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 468px) {
+    #calendar-page .fc-header td {
+        display: block;
+        width: 70vw;
+        float: left;
+        margin: 10px auto;
+        text-align: left;
+    }
+
+    #calendar-page #calendar-actions .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .ui-dialog {
+        margin: 0 12px;
+    }
+
+    #calendar-page #calendar-filter select {
+        min-width: auto;
+    }
+
+    #users-page #providers .switch-view {
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    #users-page #providers .switch-view strong {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 16px 0;
+    }
+
+    #users-page #providers .switch-view div {
+        width: 48%;
+    }
+}
+/* Responsive Styles */

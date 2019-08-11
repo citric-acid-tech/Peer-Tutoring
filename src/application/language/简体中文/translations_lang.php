@@ -320,5 +320,5 @@ $lang['evaluation_about_tutor'] = '导师辅导评价';
 $lang['comment_or_suggestion'] = '点评/意见';
 $lang['please_write_down_com_or_sug'] = '请留下您的宝贵点评/意见！';
 $lang['size_too_small'] = '您的窗口太小了，请进行调整。';
-$lang['my_appointment_hint'] = 'Check your appointments here :)';
-$lang['available-appointments_hint'] = 'You can find the newest available appointments list and make appointments here :)';
+$lang['my_appointment_hint'] = '在这里查看您的预约 :)';
+$lang['available-appointments_hint'] = '您可以在这里查看并预约最新的可预约项目 :)';
