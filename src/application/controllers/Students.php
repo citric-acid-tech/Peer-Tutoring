@@ -20,9 +20,11 @@ class Students extends CI_Controller{
     public function index(){
 
 
-        if ($user_id == FALSE){ // User not logged in, display the login view.
-            header('Location: ' . site_url('user/login'));
-            return FALSE;
+        $this->session->set_userdata('dest_url', site_url('students'));
+
+        if ( ! $this->_has_privileges(PRIV_APPOINTMENTS))
+        {
+            return;
         }
 
         $this->load->model('appointments_model');
@@ -74,6 +76,52 @@ class Students extends CI_Controller{
         $view['privileges'] = $this->roles_model->get_privileges($this->session->userdata('role_slug'));
     }
 
+
+        /**
+     * Check whether current user is logged in and has the required privileges to view a page.
+     *
+     * The backend page requires different privileges from the users to display pages. Not all pages are available to
+     * all users. For example secretaries should not be able to edit the system users.
+     *
+     * @see Constant definition in application/config/constants.php.
+     *
+     * @param string $page This argument must match the roles field names of each section (eg "appointments", "users"
+     * ...).
+     * @param bool $redirect If the user has not the required privileges (either not logged in or insufficient role
+     * privileges) then the user will be redirected to another page. Set this argument to FALSE when using ajax (default
+     * true).
+     *
+     * @return bool Returns whether the user has the required privileges to view the page or not. If the user is not
+     * logged in then he will be prompted to log in. If he hasn't the required privileges then an info message will be
+     * displayed.
+     */
+    protected function _has_privileges($page, $redirect = TRUE)
+    {
+        // Check if user is logged in.
+        $user_id = $this->session->userdata('user_id');
+        if ($user_id == FALSE)
+        { // User not logged in, display the login view.
+            if ($redirect)
+            {
+                header('Location: ' . site_url('user/login'));
+            }
+            return FALSE;
+        }
+
+        // Check if the user has the required privileges for viewing the selected page.
+        $role_slug = $this->session->userdata('role_slug');
+        $role_priv = $this->db->get_where('ea_roles', ['slug' => $role_slug])->row_array();
+        if ($role_priv[$page] < PRIV_VIEW)
+        { // User does not have the permission to view the page.
+            if ($redirect)
+            {
+                header('Location: ' . site_url('user/no_privileges'));
+            }
+            return FALSE;
+        }
+
+        return TRUE;
+    }
 }
 
 ?>
