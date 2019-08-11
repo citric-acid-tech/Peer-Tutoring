@@ -23,6 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>">
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome.css') ?>">
 
 	<script src="<?= asset_url('assets/ext/jquery/jquery.min.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.min.js', NULL, 'js') ?>"></script>
@@ -39,113 +40,6 @@
 		var availableLanguages = <?= json_encode($this->config->item('available_languages')) ?>;
 		var EALang = <?= json_encode($this->lang->language) ?>;
 	</script>
-	
-	<style>
-		/* Styles of Home Header */
-		#header {
-			background-color: #296d97;
-			border-bottom: 1px solid #4197cb;
-			border-radius: 0;
-			margin-bottom: 15px;
-		}
-		#header #header-logo {
-			padding: 24px;
-			padding-left: 40px;
-			height: 100px;
-		}
-		#header #header-logo img {
-			float: left;
-			margin-right: 10px;
-		}
-	</style>
-	
-	<style>
-		/* Styles of Home Footer */
-		#footer {
-			background-color: #f7f7f7;
-			border-top: 1px solid #ddd;
-			font-size: 11px;
-			overflow: auto;
-			text-align: center;
-		}
-		#footer #footer-content {
-			padding: 10px 15px;
-			display: inline-block;
-			float: left;
-			line-height: 2;
-		}
-		#footer #footer-content a {
-			color: rgba(41, 109, 151, 0.8);;
-			font-weight: bold;
-		}
-		.sl_but {
-			background-color: rgba(41, 109, 151, 0.8);
-			font-size: 80%;
-			transition: background-color 0.3s;
-		}
-		.sl_but:hover, .sl_but:focus, .sl_but.active {
-			background-color: #35b66f;
-		}
-	</style>
-	
-	<style>
-		/* Additional Styles */
-		#branching_home {
-			position: absolute;
-			top: 55%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
-		.platform {
-			text-align: center;
-		}
-		.platform a {
-			text-decoration: none;
-			font-size: 36px;
-			color: rgba(41, 109, 151, 0.6);
-			font-weight: bold;
-			font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial," sans-serif", "微软雅黑";
-			transition: color 0.2s;
-			transition: font-size 0.4s;
-		}
-		.platform a:hover, .platform a:focus {
-			color: rgba(41, 109, 151, 1.0);
-		}
-		
-		.platform_icons {
-			transition: transform 0.2s;
-		}
-		.platform a:hover .platform_icons, .platform a:focus .platform_icons {
-			transform: rotateY(180deg);
-		}
-	</style>
-	
-	<style>
-		/* Responsive Styles */
-		@media screen and (max-width: 1200px) {
-			.platform a {
-				font-size: 30px;
-			}
-		}
-		@media screen and (max-width: 990px) {
-			.platform a {
-				font-size: 26px;
-			}
-		}
-		@media screen and (max-width: 764px) {
-			.platform {
-				margin: 66px 0;
-			}
-			.platform a {
-				font-size: 22px;
-			}
-			.platform .platform_icons, .platform .platform_texts {
-				display: inline;
-				padding: 0 8px;
-			}
-		}
-		
-	</style>
 </head>
 
 <body>
@@ -197,6 +91,9 @@
 						<?= lang('home_selection_tutor') ?>
 					</div>
 				</a>
+			</div>
+			<div class="col-sm-12 warning-txt">
+				<?= lang('size_too_small') ?>
 			</div>
 		</div>
 	</div>
