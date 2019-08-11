@@ -15,24 +15,24 @@
 
 	<link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>" />
 
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css') ?>" />
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.css') ?>" />
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.css') ?>" />
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/ui/trumbowyg.min.css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/ui/trumbowyg.min.css', NULL, 'css') ?>" />
 	<!-- Add Font Awesome for icons -->
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css') ?>">
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>">
 
-	<script src="<?= asset_url('assets/ext/jquery/jquery.min.js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.min.js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/datejs/date.js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/jquery-mousewheel/jquery.mousewheel.js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/trumbowyg/trumbowyg.min.js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/jquery/jquery.min.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.min.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/datejs/date.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/jquery-mousewheel/jquery.mousewheel.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/ext/trumbowyg/trumbowyg.min.js', NULL, 'js') ?>"></script>
 	<!-- Add Font Awesome for icons -->
-	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.
@@ -74,13 +74,25 @@
 			float: left;
 			line-height: 2;
 		}
+		#footer #footer-content a {
+			color: rgba(41, 109, 151, 0.8);;
+			font-weight: bold;
+		}
+		.sl_but {
+			background-color: rgba(41, 109, 151, 0.8);
+			font-size: 80%;
+			transition: background-color 0.3s;
+		}
+		.sl_but:hover, .sl_but:focus, .sl_but.active {
+			background-color: #35b66f;
+		}
 	</style>
 	
 	<style>
 		/* Additional Styles */
 		#branching_home {
 			position: absolute;
-			top: 50%;
+			top: 55%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 		}
@@ -94,6 +106,7 @@
 			font-weight: bold;
 			font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial," sans-serif", "微软雅黑";
 			transition: color 0.2s;
+			transition: font-size 0.4s;
 		}
 		.platform a:hover, .platform a:focus {
 			color: rgba(41, 109, 151, 1.0);
@@ -107,6 +120,32 @@
 		}
 	</style>
 	
+	<style>
+		/* Responsive Styles */
+		@media screen and (max-width: 1200px) {
+			.platform a {
+				font-size: 30px;
+			}
+		}
+		@media screen and (max-width: 990px) {
+			.platform a {
+				font-size: 26px;
+			}
+		}
+		@media screen and (max-width: 764px) {
+			.platform {
+				margin: 66px 0;
+			}
+			.platform a {
+				font-size: 22px;
+			}
+			.platform .platform_icons, .platform .platform_texts {
+				display: inline;
+				padding: 0 8px;
+			}
+		}
+		
+	</style>
 </head>
 
 <body>
@@ -116,7 +155,9 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<div id="header-logo" class="navbar-brand">
-					<img src="<?= base_url('assets/img/logo.png') ?>">
+					<a href="https://cle.sustech.edu.cn/" target="_blank">
+						<img src="<?= base_url('assets/img/logo.png') ?>">
+					</a>
 				</div>
 			</div>
 		</div>
@@ -165,9 +206,11 @@
 	<!-- Home Footer -->
 	<div id="footer">
 		<div id="footer-content" class="col-xs-12 col-sm-12">
-			<a href="https://cle.sustech.edu.cn/">CENTER FOR LANGUAGE EDUCATION</a>
+			<a href="https://cle.sustech.edu.cn/" target="_blank">
+				CENTER FOR LANGUAGE EDUCATION
+			</a>
 			&nbsp;|&nbsp;
-			<span id="select-language" class="label label-success">
+			<span id="select-language" class="label label-success sl_but">
         		<?= ucfirst($this->config->item('language')) ?>
         	</span>
 		</div>
@@ -182,8 +225,8 @@
     	};
 	</script>
 	
-	<script src="<?= asset_url('assets/js/backend.js') ?>"></script>
-	<script src="<?= asset_url('assets/js/general_functions.js') ?>"></script>
+	<script src="<?= asset_url('assets/js/backend.js', NULL, 'js') ?>"></script>
+	<script src="<?= asset_url('assets/js/general_functions.js', NULL, 'js') ?>"></script>
 </body>
 
 </html>

@@ -268,12 +268,24 @@ $config['cache_path'] = __DIR__ . '/../../storage/cache/';
 | Cache Busting Token
 |--------------------------------------------------------------------------
 |
-| This token will be appending to asset URLs in order to invalidate the browser
+| This token will be appended to asset URLs in order to invalidate the browser
 | cache and enforce end clients to fetch new files. Update the token with each
 | new release.
 |
 */
 $config['cache_busting_token'] = '52FX8';
+
+/*
+|--------------------------------------------------------------------------
+| Raw Actions and Text Implementations Appended to URL
+|--------------------------------------------------------------------------
+|
+| CSS and JS have different tokens to be appended to the URL. When they are
+| loaded as texts, it gets a lot faster
+|
+*/
+$config['css_suffix'] = '&action=raw&ctype=text/css';
+$config['js_suffix'] =  '&action=raw&ctype=text/javascript';
 
 /*
 |--------------------------------------------------------------------------

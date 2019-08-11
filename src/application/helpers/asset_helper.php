@@ -22,11 +22,18 @@
  *
  * @return string Returns the final asset URL.
  */
-function asset_url($uri = '', $protocol = NULL)
+function asset_url($uri = '', $protocol = NULL ,$ctype = '')
 {
-    $ci =& get_instance();
-
-    $cache_busting_token = ! Config::DEBUG_MODE ? '?' . $ci->config->item('cache_busting_token') : '';
-
-    return base_url($uri . $cache_busting_token, $protocol);
+   $ci =& get_instance();
+   $cache_busting_token = (! Config::DEBUG_MODE )? '?' . $ci->config->item('cache_busting_token') : '';
+   if($ctype != ''){
+       if($ctype == 'css'){
+           $cache_busting_token .= ! Config::DEBUG_MODE ? $ci->config->item('css_suffix') : '';
+       }else if($ctype == 'js'){
+           $cache_busting_token .= ! Config::DEBUG_MODE ? $ci->config->item('js_suffix') : '';
+       }else{
+           show_error('parameter ctype is wrong.');
+       }
+   }
+   return base_url($uri . $cache_busting_token, $protocol);
 }
