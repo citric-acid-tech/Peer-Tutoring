@@ -47,7 +47,7 @@ class Installation extends CI_Controller {
     {
         if (is_ea_installed())
         {
-            redirect('appointments/index');
+            redirect('welcome');
             return;
         }
 
