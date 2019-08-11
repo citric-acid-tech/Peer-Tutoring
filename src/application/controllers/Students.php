@@ -45,6 +45,8 @@ class Students extends CI_Controller{
 
         $this->set_user_data($view);
 
+        $view['active_menu'] = PRIV_MY_APPOINTMENTS;
+
         $this->load->view('students/students_home_header', $view);
         $this->load->view('students/students_home', $view);
         $this->load->view('students/students_home_footer', $view);
