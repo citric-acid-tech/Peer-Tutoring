@@ -34,6 +34,34 @@ function asset_url($uri = '', $protocol = NULL ,$ctype = '')
        }else{
            show_error('parameter ctype is wrong.');
        }
+   }else{
+    $cache_busting_token .= getSuffix($uri);
    }
    return base_url($uri . $cache_busting_token, $protocol);
+}
+
+
+/**
+ * 
+ * To boost the loading speed to avoid connection error (time out), 
+ * add a suitable suffix to uri which point to .css or .js file
+ * 
+ * @param string $uri Relative URI.
+ * 
+ * @return string Returns the suitable suffix
+ */
+
+function getSuffix($uri){
+    
+    $ci =& get_instance();
+
+    $suffix = substr($uri, strlen($uri) - 3, 3);
+
+    if($suffix == 'css'){
+        return $ci->config->item('css_suffix');
+    }else if(substr($suffix, 1, 2) == 'js'){
+        return $ci->config->item('js_suffix');
+    }else{
+        return '';
+    }
 }
