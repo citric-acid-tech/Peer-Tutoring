@@ -66,7 +66,7 @@
 
 					<?php $active = ($active_menu == PRIV_AVAILABLE_APPOINTMENTS) ? 'active' : '' ?>
 					<li class="<?= $active ?>">
-						<a href="<?= site_url('students/customers') ?>" class="menu-item" title="<?= lang('available-appointments_hint') ?>">
+						<a href="<?= site_url('students/available_appointment') ?>" class="menu-item" title="<?= lang('available-appointments_hint') ?>">
 							<?= lang('available_appointments') ?>
 						</a>
 					</li>

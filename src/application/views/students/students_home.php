@@ -3,8 +3,10 @@
 <script src="<?= asset_url('assets/js/backend_users_secretaries.js') ?>"></script>
 <script src="<?= asset_url('assets/js/backend_users.js') ?>"></script>
 <script src="<?= asset_url('assets/js/working_plan.js') ?>"></script>
+
 <script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui-timepicker-addon.js') ?>"></script>
 <script src="<?= asset_url('assets/ext/jquery-jeditable/jquery.jeditable.min.js') ?>"></script>
+
 <script>
     var GlobalVariables = {
         csrfToken      : <?= json_encode($this->security->get_csrf_hash()) ?>,
@@ -30,13 +32,24 @@
 </script>
 
 <div id="users-page" class="container-fluid backend-page">
-
+   
     <!-- PAGE NAVIGATION -->
-
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#providers" aria-controls="providers" role="tab" data-toggle="tab"><?= lang('providers') ?></a></li>
-        <li role="presentation"><a href="#secretaries" aria-controls="secretaries" role="tab" data-toggle="tab"><?= lang('secretaries') ?></a></li>
-        <li role="presentation"><a href="#admins" aria-controls="admins" role="tab" data-toggle="tab"><?= lang('admins') ?></a></li>
+        <li role="presentation" class="active">
+        	<a href="#providers" aria-controls="providers" role="tab" data-toggle="tab">
+        		<?= lang('providers') ?>
+        	</a>
+        </li>
+        <li role="presentation">
+        	<a href="#secretaries" aria-controls="secretaries" role="tab" data-toggle="tab">
+        		<?= lang('secretaries') ?>
+        	</a>
+        </li>
+        <li role="presentation">
+        	<a href="#admins" aria-controls="admins" role="tab" data-toggle="tab">
+        		<?= lang('admins') ?>
+        	</a>
+        </li>
     </ul>
 
     <div class="tab-content">
@@ -51,15 +64,15 @@
                             <input type="text" class="key form-control">
 
                             <span class="input-group-addon">
-                        <div>
-                            <button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                            <button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
-                                <span class="glyphicon glyphicon-repeat"></span>
-                            </button>
-                        </div>
-                    </span>
+                        		<div>
+                            		<button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
+                            		    <span class="glyphicon glyphicon-search"></span>
+                            		</button>
+                            		<button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
+                            		    <span class="glyphicon glyphicon-repeat"></span>
+                            		</button>
+                        		</div>
+                    		</span>
                         </div>
                     </form>
 
@@ -187,14 +200,15 @@
                                     </select>
                                 </div>
 
-                                <br>
+                                <br />
 
                                 <button type="button" id="provider-notifications" class="btn btn-default" data-toggle="button">
                                     <span class="glyphicon glyphicon-envelope"></span>
                                     <span><?= lang('receive_notifications') ?></span>
                                 </button>
 
-                                <br><br>
+                                <br />
+                                <br />
 
                                 <h4><?= lang('services') ?></h4>
                                 <div id="provider-services" class="well"></div>
@@ -207,7 +221,8 @@
                         <button id="reset-working-plan" class="btn btn-primary"
                                 title="<?= lang('reset_working_plan') ?>">
                             <span class="glyphicon glyphicon-repeat"></span>
-                            <?= lang('reset_plan') ?></button>
+                            <?= lang('reset_plan') ?>
+                        </button>
                         <table class="working-plan table table-striped">
                             <thead>
                                 <tr>
@@ -226,8 +241,12 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="sunday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="sunday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="sunday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="sunday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -238,8 +257,12 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="monday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="monday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="monday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="monday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -250,8 +273,12 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="tuesday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="tuesday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="tuesday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="tuesday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -262,8 +289,12 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="wednesday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="wednesday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="wednesday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="wednesday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -274,8 +305,12 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="thursday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="thursday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="thursday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="thursday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -286,8 +321,12 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="friday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="friday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="friday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="friday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -298,13 +337,17 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td><input id="saturday-start" class="work-start form-control input-sm"></td>
-                                    <td><input id="saturday-end" class="work-end form-control input-sm"></td>
+                                    <td>
+                                    	<input id="saturday-start" class="work-start form-control input-sm">
+                                    </td>
+                                    <td>
+                                    	<input id="saturday-end" class="work-end form-control input-sm">
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <br>
+                        <br />
 
                         <h3><?= lang('breaks') ?></h3>
 
@@ -347,15 +390,15 @@
                             <input type="text" class="key form-control">
 
                             <span class="input-group-addon">
-                        <div>
-                            <button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                            <button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
-                                <span class="glyphicon glyphicon-repeat"></span>
-                            </button>
-                        </div>
-                    </span>
+                        		<div>
+                        		    <button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
+                        		        <span class="glyphicon glyphicon-search"></span>
+                        		    </button>
+                        		    <button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
+                        		        <span class="glyphicon glyphicon-repeat"></span>
+                        		    </button>
+                        		</div>
+                    		</span>
                         </div>
                     </form>
 
@@ -475,14 +518,14 @@
                                 </select>
                             </div>
 
-                            <br>
+                            <br />
 
                             <button type="button" id="secretary-notifications" class="btn btn-default" data-toggle="button">
                                 <span class="glyphicon glyphicon-envelope"></span>
                                 <span><?= lang('receive_notifications') ?></span>
                             </button>
 
-                            <br><br>
+                            <br /><br />
 
                             <h4><?= lang('providers') ?></h4>
                             <div id="secretary-providers" class="well"></div>
@@ -502,15 +545,15 @@
                             <input type="text" class="key form-control">
 
                             <span class="input-group-addon">
-                        <div>
-                            <button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                            <button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
-                                <span class="glyphicon glyphicon-repeat"></span>
-                            </button>
-                        </div>
-                    </span>
+                        		<div>
+                        		    <button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
+                        		        <span class="glyphicon glyphicon-search"></span>
+                        		    </button>
+                        		    <button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
+                        		        <span class="glyphicon glyphicon-repeat"></span>
+                        		    </button>
+                        		</div>
+                    		</span>
                         </div>
                     </form>
 
