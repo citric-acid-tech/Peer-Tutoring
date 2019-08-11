@@ -324,3 +324,4 @@ $lang['size_too_small'] = 'Your screen is too small, please resize it!';
 $lang['my_appointment_hint'] = 'Check your appointments here :)';
 $lang['available-appointments_hint'] = 'You can find the newest available appointments list and make appointments here :)';
 $lang['d_home'] = 'Home Page';
+$lang['login_frame_title'] = 'Welcome to CLE peer-tutoring appointment system';

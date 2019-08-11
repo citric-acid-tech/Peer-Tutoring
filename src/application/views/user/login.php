@@ -96,7 +96,7 @@
 </head>
 <body>
     <div id="login-frame" class="frame-container">
-        <h2><?= lang('backend_section') ?></h2>
+        <h2><?= lang('login_frame_title') ?></h2>
         <p><?= lang('you_need_to_login') ?></p>
         <hr>
         <div class="alert hidden"></div>

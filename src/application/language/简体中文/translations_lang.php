@@ -323,3 +323,4 @@ $lang['size_too_small'] = '您的窗口太小了，请进行调整。';
 $lang['my_appointment_hint'] = '在这里查看您的预约 :)';
 $lang['available-appointments_hint'] = '您可以在这里查看并预约最新的可预约项目 :)';
 $lang['d_home'] = '主页';
+$lang['login_frame_title'] = 'Peer-tutor预约系统';
