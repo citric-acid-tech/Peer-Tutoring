@@ -19,6 +19,12 @@ class Students extends CI_Controller{
 
     public function index(){
 
+
+        if ($user_id == FALSE){ // User not logged in, display the login view.
+            header('Location: ' . site_url('user/login'));
+            return FALSE;
+        }
+
         $this->load->model('appointments_model');
         // $this->load->model('providers_model');
         // $this->load->model('services_model');
