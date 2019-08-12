@@ -64,15 +64,15 @@ define('PRIV_ADD', 2);
 define('PRIV_EDIT', 4);
 define('PRIV_DELETE', 8);
 
+/* This is the priviledge contants from database */ 
 define('PRIV_APPOINTMENTS', 'appointments');
 define('PRIV_CUSTOMERS', 'customers');
 define('PRIV_SERVICES', 'services');
 define('PRIV_USERS', 'users');
 define('PRIV_SYSTEM_SETTINGS', 'system_settings');
 define('PRIV_USER_SETTINGS', 'user_settings');
-
 define('PRIV_MY_APPOINTMENTS', 'my_appointments');
-define('PRIV_AVAILABLE_APPOINTMENTS', 'my_available_appointments');
+define('PRIV_AVAILABLE_APPOINTMENTS', 'available_appointments');
 
 define('DATE_FORMAT_DMY', 'DMY');
 define('DATE_FORMAT_MDY', 'MDY');

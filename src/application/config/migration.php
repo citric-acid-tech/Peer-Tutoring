@@ -37,7 +37,10 @@ $config['migration_table'] = 'ea_migrations';
 | be upgraded / downgraded to.
 |
 */
-$config['migration_version'] = 16; // current
+$config['migration_version'] = 18; 
+/** <citric-acid Mike C. Wang> *INPORTANT* The original version of this open source project is 12 */
+
+
 
 
 /*

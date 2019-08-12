@@ -17,12 +17,13 @@ class Students extends CI_Controller{
         }
     }
 
+    /** my appointments page */
     public function index(){
 
 
         $this->session->set_userdata('dest_url', site_url('students'));
 
-        if ( ! $this->_has_privileges(PRIV_APPOINTMENTS))
+        if ( ! $this->_has_privileges(PRIV_MY_APPOINTMENTS))
         {
             return;
         }
@@ -37,7 +38,7 @@ class Students extends CI_Controller{
 
         $view['base_url'] = $this->config->item('base_url');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
-        $view['active_menu'] = PRIV_APPOINTMENTS;
+
         $view['book_advance_timeout'] = $this->settings_model->get_setting('book_advance_timeout');
         $view['date_format'] = $this->settings_model->get_setting('date_format');
         $view['time_format'] = $this->settings_model->get_setting('time_format');
@@ -63,7 +64,7 @@ class Students extends CI_Controller{
 
         $this->session->set_userdata('dest_url', site_url('students/available_appointment'));
 
-        if ( ! $this->_has_privileges(PRIV_APPOINTMENTS))
+        if ( ! $this->_has_privileges(PRIV_AVAILABLE_APPOINTMENTS))
         {
             return;
         }
