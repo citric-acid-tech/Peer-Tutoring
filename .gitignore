@@ -21,3 +21,4 @@
 /vendor/
 data/
 /src/application/controllers/Test.php
+/src/application/views/test/
