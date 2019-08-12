@@ -1,0 +1,75 @@
+<?php
+
+
+class Stundets_api extends CI_Controller{
+    /** 
+     * @var array  
+     */
+    protected $privileges;
+
+    public function __construct(){
+        parent::__construct();
+
+        //
+        if(strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST'){
+
+            $this->security->csrf_show_error();
+
+        }
+
+        $this->load->library('session');
+        $this->load->model('roles_model');
+
+        if($this->session->userdata('role_slug')){
+            $this->privileges = $this->roles_model->get_privileges($this->session->userdata('role_slug'));
+
+        }
+
+
+        //Set the language of the page by session or default
+        if($this->session->userdata('language')){
+            $this->config->set_item('language', $this->session->userdata('language'));
+            $this->lang->load('translation', $this->session->userdata('language'));
+        }else{
+            $this->lang->laod('translation', $this->config->item('language'));
+        }
+    }
+
+
+    public function ajax_get_my_appointments(){
+        //
+        try{
+            
+            $this->load->model('students_model');
+            $booking_status = json_decode($this->input->post('booking_status'), TRUE);
+            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $tutor_name = json_decode($this->input->post('tutoe_name'), TRUE);
+
+            //Everyone can add an appointment, so we don't need priviledge verification here
+
+            $user_id = $this->session->userdata('user_id');
+            $result = $this->students_model->get_my_appointment($user_id, $booking_status, $service_type, $tutor_name);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode([
+                    'status' => AJAX_SUCCESS,
+                    'service_type' => $result['service_type'],
+                    'tutor_name' => $result['tutoe_name'],
+                    'description' => $result['description'],
+                    'time' => $result['time'],
+                    'booking_status' => $result['booking_status'],
+                    'feedback' => $result['feedback'],
+                    'suggestion' => $result['suggestion']
+                ]));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+}
+
+
+?>

@@ -46,9 +46,8 @@ class Students extends CI_Controller{
         // $view['available_services'] = $this->services_model->get_available_services();
         // $view['customers'] = $this->customers_model->get_batch();
 
-        $user_id_test = '1'; //TODO for testing
-
-        $user = $this->user_model->get_settings($this->session->userdata($user_id_test));
+        
+        $user = $this->user_model->get_settings($this->session->userdata('user_id'));
         // $view['calendar_view'] = $user['settings']['calendar_view'];
 
         $this->set_user_data($view);
@@ -88,9 +87,7 @@ class Students extends CI_Controller{
         // $view['available_services'] = $this->services_model->get_available_services();
         // $view['customers'] = $this->customers_model->get_batch();
 
-        $user_id_test = '1'; //TODO for testing
-
-        $user = $this->user_model->get_settings($this->session->userdata($user_id_test));
+        $user = $this->user_model->get_settings($this->session->userdata('user_id'));
         // $view['calendar_view'] = $user['settings']['calendar_view'];
 
         $this->set_user_data($view);
