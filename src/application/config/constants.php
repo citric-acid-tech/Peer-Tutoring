@@ -72,7 +72,7 @@ define('PRIV_SYSTEM_SETTINGS', 'system_settings');
 define('PRIV_USER_SETTINGS', 'user_settings');
 
 define('PRIV_MY_APPOINTMENTS', 'my_appointments');
-define('PRIV_AVAILABLE_APPOINTMENTS', 'my_available_appointments');
+define('PRIV_AVAILABLE_APPOINTMENTS', 'available_appointments');
 
 define('DATE_FORMAT_DMY', 'DMY');
 define('DATE_FORMAT_MDY', 'MDY');

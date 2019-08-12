@@ -72,7 +72,7 @@ window.Students = window.Students || {};
 	
 	//	This is for header active state
     exports.PRIV_MY_APPOINTMENTS = 'my_appointments';
-    exports.PRIV_AVAILABLE_APPOINTMENTS = 'my_available_appointments';
+    exports.PRIV_AVAILABLE_APPOINTMENTS = 'available_appointments';
 	
     /**
      * Place the students footer always on the bottom of the page.
