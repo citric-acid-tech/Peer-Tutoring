@@ -69,6 +69,26 @@ class Stundets_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function ajax_cancel_appointment(){
+        //
+        try{
+            
+            $this->load->model('students_model');
+            $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode([
+                    'status' => AJAX_SUCCESS,
+                ]));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 }
 
 
