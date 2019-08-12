@@ -334,3 +334,5 @@ $lang['End_Date/Time'] = '结束日期/时间';
 $lang['upload'] = '上传';
 $lang['browse'] = '浏览';
 $lang['confirm'] = '确定';
+$lang['cancel_appointment'] = 'Cancel';
+$lang['cancel'] = 'Cancel';
