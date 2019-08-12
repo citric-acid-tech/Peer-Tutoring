@@ -336,3 +336,4 @@ $lang['browse'] = '浏览';
 $lang['confirm'] = '确定';
 $lang['cancel_appointment'] = 'Cancel';
 $lang['cancel'] = 'Cancel';
+$lang['tutor'] = 'Tutor';
