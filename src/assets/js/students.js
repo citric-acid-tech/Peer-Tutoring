@@ -1,48 +1,41 @@
-/* ----------------------------------------------------------------------------
- * Easy!Appointments - Open Source Web Scheduler
- *
- * @package     EasyAppointments
- * @author      A.Tselegidis <alextselegidis@gmail.com>
- * @copyright   Copyright (c) 2013 - 2018, Alex Tselegidis
- * @license     http://opensource.org/licenses/GPL-3.0 - GPLv3
- * @link        http://easyappointments.org
- * @since       v1.0.0
- * ---------------------------------------------------------------------------- */
-
-window.Backend = window.Backend || {};
+window.Students = window.Students || {};
 
 /**
- * Backend
+ * Students
  *
- * This module contains functions that are used in the backend section of the application.
+ * This module contains functions that are used in the students section of the application.
  *
- * @module Backend
+ * @module Students
  */
 (function (exports) {
 
     'use strict';
 
     /**
-     * Main javascript code for the backend of Easy!Appointments.
+     * Main javascript code for the students of CLE Peer-Tutoring | SUSTech
      */
     $(document).ready(function () {
         window.console = window.console || function () {
         }; // IE compatibility
-
+		
+		//	When the window is resized, re-define the 
+		//	footer's position at the page
         $(window)
             .on('resize', function () {
-                Backend.placeFooterToBottom();
+                Students.placeFooterToBottom();
             })
             .trigger('resize');
-
+		
+		//	Loading Icon will do their work on ajax
         $(document).ajaxStart(function () {
             $('#loading').show();
         });
-
         $(document).ajaxStop(function () {
             $('#loading').hide();
         });
-
+		
+		//	tooltip: my is the position of the triangle leadout,
+		//	at is the content position
         $('.menu-item').qtip({
             position: {
                 my: 'top center',
@@ -52,12 +45,13 @@ window.Backend = window.Backend || {};
                 classes: 'qtip-green qtip-shadow custom-qtip'
             }
         });
-
+		
+		//	Language Selection
         GeneralFunctions.enableLanguageSelection($('#select-language'));
     });
 
     /**
-     * Backend Constants
+     * Students Constants
      */
     exports.DB_SLUG_ADMIN = 'admin';
     exports.DB_SLUG_PROVIDER = 'provider';
@@ -76,22 +70,26 @@ window.Backend = window.Backend || {};
     exports.PRIV_SYSTEM_SETTINGS = 'system_settings';
     exports.PRIV_USER_SETTINGS = 'user_settings';
 	
+	//	This is for header active state
     exports.PRIV_MY_APPOINTMENTS = 'my_appointments';
-    exports.PRIV_AVAILABLE_APPOINTMENTS = 'my_available_appointments';
+    exports.PRIV_AVAILABLE_APPOINTMENTS = 'available_appointments';
 	
     /**
-     * Place the backend footer always on the bottom of the page.
+     * Place the students footer always on the bottom of the page.
      */
     exports.placeFooterToBottom = function () {
         var $footer = $('#footer');
-
+		
         if (window.innerHeight > $('body').height()) {
-            $footer.css({
+            //	If window size is larger, place the footer at the bottom
+			$footer.css({
                 'position': 'absolute',
                 'width': '100%',
                 'bottom': '0px'
             });
         } else {
+			//	If window is not enough for all content, place the footer normally
+			//	at the end of the body content
             $footer.css({
                 'position': 'static'
             });
@@ -99,7 +97,7 @@ window.Backend = window.Backend || {};
     };
 
     /**
-     * Display backend notifications to user.
+     * Display students notifications to user.
      *
      * Using this method you can display notifications to the use with custom messages. If the
      * 'actions' array is provided then an action link will be displayed too.
@@ -141,5 +139,12 @@ window.Backend = window.Backend || {};
         $('#notification').html(notificationHtml);
         $('#notification').show('fade');
     }
+	
+    /**
+     * Provide animation class control on header navicon
+     */
+    exports.naviconGo = function(x) {
+		x.classList.toggle("change_navicon");
+    };
 
-})(window.Backend);
+})(window.Students);

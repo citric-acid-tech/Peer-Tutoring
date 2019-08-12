@@ -31,8 +31,34 @@ root {
 	transition: all 0.3s;
 }
 
+#header .navbar-header .navbar-toggle {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+/* Navicon */
 #header .navbar-header .navbar-toggle .icon-bar {
-    background: white;
+    background-color: rgba(255,255,255,0.9);
+	width: 30px;
+	height: 4px;
+	border-radius: 2px;transition: 0.3s;
+}
+.change_navicon .bar1 {
+	-ms-transform: rotate(45deg) translate(3px, 8px);
+	-moz-transform: rotate(45deg) translate(3px, 8px);
+	-webkit-transform: rotate(45deg) translate(3px, 8px);
+	-o-transform: rotate(45deg) translate(3px, 8px);
+	transform: rotate(45deg) translate(3px, 8px);
+}
+.change_navicon .bar2 {
+	opacity: 0;
+}
+.change_navicon .bar3 {
+	-ms-transform: rotate(-45deg) translate(3px, -8px);
+	-moz-transform: rotate(-45deg) translate(3px, -8px);
+	-webkit-transform: rotate(-45deg) translate(3px, -8px);
+	-o-transform: rotate(-45deg) translate(3px, -8px);
+	transform: rotate(-45deg) translate(3px, -8px);
 }
 
 #header #header-menu .menu-item {
@@ -46,7 +72,6 @@ root {
 }
 
 #header #header-menu ul {
-	height: 100px;
 }
 
 #header #header-menu ul li {
