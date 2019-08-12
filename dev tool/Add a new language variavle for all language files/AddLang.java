@@ -46,7 +46,7 @@ public class AddLang {
 				
 			}else if(command.equals("insert")) {
 				
-				alertln("Inout the name of the variable:");
+				alertln("Input the name of the variable:");
 				
 				variableName = scan.nextLine();
 				
@@ -59,7 +59,14 @@ public class AddLang {
 				
 			}else if(command.equals("quit")) {
 				return ;
-			}else {
+			}else if(command.equals("delete")){
+				alertln("Input the whole line:");
+				
+				variableName = scan.nextLine();
+				
+				delete(path, variableName);
+
+			}else{
 				alertln("Invalid command. The current valid commands are 'set', 'quit' and 'insert'. For more details, please refer to 'README'. ");
 			}
 		}
@@ -91,9 +98,54 @@ public class AddLang {
 				safeAppend(cur, line);
 			} catch (Exception e) {
 				// do nothing
+			} 
+		}
+		
+		alertln("Insert sucessfully.");
+	}
+	
+	public static void delete(String path, String key) {
+		File langFile = new File(path);
+		File cur = null;
+		String curPath = null;
+		for(File file : langFile.listFiles()) {
+			curPath = file.toString() + "\\translations_lang.php";
+			cur = new File(curPath);
+			try {
+				safeDelete(cur, key);
+			}catch(Exception e) {
+				// do nothing
 			}
 		}
 		
+		alertln("Delete successfully.");
+	}
+	
+	static void safeDelete(File file, String key) throws Exception{
+		BufferedReader bufr = null;
+		try {
+			bufr = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		} catch (FileNotFoundException e) {
+			// do nothing;
+		}
+		
+		ArrayList<String> buffer = new ArrayList<String>();
+		
+		String readLine = null;
+		
+		while( (readLine = bufr.readLine()) != null ) {
+			if( ! readLine.equals(key)) {
+				buffer.add(readLine);
+			}
+		}
+		
+		PrintWriter out = new PrintWriter(file);
+		for(String bufLine : buffer) {
+			out.println(bufLine);
+		}
+		
+		out.flush();
+		out.close();
 	}
 	
 	static void safeAppend(File file, String line) throws Exception{
