@@ -58,11 +58,14 @@ public class AddLang {
 				
 				
 			}else if(command.equals("quit")) {
+				alertln("Auf Wiedersehen");
 				return ;
 			}else if(command.equals("delete")){
-				alertln("Input the whole line:");
+				alertln("Input the key:");
 				
 				variableName = scan.nextLine();
+				
+				alertln("term: "+ String.format("$lang['%s']", variableName));
 				
 				delete(path, variableName);
 
@@ -114,7 +117,7 @@ public class AddLang {
 			try {
 				safeDelete(cur, key);
 			}catch(Exception e) {
-				// do nothing
+				System.err.println(e);
 			}
 		}
 		
@@ -133,9 +136,12 @@ public class AddLang {
 		
 		String readLine = null;
 		
+		key = String.format("$lang['%s']", key);
 		while( (readLine = bufr.readLine()) != null ) {
-			if( ! readLine.equals(key)) {
+			if( readLine.length() < key.length() || (! readLine.substring(0, key.length()).equals(key)) ) {
 				buffer.add(readLine);
+			}else {
+				alertln("Found in "+file.toString());
 			}
 		}
 		
@@ -161,6 +167,7 @@ public class AddLang {
 		String readLine = null;
 		while( (readLine = bufr.readLine()) != null ) {
 			buffer.add(readLine);
+			System.out.println(readLine);
 		}
 		
 		PrintWriter out = new PrintWriter(file);
