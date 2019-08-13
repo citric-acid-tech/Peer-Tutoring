@@ -121,6 +121,8 @@
      */
     StudentsMyAppointmentHelper.prototype.resetForm = function () {
         $('.record-details').find('input, textarea').val('');
+
+
         $('.record-details').find('input, textarea').prop('readonly', true);
 
         $('#customer-appointments').empty();
@@ -155,14 +157,6 @@
 
         $('#customer-appointments').empty();
         $.each(appointment.appointments, function (index, appointment) {
-            if (GlobalVariables.user.role_slug === Backend.DB_SLUG_PROVIDER && parseInt(appointment.id_users_provider) !== GlobalVariables.user.id) {
-                return true; // continue
-            }
-
-            if (GlobalVariables.user.role_slug === Backend.DB_SLUG_SECRETARY && GlobalVariables.secretaryProviders.indexOf(appointment.id_users_provider) === -1) {
-                return true; // continue
-            }
-
             var start = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
             var end = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
             var html =
@@ -227,8 +221,8 @@
     StudentsMyAppointmentHelper.prototype.getFilterHtml = function (appointment) {
         var name = appointment.first_name + ' ' + appointment.last_name;
         var info = appointment.email;
-        info = (appointment.phone_number != '' && appointment.phone_number != null)
-            ? info + ', ' + appointment.phone_number : info;
+        info = (appointment.phone_number != '' && appointment.phone_number != null) ?
+            info + ', ' + appointment.phone_number : info;
 
         var html =
             '<div class="entry" data-id="' + appointment.id + '">' +
