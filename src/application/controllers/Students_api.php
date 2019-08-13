@@ -1,7 +1,7 @@
 <?php
 
 
-class Stundets_api extends CI_Controller{
+class Students_api extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
@@ -19,9 +19,9 @@ class Stundets_api extends CI_Controller{
         //Set the language of the page by session or default
         if($this->session->userdata('language')){
             $this->config->set_item('language', $this->session->userdata('language'));
-            $this->lang->load('translation', $this->session->userdata('language'));
+            $this->lang->load('translations', $this->session->userdata('language'));
         }else{
-            $this->lang->laod('translation', $this->config->item('language'));
+            $this->lang->load('translations', $this->config->item('language'));
         }
     }
 
@@ -42,12 +42,12 @@ class Stundets_api extends CI_Controller{
 
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result));
+                ->set_output(json_encode($result), TRUE);
 
         }catch (Exception $exc){
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]], TRUE));
         }
     }
 
