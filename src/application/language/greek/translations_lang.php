@@ -301,7 +301,6 @@ $lang['delete_personal_information_prompt'] = 'Είστε σίγουρος ότ�
 $lang['home_selection_tutor'] = 'Tutor';
 $lang['home_selection_student'] = 'Student';
 $lang['home_selection_admin'] = 'Administrator';
-$lang['test_dev_tool'] = 'content';
 $lang['contact_admin'] = 'Contact administrator';
 $lang['my_appointments'] = 'My appointments';
 $lang['available_appointments'] = 'Available appointments';

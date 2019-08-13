@@ -2,10 +2,6 @@
 
 
 class Stundets_api extends CI_Controller{
-    /** 
-     * @var array  
-     */
-    protected $privileges;
 
     public function __construct(){
         parent::__construct();
@@ -19,12 +15,6 @@ class Stundets_api extends CI_Controller{
 
         $this->load->library('session');
         $this->load->model('roles_model');
-
-        if($this->session->userdata('role_slug')){
-            $this->privileges = $this->roles_model->get_privileges($this->session->userdata('role_slug'));
-
-        }
-
 
         //Set the language of the page by session or default
         if($this->session->userdata('language')){
@@ -48,7 +38,7 @@ class Stundets_api extends CI_Controller{
             //Everyone can add an appointment, so we don't need priviledge verification here
 
             $user_id = $this->session->userdata('user_id');
-            $result = $this->students_model->get_my_appointment($user_id, $booking_status, $service_type, $tutor_name);
+            $result = $this->students_model->get_my_appointments($user_id, $booking_status, $service_type, $tutor_name);
 
             $this->output
                 ->set_content_type('application/json')
@@ -64,6 +54,44 @@ class Stundets_api extends CI_Controller{
                 ]));
 
         }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_filter_my_appointments(){
+        try
+        {
+            $this->load->model('students_model');
+
+            $user_id = $this->session->userdata('user_id');
+
+            $appointments = $this->students_model->get_my_appointments($user_id);
+
+
+            $customers = $this->customers_model->get_batch($where_clause);
+
+            foreach ($customers as &$customer)
+            {
+                $appointments = $this->appointments_model
+                    ->get_batch(['id_users_customer' => $customer['id']]);
+
+                foreach ($appointments as &$appointment)
+                {
+                    $appointment['service'] = $this->services_model->get_row($appointment['id_services']);
+                    $appointment['provider'] = $this->providers_model->get_row($appointment['id_users_provider']);
+                }
+
+                $customer['appointments'] = $appointments;
+            }
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($customers));
+        }
+        catch (Exception $exc)
+        {
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
