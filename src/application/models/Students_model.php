@@ -14,7 +14,7 @@ class Students_model extends CI_Model{
 
     public function get_my_appointments($user_id, $booking_status, $service_type, $tutor_name){
 
-        //TODO
+        return array();
     }
 
 }

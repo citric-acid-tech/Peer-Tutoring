@@ -188,7 +188,7 @@
     StudentsMyAppointmentHelper.prototype.filter = function (key, selectId, display) {
         display = display || false;
 
-        var postUrl = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_filter_appointment';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_filter_my_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
             key: key

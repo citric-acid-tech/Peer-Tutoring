@@ -167,7 +167,6 @@ public class AddLang {
 		String readLine = null;
 		while( (readLine = bufr.readLine()) != null ) {
 			buffer.add(readLine);
-			System.out.println(readLine);
 		}
 		
 		PrintWriter out = new PrintWriter(file);
