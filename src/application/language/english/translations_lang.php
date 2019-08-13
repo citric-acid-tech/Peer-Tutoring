@@ -340,3 +340,7 @@ $lang['book_datetime'] = 'Book on';
 $lang['start_datetime'] = 'Appointment starts on';
 $lang['end_datetime'] = 'Appointment ends on';
 $lang['stars'] = 'Rate';
+$lang['bs0'] = 'Not Started';
+$lang['bs1'] = 'Tutoring Finished';
+$lang['bs2'] = 'Service Completed';
+$lang['bs3'] = 'Cancelled';

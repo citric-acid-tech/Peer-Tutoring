@@ -52,7 +52,7 @@ class Stundets_api extends CI_Controller{
     }
 
     public function ajax_filter_available_appointments(){
-    /*  ajax*/
+        /*  ajax*/
         
     }
     
