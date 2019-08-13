@@ -1,7 +1,7 @@
 <script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui-timepicker-addon.js') ?>"></script>
 
-<script src="<?= asset_url('assets/js/backend_customers_helper.js') ?>"></script>
-<script src="<?= asset_url('assets/js/backend_customers.js') ?>"></script>
+<script src="<?= asset_url('assets/js/students_my_appointments_helper.js') ?>"></script>
+<script src="<?= asset_url('assets/js/students_my_appointments.js') ?>"></script>
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
@@ -21,7 +21,7 @@
     };
 
     $(document).ready(function() {
-        BackendCustomers.initialize(true);
+        StudentsMyAppointment.initialize(true);
     });
 </script>
 
@@ -53,100 +53,58 @@
 
     	<div class="record-details col-xs-12 col-sm-7">
             <div class="btn-toolbar">
-                <div id="add-edit-delete-group" class="btn-group">
-                    <?php if ($privileges[PRIV_CUSTOMERS]['add'] === TRUE): ?>
-                    <button id="add-customer" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <?= lang('add') ?>
+                <div id="cancel-assess-group" class="btn-group">
+                    <button id="cancel-appointment" class="btn btn-default">
+                        <i class="glyphicon glyphicon-remove"></i>&nbsp;
+                        <?= lang('cancel_appointment') ?>
                     </button>
-                    <?php endif ?>
-
-                    <?php if ($privileges[PRIV_CUSTOMERS]['edit'] === TRUE): ?>
-                    <button id="edit-customer" class="btn btn-default" disabled="disabled">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        <?= lang('edit') ?>
-                    </button>
-                    <?php endif ?>
-
-                    <?php if ($privileges[PRIV_CUSTOMERS]['delete'] === TRUE): ?>
-                    <button id="delete-customer" class="btn btn-default" disabled="disabled">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        <?= lang('delete') ?>
-                    </button>
-                    <?php endif ?>
-                </div>
-
-                <div id="save-cancel-group" class="btn-group" style="display:none;">
-                    <button id="save-customer" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-ok"></span>
-                        <?= lang('save') ?>
-                    </button>
-                    <button id="cancel-customer" class="btn btn-default">
-                        <i class="glyphicon glyphicon-ban-circle"></i>
-                        <?= lang('cancel') ?>
+                    
+                    <button id="add-appointment" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;
+                        <?= lang('assess') ?>
                     </button>
                 </div>
-            </div>
+           </div>
+			
+           <!-- hide appointment id for data transfer -->
+           <input id="appointment-id" type="hidden">
 
-            <input id="customer-id" type="hidden">
+           <div class="row">
+               <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
+                   <h3><?= lang('details') ?></h3>
+                   
+                   <div class="form-group">
+                       <label class="control-label" for="service_type"><?= lang('service_type') ?></label>
+                       <input id="service_type" class="form-control" readonly>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label" for="tutor"><?= lang('tutor') ?></label>
+                       <input id="tutor" class="form-control" readonly>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label" for="description"><?= lang('description') ?></label>
+                       <input id="description" class="form-control" readonly>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label" for="time"><?= lang('time') ?></label>
+                       <input id="time" class="form-control" readonly>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label" for="booking_status"><?= lang('booking_status') ?></label>
+                       <input id="booking_status" class="form-control" readonly>
+                   </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
-                    <h3><?= lang('details') ?></h3>
+                   <div class="form-group">
+                       <label class="control-label" for="feedback"><?= lang('feedback') ?></label>
+                       <textarea id="feedback" rows="4" class="form-control" style="resize: none;" readonly></textarea>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
+                       <textarea id="suggestion" rows="4" class="form-control" style="resize: none;" readonly></textarea>
+                   </div>
 
-                    <div id="form-message" class="alert" style="display:none;"></div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="first-name"><?= lang('first_name') ?> *</label>
-                        <input id="first-name" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="last-name"><?= lang('last_name') ?> *</label>
-                        <input id="last-name" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="email"><?= lang('email') ?> *</label>
-                        <input id="email" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="phone-number"><?= lang('phone_number') ?> *</label>
-                        <input id="phone-number" class="form-control required">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="address"><?= lang('address') ?></label>
-                        <input id="address" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="city"><?= lang('city') ?></label>
-                        <input id="city" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="zip-code"><?= lang('zip_code') ?></label>
-                        <input id="zip-code" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="notes"><?= lang('notes') ?></label>
-                        <textarea id="notes" rows="4" class="form-control"></textarea>
-                    </div>
-
-                    <p class="text-center">
-                        <em id="form-message" class="text-danger"><?= lang('fields_are_required') ?></em>
-                    </p>
-                </div>
-
-                <div class="col-xs-12 col-sm-6">
-                    <h3><?= lang('appointments') ?></h3>
-                    <div id="customer-appointments" class="well"></div>
-                    <div id="appointment-details" class="well hidden"></div>
-                </div>
-            </div>
+               </div>
+           </div>
     	</div>
     </div>
 </div>

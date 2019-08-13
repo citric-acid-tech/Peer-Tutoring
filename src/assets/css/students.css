@@ -321,123 +321,45 @@ body legend {
 
 
 
-/* BACKEND USERS PAGE
+/* BACKEND CUSTOMERS PAGE
    -------------------------------------------------------------------- */
-#users-page h2 {
-    color: #525252;
+
+#customers-page #customer-appointments {
+    height: 370px;
+    max-width: 330px;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    outline: none;
 }
 
-#users-page .nav {
-    background-color: #F4F4F4;
-    margin-bottom: 15px;
+#customers-page #customer-appointments .appointment-row {
+    padding: 7px;
+    border-bottom: 1px solid #E2E2E2;
+    border-right: none;
 }
 
-#users-page .nav li {
+#customers-page #customer-appointments .appointment-row:last-child {
+    border-bottom: none;
+}
+
+#customers-page #customer-appointments .appointment-row:hover:not(.selected) {
+    background-color: #F3F3F3;
     cursor: pointer;
 }
 
-#users-page #secretary-notifications.active,
-#users-page #provider-notifications.active,
-#users-page #admin-notifications.active {
-    background: #B6DCFF;
-    box-shadow: none;
+#customers-page #customer-appointments .appointment-row.selected {
+    background-color: #E2E2E2;
 }
 
-#users-page #secretary-providers,
-#users-page #provider-services {
-    max-width: 315px;
-    width: 100%;
-    height: 387px;
-    overflow-y: auto;
+#customers-page #appointment-details {
+    max-width: 330px;
     margin-bottom: 20px;
 }
 
-#users-page #providers .switch-view {
-    overflow: auto;
-    margin-bottom: 5px;
-}
-
-#users-page #providers .switch-view div {
-    display: inline-block;
-    padding: 6px 13px;
-    color: #333;
-    float: left;
-    margin-right: 3px;
-    cursor: pointer;
-    min-width: 100px;
-    text-align: center;
-}
-
-#users-page #providers .switch-view div:hover:not(.current) {
-    background: #F5F5F5;
-}
-
-#users-page #providers .switch-view strong {
-    display: inline-block;
-    float: left;
-    margin: 3px 20px;
-    font-size: 17px;
-}
-
-#users-page #providers .switch-view .current {
-    color: #FFF;
-    background: #296d97;
-}
-
-#users-page #providers .details-view,
-#users-page #providers .working-plan-view {
-    clear: both;
-    overflow: auto;
-}
-
-#users-page #providers .working-plan-view .work-start,
-#users-page #providers .working-plan-view .work-end {
-    max-width: 88px;
-}
-
-#users-page .btn-toolbar {
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-#users-page #providers .form-message {
-    clear: both;
-}
-
-#users-page #providers .breaks .btn {
-    margin-right: 5px;
-    padding: 4px 7px;
-}
-
-@-moz-document url-prefix() {
-    .breaks .break-day select {
-        height: 36px;
-    }
-}
-
-#users-page .working-plan .checkbox,
-#users-page .working-plan input[type="text"],
-#users-page .working-plan button {
-    margin: 2px 0;
-}
-
-#users-page .working-plan td input[type="text"] {
-    width: 55px;
-}
-
-#users-page .editable form,
-#users-page .editable select,
-#users-page .editable input {
-    margin: 0px;
-}
-
-#users-page #providers .record-details h3 a {
-    font-size: 24px;
-    margin-left: 10px;
-}
-
-#users-page #providers .record-details #provider-services .checkbox a {
-    margin-left: 5px;
+#customers-page #appointment-details div {
+    padding: 10px;
+    background: #F8F8F8;
 }
 
 

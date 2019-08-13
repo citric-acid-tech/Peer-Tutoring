@@ -334,5 +334,9 @@ $lang['upload'] = '上传';
 $lang['browse'] = '浏览';
 $lang['confirm'] = '确定';
 $lang['cancel_appointment'] = '取消预约';
+<<<<<<< HEAD
 $lang['cancel'] = '取消';
+=======
+$lang['cancel'] = 'Cancel';
+>>>>>>> 03a39db7f27870a86665ae15f843cb6109fb9e19
 $lang['tutor'] = '导师';
