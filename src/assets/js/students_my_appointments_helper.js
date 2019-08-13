@@ -185,10 +185,11 @@
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            booking_status: 'All',
-			service_type: 'All',
-			tutor_name: 'All'
+            booking_status: 'ALL',
+			service_type: 'ALL',
+			tutor_name: 'ALL'
         };
+
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
