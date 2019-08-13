@@ -13,10 +13,29 @@ class Students_model extends CI_Model{
     }
 
     public function get_my_appointments($user_id, $booking_status, $service_type, $tutor_name){
-
         return array();
     }
 
+    public function cancel_appointment($appointment_id){
+        
+        $time_diff = 
+            $this->db
+                ->select('TIMESTAMPDIFF(MINUTE,now(), ea_appointments.start_datetime) AS time_diff')
+                ->from('ea_appointments')
+                ->where('id', $appointment_id)
+                ->get()->row_array();
+
+        // flush cache in query constructor
+        $this->db->flush_cache();
+
+        // MIN_CANCEL_AHEAD_MINS locates in config/constants.php
+        if($time_diff['time_diff'] >= MIN_CANCEL_AHEAD_MINS){
+            $this->db->delete('ea_appointments', ['id' => $appointment_id]);
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
 }
 
 ?>

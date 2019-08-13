@@ -90,5 +90,8 @@ define('CALENDAR_VIEW_TABLE', 'table');
 define('AVAILABILITIES_TYPE_FLEXIBLE', 'flexible');
 define('AVAILABILITIES_TYPE_FIXED', 'fixed');
 
+/* This is some regular setting about appointments */
+define('MIN_CANCEL_AHEAD_MINS', 1440); // 1 day = 24 * 60mins = 1440 mins
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
