@@ -185,9 +185,9 @@
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            booking_status: 'ALL',
-			service_type: 'ALL',
-			tutor_name: 'ALL'
+            booking_status: JSON.stringify("ALL"),
+			service_type: JSON.stringify("ALL"),
+			tutor_name: JSON.stringify("ALL")
         };
 
 

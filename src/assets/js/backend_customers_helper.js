@@ -154,7 +154,7 @@
                 notes: $('#notes').val()
             };
 
-            if ($('#customer-id').val() != '') {
+            if ($('#customer-id').val() !== '') {
                 customer.id = $('#customer-id').val();
             }
 
