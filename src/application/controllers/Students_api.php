@@ -33,7 +33,7 @@ class Stundets_api extends CI_Controller{
             $this->load->model('students_model');
             $booking_status = json_decode($this->input->post('booking_status'), TRUE);
             $service_type = json_decode($this->input->post('service_type'), TRUE);
-            $tutor_name = json_decode($this->input->post('tutoe_name'), TRUE);
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
 
             //Everyone can add an appointment, so we don't need priviledge verification here
 

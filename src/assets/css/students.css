@@ -191,122 +191,52 @@ root {
 
 
 
-.modal-message {
-    margin-bottom: 10px;
-}
-
-body .modal .modal-title {
-    color: white;
-}
-
-body .modal-header {
-    padding: 12px 15px;
-    background: #296d97;
-    border-bottom: 4px solid #4197cb;
-}
-
-body .modal-header h3 {
-    color: #FFF;
-    font-size: 20px;
-    font-weight: lighter;
-}
-
-body .modal-header .close {
-    margin-top: 2px;
-    color: #12482a;
-}
-
-body .modal-content {
-    border: none;
-}
-
-/* Full screen modal */
-body .modal.full-screen .modal-dialog {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-body .modal.full-screen .modal-content {
-    height: 100%;
-    border: none;
-    box-shadow: none;
-    overflow-y: auto;
-}
-
-body .modal.full-screen .wrapper {
-    min-height: 100%;
-    margin-bottom: -67px; /* modal-footer height */
-}
-
-body .modal.full-screen .modal-footer {
-    background-color: #f5f5f5;
-    width: 100%;
-    height: 67px;
-}
-
-body .modal.full-screen .modal-push {
-    height: 67px;
-}
-
-body .jspDrag {
-    background: #D3D3D3;
-}
-
-body .jspTrack {
-    background: #EBEBEB;
-}
-
-body legend {
-    color: #666;
-}
-
-/* BACKEND COMPONENTS
-   -------------------------------------------------------------------- */
-
-.backend-page .filter-records {
-    max-width: 350px;
+/* COMPONENTS */
+.students-page .filter-records {
+/*    max-width: 350px;*/
     margin-bottom: 20px;
+	
 }
 
-.backend-page .filter-records form .input-group-addon {
+.students-page .filter-records form .key {
+    margin-right: 15px;
+    float: left;
+}
+
+.students-page .filter-records form .input-group-addon {
     padding-top: 0;
     padding-right: 0;
     border-top: none;
 }
 
-.backend-page .filter-records form .key {
-    margin-right: 15px;
-    float: left;
-}
-
-.backend-page .filter-records .results {
+/* Watch this, not yet adjusted */
+.students-page .filter-records .results {
     overflow-y: auto;
     max-height: 650px;
     outline: none;
 }
 
-.backend-page .filter-records .results .entry {
+.students-page .filter-records .results .entry {
     padding: 10px 7px;
 }
 
-.backend-page .filter-records .results .entry:hover:not(.selected) {
+.students-page .filter-records .results .entry:hover:not(.selected) {
     background-color: #F3F3F3;
     cursor: pointer;
 }
 
-.backend-page .filter-records .results .entry.selected {
+.students-page .filter-records .results .entry.selected {
     background-color: #F4F4F4;
     border-right: 5px solid #296d97;
 }
 
-.backend-page .filter-records .results hr {
+.students-page .filter-records .results hr {
     margin: 5px 0;
 }
+/* Watch this, not yet adjusted */
 
 .record-details {
-    max-width: 800px;
+/*    max-width: 800px;*/
     margin-bottom: 20px;
 }
 
@@ -316,51 +246,7 @@ body legend {
     opacity: 0.85;
     box-shadow: none;
 }
-
-
-
-
-
-/* BACKEND CUSTOMERS PAGE
-   -------------------------------------------------------------------- */
-
-#customers-page #customer-appointments {
-    height: 370px;
-    max-width: 330px;
-    width: 100%;
-    margin-bottom: 20px;
-    overflow-y: auto;
-    outline: none;
-}
-
-#customers-page #customer-appointments .appointment-row {
-    padding: 7px;
-    border-bottom: 1px solid #E2E2E2;
-    border-right: none;
-}
-
-#customers-page #customer-appointments .appointment-row:last-child {
-    border-bottom: none;
-}
-
-#customers-page #customer-appointments .appointment-row:hover:not(.selected) {
-    background-color: #F3F3F3;
-    cursor: pointer;
-}
-
-#customers-page #customer-appointments .appointment-row.selected {
-    background-color: #E2E2E2;
-}
-
-#customers-page #appointment-details {
-    max-width: 330px;
-    margin-bottom: 20px;
-}
-
-#customers-page #appointment-details div {
-    padding: 10px;
-    background: #F8F8F8;
-}
+/* COMPONENTS */
 
 
 
