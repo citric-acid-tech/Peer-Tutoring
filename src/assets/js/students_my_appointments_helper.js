@@ -120,22 +120,22 @@
      * Bring the appointment form back to its initial state.
      */
     StudentsMyAppointmentHelper.prototype.resetForm = function () {
+		
+		//	Clear all textareas
         $('.record-details').find('input, textarea').val('');
 
-
-        $('.record-details').find('input, textarea').prop('readonly', true);
-
-        $('#customer-appointments').empty();
-        $('#appointment-details').toggleClass('hidden', true).empty();
-        $('#edit-appointment, #delete-appointment').prop('disabled', true);
-        $('#add-edit-delete-group').show();
-        $('#save-cancel-group').hide();
-
-        $('.record-details .has-error').removeClass('has-error');
-        $('.record-details #form-message').hide();
-
+        //	Disable all operation buttons when the form is reset
+		$('#cancel-appointment, #assess-appointment').prop('disabled', true);
+		//	Show the button group
+        $('#cancel-assess-group').show();
+		
+		//	Enable search input buttons
         $('#filter-my_appointments button').prop('disabled', false);
+		//	Erase all selected effects on search results part
         $('#filter-my_appointments .selected').removeClass('selected');
+		//	When editing, background color will be added to indicate that
+		//	selections are disabled. Writing as below removes the color when
+		//	resetting the form
         $('#filter-my_appointments .results').css('color', '');
     };
 
@@ -182,29 +182,40 @@
     StudentsMyAppointmentHelper.prototype.filter = function (key, selectId, display) {
         display = display || false;
 
-        var postUrl = GlobalVariables.baseUrl + '/index.php/backend_api/ajax_filter_my_appointments';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            key: key
+            booking_status: 'All',
+			service_type: 'All',
+			tutor_name: 'All'
         };
 
         $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
-
+			
+			//	Store results
             this.filterResults = response;
-
+			
+			//	Clear former results
             $('#filter-my_appointments .results').html('');
+			
+			//	Iterate through all appointments, generate htmls for them and
+			//	add them to the results
             $.each(response, function (index, appointment) {
-                var html = this.getFilterHtml(appointment);
+                var html = this.getFilterHtml(index, appointment);
                 $('#filter-my_appointments .results').append(html);
             }.bind(this));
-            if (response.length == 0) {
+			
+			//	If there are no match, print a message in the result block
+            if (response.length === 0) {
                 $('#filter-my_appointments .results').html('<em>' + EALang.no_records_found + '</em>');
             }
-
-            if (selectId != undefined) {
+			
+			//	If selectId is provided, show it
+            if (selectId !== undefined) {
                 this.select(selectId, display);
             }
 
@@ -218,21 +229,53 @@
      *
      * @return {String} Returns the record HTML code.
      */
-    StudentsMyAppointmentHelper.prototype.getFilterHtml = function (appointment) {
-        var name = appointment.first_name + ' ' + appointment.last_name;
-        var info = appointment.email;
-        info = (appointment.phone_number != '' && appointment.phone_number != null) ?
-            info + ', ' + appointment.phone_number : info;
+    StudentsMyAppointmentHelper.prototype.getFilterHtml = function (index, appointment) {
+		
+		//	The remark will be used in the first line
+		var remark = (appointment.remark !== '' && appointment.remark !== null) ?
+			appointment.remark : ("Appointment " + index);
+		//	The booking_status will shown as a label in the first line
+		var booking_status = this.decodeBookingStatus(appointment.booking_status);
+		
+		//	The tutor's name will be used in the second line
+        var tutor = appointment.first_name + ' ' + appointment.last_name;
+		
+		//	The starting time will be used in the third line
+        var start_time = appointment.start_datetime;
 
+		var line1 = "<strong>" + remark + "</strong>" + "&nbsp;-&nbsp;" + booking_status;
+		var line2 = tutor;
+		var line3 = start_time;
+			
         var html =
-            '<div class="entry" data-id="' + appointment.id + '">' +
-            '<strong>' +
-            name +
-            '</strong><br>' +
-            info +
-            '</div><hr>';
-
+            '<div class="entry" data-id="' + appointment.id + '">' +	//	Starting <div> block
+            line1 + "<br />" +	//	line1
+            line2 + "<br />" +	//	line2
+            line3 +	//	line2
+            '</div>	<hr />';		//	Ending </div> and a horizontal line
+		
         return html;
+    };
+	
+    /**
+     * Translate booking_status from numbers into language pack supported strings
+     *
+     * @param {Object} a number
+     *
+     * @return {String} Returns the string so it can be used as lang(str) or EALang.str
+     */
+    StudentsMyAppointmentHelper.prototype.decodeBookingStatus = function (booking_status) {
+		
+		var translation_mark = "";
+		switch(booking_status) {
+			case 0: translation_mark = EALang.bs0;	break;
+			case 1: translation_mark = EALang.bs1;	break;
+			case 2: translation_mark = EALang.bs2;	break;
+			case 3: translation_mark = EALang.bs3;	break;
+			default: translation_mark = "no match";
+		}
+		
+        return translation_mark;
     };
 
     /**

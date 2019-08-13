@@ -31,9 +31,9 @@
     });
 </script>
 
-<div id="customers-page" class="container-fluid backend-page">
+<div id="my_appointments-page" class="container-fluid students-page">
     <div class="row">
-    	<div id="filter-my_appointments" class="filter-records column col-xs-12 col-sm-5">
+    	<div id="filter-my_appointments" class="filter-records column col-xs-12 col-sm-3">
     		<form>
                 <div class="input-group">
                     <input type="text" class="key form-control">
@@ -57,7 +57,7 @@
             <div class="results"></div>
     	</div>
 
-    	<div class="record-details col-xs-12 col-sm-7">
+    	<div class="record-details col-xs-12 col-sm-9">
             <div class="btn-toolbar">
                 <div id="cancel-assess-group" class="btn-group">
                     <button id="cancel-appointment" class="btn btn-default">
@@ -65,7 +65,7 @@
                         <?= lang('cancel_appointment') ?>
                     </button>
                     
-                    <button id="add-appointment" class="btn btn-primary">
+                    <button id="assess-appointment" class="btn btn-primary">
                         <i class="glyphicon glyphicon-pencil"></i>&nbsp;
                         <?= lang('assess') ?>
                     </button>
