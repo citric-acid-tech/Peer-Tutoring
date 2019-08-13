@@ -52,7 +52,8 @@ class Stundets_api extends CI_Controller{
     }
 
     public function ajax_filter_available_appointments(){
-
+    /*  ajax*/
+        
     }
     
 
@@ -64,7 +65,7 @@ class Stundets_api extends CI_Controller{
             $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
             
             $isCanceled = $this->students_model->cancel_appointment($appointment_id);
-            
+
             $ajax_result = $isCanceled ? 'cancellation_accepted' : 'cancellation_refused';
 
             $this->output

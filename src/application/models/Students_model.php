@@ -13,7 +13,40 @@ class Students_model extends CI_Model{
     }
 
     public function get_my_appointments($user_id, $booking_status, $service_type, $tutor_name){
-        return array();
+
+        $tutor_id = 0;
+        
+        if($tutor_name != NULL){
+            $tutor_id = $this->db
+            ->select('ea_users.id AS tutor_id')
+            ->from('ea_users')
+            // This where function seems not working. Add an equal mark manually
+            ->where('concat(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name)
+            ->get()
+            ->result_array();
+
+            $tutor_id = $tutor_id[0]['tutor_id'];
+        }
+
+        $this->db
+            ->select('ea_appointments.*')
+            ->from('ea_appointments')
+            ->where('ea_appointments.id_users_customer', $user_id);
+
+            if($booking_status != 'ALL'){
+                $this->db->where('booking_status', $booking_status);
+            }
+
+            if($service_type != 'ALL'){
+                $this->db->where('service_type', $service_type);
+            }
+
+            if($tutor_name != 'ALL'){
+                $this->db->where('id_users_provider', $tutor_id);
+            }
+
+        return $this->db
+            ->get()->result_array();
     }
 
     public function cancel_appointment($appointment_id){
