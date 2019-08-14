@@ -29,7 +29,7 @@ class Students_model extends CI_Model{
         }
 
         $this->db
-            ->select('ea_appointments.*')
+            ->select('ea_appointments.*, ea_users.first_name, ea_users.last_name')
             ->from('ea_appointments')
             ->where('ea_appointments.id_users_customer', $user_id);
 
@@ -46,6 +46,7 @@ class Students_model extends CI_Model{
             }
 
         return $this->db
+            ->join('ea_users', 'ea_appointments.id_users_provider = ea_users.id', 'inner')
             ->get()->result_array();
     }
 
@@ -58,9 +59,6 @@ class Students_model extends CI_Model{
                 ->where('id', $appointment_id)
                 ->get()->row_array();
 
-        // flush cache in query constructor
-        $this->db->flush_cache();
-
         // MIN_CANCEL_AHEAD_MINS locates in config/constants.php
         if($time_diff['time_diff'] >= MIN_CANCEL_AHEAD_MINS){
             $this->db->delete('ea_appointments', ['id' => $appointment_id]);
@@ -69,6 +67,18 @@ class Students_model extends CI_Model{
             return FALSE;
         }
     }
-}
 
+    public function get_available_appointments(){
+        
+        $latest_available_start_time = 
+            $this->db->select('TIMESTAMPADD(MINUTE, ' . MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
+                      ->get()->row_array()['result'];
+
+        return $this->db
+            ->select('ea_services.*')
+            ->from('ea_services')
+            ->where('TIMESTAMPADD() < ', $latest_available_start_time)
+            ->get()->row_array();
+    }
+}
 ?>
