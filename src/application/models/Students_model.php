@@ -51,17 +51,27 @@ class Students_model extends CI_Model{
     }
 
     public function cancel_appointment($appointment_id){
-        
-        $time_diff = 
+
+        $appointment_info = 
             $this->db
-                ->select('TIMESTAMPDIFF(MINUTE,now(), ea_appointments.start_datetime) AS time_diff')
+                ->select('ea_appointments.*, TIMESTAMPDIFF(MINUTE,now(), ea_appointments.start_datetime) AS time_diff')
                 ->from('ea_appointments')
                 ->where('id', $appointment_id)
                 ->get()->row_array();
 
+        $time_diff = $appointment_info['time_diff'];
+        $booking_status = $appointment_info['booking_status'];
+
+        // If the booking_status is 3 (cancelled), then this appointment cannot be cancelled again. Return.
+        if($booking_status == '3'){
+            return FALSE;
+        }
+
         // MIN_CANCEL_AHEAD_MINS locates in config/constants.php
-        if($time_diff['time_diff'] >= MIN_CANCEL_AHEAD_MINS){
-            $this->db->delete('ea_appointments', ['id' => $appointment_id]);
+        if($time_diff >= MIN_CANCEL_AHEAD_MINS){
+            $appointment_info['booking_status'] = '3';
+            unset($appointment_info['time_diff']);
+            $this->db->replace('ea_appointments', $appointment_info);
             return TRUE;
         }else{
             return FALSE;
@@ -74,11 +84,14 @@ class Students_model extends CI_Model{
             $this->db->select('TIMESTAMPADD(MINUTE, ' . MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
                       ->get()->row_array()['result'];
 
+        $now =  $this->db->select('now()')->get()->row_array()['now()'];
+
         return $this->db
             ->select('ea_services.*')
             ->from('ea_services')
-            ->where('TIMESTAMPADD() < ', $latest_available_start_time)
-            ->get()->row_array();
+            ->where('ea_services.start_datetime < ', $latest_available_start_time)
+            ->where('ea_services.start_datetime > ', $now)
+            ->get()->result_array();
     }
 }
 ?>
