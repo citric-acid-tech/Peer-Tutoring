@@ -105,8 +105,9 @@ window.Students = window.Students || {};
      * @param {String} message Notification message
      * @param {Array} actions An array with custom actions that will be available to the user. Every
      * array item is an object that contains the 'label' and 'function' key values.
+	 * @param {String} The type of message defines the background-color of the message box
      */
-    exports.displayNotification = function (message, actions) {
+    exports.displayNotification = function (message, actions, type) {
         message = message || 'NO MESSAGE PROVIDED FOR THIS NOTIFICATION';
 
         if (actions === undefined) {
@@ -114,21 +115,26 @@ window.Students = window.Students || {};
             setTimeout(function () {
                 $('#notification').fadeIn();
             }, 5000);
+            setTimeout(function () {
+                $('#notification').fadeOut();
+            }, 10000);
         }
 
         var customActionsHtml = '';
 
         $.each(actions, function (index, action) {
             var actionId = action.label.toLowerCase().replace(' ', '-');
-            customActionsHtml += '<button id="' + actionId + '" class="btn btn-default btn-xs">'
-                + action.label + '</button>';
+            customActionsHtml += '<button id="' + actionId + '" class="btn btn-default btn-xs">' +
+                action.label + '</button>';
 
             $(document).off('click', '#' + actionId);
             $(document).on('click', '#' + actionId, action.function);
         });
+		
+		type = (type === undefined || (type !== 'success' && type !== 'failure')) ? "alert" : "alert " + type;
 
         var notificationHtml =
-            '<div class="notification alert">' +
+            '<div class="notification ' + type + '">' +
             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
             '<span aria-hidden="true">×</span>' +
             '</button>' +
@@ -138,7 +144,7 @@ window.Students = window.Students || {};
 
         $('#notification').html(notificationHtml);
         $('#notification').show('fade');
-    }
+    };
 	
     /**
      * Provide animation class control on header navicon

@@ -63,6 +63,9 @@
 			//	Change selected display
             $('#filter-my_appointments .selected').removeClass('selected');
             $(this).addClass('selected');
+			
+			//	Enable two buttons
+			$('#cancel-appointment, #assess-appointment').prop('disabled', false);
         });
 
 		
@@ -110,7 +113,14 @@
                 return;
             }
 
-            Students.displayNotification(EALang.appointment_cancelled);
+			if (response.cancellation_result === 'cancellation_accepted') {
+				Students.displayNotification(EALang.appointment_cancelled, undefined, "success");
+			} else if (response.cancellation_result === 'cancellation_refused') {
+				Students.displayNotification(EALang.hint_fail_to_cancel_timesake, undefined, "failure");
+			} else {
+				Students.displayNotification("Something went wrong on the output of the cancellation");
+			}
+            
             this.resetForm();
             this.filter($('#filter-my_appointments .key').val());
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -145,30 +155,26 @@
      * @param {Object} appointment Contains the appointment record data.
      */
     StudentsMyAppointmentHelper.prototype.display = function (appointment) {
-        $('#customer-id').val(appointment.id);
-        $('#first-name').val(appointment.first_name);
-        $('#last-name').val(appointment.last_name);
-        $('#email').val(appointment.email);
-        $('#phone-number').val(appointment.phone_number);
-        $('#address').val(appointment.address);
-        $('#city').val(appointment.city);
-        $('#zip-code').val(appointment.zip_code);
-        $('#notes').val(appointment.notes);
-
-        $('#customer-appointments').empty();
-        $.each(appointment.appointments, function (index, appointment) {
-            var start = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
-            var end = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
-            var html =
-                '<div class="appointment-row" data-id="' + appointment.id + '">' +
-                start + ' - ' + end + '<br>' +
-                appointment.service.name + ', ' +
-                appointment.provider.first_name + ' ' + appointment.provider.last_name +
-                '</div>';
-            $('#customer-appointments').append(html);
-        });
-
-        $('#appointment-details').empty();
+		
+        $('#appointment-id').val(appointment.id);		
+		
+		$('#remark').val((appointment.remark !== null && appointment.remark !== "") ? appointment.remark : "None");
+		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
+		$('#stars').val(appointment.stars);
+		
+		$('#description').val(appointment.description);
+		$('#service_type').val(appointment.service_type);
+		
+		$('#tutor').val(appointment.first_name + " " + appointment.last_name);
+		$('#notes').val(appointment.notes);
+		
+		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
+		$('#start_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true));
+		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
+		
+		$('#feedback').val(appointment.feedback);
+		$('#suggestion').val(appointment.suggestion);
+		
     };
 
     /**
@@ -242,9 +248,9 @@
         var tutor = appointment.first_name + ' ' + appointment.last_name;
 		
 		//	The starting time will be used in the third line
-        var start_time = appointment.start_datetime;
+		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
 
-		var line1 = "<strong>" + remark + "</strong>" + "-" + booking_status;
+		var line1 = "<strong>" + remark + "</strong>" + " " + "-" + " " + booking_status;
 		var line2 = tutor;
 		var line3 = start_time;
 			
@@ -269,11 +275,11 @@
 		
 		var translation_mark = "";
 		switch(booking_status) {
-			case 0: translation_mark = EALang.bs0;	break;
-			case 1: translation_mark = EALang.bs1;	break;
-			case 2: translation_mark = EALang.bs2;	break;
-			case 3: translation_mark = EALang.bs3;	break;
-			default: translation_mark = "no match";
+			case "0": translation_mark = EALang.bs0;	break;
+			case "1": translation_mark = EALang.bs1;	break;
+			case "2": translation_mark = EALang.bs2;	break;
+			case "3": translation_mark = EALang.bs3;	break;
+			default: translation_mark = "no match booking status";
 		}
 		
         return translation_mark;
@@ -290,44 +296,28 @@
      */
     StudentsMyAppointmentHelper.prototype.select = function (id, display) {
         display = display || false;
-
+		
+		//	Remove all selected classes in advance
         $('#filter-my_appointments .selected').removeClass('selected');
-
+		
+		//	Find the given Id and add "selected" class to it
         $('#filter-my_appointments .entry').each(function () {
-            if ($(this).attr('data-id') == id) {
+            if ($(this).attr('data-id') === id) {
                 $(this).addClass('selected');
                 return false;
             }
         });
-
+		
+		//	If display === true, display the appointment
         if (display) {
             $.each(this.filterResults, function (index, appointment) {
-                if (appointment.id == id) {
+                if (appointment.id === id) {
                     this.display(appointment);
-                    $('#edit-appointment, #delete-appointment').prop('disabled', false);
+//                    $('#edit-appointment, #delete-appointment').prop('disabled', false);
                     return false;
                 }
             }.bind(this));
         }
-    };
-
-    /**
-     * Display appointment details on appointments backend page.
-     *
-     * @param {Object} appointment Appointment data
-     */
-    StudentsMyAppointmentHelper.prototype.displayAppointment = function (appointment) {
-        var start = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
-        var end = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
-
-        var html =
-            '<div>' +
-            '<strong>' + appointment.service.name + '</strong><br>' +
-            appointment.provider.first_name + ' ' + appointment.provider.last_name + '<br>' +
-            start + ' - ' + end + '<br>' +
-            '</div>';
-
-        $('#appointment-details').html(html).removeClass('hidden');
     };
 
     window.StudentsMyAppointmentHelper = StudentsMyAppointmentHelper;

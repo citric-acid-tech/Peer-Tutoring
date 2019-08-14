@@ -125,11 +125,11 @@
 
                    <div class="form-group">
                        <label class="control-label" for="feedback"><?= lang('feedback') ?></label>
-                       <textarea id="feedback" rows="4" class="form-control" style="resize: none;" readonly></textarea>
+                       <textarea id="feedback" rows="2" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
                    <div class="form-group">
                        <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
-                       <textarea id="suggestion" rows="4" class="form-control" style="resize: none;" readonly></textarea>
+                       <textarea id="suggestion" rows="2" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
 
                </div>

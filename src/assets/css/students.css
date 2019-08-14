@@ -142,7 +142,6 @@ root {
 #notification .alert button {
     margin-right: 15px;
 }
-
 #notification .alert {
     margin-bottom: 0;
     background-color: #f5e8a8;
@@ -156,7 +155,14 @@ root {
     min-width: 300px;
     max-width: 750px;
 }
-
+#notification .alert.success, #notification .alert.success .close {
+	background-color: lightgreen;
+	color: rgba(0,0,0,0.7);
+}
+#notification .alert.failure, #notification .alert.failure .close {
+	background-color: #ED6C70;
+	color: snow;
+}
 #notification .close {
     color: #9E9980;
     font-size: 25px;
@@ -238,6 +244,14 @@ root {
 .record-details {
 /*    max-width: 800px;*/
     margin-bottom: 20px;
+}
+.record-details .form-group label.control-label {
+	font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	font-size: 15px;
+	font-weight: bold;
+}
+.record-details .form-group input.form-control {
+	font-size: 14px;
 }
 
 .record-details input:read-only,
