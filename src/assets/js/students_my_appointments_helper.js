@@ -234,7 +234,7 @@
 		
 		//	The remark will be used in the first line
 		var remark = (appointment.remark !== '' && appointment.remark !== null) ?
-			appointment.remark : ("Appointment " + index);
+			appointment.remark : ("Appointment " + (index+1));
 		//	The booking_status will shown as a label in the first line
 		var booking_status = this.decodeBookingStatus(appointment.booking_status);
 		
@@ -244,7 +244,7 @@
 		//	The starting time will be used in the third line
         var start_time = appointment.start_datetime;
 
-		var line1 = "<strong>" + remark + "</strong>" + "&nbsp;-&nbsp;" + booking_status;
+		var line1 = "<strong>" + remark + "</strong>" + "-" + booking_status;
 		var line2 = tutor;
 		var line3 = start_time;
 			
