@@ -14,7 +14,7 @@ VALUES
     ('book_advance_timeout', '30'),
     ('google_analytics_code', ''),
     ('customer_notifications', '1'),
-    ('date_format', 'DMY'),
+    ('date_format', 'YMD'),
     ('time_format', 'regular'),
     ('require_captcha', '0'),
     ('display_cookie_notice', '0'),

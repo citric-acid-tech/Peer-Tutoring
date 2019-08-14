@@ -9,13 +9,15 @@ class Students_model extends CI_Model{
             ->from('ea_appointments')
             ->where('status', $booking_status)
             ->where('id_service', $service_type)
-            ->get()->result_array();
+            ->get()
+            ->result_array();
     }
 
     public function get_my_appointments($user_id, $booking_status, $service_type, $tutor_name){
 
         $tutor_id = 0;
         
+        // Get the id of the tutor
         if($tutor_name != NULL){
             $tutor_id = $this->db
             ->select('ea_users.id AS tutor_id')
@@ -28,6 +30,8 @@ class Students_model extends CI_Model{
             $tutor_id = $tutor_id[0]['tutor_id'];
         }
 
+
+        // query
         $this->db
             ->select('ea_appointments.*, ea_users.first_name, ea_users.last_name')
             ->from('ea_appointments')
@@ -47,17 +51,21 @@ class Students_model extends CI_Model{
 
         return $this->db
             ->join('ea_users', 'ea_appointments.id_users_provider = ea_users.id', 'inner')
-            ->get()->result_array();
+            ->get()
+            ->result_array();
     }
 
     public function cancel_appointment($appointment_id){
 
+        // Get all the infomation about the appointment including the time difference between
+        // current time and the start datetime of the appointment
         $appointment_info = 
             $this->db
                 ->select('ea_appointments.*, TIMESTAMPDIFF(MINUTE,now(), ea_appointments.start_datetime) AS time_diff')
                 ->from('ea_appointments')
                 ->where('id', $appointment_id)
-                ->get()->row_array();
+                ->get()
+                ->row_array();
 
         $time_diff = $appointment_info['time_diff'];
         $booking_status = $appointment_info['booking_status'];
@@ -80,18 +88,26 @@ class Students_model extends CI_Model{
 
     public function get_available_appointments(){
         
+        // Get the latest available start datetime
         $latest_available_start_time = 
             $this->db->select('TIMESTAMPADD(MINUTE, ' . MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
-                      ->get()->row_array()['result'];
+                      ->get()
+                      ->row_array()['result'];
 
-        $now =  $this->db->select('now()')->get()->row_array()['now()'];
+        // Get current datetime
+        $now =  $this->db
+                ->select('now()')
+                ->get()
+                ->row_array()['now()'];
 
+        // query
         return $this->db
             ->select('ea_services.*')
             ->from('ea_services')
             ->where('ea_services.start_datetime < ', $latest_available_start_time)
             ->where('ea_services.start_datetime > ', $now)
-            ->get()->result_array();
+            ->get()
+            ->result_array();
     }
 }
 ?>
