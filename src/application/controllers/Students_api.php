@@ -6,7 +6,7 @@ class Students_api extends CI_Controller{
     public function __construct(){
         parent::__construct();
 
-        //
+        // Block any other access method than POST
         if(strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST'){
 
             $this->security->csrf_show_error();
@@ -24,6 +24,8 @@ class Students_api extends CI_Controller{
             $this->lang->load('translations', $this->config->item('language'));
         }
     }
+
+/** ajax interface for students - my appointments part */
 
     public function ajax_filter_my_appointments(){
         //
@@ -75,7 +77,34 @@ class Students_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+/** END OF ajax interface for students - my appointments part */
+
+/** ajax interface for students - available appointments part */
+
+    public function ajax_available_appointments(){
+        //
+        try{
+
+            $this->load->model->model('students_model');
+            
+            $result = $this->students_model->get_available_appointments();
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 }
+
+
+
+
 
 
 ?>
