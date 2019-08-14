@@ -16,3 +16,4 @@ class Migration_Change_data_date_format_in_ea_setting extends CI_Migration {
     }
 
 }
+?>
