@@ -18,10 +18,11 @@ class Students_model extends CI_Model{
         $tutor_id = 0;
         
         // Get the id of the tutor
-        if($tutor_name != NULL){
+        if($tutor_name != 'ALL'){
             $tutor_id = $this->db
             ->select('ea_users.id AS tutor_id')
             ->from('ea_users')
+            
             // This where function seems not working. Add an equal mark manually
             ->where('concat(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name)
             ->get()
@@ -33,8 +34,34 @@ class Students_model extends CI_Model{
 
         // query
         $this->db
-            ->select('ea_appointments.*, ea_users.first_name, ea_users.last_name')
+            ->select('
+            ea_appointments.id                 AS appointment_id,
+            ea_appointments.book_datetime      AS book_datetime,
+            ea_appointments.start_datetime     AS start_datetime,
+            ea_appointments.end_datetime       AS end_datetime,
+            ea_appointments.notes              AS notes,
+            ea_appointments.hash               AS hash,
+            ea_appointments.is_unavailable     AS is_unabailable,
+            ea_appointments.id_google_calendar AS id_google_calendar,
+            ea_appointments.booking_status     AS booking_status,
+            ea_appointments.feedback           AS feedback,
+            ea_appointments.suggestion         AS suggestion,
+            ea_appointments.stars              AS stars,
+            ea_appointments.description        AS appointment_description,
+            ea_appointments.remark             AS remark,
+
+            ea_users.first_name                AS first_name, 
+            ea_users.last_name                 AS last_name,
+             
+            ea_service_categories.name         AS service_type,
+            ea_Service_categories.description  AS service_type_description,
+            
+            ea_services.name                   AS service_name
+            ')
             ->from('ea_appointments')
+            ->join('ea_users', 'ea_appointments.id_users_provider = ea_users.id', 'inner')
+            ->join('ea_services', 'ea_appointments.id_services = ea_services.id', 'inner')
+            ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->where('ea_appointments.id_users_customer', $user_id);
 
             if($booking_status != 'ALL'){
@@ -50,7 +77,6 @@ class Students_model extends CI_Model{
             }
 
         return $this->db
-            ->join('ea_users', 'ea_appointments.id_users_provider = ea_users.id', 'inner')
             ->get()
             ->result_array();
     }
@@ -102,10 +128,24 @@ class Students_model extends CI_Model{
 
         // query
         return $this->db
-            ->select('ea_services.*')
+            ->select('
+            ea_services.name                  AS service_name,
+            ea_services.duration              AS duration,
+            ea_services.description           AS description,
+            ea_services.capacity              AS capacity,
+            ea_services.appointments_number   AS appointments_number,
+            ea_services.start_datetime        AS start_datetime,
+            ea_services.end_datetime          AS end_datetime,
+
+            ea_service_categories.name        AS service_type, 
+            ea_service_categories.description AS service_type_description
+            
+            ')
             ->from('ea_services')
+            ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->where('ea_services.start_datetime < ', $latest_available_start_time)
             ->where('ea_services.start_datetime > ', $now)
+            
             ->get()
             ->result_array();
     }
