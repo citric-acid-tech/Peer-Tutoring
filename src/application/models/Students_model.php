@@ -103,10 +103,19 @@ class Students_model extends CI_Model{
 
         // MIN_CANCEL_AHEAD_MINS locates in config/constants.php
         if($time_diff >= MIN_CANCEL_AHEAD_MINS){
+
+            // Change the booking status of the corresponding appointment
             $appointment_info['booking_status'] = '3';
             unset($appointment_info['time_diff']);
             $this->db->replace('ea_appointments', $appointment_info);
+
+            // Change the appointments number of the relating service
+            $id_services = $appointment_info['id_services'];
+            $this->db->set('appointments_number', 'appointments_number - 1', FALSE);
+            $this->db->where('id', $id_services);
+            $this->db->update('ea_services');
             return TRUE;
+
         }else{
             return FALSE;
         }
