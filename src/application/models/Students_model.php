@@ -121,7 +121,7 @@ class Students_model extends CI_Model{
         }
     }
 
-    public function get_available_appointments(){
+    public function get_available_appointments($service_type, $tutor_name){
         
         // Get the latest available start datetime
         $latest_available_start_time = 
@@ -136,27 +136,39 @@ class Students_model extends CI_Model{
                 ->row_array()['now()'];
 
         // query
-        return $this->db
+        $this->db
             ->select('
-            ea_services.name                  AS service_name,
-            ea_services.duration              AS duration,
-            ea_services.description           AS description,
-            ea_services.capacity              AS capacity,
-            ea_services.appointments_number   AS appointments_number,
-            ea_services.start_datetime        AS start_datetime,
-            ea_services.end_datetime          AS end_datetime,
+            ea_services.name                                       AS service_type,
+            ea_services.duration                                   AS duration,
+            ea_services.description                                AS description,
+            ea_services.capacity                                   AS capacity,
+            ea_services.appointments_number                        AS appointments_number,
+            ea_services.start_datetime                             AS start_datetime,
+            ea_services.end_datetime                               AS end_datetime,
 
-            ea_service_categories.name        AS service_type, 
-            ea_service_categories.description AS service_type_description
+            ea_service_categories.name                             AS service_type, 
+            ea_service_categories.description                      AS service_type_description,
             
+            CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
+
+            ea_users.personal_page                                 AS personal_page
             ')
             ->from('ea_services')
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+            ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
             ->where('ea_services.start_datetime < ', $latest_available_start_time)
-            ->where('ea_services.start_datetime > ', $now)
+            ->where('ea_services.start_datetime > ', $now);
             
-            ->get()
-            ->result_array();
+            if($tutor_name != 'ALL'){
+                $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+            }
+            if($service_type != 'ALL'){
+                $this->db->where('ea_service_categories.name', $service_type);
+            }
+            
+            return $this->db
+                ->get()
+                ->result_array();
     }
 
     public function rate_and_comment($appointment_id, $stars, $comment_or_suggestion){

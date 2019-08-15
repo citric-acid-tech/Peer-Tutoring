@@ -86,9 +86,9 @@ class Students_api extends CI_Controller{
         try{
 
             $this->load->model('students_model');
-            
+
             // Get input
-            $appointment_id = json_decode($this->input->post('appointment_id', TRUE));
+            $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
             $stars = json_decode($this->input->post('stars'), TRUE);
             $comment_or_suggestion = json_decode($this->input->post($this->input->post('comment_or_suggestion')), TRUE);
 
@@ -116,7 +116,12 @@ class Students_api extends CI_Controller{
 
             $this->load->model->model('students_model');
             
-            $result = $this->students_model->get_available_appointments();
+            // Get input
+            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+
+            // Query
+            $result = $this->students_model->get_available_appointments($service_type, $tutor_name);
 
             $this->output
                 ->set_content_type('application/json')
