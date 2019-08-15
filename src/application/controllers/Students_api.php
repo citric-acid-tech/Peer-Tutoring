@@ -33,14 +33,14 @@ class Students_api extends CI_Controller{
         try{
 
             $this->load->model('students_model');
+            // Get input
             $booking_status = json_decode($this->input->post('booking_status'), TRUE);
             $service_type = json_decode($this->input->post('service_type'), TRUE);
             $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
-
-            //Everyone can add an appointment, so we don't need priviledge verification here
-
             $user_id = $this->session->userdata('user_id');
+            // Everyone can add an appointment, so we don't need priviledge verification here
 
+            // Query
             $result = $this->students_model->get_my_appointments($user_id, $booking_status, $service_type, $tutor_name);
             
             $this->output
@@ -59,8 +59,11 @@ class Students_api extends CI_Controller{
         try{
             
             $this->load->model('students_model');
+
+            // Get input
             $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
             
+            // Query
             $isCanceled = $this->students_model->cancel_appointment($appointment_id);
 
             $ajax_result = $isCanceled ? 'cancellation_accepted' : 'cancellation_refused';
@@ -77,6 +80,32 @@ class Students_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function ajax_rate_and_comment(){
+        //
+        try{
+
+            $this->load->model('students_model');
+            
+            // Get input
+            $appointment_id = json_decode($this->input->post('appointment_id', TRUE));
+            $stars = json_decode($this->input->post('stars'), TRUE);
+            $comment_or_suggestion = json_decode($this->input->post($this->input->post('comment_or_suggestion')), TRUE);
+
+            // Query
+            $this->students_model->rate_and_comment($stars, $comment_or_suggestion);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(AJAX_SUCCESS));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 /** END OF ajax interface for students - my appointments part */
 
 /** ajax interface for students - available appointments part */

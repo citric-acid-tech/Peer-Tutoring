@@ -158,5 +158,12 @@ class Students_model extends CI_Model{
             ->get()
             ->result_array();
     }
+
+    public function rate_and_comment($appointment_id, $stars, $comment_or_suggestion){
+        $this->db->set('stars', $stars);
+        $this->db->set('comment_or_suggestion', $comment_or_suggestion);
+        $this->db->where('id', $appointment_id);
+        $this->db->update('ea_appointments');
+    }
 }
 ?>
