@@ -183,5 +183,28 @@ class Students_api extends CI_Controller{
         }
     }
 
+    public function ajax_get_available_tutors_date_selection(){
+        //
+        try{
+            $this->load->model('students_model');
+
+            // Get input
+            $start_datetime = json_decode($this->input->post('start_datetime'), TRUE);
+            $end_datetime = json_decode($this->input->post('end_datetime'), TRUE);
+
+            // Query
+            $result = $this->students_model->get_available_tutors_date_selection($start_datetime, $end_datetime);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 
 ?>

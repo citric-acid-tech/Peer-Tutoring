@@ -227,7 +227,23 @@ class Students_model extends CI_Model{
                 ->like('CONCAT(ea_users.first_name, \' \', ea_users.last_name)', $key)
                 ->get()
                 ->result_array();
+    }
 
+    public function get_available_tutors_date_selection($start_datetime, $end_datetime){
+        return $this->db
+                ->select('
+                CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
+                ea_users.personal_page                                 AS personal_page,
+                MIN(ea_services.start_datetime)                        AS earliest_start_datetime
+                ')
+                ->from('ea_services')
+                ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+                ->where('ea_services.start_datetime > ', $start_datetime)
+                ->where('ea_services.end_datetime <', $end_datetime)
+                ->group_by('tutor_name')
+                ->order_by('start_datetime', 'ASC')
+                ->get()
+                ->result_array();
     }
 }
 ?>
