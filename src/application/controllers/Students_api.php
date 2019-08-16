@@ -159,5 +159,29 @@ class Students_api extends CI_Controller{
         }
     }
 
+    public function ajax_search_tutors_by_name(){
+        //
+        try{
+
+            $this->load->model('students_model');
+
+            // Get input
+            $key = json_decode($this->input->post('key'), TRUE);
+
+            // Query
+            $result = $this->students_model->search_tutors_by_name($key);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 
 ?>

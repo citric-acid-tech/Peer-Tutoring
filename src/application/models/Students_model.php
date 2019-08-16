@@ -218,5 +218,16 @@ class Students_model extends CI_Model{
                 ->get()
                 ->result_array();
     }
+
+    public function search_tutors_by_name($key){
+
+        return $this->db
+                ->select('CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name')
+                ->from('ea_users')
+                ->like('CONCAT(ea_users.first_name, \' \', ea_users.last_name)', $key)
+                ->get()
+                ->result_array();
+
+    }
 }
 ?>
