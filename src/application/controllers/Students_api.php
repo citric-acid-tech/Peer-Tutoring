@@ -110,11 +110,12 @@ class Students_api extends CI_Controller{
 
 /** ajax interface for students - available appointments part */
 
+
     public function ajax_available_appointments(){
         //
         try{
 
-            $this->load->model->model('students_model');
+            $this->load->model('students_model');
             
             // Get input
             $service_type = json_decode($this->input->post('service_type'), TRUE);
@@ -133,8 +134,30 @@ class Students_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+    
+    public function ajax_get_available_tutors(){
+        //
+        try{
 
-}
+            $this->load->model('students_model');
+
+            // Get input
+            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+
+            // Query
+            $result = $this->students_model->get_available_tutors($service_type, $tutor_name);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 
 
 ?>

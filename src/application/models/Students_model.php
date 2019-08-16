@@ -177,5 +177,46 @@ class Students_model extends CI_Model{
         $this->db->where('id', $appointment_id);
         $this->db->update('ea_appointments');
     }
+
+    public function get_available_tutors($service_type, $tutor_name){
+
+        // Get the latest available start datetime
+        $latest_available_start_time = 
+            $this->db->select('TIMESTAMPADD(MINUTE, ' . MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
+                      ->get()
+                      ->row_array()['result'];
+
+        // Get current datetime
+        $now =  $this->db
+                ->select('now()')
+                ->get()
+                ->row_array()['now()'];
+
+        $this->db
+            ->select('
+            CONCAT(ea_users.first_name, \' \', ea_users.last_name ) AS tutor_name,
+            ea_users.personal_page                                  AS personal_page,
+            MIN(ea_services.start_datetime)                         AS earliest_start_datetime
+            ')
+            ->from('ea_services')
+            ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+            ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+            ->where('ea_services.start_datetime < ', $latest_available_start_time)
+            ->where('ea_services.start_datetime > ', $now);
+
+            if( $service_type != 'ALL' ){
+                $this->db->where('ea_service_categories.name', $service_type);
+            }
+
+            if( $tutor_name != 'ALL' ){
+                $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+            }
+        return 
+            $this->db
+                ->group_by('tutor_name')
+                ->order_by('start_datetime', 'ASC')
+                ->get()
+                ->result_array();
+    }
 }
 ?>
