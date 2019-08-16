@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-
 class Students_api extends CI_Controller{
 
     public function __construct(){
@@ -32,13 +31,16 @@ class Students_api extends CI_Controller{
 
         try{
 
+
             $this->load->model('students_model');
             // Get input
+
             $booking_status = json_decode($this->input->post('booking_status'), TRUE);
             $service_type = json_decode($this->input->post('service_type'), TRUE);
             $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
             $user_id = $this->session->userdata('user_id');
             // Everyone can add an appointment, so we don't need priviledge verification here
+
 
             // Query
             $result = $this->students_model->get_my_appointments($user_id, $booking_status, $service_type, $tutor_name);
@@ -50,7 +52,7 @@ class Students_api extends CI_Controller{
         }catch (Exception $exc){
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]], TRUE));
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
 
@@ -71,7 +73,7 @@ class Students_api extends CI_Controller{
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode([
-                    'cancellation_result' => $ajax_result,
+                    'cancellation_result' => $ajax_result
                 ]));
 
         }catch (Exception $exc){
@@ -205,6 +207,5 @@ class Students_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
-
-
+}
 ?>

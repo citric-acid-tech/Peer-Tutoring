@@ -41,7 +41,7 @@ class Students_model extends CI_Model{
             ea_appointments.end_datetime       AS end_datetime,
             ea_appointments.notes              AS notes,
             ea_appointments.hash               AS hash,
-            ea_appointments.is_unavailable     AS is_unabailable,
+            ea_appointments.is_unavailable     AS is_unavailable,
             ea_appointments.id_google_calendar AS id_google_calendar,
             ea_appointments.booking_status     AS booking_status,
             ea_appointments.feedback           AS feedback,
