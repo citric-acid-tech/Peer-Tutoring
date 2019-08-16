@@ -107,7 +107,6 @@
             csrfToken: GlobalVariables.csrfToken,
             appointment_id: id
         };
-
         $.post(postUrl, postData, function (response) {
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
@@ -156,13 +155,13 @@
      */
     StudentsMyAppointmentHelper.prototype.display = function (appointment) {
 		
-        $('#appointment-id').val(appointment.id);		
+        $('#appointment-id').val(appointment.appointment_id);		
 		
 		$('#remark').val((appointment.remark !== null && appointment.remark !== "") ? appointment.remark : "None");
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
 		$('#stars').val(appointment.stars);
 		
-		$('#description').val(appointment.description);
+		$('#description').val(appointment.appointment_description);
 		$('#service_type').val(appointment.service_type);
 		
 		$('#tutor').val(appointment.first_name + " " + appointment.last_name);
@@ -191,11 +190,10 @@
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            booking_status: JSON.stringify("ALL"),
-			service_type: JSON.stringify("ALL"),
-			tutor_name: JSON.stringify("ALL")
+            booking_status: JSON.stringify('ALL'),
+			service_type: JSON.stringify('ALL'),
+			tutor_name: JSON.stringify('ALL')
         };
-
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
@@ -225,7 +223,6 @@
             if (selectId !== undefined) {
                 this.select(selectId, display);
             }
-
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 
@@ -255,7 +252,7 @@
 		var line3 = start_time;
 			
         var html =
-            '<div class="entry" data-id="' + appointment.id + '">' +	//	Starting <div> block
+            '<div class="entry" data-id="' + appointment.appointment_id + '">' +	//	Starting <div> block
             line1 + "<br />" +	//	line1
             line2 + "<br />" +	//	line2
             line3 +	//	line2
@@ -311,7 +308,7 @@
 		//	If display === true, display the appointment
         if (display) {
             $.each(this.filterResults, function (index, appointment) {
-                if (appointment.id === id) {
+                if (appointment.appointment_id === id) {
                     this.display(appointment);
 //                    $('#edit-appointment, #delete-appointment').prop('disabled', false);
                     return false;
