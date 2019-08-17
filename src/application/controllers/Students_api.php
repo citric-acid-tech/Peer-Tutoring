@@ -98,7 +98,7 @@ class Students_api extends CI_Controller{
             $comment_or_suggestion = json_decode($this->input->post('comment_or_suggestion'), TRUE);
 
             // Query
-            $this->students_model->rate_and_comment($stars, $comment_or_suggestion);
+            $this->students_model->rate_and_comment($appointment_id, $stars, $comment_or_suggestion);
 
             $this->output
                 ->set_content_type('application/json')
