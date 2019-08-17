@@ -68,7 +68,7 @@ class Students_model extends CI_Model{
             ->where('ea_appointments.id_users_customer', $user_id);
 
             if($booking_status != 'ALL'){
-                $this->db->where('booking_status', $booking_status);
+                $this->db->where('ea_appointments.booking_status', $booking_status);
             }
 
             if($service_type != 'ALL'){
@@ -76,7 +76,7 @@ class Students_model extends CI_Model{
             }
 
             if($tutor_name != 'ALL'){
-                $this->db->where('id_users_provider', $tutor_id);
+                $this->db->where('ea_services.id_users_provider', $tutor_id);
             }
 
         return $this->db
