@@ -30,8 +30,9 @@ window.StudentsMyAppointment = window.StudentsMyAppointment || {};
         defaultEventHandlers = defaultEventHandlers || false;
 
         helper = new StudentsMyAppointmentHelper();
+		helper.getAllTutors();
         helper.resetForm();
-        helper.filter('');
+        helper.filter();
 
         if (defaultEventHandlers) {
             _bindEventHandlers();

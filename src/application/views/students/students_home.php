@@ -28,26 +28,65 @@
 
     $(document).ready(function() {
         StudentsMyAppointment.initialize(true);
+		
+		//	Popup hide
+		$('.curtain').hide();
+		$('#assess_popup').hide();
     });
 </script>
 
 <div id="my_appointments-page" class="container-fluid students-page">
     <div class="row">
-    	<div id="filter-my_appointments" class="filter-records column col-xs-12 col-sm-3">
+    	<div id="filter-my_appointments" class="filter-records column col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-2">
     		<form>
                 <div class="input-group">
-                    <input type="text" class="key form-control">
-
-                    <div class="input-group-addon">
-                        <div>
-                            <button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                            <button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
-                                <span class="glyphicon glyphicon-repeat"></span>
-                            </button>
-                        </div>
-                    </div>
+                   <div class="input-group-selection">
+                  		<select id="my_appointments_booking_status" class="form-control" title="Select a booking status">
+                  			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
+                  			<option value="0"><?= lang("bs0") ?></option>
+                  			<option value="1"><?= lang("bs1") ?></option>
+                  			<option value="2"><?= lang("bs2") ?></option>
+                  			<option value="3"><?= lang("bs3") ?></option>
+                  		</select>
+                  		<div class="curtain"></div>
+                  		<input type="text" class="form-control" id="my_appointments_service_category" placeholder="Type for a service category" title="Select a service category" />
+                  		<div>
+                  			<!-- Notice: If category is longer than 35 characters, scale it -->
+                  			<ul id="filter-service-category" class="filter-list">
+                 				<li class="filter-item filter-item--close" title="Search all Service Categories">Search all Service Categories</li>
+                  				<span>
+                  					<li class="filter-item filter-item--find" title="Y">Y</li>
+                  					<li class="filter-item filter-item--find" title="Z">Z</li>
+                  				</span>
+                  			</ul>
+                  		</div>
+                   		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" />
+                  		<div>
+                  			<ul id="filter-tutor name" class="filter-list">
+                  				<li class="filter-item filter-item--close" title="Search all Tutors">Search all Tutors</li>
+                  				<span>
+                  					<li class="filter-item filter-item--find" title="Y">Yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+                  					<li class="filter-item filter-item--find" title="Z">Z</li>
+                  				</span>
+                  			</ul>
+                  		</div>
+                   </div>
+                   
+                   <div class="input-group-addon">
+                       <div>
+                       		<div>
+                       			<button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
+                       			    <span class="glyphicon glyphicon-search"></span>
+                       			</button>
+                       		</div>
+                       		<br />
+							<div>
+                            	<button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
+                            	    <span class="glyphicon glyphicon-repeat"></span>
+                            	</button>
+							</div>
+                       </div>
+                   </div>
                 </div>
     		</form>
 
@@ -57,7 +96,7 @@
             <div class="results"></div>
     	</div>
 
-    	<div class="record-details col-xs-12 col-sm-9">
+    	<div class="record-details col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-10">
             <div class="btn-toolbar">
                 <div id="cancel-assess-group" class="btn-group">
                     <button id="cancel-appointment" class="btn btn-default">
@@ -90,6 +129,10 @@
                    <div class="form-group">
                        <label class="control-label" for="stars"><?= lang('stars') ?></label>
                        <input id="stars" class="form-control" readonly>
+                   </div>
+                   <div class="form-group">
+                       <label class="control-label" for="com_or_sug"><?= lang('comment_or_suggestion') ?></label>
+                       <input id="com_or_sug" class="form-control" readonly>
                    </div>
                    
                    <div class="form-group">
@@ -134,6 +177,58 @@
 
                </div>
            </div>
+    	</div>
+    </div>
+    <div id="popup_assess">
+    	<div class="curtain"></div>
+    	<div id="assess_popup">
+    		<form>
+    			<div class="assess-title"><h2>Assess the Service!</h2></div>
+    			<hr />
+				<div class="assess-container rate">
+					<label class="control-label" style="user-select:none;">Rate: </label>
+					<span class="stars">
+						<!-- No Star -->
+						<input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio" />
+						<label aria-label="No rating" class="rating__label" for="rating-none">
+							<i class="rating__icon rating__icon--none fas fa-heart-broken"></i>
+						</label>
+						<!-- 1 Star -->
+						<label aria-label="1 star" class="rating__label" for="rating-1">
+							<i class="rating__icon rating__icon--star fas fa-star"></i>
+						</label>
+						<input class="rating__input" name="rating" id="rating-1" value="1" type="radio" />
+						<!-- 2 Stars -->
+						<label aria-label="2 stars" class="rating__label" for="rating-2">
+							<i class="rating__icon rating__icon--star fas fa-star"></i>
+						</label>
+						<input class="rating__input" name="rating" id="rating-2" value="2" type="radio" />
+						<!-- Default: 3 Stars -->
+						<label aria-label="3 stars" class="rating__label" for="rating-3">
+							<i class="rating__icon rating__icon--star fas fa-star"></i>
+						</label>
+						<input class="rating__input" name="rating" id="rating-3" value="3" type="radio" checked />
+						<!-- 4 Stars -->
+						<label aria-label="4 stars" class="rating__label" for="rating-4">
+							<i class="rating__icon rating__icon--star fas fa-star"></i>
+						</label>
+						<input class="rating__input" name="rating" id="rating-4" value="4" type="radio" />
+						<!-- 5 Stars -->
+						<label aria-label="5 stars" class="rating__label" for="rating-5">
+							<i class="rating__icon rating__icon--star fas fa-star"></i>
+						</label>
+						<input class="rating__input" name="rating" id="rating-5" value="5" type="radio" />
+					</span>
+				</div>
+				<div class="assess-container feedback">
+					<textarea id="assess_feedback" placeholder="Please write down your comments/suggestions!" rows="6" style="resize: none;"></textarea>
+				</div>
+				<hr />
+				<div class="assess-container">
+					<input id="assess_save" class="assess_buttons" type="button" value="Submit">
+					<input id="assess_cancel" class="assess_buttons" type="button" value="Cancel">
+				</div>
+    		</form>
     	</div>
     </div>
 </div>

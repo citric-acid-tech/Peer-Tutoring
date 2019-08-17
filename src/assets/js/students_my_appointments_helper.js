@@ -23,10 +23,12 @@
          * Event: Filter My Appointments Form "Submit"
          */
         $('#filter-my_appointments form').submit(function () {
-            var key = $('#filter-my_appointments .key').val();
+			
             $('#filter-my_appointments .selected').removeClass('selected');
             instance.resetForm();
-            instance.filter(key);
+            instance.filter($("#my_appointments_booking_status option:selected").val(),
+						   $('#filter-my_appointments #my_appointments_service_category').val(),
+						   $('#filter-my_appointments #my_appointments_tutor').val());
             return false;	//	why?
         });
 
@@ -34,8 +36,11 @@
          * Event: Filter My Appointments Button "Click"
          */
         $('#filter-my_appointments .clear').click(function () {
-            $('#filter-my_appointments .key').val('');
-            instance.filter('');
+			$("#my_appointments_booking_status option:selected")[0].selected = false;
+			$('#my_appointments_booking_status .default_bs').prop('selected', true);
+			$('#filter-my_appointments #my_appointments_service_category').val('');
+            $('#filter-my_appointments #my_appointments_tutor').val('');
+            instance.filter();
             instance.resetForm();
         });
 
@@ -64,8 +69,15 @@
             $('#filter-my_appointments .selected').removeClass('selected');
             $(this).addClass('selected');
 			
-			//	Enable two buttons
-			$('#cancel-appointment, #assess-appointment').prop('disabled', false);
+			//	Enable cancel appointment button
+			$('#cancel-appointment').prop('disabled', false);
+			
+			//	If finished and not cancelled, enable assess appointment button
+			if (appointment.booking_status === '1' || appointment.booking_status === '2') {
+				$('#assess-appointment').prop('disabled', false);
+			} else {
+				$('#assess-appointment').prop('disabled', true);
+			}
         });
 
 		
@@ -94,7 +106,70 @@
             GeneralFunctions.displayMessageBox(EALang.cancel_appointment_title,
                 EALang.cancel_appointment_hint, buttons);
         });
-    };
+    
+		
+        /**
+         * Event: Assess Service Button "Click"
+         */
+		$('.students-page #assess-appointment').click(function() {
+			$('#popup_assess .curtain').fadeIn();
+			$('#assess_popup').fadeIn();
+		});
+		
+		
+        /**
+         * Event: Save Assessment Button "Click"
+         */
+		$('.students-page #assess_save').click(function() {
+			//	Save first
+			
+			//	Get current appointment id
+            var appointmentId = $('#appointment-id').val();
+        	var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_rate_and_comment';
+        	var postData = {
+        	    csrfToken: GlobalVariables.csrfToken,
+        	    appointment_id: appointmentId,
+				stars: $("#popup_assess input[name='rating']:checked").val(),
+				comment_or_suggestion: JSON.stringify($('#assess_feedback').val())
+        	};
+			
+        	$.post(postUrl, postData, function (response) {
+				//	Test whether response is an exception or a warning
+        	    if (!GeneralFunctions.handleAjaxExceptions(response)) {
+        	        return;
+        	    }
+				
+				if (response === 'SUCCESS') {
+					Students.displayNotification("Assessment Completed!", undefined, "success");
+				}
+        	}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+			
+			$('#assess_save, #assess_cancel').prop('disabled', true);
+			
+			//	Hide
+			setTimeout(function() {
+				$('#popup_assess .curtain').fadeOut();
+				$('#assess_popup').fadeOut();
+				
+				//	Clear Assessment form
+				instance.clearAssess();
+				$('#assess_save, #assess_cancel').prop('disabled', false);
+				
+				//	Re-display
+				instance.filter(undefined, undefined, undefined, appointmentId, true);
+			}, 3000);
+		});
+		
+		
+        /**
+         * Event: Cancel Assessment Button "Click"
+         */
+		$('.students-page #assess_cancel').click(function() {
+			$('#popup_assess .curtain').fadeOut();
+			$('#assess_popup').fadeOut();
+			instance.clearAssess();
+		});
+	};
 
     /**
      * Cancel an appointment record from database.
@@ -121,7 +196,7 @@
 			}
             
             this.resetForm();
-            this.filter($('#filter-my_appointments .key').val());
+            this.filter();
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 
@@ -160,6 +235,7 @@
 		$('#remark').val((appointment.remark !== null && appointment.remark !== "") ? appointment.remark : "None");
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
 		$('#stars').val(appointment.stars);
+		$('#com_or_sug').val(appointment.com_or_sug);
 		
 		$('#description').val(appointment.appointment_description);
 		$('#service_type').val(appointment.service_type);
@@ -184,15 +260,15 @@
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    StudentsMyAppointmentHelper.prototype.filter = function (key, selectId, display) {
+    StudentsMyAppointmentHelper.prototype.filter = function (bs, st, tn, selectId, display) {
         display = display || false;
 
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            booking_status: JSON.stringify('ALL'),
-			service_type: JSON.stringify('ALL'),
-			tutor_name: JSON.stringify('ALL')
+            booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
+			service_type: JSON.stringify((st === undefined || st === '') ? 'ALL' : st),
+			tutor_name: JSON.stringify((tn === undefined || tn === '') ? 'ALL' : tn)
         };
 
         $.post(postUrl, postData, function (response) {
@@ -317,5 +393,39 @@
         }
     };
 
+    /**
+     * Clear assessment
+     */
+    StudentsMyAppointmentHelper.prototype.clearAssess = function() {
+		$('#assess_feedback').val('');
+		$("#popup_assess input[name='rating']:checked")[0].checked = false;
+		$('.rating__input#rating-3').prop('checked', true);
+    };	
+	
+    /**
+     * Get all tutors and wrap them in an html
+     */
+    StudentsMyAppointmentHelper.prototype.getAllTutors = function() {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_tutor';
+		
+        $.post(postUrl, function (response) {
+//			//	Test whether response is an exception or a warning
+//            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+//                return;
+//            }
+//			
+//			//	Clear all data
+//			$('#filter-my_appointments #filter-service-category span').html('');
+//			
+//			//	Iterate through all tutors, generate htmls for them and
+//			//	add them to the list
+//            $.each(response, function (index, tutor) {
+//				var display_tutor = (tutor.first_name.length + tutor.last_name.length >= 34) ? "Too Long" : (tutor.first_name + " " + tutor.last_name);
+//                var html = "<li class='filter-item filter-item--find' title='" + tutor.first_name + " " + tutor.last_name + "'>" + display_tutor + "</li>";
+//                $('#filter-my_appointments #filter-service-category span').append(html);
+//            }.bind(this));
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };	
+	
     window.StudentsMyAppointmentHelper = StudentsMyAppointmentHelper;
 })();
