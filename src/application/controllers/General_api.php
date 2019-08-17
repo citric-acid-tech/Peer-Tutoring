@@ -33,15 +33,15 @@ class General_api extends CI_Controller{
             // Get input
 
             // Query
-            $reuslt = $this->general_model->get_all_tutors();
-            
+            $result = $this->general_model->get_all_tutors();
+    
             // Log
 
                 // TODO
 
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result));
+                ->set_output(json_encode($result), TRUE);
 
         }catch (Exception $exc){
             $this->output
