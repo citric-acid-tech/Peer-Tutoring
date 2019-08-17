@@ -72,7 +72,7 @@ class Students_model extends CI_Model{
             }
 
             if($service_type != 'ALL'){
-                $this->db->where('service_type', $service_type);
+                $this->db->where('ea_service_categories.name', $service_type);
             }
 
             if($tutor_name != 'ALL'){
@@ -331,7 +331,5 @@ class Students_model extends CI_Model{
         return $this->db->insert('ea_users', $data);
         
     }
-
-    
 }
 ?>
