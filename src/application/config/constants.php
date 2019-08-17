@@ -93,6 +93,14 @@ define('AVAILABILITIES_TYPE_FIXED', 'fixed');
 /* This is some regular setting about appointments */
 define('MIN_CANCEL_AHEAD_MINS', 1440); // 1 day = 24 * 60mins = 1440 mins
 define('MIN_BOOK_AHEAD_MINS', 10080); // 7 days = 7 * 24 * 60mins = 10,080 mins
+define('DOCUMENT_FORMAT', 'doc|docx|md|pdf'); 
+define('MAX_DOCUMENT_SIZE',2048); // KB
+define('BEGINNING_DATE_OF_THE_SEMESTER_SPRING', '2019-02-18' . ' 00:00');
+define('BEGINNING_DATE_OF_THE_SEMESTER_SUMMER', '2019-06-24' . ' 00:00');
+define('BEGINNING_DATE_OF_THE_SEMESTER_FALL', '2019-09-02' . ' 00:00');
+define('NATURAL_WEEK_LENGTH_OF_THE_SEMESTER_SPRING', 15);
+define('NATURAL_WEEK_LENGTH_OF_THE_SEMESTER_SUMMER', 6);
+define('NATURAL_WEEK_LENGTH_OF_THE_SEMESTER_FALL', 16);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

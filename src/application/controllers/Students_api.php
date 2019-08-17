@@ -207,5 +207,58 @@ class Students_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    // If the start_datetime or end_datetime are 'DEFAULT', 
+    // then the insert values of them are the corresponding values of the service
+    public function ajax_new_appointment(){
+        //
+        try{
+            $this->load->model('students_model');
+
+            // Get input
+            $service_id = json_decode($this->input->post('service_id'), TRUE);
+            $start_datetime = json_decode($this->input->post('start_datetime'), TRUE);
+            $end_datetime = json_decode($this->input->post('end_datetime'), TRUE);
+            $note = json_decode($this->input->post('note'), TRUE);
+            $remark = json_decode($this->input->post('remark'), TRUE);
+            $user_id = $this->session->user_data('user_id');
+
+            // Upload File? TODO
+
+            // Query
+            if ($this->students_model->new_appointment($user_id, $service_id, $start_datetime, $end_datetime, $note, $remark) ){
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('success'));
+            }else{
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('fail'));
+            }
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function do_upload_file(){
+
+        $config['upload_path'] = './upload';
+        $config['allowed_types'] = DOCUMENT_FORMAT;
+        $config['max_size'] = MAX_DOCUMENT_SIZE;
+        
+        $this->load->library('upload', $config);
+
+        //'userfile' is a from element in the form of the views
+        if( ! $this->upload->do_upload('userfile')){
+            $error = array('error' => $this->upload->display_errors());
+            //$this->load->view('test/upload_form', $error);
+        }else{
+            $data = array('upload_data' => $this->upload->data());
+            //$this->load->view('test/upload_success', $data);
+        }
+    }
 }
 ?>

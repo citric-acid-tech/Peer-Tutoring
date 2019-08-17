@@ -31,7 +31,6 @@ class Students_model extends CI_Model{
             $tutor_id = $tutor_id[0]['tutor_id'];
         }
 
-
         // query
         $this->db
             ->select('
@@ -77,6 +76,7 @@ class Students_model extends CI_Model{
             }
 
         return $this->db
+            ->order_by('start_datetime', 'ASC')
             ->get()
             ->result_array();
     }
@@ -138,6 +138,7 @@ class Students_model extends CI_Model{
         // query
         $this->db
             ->select('
+            ea_services.id                                         AS service_id,
             ea_services.name                                       AS service_type,
             ea_services.duration                                   AS duration,
             ea_services.description                                AS description,
@@ -167,6 +168,7 @@ class Students_model extends CI_Model{
             }
             
             return $this->db
+                ->order_by('start_datetime', 'ASC')
                 ->get()
                 ->result_array();
     }
@@ -194,6 +196,7 @@ class Students_model extends CI_Model{
 
         $this->db
             ->select('
+            ea_users.id                                             AS tutor_id,
             CONCAT(ea_users.first_name, \' \', ea_users.last_name ) AS tutor_name,
             ea_users.personal_page                                  AS personal_page,
             MIN(ea_services.start_datetime)                         AS earliest_start_datetime
@@ -230,6 +233,7 @@ class Students_model extends CI_Model{
     }
 
     public function get_available_tutors_date_selection($start_datetime, $end_datetime){
+
         return $this->db
                 ->select('
                 CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
@@ -244,6 +248,71 @@ class Students_model extends CI_Model{
                 ->order_by('start_datetime', 'ASC')
                 ->get()
                 ->result_array();
+    }
+
+    public function new_appointment($user_id, $service_id, $start_datetime, $end_datetime, $note, $remark){
+
+        //:: Check if this appointment can be booked or not.
+
+        //// Check if it is full.
+        $number = $this->db
+                ->select('
+                ea_services.capacity AS capacity,
+                ea_services.appointments_number AS num
+                ')
+                ->from('ea_services')
+                ->where('ea_services.id', $service_id)
+                ->get()
+                ->row_array();
+        
+        //// This appointment can not be booked since the volumn is limited.
+        if($number['capacity'] == $number['num']){
+            return FALSE;
+        }
+
+        //:: Proceed
+
+        //// Insert the appointment into database
+
+        $book_datetime = $this->db->select('NOW()')->get()->row_array()['NOW()'];
+
+        if( $start_datetime === 'DEFAULT'){
+            $start_datetime = $this->db
+                ->select('ea_services.start_datetime AS start')
+                ->from('ea_services')
+                ->where('ea_services.id', $service_id)
+                ->get()
+                ->row_array()['start'];
+        }
+
+        if( $end_datetime === 'DEFAULT'){
+            $end_datetime = $this->db
+                ->select('ea_services.end_datetime AS end')
+                ->from('ea_services')
+                ->where('ea_services.id', $service_id)
+                ->get()
+                ->row_array()['end'];
+        }
+
+        $data = array(
+            'id_services' => $service_id,
+            'id_users_customer' => $user_id,
+            'book_datetime' => $book_datetime,
+            'start_datetime' => $start_datetime,
+            'end_datetime' => $end_datetime,
+            'notes' => $note,
+            'remark' => $remark
+        );
+
+        if($this->db->insert('ea_appointments',$data)){
+            //// Increase the number of appointment of the relating service
+            $this->db->set('appointments_number', 'appointments_number + 1', FALSE);
+            $this->db->where('id', $service_id);
+            $this->db->update('ea_services');
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 }
 ?>
