@@ -30,6 +30,8 @@
 		//	Popup hide
 		$('.curtain').hide();
 		$('#assess_popup').hide();
+		$('#filter-my_appointments #ma_sc_display').hide();
+		$('#filter-my_appointments #ma_tn_display').hide();
 		
         StudentsMyAppointment.initialize(true);
     });
@@ -48,19 +50,19 @@
                   			<option value="2"><?= lang("bs2") ?></option>
                   			<option value="3"><?= lang("bs3") ?></option>
                   		</select>
-                  		<div class="curtain"></div>
                   		<input type="text" class="form-control" id="my_appointments_service_category" placeholder="Type for a service category" title="Select a service category" />
-                  		<div>
+                  		<div id="ma_sc_display">
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-category" class="filter-list">
-                 				<li class="filter-item filter-item--close" title="Search all Service Categories">Search all Service Categories</li>
+                 				<li class="filter-item filter-item--close" title="- Search all Service Categories -">Search all Service Categories</li>
                   				<span></span>
                   			</ul>
                   		</div>
+ 
                    		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" />
-                  		<div>
+                  		<div id="ma_tn_display">
                   			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="Search all Tutors">Search all Tutors</li>
+                  				<li class="filter-item filter-item--close" title="- Search all Tutors -">Search all Tutors</li>
                   				<span></span>
                   			</ul>
                   		</div>
@@ -69,13 +71,13 @@
                    <div class="input-group-addon">
                        <div>
                        		<div>
-                       			<button class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
+                       			<button id="search-filter" class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
                        			    <span class="glyphicon glyphicon-search"></span>
                        			</button>
                        		</div>
                        		<br />
 							<div>
-                            	<button class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
+                            	<button id="clear-filter" class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
                             	    <span class="glyphicon glyphicon-repeat"></span>
                             	</button>
 							</div>

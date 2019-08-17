@@ -23,12 +23,13 @@
          * Event: Filter My Appointments Form "Submit"
          */
         $('#filter-my_appointments form').submit(function () {
-			
             $('#filter-my_appointments .selected').removeClass('selected');
             instance.resetForm();
+			var sc = $('#filter-my_appointments #my_appointments_service_category').val();
+			var tn = $('#filter-my_appointments #my_appointments_tutor').val();
             instance.filter($("#my_appointments_booking_status option:selected").val(),
-						   $('#filter-my_appointments #my_appointments_service_category').val(),
-						   $('#filter-my_appointments #my_appointments_tutor').val());
+						   sc,
+						   tn);
             return false;	//	why?
         });
 
@@ -42,6 +43,9 @@
             $('#filter-my_appointments #my_appointments_tutor').val('');
             instance.filter();
             instance.resetForm();
+			//	re-filter
+			instance.filterList('.students-page #filter-service-category span li', '');
+			instance.filterList('.students-page #filter-tutor-name span li', '');
         });
 
         /**
@@ -176,9 +180,27 @@
          */
 		$('.students-page #my_appointments_service_category').on("keyup", function() {
 			var val = $(this).val().toLowerCase();
-			$('.students-page #filter-service-category span li').filter(function() {
-				$(this).toggle($(this)[0].title.toLowerCase().indexOf(val) > -1);
-			});
+			instance.filterList('.students-page #filter-service-category span li', val);
+		});
+		
+        /**
+         * Event: click the input bar, show filter details of service categories
+         */
+		$('.students-page #my_appointments_service_category').focus(function() {
+			$('#filter-my_appointments #ma_sc_display').fadeIn();
+			//	disable two buttons
+			$('#filter-my_appointments #search-filter').prop('disabled', true);
+			$('#filter-my_appointments #clear-filter').prop('disabled', true);
+		});	
+        /**
+         * Event: click the input bar, show filter details of tutor name
+         */
+		$('.students-page #my_appointments_tutor').focus(function() {
+//			$('#filter-my_appointments .curtain').fadeIn();
+			$('#filter-my_appointments #ma_tn_display').fadeIn();
+			//	disable two buttons
+			$('#filter-my_appointments #search-filter').prop('disabled', true);
+			$('#filter-my_appointments #clear-filter').prop('disabled', true);
 		});
 		
         /**
@@ -186,9 +208,30 @@
          */
 		$('.students-page #my_appointments_tutor').on("keyup", function() {
 			var val = $(this).val().toLowerCase();
-			$('.students-page #filter-tutor-name span li').filter(function() {
-				$(this).toggle($(this)[0].title.toLowerCase().indexOf(val) > -1);
-			});
+			instance.filterList('.students-page #filter-tutor-name span li', val);
+		});
+		
+		/**
+         * Event: Press list items for service categories
+         */
+		$(document).on('click', '.students-page #ma_sc_display .filter-item--close, .students-page #ma_sc_display .filter-item--find', function() {
+			$('.students-page #my_appointments_service_category').val($(this).attr("title"));
+			$('#filter-my_appointments #ma_sc_display').fadeOut();
+			instance.filterList('.students-page #filter-service-category span li', $('.students-page #my_appointments_service_category').val().toLowerCase());
+			//	enable two buttons
+			$('#filter-my_appointments #search-filter').prop('disabled', false);
+			$('#filter-my_appointments #clear-filter').prop('disabled', false);
+		});
+		/**
+         * Event: Press list items for tutor name
+         */
+		$(document).on('click', '.students-page #ma_tn_display .filter-item--close, .students-page #ma_tn_display .filter-item--find', function() {
+			$('.students-page #my_appointments_tutor').val($(this).attr("title"));
+			$('#filter-my_appointments #ma_tn_display').fadeOut();
+			instance.filterList('.students-page #filter-tutor-name span li', $('.students-page #my_appointments_tutor').val().toLowerCase());
+			//	enable two buttons
+			$('#filter-my_appointments #search-filter').prop('disabled', false);
+			$('#filter-my_appointments #clear-filter').prop('disabled', false);
 		});
 		
 	};
@@ -289,8 +332,8 @@
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
             booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
-			service_type: JSON.stringify((st === undefined || st === '') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '') ? 'ALL' : tn)
+			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
+			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn)
         };
 
         $.post(postUrl, postData, function (response) {
@@ -439,10 +482,10 @@
             csrfToken: GlobalVariables.csrfToken
         };
         $.post(postUrl, postData, function (response) {
-//			//	Test whether response is an exception or a warning
-//            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-//                return;
-//            }
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
 			
 			//	Clear all data
 			$('#filter-my_appointments #filter-tutor-name span').html('');
@@ -450,46 +493,48 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				alert(tutor.name);
-				var display_tutor = (tutor.first_name.length + tutor.last_name.length >= 34) ? "Too Long" : (tutor.first_name + " " + tutor.last_name);
-				var html = "<li class='filter-item filter-item--find' title='" + tutor.first_name + " " + tutor.last_name + "'>" + display_tutor + "</li>";
+				var display_tutor = (tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
+				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-my_appointments #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-		
     };
 	
     /**
      * Get all service categories and wrap them in an html
      */
     StudentsMyAppointmentHelper.prototype.getAllServiceCategories = function() {
-		//	Clear all data
-		$('#filter-my_appointments #filter-service-category span').html('');
-		
-		//	Iterate through all services, generate htmls for them and
-		//	add them to the list
-		$.each(this.filterResults, function (index, service) {
-			var display_service = (service.service_type.length >= 35) ? "Too Long" : service.service_type;
-			var html = "<li class='filter-item filter-item--find' title='" + service.service_type + "'>" + display_service + "</li>";
-			$('#filter-my_appointments #filter-service-category span').append(html);
-		}.bind(this));
+        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			//	Clear all data
+			$('#filter-my_appointments #filter-service-category span').html('');
+			
+			//	Iterate through all tutors, generate htmls for them and
+			//	add them to the list
+			$.each(response, function (index, service) {
+				var display_service = (service.name.length >= 35) ? "Too Long" : service.name;
+				var html = "<li class='filter-item filter-item--find' title='" + service.name + "'>" + display_service + "</li>";
+				$('#filter-my_appointments #filter-service-category span').append(html);
+			}.bind(this));
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
-//    /**
-//     * Get all service categories and wrap them in an html
-//     */
-//    StudentsMyAppointmentHelper.prototype.getAllServiceCategories = function() {
-//		//	Clear all data
-//		$('#filter-my_appointments #filter-service-category span').html('');
-//		
-//		//	Iterate through all services, generate htmls for them and
-//		//	add them to the list
-//		$.each(this.filterResults, function (index, service) {
-//			var display_service = (service.service_type.length >= 35) ? "Too Long" : service.service_type;
-//			var html = "<li class='filter-item filter-item--find' title='" + service.service_type + "'>" + display_service + "</li>";
-//			$('#filter-my_appointments #filter-service-category span').append(html);
-//		}.bind(this));
-//    };
+    /**
+     * Get all service categories and wrap them in an html
+     */
+    StudentsMyAppointmentHelper.prototype.filterList = function(filterItem, filterValue) {
+		$(filterItem).filter(function() {
+			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
+		});
+    };
 	
     window.StudentsMyAppointmentHelper = StudentsMyAppointmentHelper;
 })();
