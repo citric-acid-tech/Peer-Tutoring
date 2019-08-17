@@ -60,7 +60,7 @@ class General_api extends CI_Controller{
             // Get input
 
             // Query
-            $reuslt = $this->general_model->get_all_service_types();
+            $result = $this->general_model->get_all_service_types();
             
             // Log
 
