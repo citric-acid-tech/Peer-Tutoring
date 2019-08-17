@@ -70,6 +70,9 @@ class Students_api extends CI_Controller{
 
             $ajax_result = $isCanceled ? 'cancellation_accepted' : 'cancellation_refused';
 
+            // Log
+            
+
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode([
@@ -92,7 +95,7 @@ class Students_api extends CI_Controller{
             // Get input
             $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
             $stars = json_decode($this->input->post('stars'), TRUE);
-            $comment_or_suggestion = json_decode($this->input->post($this->input->post('comment_or_suggestion')), TRUE);
+            $comment_or_suggestion = json_decode($this->input->post('comment_or_suggestion'), TRUE);
 
             // Query
             $this->students_model->rate_and_comment($stars, $comment_or_suggestion);

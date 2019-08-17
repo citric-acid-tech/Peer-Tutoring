@@ -49,6 +49,7 @@ class Students_model extends CI_Model{
             ea_appointments.feedback           AS feedback,
             ea_appointments.suggestion         AS suggestion,
             ea_appointments.stars              AS stars,
+            ea_appointments.comment_or_suggestion AS com_or_sug,
             
             ea_appointments.remark             AS remark,
 
