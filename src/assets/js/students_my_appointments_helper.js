@@ -51,7 +51,7 @@
 			//	Find the appointment according to id and get its data
             var appointment = {};
             $.each(instance.filterResults, function (index, item) {
-                if (item.id === appointmentId) {
+                if (item.appointment_id === appointmentId) {
                     appointment = item;
                     return false;
                 }
