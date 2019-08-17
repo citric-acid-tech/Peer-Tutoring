@@ -27,11 +27,11 @@
     };
 
     $(document).ready(function() {
-        StudentsMyAppointment.initialize(true);
-		
 		//	Popup hide
 		$('.curtain').hide();
 		$('#assess_popup').hide();
+		
+        StudentsMyAppointment.initialize(true);
     });
 </script>
 
@@ -54,20 +54,14 @@
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-category" class="filter-list">
                  				<li class="filter-item filter-item--close" title="Search all Service Categories">Search all Service Categories</li>
-                  				<span>
-                  					<li class="filter-item filter-item--find" title="Y">Y</li>
-                  					<li class="filter-item filter-item--find" title="Z">Z</li>
-                  				</span>
+                  				<span></span>
                   			</ul>
                   		</div>
                    		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" />
                   		<div>
-                  			<ul id="filter-tutor name" class="filter-list">
+                  			<ul id="filter-tutor-name" class="filter-list">
                   				<li class="filter-item filter-item--close" title="Search all Tutors">Search all Tutors</li>
-                  				<span>
-                  					<li class="filter-item filter-item--find" title="Y">Yaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
-                  					<li class="filter-item filter-item--find" title="Z">Z</li>
-                  				</span>
+                  				<span></span>
                   			</ul>
                   		</div>
                    </div>
