@@ -32,6 +32,9 @@ class Students_model extends CI_Model{
         }
 
         // query
+
+        //ea_appointments.description        AS appointment_description,
+
         $this->db
             ->select('
             ea_appointments.id                 AS appointment_id,
@@ -46,21 +49,21 @@ class Students_model extends CI_Model{
             ea_appointments.feedback           AS feedback,
             ea_appointments.suggestion         AS suggestion,
             ea_appointments.stars              AS stars,
-            ea_appointments.description        AS appointment_description,
+            
             ea_appointments.remark             AS remark,
 
             ea_users.first_name                AS first_name, 
             ea_users.last_name                 AS last_name,
              
             ea_service_categories.name         AS service_type,
-            ea_Service_categories.description  AS service_type_description,
+            ea_Service_categories.description  AS appointment_description,
             
             ea_services.name                   AS service_name
             ')
             ->from('ea_appointments')
-            ->join('ea_users', 'ea_appointments.id_users_provider = ea_users.id', 'inner')
             ->join('ea_services', 'ea_appointments.id_services = ea_services.id', 'inner')
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+            ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
             ->where('ea_appointments.id_users_customer', $user_id);
 
             if($booking_status != 'ALL'){
@@ -314,5 +317,20 @@ class Students_model extends CI_Model{
             return FALSE;
         }
     }
+
+    public function new_student($first_name, $last_name, $email, $phone_number, $id_roles){
+        $data = array(
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'email' => $email,
+            'phone_number' => $phone_number,
+            'id_roles' => $id_roles
+        );
+
+        return $this->db->insert('ea_users', $data);
+        
+    }
+
+    
 }
 ?>

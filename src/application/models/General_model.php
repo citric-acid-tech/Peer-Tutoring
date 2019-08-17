@@ -2,6 +2,22 @@
 
 class General_model extends CI_Model{
 
+    public function get_all_services(){
+        return $this->db
+            ->select('ea_services.id AS id')
+            ->from('ea_services')
+            ->get()
+            ->result_array();
+    }
+
+    public function get_all_users(){
+        return $this->db
+            ->select('CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name')
+            ->from('ea_users')
+            ->get()
+            ->result_array();
+    }
+
     public function get_all_tutors(){
         
         return $this->db
