@@ -74,14 +74,14 @@
             $(this).addClass('selected');
 			
 			//	If cancelled, disable cancel appointment button
-			if (appointment.booking_status === '3') {
-				$('#cancel-appointment').prop('disabled', true);
-			} else {
+			if (appointment.booking_status === '0') {
 				$('#cancel-appointment').prop('disabled', false);
+			} else {
+				$('#cancel-appointment').prop('disabled', true);
 			}
 			
 			//	If finished and not cancelled, enable assess appointment button
-			if (appointment.booking_status === '1' || appointment.booking_status === '2') {
+			if (appointment.booking_status === '1') {
 				$('#assess-appointment').prop('disabled', false);
 			} else {
 				$('#assess-appointment').prop('disabled', true);
