@@ -1,12 +1,10 @@
-<script src="<?= asset_url('assets/ext/jquery-ui/jquery-ui-timepicker-addon.js') ?>"></script>
-
 <script src="<?= asset_url('assets/js/students_my_appointments_helper.js') ?>"></script>
 <script src="<?= asset_url('assets/js/students_my_appointments.js') ?>"></script>
 <script>
 	//	csrfToken is for safety, a random hash value --> hard-to-guess string, to protect a form
 	//	baseUrl is a constant of your base address, which is set in the external config.php
-	//	availableProviders owns a list of available tutors
-	//	availableServices owns a list of available services
+	//	availableProviders owns a list of available tutors -->         availableProviders : < ?= json_encode($available_providers) ?>,
+	//	availableServices owns a list of available services -->         availableServices  : < ?= json_encode($available_services) ?>,
 	//	secretaryProviders : seems unnecessary --> secretaryProviders : < ?= json_encode($secretary_providers) ?>,
 	//	dateFormat retrieves the date format stored in database: currently "DMY" - will be used in helper & general javsscript file
 	//	timeFormat retrieves the time format stored in database: currently "regular" - will be used in general javascript file
@@ -21,8 +19,6 @@
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
-        availableProviders : <?= json_encode($available_providers) ?>,
-        availableServices  : <?= json_encode($available_services) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>
     };

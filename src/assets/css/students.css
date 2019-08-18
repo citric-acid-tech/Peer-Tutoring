@@ -197,7 +197,7 @@ root {
 
 
 
-/* COMPONENTS */
+/* My-Appointments: COMPONENTS */
 .students-page .filter-records {
     margin-bottom: 20px;
 }
@@ -439,7 +439,15 @@ root {
 	margin: 16px;
 }
 
-/* COMPONENTS */
+/* My-Appointments: COMPONENTS */
+
+
+
+
+
+
+
+
 
 
 
@@ -462,11 +470,17 @@ root {
     }
 
     #footer #footer-user-display-name {
-        text-align: left;
+        text-align: right;
     }
 
     #calendar-page #calendar-filter label {
         margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    #footer #footer-content, #footer #footer-user-display-name {
+        text-align: center;
     }
 }
 
