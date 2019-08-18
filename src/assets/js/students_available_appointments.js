@@ -1,4 +1,4 @@
-window.StudentsMyAppointment = window.StudentsMyAppointment || {};
+window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {};
 
 /**
  * Students My Appointment
@@ -6,7 +6,7 @@ window.StudentsMyAppointment = window.StudentsMyAppointment || {};
  * Students My Appointment javascript namespace. Contains the main functionality of the Students My Appointment
  * page.
  *
- * @module StudentsMyAppointment
+ * @module StudentsAvailableAppointments
  */
 (function (exports) {
 
@@ -14,7 +14,7 @@ window.StudentsMyAppointment = window.StudentsMyAppointment || {};
 
     /**
      * The page helper contains methods that implement each record type functionality
-     * StudentsMyAppointmentHelper
+     * StudentsAvailableAppointmentsTutorHelper
      *
      * @type {Object}
      */
@@ -29,9 +29,9 @@ window.StudentsMyAppointment = window.StudentsMyAppointment || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new StudentsMyAppointmentHelper();
+        helper = new StudentsAvailableAppointmentsTutorHelper();
         helper.resetForm();
-        helper.filter(undefined, undefined, undefined, undefined, undefined, 'true');
+        helper.filter(undefined, undefined, undefined, undefined, 'true');
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -45,4 +45,4 @@ window.StudentsMyAppointment = window.StudentsMyAppointment || {};
         helper.bindEventHandlers();
     }
 
-})(window.StudentsMyAppointment);
+})(window.StudentsAvailableAppointments);
