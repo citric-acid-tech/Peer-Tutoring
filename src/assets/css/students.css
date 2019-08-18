@@ -463,9 +463,18 @@ root {
 	display: none;
 }
 
-
-
-
+.students-page .nav {
+	/* styles of ul */
+	background-color: #f4f4f4;
+	margin-bottom: 15px;
+}
+.students-page .nav li {
+	cursor: pointer;
+}
+.students-page .nav li #check-calendar-tabnav {
+	background-color: rgba(41, 109, 151, 0.8);
+	color: snow;
+}
 
 
 

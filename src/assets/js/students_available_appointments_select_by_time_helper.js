@@ -3,20 +3,20 @@
     'use strict';
 
     /**
-     * StudentsMyAppointmentHelper Class
+     * StudentsAvailableAppointmentsTimeHelper Class
      *
      * This class contains the methods that are used in the Students My Appointment page.
      *
-     * @class StudentsMyAppointmentHelper
+     * @class StudentsAvailableAppointmentsTimeHelper
      */
-    function StudentsMyAppointmentHelper() {
+    function StudentsAvailableAppointmentsTimeHelper() {
         this.filterResults = {};
     }
 
     /**
      * Binds the default event handlers of the Students My Appointment page.
      */
-    StudentsMyAppointmentHelper.prototype.bindEventHandlers = function () {
+    StudentsAvailableAppointmentsTimeHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 
         /**
@@ -245,7 +245,7 @@
      *
      * @param {Number} id Record id to be cancelled.
      */
-    StudentsMyAppointmentHelper.prototype.cancelAppointment = function (id) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.cancelAppointment = function (id) {
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_cancel_appointment';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
@@ -272,7 +272,7 @@
     /**
      * Bring the appointment form back to its initial state.
      */
-    StudentsMyAppointmentHelper.prototype.resetForm = function () {
+    StudentsAvailableAppointmentsTimeHelper.prototype.resetForm = function () {
 		
 		//	Clear all textareas
         $('.record-details').find('input, textarea').val('');
@@ -297,7 +297,7 @@
      *
      * @param {Object} appointment Contains the appointment record data.
      */
-    StudentsMyAppointmentHelper.prototype.display = function (appointment) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.display = function (appointment) {
 		
         $('#appointment-id').val(appointment.appointment_id);		
 		
@@ -329,7 +329,7 @@
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    StudentsMyAppointmentHelper.prototype.filter = function (bs, st, tn, selectId, display, first_load) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.filter = function (bs, st, tn, selectId, display, first_load) {
         display = display || false;
 
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
@@ -384,7 +384,7 @@
      *
      * @return {String} Returns the record HTML code.
      */
-    StudentsMyAppointmentHelper.prototype.getFilterHtml = function (index, appointment) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.getFilterHtml = function (index, appointment) {
 		
 		//	The remark will be used in the first line
 		var remark = (appointment.remark !== '' && appointment.remark !== null) ?
@@ -419,7 +419,7 @@
      *
      * @return {String} Returns the string so it can be used as lang(str) or EALang.str
      */
-    StudentsMyAppointmentHelper.prototype.decodeBookingStatus = function (booking_status) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.decodeBookingStatus = function (booking_status) {
 		
 		var translation_mark = "";
 		switch(booking_status) {
@@ -442,7 +442,7 @@
      * @param {Boolean} display Optional (false), if true then the method will display the record
      * on the form.
      */
-    StudentsMyAppointmentHelper.prototype.select = function (id, display) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.select = function (id, display) {
         display = display || false;
 		
 		//	Remove all selected classes in advance
@@ -471,7 +471,7 @@
     /**
      * Clear assessment
      */
-    StudentsMyAppointmentHelper.prototype.clearAssess = function() {
+    StudentsAvailableAppointmentsTimeHelper.prototype.clearAssess = function() {
 		$('#assess_feedback').val('');
 		$("#popup_assess input[name='rating']:checked")[0].checked = false;
 		$('.rating__input#rating-3').prop('checked', true);
@@ -480,7 +480,7 @@
     /**
      * Get all tutors and wrap them in an html
      */
-    StudentsMyAppointmentHelper.prototype.getAllTutors = function() {
+    StudentsAvailableAppointmentsTimeHelper.prototype.getAllTutors = function() {
         var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_tutor';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
@@ -507,7 +507,7 @@
     /**
      * Get all service categories and wrap them in an html
      */
-    StudentsMyAppointmentHelper.prototype.getAllServiceCategories = function() {
+    StudentsAvailableAppointmentsTimeHelper.prototype.getAllServiceCategories = function() {
         var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
@@ -534,11 +534,11 @@
     /**
      * Get all service categories and wrap them in an html
      */
-    StudentsMyAppointmentHelper.prototype.filterList = function(filterItem, filterValue) {
+    StudentsAvailableAppointmentsTimeHelper.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
 			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
     };
 	
-    window.StudentsMyAppointmentHelper = StudentsMyAppointmentHelper;
+    window.StudentsAvailableAppointmentsTimeHelper = StudentsAvailableAppointmentsTimeHelper;
 })();
