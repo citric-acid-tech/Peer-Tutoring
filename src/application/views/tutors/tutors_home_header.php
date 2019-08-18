@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/students.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/tutors.css', NULL, 'css') ?>" />
 
 	<script src="<?= asset_url('assets/ext/jquery/jquery.min.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.min.js', NULL, 'js') ?>"></script>
@@ -61,6 +61,14 @@
 							<?= lang('appointments_management') ?>
 						</a>
 					</li>
+
+					<?php $active = ($active_menu == PRIV_TUTOR_SETTINGS) ? 'active' : '' ?>
+					<li class="<?= $active ?>">
+						<a href="<?= site_url('tutors/settings') ?>" class="menu-item" title="<?= lang('settings_hint') ?>">
+							<?= lang('settings') ?>
+						</a>
+					</li>
+
 					<li>
 						<a href="<?= site_url('user/logout') ?>" class="menu-item" title="<?= lang('log_out_hint') ?>">
 							<?= lang('log_out') ?>

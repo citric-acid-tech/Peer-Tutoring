@@ -83,7 +83,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4 platform">
-				<a href= <?= site_url('backend') ?> >
+				<a href= <?= site_url('tutors') ?> >
 					<div class="platform_icons">
 						<i class="fas fa-chalkboard-teacher fa-2x"></i>
 					</div>
