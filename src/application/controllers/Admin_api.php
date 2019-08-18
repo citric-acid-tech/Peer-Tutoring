@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Students_api extends CI_Controller{
+class Admin_api extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
@@ -47,7 +47,7 @@ class Students_api extends CI_Controller{
             $phone_number = json_decode($this->input->post('phone_number'), TRUE);
 
             // Query
-            $reuslt = $this->admin_model->new_tutor($first_name, $last_name, $personal_page, 
+            $result = $this->admin_model->new_tutor($first_name, $last_name, $personal_page, 
                                         $introduction, $phone_number, $eamil, $address, $flexible_column);
             
             // Log
@@ -99,7 +99,7 @@ class Students_api extends CI_Controller{
             $service_description = json_decode($this->input->post('service_description'), TRUE);
 
             // Query
-            $reuslt = $this->admin_model->new_service_batch();
+            $result = $this->admin_model->new_service_batch();
             
             // Log
 
@@ -146,7 +146,7 @@ class Students_api extends CI_Controller{
             $description = json_decode($this->input->post('description'), TRUE);
 
             // Query
-            $reuslt = $this->admin_model->new_service_type($name, $description);
+            $result = $this->admin_model->new_service_type($name, $description);
             // Log
 
                 // TODO

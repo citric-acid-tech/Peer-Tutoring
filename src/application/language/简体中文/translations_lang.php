@@ -371,5 +371,6 @@ $lang['max_services_checking_ahead_day'] = '可提前查看课程的天数';
 $lang['max_appointment_cancel_ahead_day'] = '预约可提前被取消的最小天数';
 $lang['given_name'] = 'Given Name';
 $lang['surname'] = 'Surname';
-$lang['check_available_time'] = 'Check Acailable Time';
 $lang['earliest_start_datetime'] = 'Earliest service starts on';
+$lang['check_available_time'] = 'Check Available Time';
+$lang['save_feedback_and_suggestion'] = 'Save and Send';

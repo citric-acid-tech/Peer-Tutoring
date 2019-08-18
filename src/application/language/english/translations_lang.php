@@ -370,5 +370,6 @@ $lang['max_services_checking_ahead_day'] = 'Max number of visible days';
 $lang['max_appointment_cancel_ahead_day'] = 'Appointments cannot be cancelled within ';
 $lang['given_name'] = 'Given Name';
 $lang['surname'] = 'Surname';
-$lang['check_available_time'] = 'Check Acailable Time';
 $lang['earliest_start_datetime'] = 'Earliest service starts on';
+$lang['check_available_time'] = 'Check Available Time';
+$lang['save_feedback_and_suggestion'] = 'Save and Send';
