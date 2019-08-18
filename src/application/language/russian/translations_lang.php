@@ -372,3 +372,4 @@ $lang['max_appointment_cancel_ahead_day'] = 'Appointments cannot be cancelled wi
 $lang['given_name'] = 'Given Name';
 $lang['surname'] = 'Surname';
 $lang['check_available_time'] = 'Check Acailable Time';
+$lang['earliest_start_datetime'] = 'Earliest service starts on';
