@@ -369,3 +369,6 @@ $lang['service_description'] = 'Service Description';
 $lang['upload_file_max_size'] = 'Max size of uploaded file';
 $lang['max_services_checking_ahead_day'] = 'Max number of visible days';
 $lang['max_appointment_cancel_ahead_day'] = 'Appointments cannot be cancelled within ';
+$lang['given_name'] = 'Given Name';
+$lang['surname'] = 'Surname';
+$lang['check_available_time'] = 'Check Acailable Time';

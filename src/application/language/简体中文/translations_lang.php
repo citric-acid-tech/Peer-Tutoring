@@ -369,3 +369,6 @@ $lang['service_description'] = '服务描述';
 $lang['upload_file_max_size'] = '上传文件的最大大小';
 $lang['max_services_checking_ahead_day'] = '可提前查看课程的天数';
 $lang['max_appointment_cancel_ahead_day'] = '预约可提前被取消的最小天数';
+$lang['given_name'] = 'Given Name';
+$lang['surname'] = 'Surname';
+$lang['check_available_time'] = 'Check Acailable Time';
