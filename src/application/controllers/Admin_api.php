@@ -27,7 +27,32 @@ class Admin_api extends CI_Controller{
 /** Ajax interface for Tutor */
 
     public function ajax_filter_tutors(){
-        
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+
+            // Query
+            $result = $this->admin_model->filter_tutors($tutor_name);
+            
+            // Log
+
+                // TODO
+
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
 
     public function ajax_new_tutor(){
@@ -73,13 +98,82 @@ class Admin_api extends CI_Controller{
     }
 
     public function ajax_edit_tutor(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
+            $first_name = json_decode($this->input->post('first_name'), TRUE);
+            $last_name = json_decode($this->input->post('last_name'), TRUE);
+            $personal_page = json_decode($this->input->post('personal_page'), TRUE);
+            $introduction = json_decode($this->input->post('introduction'), TRUE);
+            $address = json_decode($this->input->post('address'), TRUE);
+            $flexible_column = json_decode($this->input->post('flexible_column'), TRUE);
+            $eamil = json_decode($this->input->post('eamil'), TRUE);
+            $phone_number = json_decode($this->input->post('phone_number'), TRUE);
 
+            // Query
+            $result = $this->admin_model->edit_tutor($tutor_id, $first_name, $last_name, $personal_page, 
+                                        $introduction, $phone_number, $eamil, $address, $flexible_column);
+            
+            // Log
+
+                // TODO
+
+            if($result == TRUE){
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('success'), TRUE);
+            }else{
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('fail'), TRUE);
+            }
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
 
 /** Ajax interface for services_configuration */
 
     public function ajax_filter_services(){
-        
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+            $semester = json_decode($this->input->post('semester'), TRUE); //Sample = 2019-Fall, See also config/semesters.php
+            $week = json_decode($this->input->post('week'), TRUE);
+            
+            // Query
+            $result = $this->admin_model->filter_services($tutor_name, $semester, $week);
+            
+            // Log
+
+                // TODO
+
+            // Possible output 
+            // 1 : 'tutor_name absence.'
+            // 2 : 'week absence or overflow'
+            // 3 : normal 2-dim array
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+           
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
 
     public function ajax_new_service(){
@@ -179,7 +273,7 @@ class Admin_api extends CI_Controller{
 
 /** Ajax interface for setting */
 
-    public function ajax_setting(){
+    public function ajax_save_settings(){
 
     }
 }

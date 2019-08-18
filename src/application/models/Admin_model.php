@@ -2,6 +2,17 @@
 
 class Admin_model extends CI_Model{
 
+    public function __construct(){
+        parent::__construct();
+        include(APPPATH . 'config' . DIRECTORY_SEPARATOR . 'semesters.php');
+
+        if(is_null($semester)){
+            show_error('Cannot find semester configuration file. 
+                Please read the instruction and 
+                create a configuration file in application/config/semester.php');
+        }
+    }
+
     public function new_tutor($first_name, $last_name, $personal_page, 
                                 $introduction, $phone_number, $eamil, $address, $flexible_column){
         
@@ -123,6 +134,90 @@ class Admin_model extends CI_Model{
 
         return $this->db->get()->result_array();
 
+    }
+
+    public function filter_tutors($tutor_name){
+        $this->db->select('
+                CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
+                ea_users.first_name AS first_name,
+                ea_users.last_name AS last_name,
+                ea_users.personal_page AS personal_page,
+                ea_users.introduction AS introduction,
+                ea_users.address AS address,
+                ea_users.flexible_column AS flexible_coulmn,
+                ea_users.email AS email,
+                ea_users.phone_number AS phone_number
+            ')
+            ->from('ea_users')
+            ->where('ea_users.id_roles', 2);
+
+        if( $tutor_name != 'ALL'){
+            $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+        }
+        return $this->db  
+            ->get()
+            ->result_array();
+    }
+
+    public function edit_tutor($tutor_id, $first_name, $last_name, $personal_page, 
+            $introduction, $phone_number, $eamil, $address, $flexible_column){
+
+        $data = array(
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'email' => $email,
+            'phone_number' => $phone_number,
+            'address' => $address,
+            'introduction' => $introduction,
+            'personal_page' => $personal_page
+        );
+        $this->db->where('ea_users.id', $tutor_id);
+        return $this->db->update('ea_users', $data);
+    }
+
+    public function filter_services($tutor_name, $semester, $week){
+
+        if(is_null($tutor_name)){
+            return 'tutor_name absence.';
+        }
+
+        include(APPPATH . 'config' . DIRECTORY_SEPARATOR . 'semesters.php');
+
+        $tmp_arr = explode('-', '2019-Fall');
+
+        $first_day  = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ]['first_Monday'];
+        $last_weeks = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ][ 'last_weeks' ];
+        
+        if(is_null($week) || $week <= 0 || $week > $last_weeks){
+            return 'week absence or overflow';
+        }
+
+        $tmp_date = new Datetime($first_day);
+        $tmp_date->add( new DateInterval('P' . ( ($week - 1)*7 ) . 'D') );
+        
+        $start_datetime = $tmp_date->format('Y-m-d') . ' 00:00'; // Monday of this week
+
+        for($i = 0; $i < 7; $i++, $tmp_date->add(new DateInterval('P1D'))){
+            $result['date'][$i] = $tmp_date->format('Y-m-d');
+        }
+
+        $end_datetime = $tmp_date->format('Y-m-d') . ' 00:00'; // Monday of the next week
+        
+        $this->db->select('
+           ea_services.id AS id,
+           ea_services.start_datetime AS start_datetime,
+           ea_services.end_datetime AS end_datetime,
+           ea_service_categories.name AS service_type
+        ')
+        ->from('ea_services')
+        ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+        ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+        ->where('start_datetime > ', $start_datetime)
+        ->where('start_datetime <', $end_datetime) // Using end_datetime is also fine
+        ->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+
+        return $this->db->get()
+            ->result_array();
     }
 }
 
