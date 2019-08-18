@@ -1,18 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model{
-
-    public function __construct(){
-        parent::__construct();
-        include(APPPATH . 'config' . DIRECTORY_SEPARATOR . 'semesters.php');
-
-        if(is_null($semester)){
-            show_error('Cannot find semester configuration file. 
-                Please read the instruction and 
-                create a configuration file in application/config/semester.php');
-        }
-    }
-
+    
     public function new_tutor($first_name, $last_name, $personal_page, 
                                 $introduction, $phone_number, $eamil, $address, $flexible_column){
         

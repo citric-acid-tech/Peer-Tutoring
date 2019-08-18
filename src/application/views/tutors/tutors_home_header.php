@@ -62,7 +62,7 @@
 						</a>
 					</li>
 
-					<?php $active = ($active_menu == PRIV_TUTOR_SETTINGS) ? 'active' : '' ?>
+					<?php $active = ($active_menu == PRIV_TUTORS_SETTINGS) ? 'active' : '' ?>
 					<li class="<?= $active ?>">
 						<a href="<?= site_url('tutors/settings') ?>" class="menu-item" title="<?= lang('settings_hint') ?>">
 							<?= lang('settings') ?>

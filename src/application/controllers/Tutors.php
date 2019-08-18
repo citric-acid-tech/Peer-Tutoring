@@ -47,6 +47,34 @@ class Tutors extends CI_Controller{
         $this->load->view('tutors/tutors_home_footer', $view);
     }
 
+    public function settings(){
+        $this->session->set_userdata('dest_url', site_url('tutors'));
+
+        if ( ! $this->_has_privileges(PRIV_TUTORS_SETTINGS))
+        {
+            return;
+        }
+
+        $this->load->model('settings_model');
+        $this->load->model('roles_model');
+        $this->load->model('user_model');
+
+        $view['base_url'] = $this->config->item('base_url');
+        $view['date_format'] = $this->settings_model->get_setting('date_format');
+        $view['time_format'] = $this->settings_model->get_setting('time_format');
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+
+        $user = $this->user_model->get_settings($this->session->userdata('user_id'));
+
+        $this->set_user_data($view);
+
+        $view['active_menu'] = PRIV_TUTORS_SETTINGS;
+
+        $this->load->view('tutors/tutors_home_header', $view);
+        $this->load->view('tutors/tutors_home_settings', $view);
+        $this->load->view('tutors/tutors_home_footer', $view);
+    }
+
     /**
      * Set the user data in order to be available at the view and js code.
      *

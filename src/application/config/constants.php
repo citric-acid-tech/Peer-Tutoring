@@ -78,7 +78,7 @@ define('PRIV_AVAILABLE_APPOINTMENTS', 'available_appointments');
 
 /* Tutors page */
 define('PRIV_APPOINTMENTS_MANAGEMENT', 'appointments_management');
-define('PRIV_TUTOR_SETTINGS', 'tutor_settings');
+define('PRIV_TUTORS_SETTINGS', 'tutors_settings');
 
 define('DATE_FORMAT_DMY', 'DMY');
 define('DATE_FORMAT_MDY', 'MDY');
