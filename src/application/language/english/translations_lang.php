@@ -373,3 +373,5 @@ $lang['surname'] = 'Surname';
 $lang['earliest_start_datetime'] = 'Earliest service starts on';
 $lang['check_available_time'] = 'Check Available Time';
 $lang['save_feedback_and_suggestion'] = 'Save and Send';
+$lang['select_by_tutor_tab'] = 'Select by Tutor';
+$lang['select_by_time_tab'] = 'Select by Time';
