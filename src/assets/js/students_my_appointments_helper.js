@@ -195,6 +195,8 @@
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});	
         /**
          * Event: click the input bar, show filter details of tutor name
@@ -205,6 +207,8 @@
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});
 		
         /**
@@ -225,6 +229,8 @@
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
 			$('#filter-my_appointments #clear-filter').prop('disabled', false);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});
 		/**
          * Event: Press list items for tutor name
@@ -236,6 +242,8 @@
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
 			$('#filter-my_appointments #clear-filter').prop('disabled', false);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});
 		
 	};

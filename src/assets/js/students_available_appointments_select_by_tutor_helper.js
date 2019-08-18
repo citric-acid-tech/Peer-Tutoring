@@ -100,16 +100,19 @@
 			//	disable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', true);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', true);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});	
         /**
          * Event: click the input bar, show filter details of tutor name
          */
 		$('.students-page #available_appointments_tutor').focus(function() {
-//			$('#filter-aa_tutors .curtain').fadeIn();
 			$('#filter-aa_tutors #aa_tn_display').fadeIn();
 			//	disable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', true);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', true);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});
 		
         /**
@@ -130,6 +133,8 @@
 			//	enable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', false);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', false);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});
 		/**
          * Event: Press list items for tutor name
@@ -141,6 +146,8 @@
 			//	enable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', false);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', false);
+			//	Place footer one more time
+			Students.placeFooterToBottom();
 		});
 		
 	};

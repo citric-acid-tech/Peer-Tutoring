@@ -58,7 +58,7 @@
 					<form>
 			            <div class="input-group">
 			               <div class="input-group-selection">
-			              		<input type="text" class="form-control" id="available_appointments_service_category" placeholder="Type for a service category" title="Select a service category" />
+			              		<input type="text" class="form-control" id="available_appointments_service_category" placeholder="Type for a service category" title="Select a service category" autocomplete="off" />
 			              		<div id="aa_sc_display">
 			              			<!-- Notice: If category is longer than 35 characters, scale it -->
 			              			<ul id="filter-service-category" class="filter-list">
@@ -67,7 +67,7 @@
 			              			</ul>
 			              		</div>
 			
-			               		<input type="text" class="key form-control" id="available_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" />
+			               		<input type="text" class="key form-control" id="available_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" autocomplete="off" />
 			              		<div id="aa_tn_display">
 			              			<ul id="filter-tutor-name" class="filter-list">
 			              				<li class="filter-item filter-item--close" title="- Search all Tutors -"><strong>Search all Tutors</strong></li>
