@@ -73,8 +73,12 @@
             $('#filter-my_appointments .selected').removeClass('selected');
             $(this).addClass('selected');
 			
-			//	Enable cancel appointment button
-			$('#cancel-appointment').prop('disabled', false);
+			//	If cancelled, disable cancel appointment button
+			if (appointment.booking_status === '3') {
+				$('#cancel-appointment').prop('disabled', true);
+			} else {
+				$('#cancel-appointment').prop('disabled', false);
+			}
 			
 			//	If finished and not cancelled, enable assess appointment button
 			if (appointment.booking_status === '1' || appointment.booking_status === '2') {

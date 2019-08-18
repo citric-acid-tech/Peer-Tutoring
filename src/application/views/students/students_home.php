@@ -8,22 +8,23 @@
 	//	availableProviders owns a list of available tutors
 	//	availableServices owns a list of available services
 	//	secretaryProviders : seems unnecessary --> secretaryProviders : < ?= json_encode($secretary_providers) ?>,
-	//	dateFormat retrieves the date format stored in database: currently "DMY"
-	//	timeFormat retrieves the time format stored in database: currently "regular"
+	//	dateFormat retrieves the date format stored in database: currently "DMY" - will be used in helper & general javsscript file
+	//	timeFormat retrieves the time format stored in database: currently "regular" - will be used in general javascript file
+	//	customers seem not needed here --> customers          : < ?= json_encode($customers) ?>,
+	//	user is mainly used in backend, seem not necessary here --> 
+	//  user               : {
+	//      id         : < ?= $user_id ?>,
+	//      email      : < ?= json_encode($user_email) ?>,
+	//      role_slug  : < ?= json_encode($role_slug) ?>,
+	//      privileges : < ?= json_encode($privileges) ?>
+	//  }
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
         availableProviders : <?= json_encode($available_providers) ?>,
         availableServices  : <?= json_encode($available_services) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
-        timeFormat         : <?= json_encode($time_format) ?>,
-        customers          : <?= json_encode($customers) ?>,
-        user               : {
-            id         : <?= $user_id ?>,
-            email      : <?= json_encode($user_email) ?>,
-            role_slug  : <?= json_encode($role_slug) ?>,
-            privileges : <?= json_encode($privileges) ?>
-        }
+        timeFormat         : <?= json_encode($time_format) ?>
     };
 
     $(document).ready(function() {
@@ -54,7 +55,7 @@
                   		<div id="ma_sc_display">
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-category" class="filter-list">
-                 				<li class="filter-item filter-item--close" title="- Search all Service Categories -">Search all Service Categories</li>
+                 				<li class="filter-item filter-item--close" title="- Search all Service Categories -"><strong>Search all Service Categories</strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
@@ -62,7 +63,7 @@
                    		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" />
                   		<div id="ma_tn_display">
                   			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- Search all Tutors -">Search all Tutors</li>
+                  				<li class="filter-item filter-item--close" title="- Search all Tutors -"><strong>Search all Tutors</strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
@@ -128,7 +129,7 @@
                    </div>
                    <div class="form-group">
                        <label class="control-label" for="com_or_sug"><?= lang('comment_or_suggestion') ?></label>
-                       <input id="com_or_sug" class="form-control" readonly>
+                       <textarea id="com_or_sug" rows="2" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
                    
                    <div class="form-group">
@@ -139,7 +140,9 @@
                        <label class="control-label" for="service_type"><?= lang('service_type') ?></label>
                        <input id="service_type" class="form-control" readonly>
                    </div>
-                   
+               </div>
+               <!-- Another column -->
+               <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
                    <div class="form-group">
                        <label class="control-label" for="tutor"><?= lang('tutor') ?></label>
                        <input id="tutor" class="form-control" readonly>
@@ -170,7 +173,6 @@
                        <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
                        <textarea id="suggestion" rows="2" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
-
                </div>
            </div>
     	</div>

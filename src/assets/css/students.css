@@ -244,7 +244,7 @@ root {
 /* Watch this, not yet adjusted */
 .students-page .filter-records .results {
     overflow-y: auto;
-    max-height: 650px;
+    max-height: 450px;
     outline: none;
 }
 
@@ -278,6 +278,8 @@ root {
 }
 .record-details .form-group input.form-control {
 	font-size: 14px;
+	/* Show ellipsis on long messages, later implementation will make it show fully on click */
+	text-overflow: ellipsis;
 }
 
 .record-details input:read-only,
