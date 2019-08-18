@@ -24,13 +24,7 @@
     };
 
     $(document).ready(function() {
-		//	Popup hide
-		$('.curtain').hide();
-		$('#assess_popup').hide();
-		$('#filter-my_appointments #ma_sc_display').hide();
-		$('#filter-my_appointments #ma_tn_display').hide();
-		
-        StudentsMyAppointment.initialize(true);
+		StudentsMyAppointment.initialize(true);
     });
 </script>
 

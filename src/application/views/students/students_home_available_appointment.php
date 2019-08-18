@@ -23,12 +23,8 @@
         timeFormat         : <?= json_encode($time_format) ?>
     };
 
-    $(document).ready(function() {
-		//	Popup hide
-		$('#filter-aa_tutors #aa_sc_display').hide();
-		$('#filter-aa_tutors #aa_tn_display').hide();
-		
-        StudentsAvailableAppointments.initialize(true);
+    $(document).ready(function() {		
+		StudentsAvailableAppointments.initialize(true);
     });
 </script>
 

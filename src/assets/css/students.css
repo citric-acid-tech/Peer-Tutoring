@@ -202,6 +202,11 @@ root {
     margin-bottom: 20px;
 }
 
+#filter-my_appointments #ma_sc_display, #filter-my_appointments #ma_tn_display {
+	/* default: none */
+	display: none;
+}
+
 .students-page .filter-records form .input-group-selection select {
 	opacity: 0.85;
 	box-shadow: none;
@@ -302,6 +307,9 @@ root {
 	top: 0;
 	opacity: 0.5;
 	z-index: 999;
+	
+	/* Default hide */
+	display: none;
 }
 .students-page #popup_assess #assess_popup {
 	position: absolute;
@@ -315,6 +323,9 @@ root {
 	box-sizing: border-box;
 	background-color: #e6e6e6;
 	z-index: 1000;
+	
+	/* Default hide */
+	display: none;
 }
 .students-page #popup_assess #assess_popup .assess-title h2 {
 	user-select: none;
@@ -440,6 +451,46 @@ root {
 }
 
 /* My-Appointments: COMPONENTS */
+
+
+
+
+
+
+
+/* Available-Appointments: COMPONENTS */
+#filter-aa_tutors #aa_sc_display, #filter-aa_tutors #aa_tn_display {
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Available-Appointments: COMPONENTS */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
