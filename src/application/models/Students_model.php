@@ -236,7 +236,7 @@ class Students_model extends CI_Model{
                 ->result_array();
     }
 
-    public function get_available_tutors_date_selection($start_datetime, $end_datetime){
+    public function get_available_tutors_date_selection($date){
 
         return $this->db
                 ->select('
@@ -246,8 +246,8 @@ class Students_model extends CI_Model{
                 ')
                 ->from('ea_services')
                 ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
-                ->where('ea_services.start_datetime > ', $start_datetime)
-                ->where('ea_services.end_datetime <', $end_datetime)
+                ->where('ea_services.start_datetime > ', $date . ' 00:00')
+                ->where('ea_services.end_datetime <', $date . '23:59')
                 ->group_by('tutor_name')
                 ->order_by('start_datetime', 'ASC')
                 ->get()

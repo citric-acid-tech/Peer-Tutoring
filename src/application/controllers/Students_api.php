@@ -194,11 +194,10 @@ class Students_api extends CI_Controller{
             $this->load->model('students_model');
 
             // Get input
-            $start_datetime = json_decode($this->input->post('start_datetime'), TRUE);
-            $end_datetime = json_decode($this->input->post('end_datetime'), TRUE);
+            $date = json_decode($this->input->post('date'), TRUE);
 
             // Query
-            $result = $this->students_model->get_available_tutors_date_selection($start_datetime, $end_datetime);
+            $result = $this->students_model->get_available_tutors_date_selection($date);
 
             $this->output
                 ->set_content_type('application/json')
