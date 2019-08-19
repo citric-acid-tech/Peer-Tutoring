@@ -183,17 +183,17 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $semester = json_decode($this->input->post('semester'), TRUE);
-            $time = json_decode($this->input->post('time'), TRUE);
-            $special_date = json_decode($this->input->post('special_date'), TRUE);
+            $date = json_decode($this->input->post('date'), TRUE); // String sample: 2019-8-01
+            $start_time = json_decode($this->input->post('start_time'), TRUE); // String sample: 23:00
+            $end_time = json_decode($this->input->post('end_time'), TRUE);
             $service_type = json_decode($this->input->post('service_type'), TRUE);
-            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
             $address = json_decode($this->input->post('address'), TRUE);
             $capacity = json_decode($this->input->post('capacity'), TRUE);
             $service_description = json_decode($this->input->post('service_description'), TRUE);
 
             // Query
-            $result = $this->admin_model->new_service_batch();
+            $result = $this->admin_model->new_service($date, $start_time, $end_time, $service_type, $tutor_name,
+                    $address, $capacity, $service_description);
             
             // Log
 
@@ -217,18 +217,142 @@ class Admin_api extends CI_Controller{
     }
 
     public function ajax_edit_service(){
-        
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $service_id = json_decode($this->input->post('service_id'), TRUE);
+            $date = json_decode($this->input->post('date'), TRUE); // String sample: 2019-8-01
+            $start_time = json_decode($this->input->post('start_time'), TRUE); // String sample: 23:00
+            $end_time = json_decode($this->input->post('end_time'), TRUE);
+            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $address = json_decode($this->input->post('address'), TRUE);
+            $capacity = json_decode($this->input->post('capacity'), TRUE);
+            $service_description = json_decode($this->input->post('service_description'), TRUE);
+
+            // Query
+            $result = $this->admin_model->edit_service($service_id, $date, $start_time, $end_time, $service_type, 
+                    $address, $capacity, $service_description);
+            
+            // Log
+
+                // TODO
+
+            if($result == TRUE){
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('success'), TRUE);
+            }else{
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('fail'), TRUE);
+            }
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
 
-    public function ajax_get_calendar(){
-        
+    public function ajax_schedule_current_schema_to_all_weeks(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            //an array contains all the ids of all the services in this week.
+            $services_id = json_decode($this->input->post('services_id'), TRUE);
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+            $week = json_decode($this->input->post('week'), TRUE);
+            $semester = json_decode($this->input->post('semester'), TRUE); //Sample = 2019-Fall, See also config/semesters.php
+
+            // Query
+            $result = $this->admin_model->schedule_current_schema_to_all_weeks($tutor_name, $semester, $services_id, $week);
+            
+            // Log
+
+                // TODO
+
+            if($result[0] && $result[1] && $result[2] == TRUE){
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('success'), TRUE);
+            }else{
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('fail'), TRUE);
+            }
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
 
 /** Ajax interface for service_types_configuration */
 
+    /**
+     * @return array array(array(array(), array())) The sample of the structure of the array is as follows:
+     * $result = 
+     *           0 => info => [ id => ?
+     *                          name => ?
+     *                          description => ?]
+     *                tutors -> [ 0 => Mike Goodman
+     *                            1 => Peter Diaobao ]
+     * 
+     *           1 => info => [ id => ?
+     *                          name => ?
+     *                          description => ?]
+     *                tutors -> [ 0 => Mike Goodman
+     *                            1 => Peter Diaobao ]           
+     * 
+     * Sample of tranversing the array (see also Controller/Test.php)
+     * 
+     * foreach($result AS $serv_type){
+     *       echo 'service type information: <br />';
+     *       foreach($serv_type['info'] AS $key => $val){
+     *           echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $key . ' ' . $val . '<br />';
+     *       }
+     *       echo 'tutor involved in: <br />';
+     *       foreach($serv_type['tutors'] AS $key => $val){
+     *           echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $key . ' ' . $val . '<br />';
+     *       }
+     *       echo '<br />';
+     *   }
+     */
     public function ajax_filter_service_types(){
+        //
+        try{
             
+            $this->load->model('admin_model');
+            
+            // Get input
+            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            
+            // Query
+            $result = $this->admin_model->filter_service_types($service_type);
+            
+            // Log
+
+                // TODO
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+           
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
+
     public function ajax_new_service_type(){
         //
         try{
@@ -262,19 +386,109 @@ class Admin_api extends CI_Controller{
         }    
     }
     public function ajax_edit_service_type(){
+        //
+        try{
             
+            $this->load->model('admin_model');
+            
+            // Get input
+            $service_type_id = json_decode($this->input->post('service_type_id'), TRUE);
+            $name = json_decode($this->input->post('name'), TRUE);
+            $description = json_decode($this->input->post('description'), TRUE);
+
+            // Query
+            $result = $this->admin_model->edit_service_type($service_type_id, $name, $description);
+            // Log
+
+                // TODO
+
+            if($result == TRUE){
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('success'), TRUE);
+            }else{
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('fail'), TRUE);
+            }
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
     }
 
 /** Ajax interface for appointments_mangement */
 
     public function ajax_filter_appointments(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+            $student_name = json_decode($this->input->post('student_name'), TRUE);
+            $start_date = json_decode($this->input->post('start_date'), TRUE);
+            $end_date = json_decode($this->input->post('end_date'), TRUE);
+            $booking_status = json_decode($this->input->post('booking_status'), TRUE);
 
+            // Query
+            $result = $this->admin_model
+                ->admin_filter_appointments($service_type, $tutor_name, $student_name,
+                                        $start_date, $end_date, $booking_status);
+            // Log
+
+                // TODO
+
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
     }
 
 /** Ajax interface for setting */
 
     public function ajax_save_settings(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $upload_file_max_size = json_decode($this->input->post('upload_file_max_size'), TRUE);
+            $max_services_checking_ahead_day = json_decode($this->input->post('max_services_checking_ahead_day'), TRUE);
+            $max_appointment_cancel_ahead_day= json_decode($this->input->post('max_appointment_cancel_ahead_day'), TRUE);
 
+            // Query
+            $result = $this->admin_model->save_settings($upload_file_max_size, 
+                $max_services_checking_ahead_day, $max_appointment_cancel_ahead_day);
+            // Log
+
+                // TODO
+
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
     }
 }
 ?>
