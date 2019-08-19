@@ -10,6 +10,7 @@ class Migration_Add_priv_tutors_settings extends CI_Migration{
                 'tutors_settings' => [
                     'type' => 'INT',
                     'constraint' => '11',
+                    'DEFAULT' => '0'
                 ]
             ];
         

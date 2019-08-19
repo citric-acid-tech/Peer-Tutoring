@@ -10,6 +10,7 @@ class Migration_Add_priv_appointments_management extends CI_Migration{
                 'appointments_management' => [
                     'type' => 'INT',
                     'constraint' => '11',
+                    'DEFAULT' => '0'
                 ]
             ];
         

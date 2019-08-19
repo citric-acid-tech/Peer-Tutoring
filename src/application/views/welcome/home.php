@@ -63,7 +63,7 @@
 	<div id="branching_home" class="container">
 		<div class="row">
 			<div class="col-sm-4 platform">
-				<a href= <?= site_url('backend') ?> >
+				<a href= <?= site_url('admin') ?> >
 					<div class="platform_icons">
 						<i class="fas fa-user-cog fa-2x"></i>
 					</div>

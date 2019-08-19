@@ -82,6 +82,5 @@ class Tutors_model extends CI_Model{
         return $this->db->update('ea_appointments', $data);
 
     }
-
 }
 ?>

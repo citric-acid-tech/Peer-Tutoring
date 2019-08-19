@@ -80,6 +80,14 @@ define('PRIV_AVAILABLE_APPOINTMENTS', 'available_appointments');
 define('PRIV_APPOINTMENTS_MANAGEMENT', 'appointments_management');
 define('PRIV_TUTORS_SETTINGS', 'tutors_settings');
 
+/* Admin page */
+define('PRIV_SERVICES_CONFIG', 'services_config');
+define('PRIV_SERVICE_TYPES_CONFIG', 'service_types_config');
+define('PRIV_TUTORS_CONFIG', 'tutors_config');
+define('PRIV_ADMIN_SETTINGS', 'admin_settings');
+define('PRIV_ADMIN_APPOINTMENTS_MANAGEMENT', 'admin_appointments_management');
+define('PRIV_STATISTICS', 'statistics');
+
 define('DATE_FORMAT_DMY', 'DMY');
 define('DATE_FORMAT_MDY', 'MDY');
 define('DATE_FORMAT_YMD', 'YMD');
