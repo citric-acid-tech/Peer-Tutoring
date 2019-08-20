@@ -389,3 +389,4 @@ $lang['statistics_hint'] = 'Analyse data here';
 $lang['admin_appointments_management_hint'] = 'Manage and monitor all the appointments here.';
 $lang['admin_appointments_management'] = 'Appointments';
 $lang['provide_feedback_and_suggestions'] = 'Provide Feedback and Suggestions';
+$lang['modify_service_status'] = 'Modify Service Status';
