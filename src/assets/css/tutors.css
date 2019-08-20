@@ -198,39 +198,39 @@ root {
 
 
 /* My-Appointments: COMPONENTS */
-.students-page .filter-records {
+.tutors-page .filter-records {
     margin-bottom: 20px;
 }
 
-#filter-my_appointments #ma_sc_display, #filter-my_appointments #ma_tn_display {
+#filter-my_appointments #am_sc_display, #filter-my_appointments #ma_tn_display {
 	/* default: none */
 	display: none;
 }
 
-.students-page #available_appointments_service_category, .students-page #available_appointments_tutor {
+.tutors-page #available_appointments_service_category, .tutors-page #available_appointments_tutor {
 	margin-top: 6px;
 }
 
-.students-page .filter-records form .input-group-selection select {
+.tutors-page .filter-records form .input-group-selection select {
 	opacity: 0.85;
 	box-shadow: none;
 }
-.students-page .filter-records form .input-group-selection select option {
+.tutors-page .filter-records form .input-group-selection select option {
 	text-align: center;
 }
 
-.students-page .filter-records form .key {
+.tutors-page .filter-records form .key {
     margin-right: 15px;
     float: left;
 }
 
-.students-page .filter-records form .input-group-addon {
+.tutors-page .filter-records form .input-group-addon {
     padding-top: 0;
     padding-right: 0;
     border-top: none;
 }
 
-.students-page .filter-list {
+.tutors-page .filter-list {
 	margin: 20px 0;
 	padding-top: 5px;
 	padding-left: 0;
@@ -238,7 +238,7 @@ root {
 	width: 100%;
 	text-align: center;
 }
-.students-page .filter-item {
+.tutors-page .filter-item {
 	position: relative;
 	display: block;
 	padding: 10px 15px;
@@ -251,27 +251,27 @@ root {
 }
 
 /* Watch this, not yet adjusted */
-.students-page .filter-records .results {
+.tutors-page .filter-records .results {
     overflow-y: auto;
     max-height: 450px;
     outline: none;
 }
 
-.students-page .filter-records .results .entry {
+.tutors-page .filter-records .results .entry {
     padding: 10px 7px;
 }
 
-.students-page .filter-records .results .entry:hover:not(.selected) {
+.tutors-page .filter-records .results .entry:hover:not(.selected) {
     background-color: #F3F3F3;
     cursor: pointer;
 }
 
-.students-page .filter-records .results .entry.selected {
+.tutors-page .filter-records .results .entry.selected {
     background-color: #F4F4F4;
     border-right: 5px solid #296d97;
 }
 
-.students-page .filter-records .results hr {
+.tutors-page .filter-records .results hr {
     margin: 5px 0;
 }
 /* Watch this, not yet adjusted */
@@ -302,7 +302,7 @@ root {
 
 
 /* popups */
-.students-page .curtain {
+.tutors-page .curtain {
 	background-color: black;
 	position: fixed;
 	width: 100%;
@@ -315,7 +315,7 @@ root {
 	/* Default hide */
 	display: none;
 }
-.students-page #popup_assess #assess_popup {
+.tutors-page #popup_assess #assess_popup {
 	position: absolute;
 	width: 666px;
 	height: 480px;
@@ -331,7 +331,7 @@ root {
 	/* Default hide */
 	display: none;
 }
-.students-page #popup_assess #assess_popup .assess-title h2 {
+.tutors-page #popup_assess #assess_popup .assess-title h2 {
 	user-select: none;
 	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
 	letter-spacing: 1px;
@@ -341,7 +341,7 @@ root {
 }
 
 /* Rating stars */
-.students-page #popup_assess #assess_popup form .stars {
+.tutors-page #popup_assess #assess_popup form .stars {
 	/* Prevent whitespace issues */
 	display: inline-flex;
 }
@@ -400,13 +400,13 @@ root {
 }
 /* Rating stars */
 
-.students-page #popup_assess #assess_popup .assess-container {
+.tutors-page #popup_assess #assess_popup .assess-container {
 	width: 100%;
 	box-sizing: border-box;
 	margin: 5px 0 0;
 	text-align: center;
 }
-.students-page #popup_assess #assess_popup form textarea {
+.tutors-page #popup_assess #assess_popup form textarea {
 	display: inline-block;
 	box-sizing: border-box;
 	width: 86%;
@@ -416,7 +416,7 @@ root {
 	outline: none;
 	color:  #76838f;
 }
-.students-page #popup_assess #assess_popup form input {
+.tutors-page #popup_assess #assess_popup form input {
 	border: 1px solid white;
 	display: inline-block;
 	box-sizing: border-box;
@@ -428,11 +428,11 @@ root {
 	outline: none;
 	color:  #76838f;
 }
-.students-page #popup_assess #assess_popup form input:hover {
+.tutors-page #popup_assess #assess_popup form input:hover {
 	outline: none;
 	border: 1px solid #62a8ea;
 }
-.students-page #popup_assess #assess_popup form .assess_buttons {
+.tutors-page #popup_assess #assess_popup form .assess_buttons {
 	background-color: #62a8ea;
 	border: none;
 	width: 43%;
@@ -444,13 +444,13 @@ root {
 	font-weight: bold;
 	margin: 10px 0;
 }
-.students-page #popup_assess #assess_popup form .assess_buttons:hover {
+.tutors-page #popup_assess #assess_popup form .assess_buttons:hover {
 	opacity: 0.7;
 }
-.students-page .rate {
+.tutors-page .rate {
 	font-size: 26px;
 }
-.students-page #popup_assess #assess_popup form hr {
+.tutors-page #popup_assess #assess_popup form hr {
 	margin: 16px;
 }
 
@@ -467,15 +467,15 @@ root {
 	display: none;
 }
 
-.students-page .nav {
+.tutors-page .nav {
 	/* styles of ul */
 	background-color: #f4f4f4;
 	margin-bottom: 15px;
 }
-.students-page .nav li {
+.tutors-page .nav li {
 	cursor: pointer;
 }
-.students-page .nav li #check-calendar-tabnav {
+.tutors-page .nav li #check-calendar-tabnav {
 	background-color: rgba(41, 109, 151, 0.8);
 	color: snow;
 }
