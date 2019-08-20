@@ -28,7 +28,7 @@ class Tutors_api extends CI_Controller{
         //
         try{
             
-            $this->load->model('tutor_model');
+            $this->load->model('tutors_model');
             
             // Get input
             $service_type = json_decode($this->input->post('service_type'), TRUE);
@@ -40,7 +40,7 @@ class Tutors_api extends CI_Controller{
             $user_id = $this->session->userdata('user_id');
 
             // Query
-            $result = $this->tutor_model
+            $result = $this->tutors_model
                 ->filter_appointments($user_id, $service_type, $student_name, $service_status, $start_date, $end_date);
     
             // Log
@@ -57,98 +57,98 @@ class Tutors_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+	
+	public function ajax_modify_status(){
+	    //
+	    try{
+	        
+	        $this->load->model('tutors_model');
+	        
+	        // Get input
+	        $service_status = json_decode($this->input->post('service_status'), TRUE);
+	        $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
+	
+	        $user_id = $this->session->userdata('user_id');
+	
+	        // Query
+	        $bool = $this->tutors_model->modify_status($appointment_id, $service_status);
+	        $result = $bool ? AJAX_SUCCESS : 'Fail';
+	
+	        // Log
+	
+	            // TODO
+	
+	        $this->output
+	            ->set_content_type('application/json')
+	            ->set_output(json_encode($result), TRUE);
+	
+	    }catch (Exception $exc){
+	        $this->output
+	            ->set_content_type('application/json')
+	            ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+	    }
+	}
+	
+	public function ajax_save_settings(){	
+     //
+     try{
+        
+        $this->load->model('tutors_model');
+        
+        // Get input
+        $given_name = json_decode($this->input->post('given_name'), TRUE);
+        $surname = json_decode($this->input->post('surname'), TRUE);
+        $introduction = json_decode($this->input->post('introduction'), TRUE);
+        $personal_page = json_decode($this->input->post('personal_page'), TRUE);
 
-    public function ajax_modify_status(){
-        //
-        try{
-            
-            $this->load->model('tutor_model');
-            
-            // Get input
-            $service_status = json_decode($this->input->post('service_status'), TRUE);
-            $appointment_id = json_decode($this->input->post('appointment_id'), TRUE);
+        $user_id = $this->session->userdata('user_id');
+        $language = $this->session->userdata('language');
 
-            $user_id = $this->session->userdata('user_id');
+        // Query
+        $result = $this->tutors_model->save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $language);
+        $result = $result ? AJAX_SUCCESS : 'Fail';
+        // Log
 
-            // Query
-            $bool = $this->tutor_model->modify_status($appointment_id, $service_status);
-            $result = $bool ? AJAX_SUCCESS : 'Fail';
+            // TODO
 
-            // Log
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result), TRUE);
 
-                // TODO
-
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($result), TRUE);
-
-        }catch (Exception $exc){
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
+    }catch (Exception $exc){
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
     }
-
-    public function ajax_save_settings(){
-         //
-         try{
-            
-            $this->load->model('tutor_model');
-            
-            // Get input
-            $given_name = json_decode($this->input->post('given_name'), TRUE);
-            $surname = json_decode($this->input->post('surname'), TRUE);
-            $introduction = json_decode($this->input->post('introduction'), TRUE);
-            $personal_page = json_decode($this->input->post('personal_page'), TRUE);
-
-            $user_id = $this->session->userdata('user_id');
-            $language = $this->session->userdata('language');
-
-            // Query
-            $result = $this->tutor_model->save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $language);
-            $result = $result ? AJAX_SUCCESS : 'Fail';
-            // Log
-
-                // TODO
-
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($result), TRUE);
-
-        }catch (Exception $exc){
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
-    }
-
-    public function ajax_save_feedback_and_suggestion(){
-        //
-        try{
-            
-            $this->load->model('tutor_model');
-            
-            // Get input
-            $feedback = json_decode($this->input->post('feedback'), TRUE);
-            $suggestion = json_decode($this->input->post('suggestion'), TRUE);
-            $appointment_id = json_decode($this->input->post('appointment_id'), TRUE); 
-
-            // Query
-            $result = $this->tutor_model->save_feedback_and_suggestion($appointment_id, $feedback, $suggestion);
-            $result = $result ? AJAX_SUCCESS : 'Fail';
-            // Log
-
-                // TODO
-
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($result), TRUE);
-
-        }catch (Exception $exc){
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
-    }    
+	}
+	
+	public function ajax_save_feedback_and_suggestion(){
+	    //
+	    try{
+	        
+	        $this->load->model('tutors_model');
+	        
+	        // Get input
+	        $feedback = json_decode($this->input->post('feedback'), TRUE);
+	        $suggestion = json_decode($this->input->post('suggestion'), TRUE);
+	        $appointment_id = json_decode($this->input->post('appointment_id'), TRUE); 
+	
+	        // Query
+	        $result = $this->tutors_model->save_feedback_and_suggestion($appointment_id, $feedback, $suggestion);
+	        $result = $result ? AJAX_SUCCESS : 'Fail';
+	        // Log
+	
+	            // TODO
+	
+	        $this->output
+	            ->set_content_type('application/json')
+	            ->set_output(json_encode($result), TRUE);
+	
+	    }catch (Exception $exc){
+	        $this->output
+	            ->set_content_type('application/json')
+	            ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+	    }
+	}    
 }
 ?>

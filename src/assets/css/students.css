@@ -249,6 +249,10 @@ root {
 	user-select: none;
 	cursor: pointer;
 }
+.students-page .filter-item:focus, .students-page .filter-item:hover {
+	background-color: rgba(41, 109, 151, 0.8);
+	color: snow;
+}
 
 /* Watch this, not yet adjusted */
 .students-page .filter-records .results {

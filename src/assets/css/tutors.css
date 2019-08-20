@@ -248,12 +248,18 @@ root {
 	
 	user-select: none;
 	cursor: pointer;
+	
+	transition: all 0.2s;
+}
+.tutors-page .filter-item:focus, .tutors-page .filter-item:hover {
+	background-color: rgba(41, 109, 151, 0.8);
+	color: snow;
 }
 
 /* Watch this, not yet adjusted */
 .tutors-page .filter-records .results {
     overflow-y: auto;
-    max-height: 450px;
+    max-height: 600px;
     outline: none;
 }
 
@@ -315,10 +321,10 @@ root {
 	/* Default hide */
 	display: none;
 }
-.tutors-page #popup_assess #assess_popup {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window {
 	position: absolute;
-	width: 666px;
-	height: 480px;
+	width: 1150px;
+	height: 630px;
 	
 	left: 50%;
 	top: 50%;
@@ -331,7 +337,7 @@ root {
 	/* Default hide */
 	display: none;
 }
-.tutors-page #popup_assess #assess_popup .assess-title h2 {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window .feedback-title h2 {
 	user-select: none;
 	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
 	letter-spacing: 1px;
@@ -341,7 +347,7 @@ root {
 }
 
 /* Rating stars */
-.tutors-page #popup_assess #assess_popup form .stars {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .stars {
 	/* Prevent whitespace issues */
 	display: inline-flex;
 }
@@ -400,13 +406,13 @@ root {
 }
 /* Rating stars */
 
-.tutors-page #popup_assess #assess_popup .assess-container {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window .feedback-container {
 	width: 100%;
 	box-sizing: border-box;
 	margin: 5px 0 0;
 	text-align: center;
 }
-.tutors-page #popup_assess #assess_popup form textarea {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form textarea {
 	display: inline-block;
 	box-sizing: border-box;
 	width: 86%;
@@ -416,7 +422,7 @@ root {
 	outline: none;
 	color:  #76838f;
 }
-.tutors-page #popup_assess #assess_popup form input {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form input {
 	border: 1px solid white;
 	display: inline-block;
 	box-sizing: border-box;
@@ -428,11 +434,11 @@ root {
 	outline: none;
 	color:  #76838f;
 }
-.tutors-page #popup_assess #assess_popup form input:hover {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form input:hover {
 	outline: none;
 	border: 1px solid #62a8ea;
 }
-.tutors-page #popup_assess #assess_popup form .assess_buttons {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .feedback_popup_buttons {
 	background-color: #62a8ea;
 	border: none;
 	width: 43%;
@@ -444,13 +450,13 @@ root {
 	font-weight: bold;
 	margin: 10px 0;
 }
-.tutors-page #popup_assess #assess_popup form .assess_buttons:hover {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .feedback_popup_buttons:hover {
 	opacity: 0.7;
 }
 .tutors-page .rate {
 	font-size: 26px;
 }
-.tutors-page #popup_assess #assess_popup form hr {
+.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form hr {
 	margin: 16px;
 }
 

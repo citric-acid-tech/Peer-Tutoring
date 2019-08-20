@@ -5,7 +5,7 @@
     /**
      * TutorsAppointmentManagementHelper Class
      *
-     * This class contains the methods that are used in the Students My Appointment page.
+     * This class contains the methods that are used in the Tutors My Appointment page.
      *
      * @class TutorsAppointmentManagementHelper
      */
@@ -14,7 +14,7 @@
     }
 
     /**
-     * Binds the default event handlers of the Students My Appointment page.
+     * Binds the default event handlers of the Tutors My Appointment page.
      */
     TutorsAppointmentManagementHelper.prototype.bindEventHandlers = function () {
         var instance = this;
@@ -23,13 +23,18 @@
          * Event: Filter My Appointments Form "Submit"
          */
         $('#filter-my_appointments form').submit(function () {
+			var st = $('#filter-my_appointments #tutor-appointment_management_service_category').val();
+			var sn = $('#filter-my_appointments #tutor-appointment_management_students').val();
+			var start_dt = $('#tutor-appointment_management_start_date').val();
+			var end_dt = $('#tutor-appointment_management_end_date').val();
+			//	Validate date time
+			if (!instance.validateDateTime(start_dt, end_dt)) {
+				return false;
+			}
             $('#filter-my_appointments .selected').removeClass('selected');
             instance.resetForm();
-			var sc = $('#filter-my_appointments #tutor-appointment_management_service_category').val();
-			var tn = $('#filter-my_appointments #tutor-appointment_management_students').val();
             instance.filter($("#tutor-appointment_management_booking_status option:selected").val(),
-						   sc,
-						   tn);
+						   st, sn, start_dt, end_dt);
             return false;	//	why?
         });
 
@@ -37,10 +42,15 @@
          * Event: Filter My Appointments Button "Click"
          */
         $('#filter-my_appointments .clear').click(function () {
+			//	Reset booking status input
 			$("#tutor-appointment_management_booking_status option:selected")[0].selected = false;
 			$('#tutor-appointment_management_booking_status .default_bs').prop('selected', true);
+			//	Reset service type input
 			$('#filter-my_appointments #tutor-appointment_management_service_category').val('');
+			//	Reset student filter input
             $('#filter-my_appointments #tutor-appointment_management_students').val('');
+			//	Reset date inputs
+			$('#tutor-appointment_management_start_date, #tutor-appointment_management_end_date').val('');
             instance.filter();
             instance.resetForm();
 			//	re-filter
@@ -60,7 +70,7 @@
 			//	Find the appointment according to id and get its data
             var appointment = {};
             $.each(instance.filterResults, function (index, item) {
-                if (item.appointment_id === appointmentId) {
+                if (item.id === appointmentId) {
                     appointment = item;
                     return false;
                 }
@@ -73,33 +83,43 @@
             $('#filter-my_appointments .selected').removeClass('selected');
             $(this).addClass('selected');
 			
-			//	If cancelled, disable cancel appointment button
-			if (appointment.booking_status === '0') {
-				$('#modify_service_status').prop('disabled', false);
-			} else {
+			//	If Finished or Cancelled, disable two buttons
+			if (appointment.booking_status === '2' || appointment.booking_status === '3') {
 				$('#modify_service_status').prop('disabled', true);
-			}
-			
-			//	If finished and not cancelled, enable assess appointment button
-			if (appointment.booking_status === '1') {
-				$('#provide_feedback_and_suggestions').prop('disabled', false);
-			} else {
 				$('#provide_feedback_and_suggestions').prop('disabled', true);
+			} else {
+				$('#modify_service_status').prop('disabled', false);
+				$('#provide_feedback_and_suggestions').prop('disabled', false);
 			}
         });
 
 		
         /**
-         * Event: Cancel Appointment Button "Click"
+         * Event: Modify Service Status Button "Click"
          */
         $('#modify_service_status').click(function () {
 			//	Get current appointment id
             var appointmentId = $('#appointment-id').val();
-            var buttons = [
+			var buttons;
+			
+			var service_status_data = $('#booking_status').val();
+			var service_status_to, service_status_lang;
+			if (service_status_data === EALang.bs0) {
+				service_status_to = '1';
+				service_status_lang = EALang.bs1;
+			} else if (service_status_data === EALang.bs1) {
+				service_status_to = '2';
+				service_status_lang = EALang.bs2;
+			} else {
+				Tutors.displayNotification("ERROR ON Tutor - Modify Service Status: No such logical Service Status!", undefined, "failure");
+				return false;
+			}
+
+            buttons = [
                 {
-                    text: EALang.cancel_appointment,
+                    text: EALang.confirm,
                     click: function () {
-                        instance.cancelAppointment(appointmentId);
+                        instance.modifyServiceStatus(appointmentId, service_status_to);
                         $('#message_box').dialog('close');
                     }
                 },
@@ -110,35 +130,42 @@
                     }
                 }
             ];
-
-            GeneralFunctions.displayMessageBox(EALang.cancel_appointment_title,
-                EALang.cancel_appointment_hint, buttons);
+			
+            GeneralFunctions.displayMessageBox("Next Service Status: " + service_status_lang,
+											   "Are you sure you want to push the service to the next status?", buttons);
         });
     
 		
         /**
-         * Event: Assess Service Button "Click"
+         * Event: Tutor Feedback Button "Click"
          */
 		$('.tutors-page #provide_feedback_and_suggestions').click(function() {
-			$('#popup_assess .curtain').fadeIn();
-			$('#assess_popup').fadeIn();
+			$('#popup_tutor_feedback .curtain').fadeIn(360);
+			$('#tutor_feedback_popup_window').fadeIn(360);
 		});
 		
 		
         /**
-         * Event: Save Assessment Button "Click"
+         * Event: Save Feedback Button "Click"
          */
-		$('.tutors-page #assess_save').click(function() {
-			//	Save first
+		$('.tutors-page #feedback_save').click(function() {
+			//	Feedback is required, check
+			var feedback = $('#popup_feedback_input').val();
+			if (feedback === '') {
+				Tutors.displayNotification("Feedback is required!", undefined, "failure");
+				return false;
+			}
 			
+			//	Save first
 			//	Get current appointment id
             var appointmentId = $('#appointment-id').val();
-        	var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_rate_and_comment';
+        	var postUrl = GlobalVariables.baseUrl + '/index.php/tutors_api/ajax_save_feedback_and_suggestion';
+			
         	var postData = {
         	    csrfToken: GlobalVariables.csrfToken,
         	    appointment_id: appointmentId,
-				stars: $("#popup_assess input[name='rating']:checked").val(),
-				comment_or_suggestion: JSON.stringify($('#assess_feedback').val())
+				feedback: JSON.stringify(feedback),
+				suggestion: JSON.stringify($('#popup_suggestion_input').val())
         	};
 			
         	$.post(postUrl, postData, function (response) {
@@ -148,34 +175,40 @@
         	    }
 				
 				if (response === 'SUCCESS') {
-					Students.displayNotification("Assessment Completed!", undefined, "success");
+					Tutors.displayNotification("Feedback Process Completed!", undefined, "success");
 				}
         	}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 			
-			$('#assess_save, #assess_cancel').prop('disabled', true);
+			$('#feedback_save, #feedback_cancel').prop('disabled', true);
+			$('#feedback_save, #feedback_cancel').fadeOut(360);
+			$('#tutor_feedback_popup_window').css('width', '1080px');
+			$('#tutor_feedback_popup_window').css('height', '521px');
 			
 			//	Hide
 			setTimeout(function() {
-				$('#popup_assess .curtain').fadeOut();
-				$('#assess_popup').fadeOut();
+				$('#popup_tutor_feedback .curtain').fadeOut(360);
+				$('#tutor_feedback_popup_window').fadeOut(360);
 				
 				//	Clear Assessment form
-				instance.clearAssess();
-				$('#assess_save, #assess_cancel').prop('disabled', false);
+				instance.clearFeedback();
+				$('#feedback_save, #feedback_cancel').prop('disabled', false);
+				$('#feedback_save, #feedback_cancel').fadeIn(360);
+				$('#tutor_feedback_popup_window').css('width', '1150px');
+				$('#tutor_feedback_popup_window').css('height', '630px');
 				
 				//	Re-display
-				instance.filter(undefined, undefined, undefined, appointmentId, true);
+				instance.filter(undefined, undefined, undefined, undefined, undefined, appointmentId, true);
 			}, 3000);
 		});
 		
 		
         /**
-         * Event: Cancel Assessment Button "Click"
+         * Event: Cancel Feedback Button "Click"
          */
-		$('.tutors-page #assess_cancel').click(function() {
-			$('#popup_assess .curtain').fadeOut();
-			$('#assess_popup').fadeOut();
-			instance.clearAssess();
+		$('.tutors-page #feedback_cancel').click(function() {
+			$('#popup_tutor_feedback .curtain').fadeOut(360);
+			$('#tutor_feedback_popup_window').fadeOut(360);
+			instance.clearFeedback();
 		});
 		
 		
@@ -191,24 +224,24 @@
          * Event: click the input bar, show filter details of service categories
          */
 		$('.tutors-page #tutor-appointment_management_service_category').focus(function() {
-			$('#filter-my_appointments #am_sc_display').fadeIn();
+			$('#filter-my_appointments #am_sc_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			Tutors.placeFooterToBottom();
 		});	
         /**
          * Event: click the input bar, show filter details of tutor name
          */
 		$('.tutors-page #tutor-appointment_management_students').focus(function() {
-//			$('#filter-my_appointments .curtain').fadeIn();
-			$('#filter-my_appointments #am_tn_display').fadeIn();
+//			$('#filter-my_appointments .curtain').slideDown(360);
+			$('#filter-my_appointments #am_tn_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			Tutors.placeFooterToBottom();
 		});
 		
         /**
@@ -224,56 +257,67 @@
          */
 		$(document).on('click', '.tutors-page #am_sc_display .filter-item--close, .tutors-page #am_sc_display .filter-item--find', function() {
 			$('.tutors-page #tutor-appointment_management_service_category').val($(this).attr("title"));
-			$('#filter-my_appointments #am_sc_display').fadeOut();
+			$('#filter-my_appointments #am_sc_display').slideUp(360);
 			instance.filterList('.tutors-page #filter-service-category span li', $('.tutors-page #tutor-appointment_management_service_category').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
 			$('#filter-my_appointments #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			Tutors.placeFooterToBottom();
 		});
 		/**
          * Event: Press list items for tutor name
          */
 		$(document).on('click', '.tutors-page #am_tn_display .filter-item--close, .tutors-page #am_tn_display .filter-item--find', function() {
 			$('.tutors-page #tutor-appointment_management_students').val($(this).attr("title"));
-			$('#filter-my_appointments #am_tn_display').fadeOut();
+			$('#filter-my_appointments #am_tn_display').slideUp(360);
 			instance.filterList('.tutors-page #filter-student-name span li', $('.tutors-page #tutor-appointment_management_students').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
 			$('#filter-my_appointments #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			Tutors.placeFooterToBottom();
 		});
 		
+		/**
+         * Event: When selecting date, other date pickers should not occur at the same time
+         */
+		$('#tutor-appointment_management_start_date').focus(function() {
+			$('#tutor-appointment_management_end_date').prop('disabled', true);
+		});
+		$('#tutor-appointment_management_end_date').focus(function() {
+			$('#tutor-appointment_management_start_date').prop('disabled', true);
+		});
 	};
 
     /**
-     * Cancel an appointment record from database.
+     * Modify Service Status from database.
      *
-     * @param {Number} id Record id to be cancelled.
+     * @param {Number} id Record id to be modified.
      */
-    TutorsAppointmentManagementHelper.prototype.cancelAppointment = function (id) {
-        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_cancel_appointment';
+    TutorsAppointmentManagementHelper.prototype.modifyServiceStatus = function (id, status) {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/tutors_api/ajax_modify_status';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            appointment_id: id
+            appointment_id: id,
+			service_status: status
         };
         $.post(postUrl, postData, function (response) {
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
-
-			if (response.cancellation_result === 'cancellation_accepted') {
-				Students.displayNotification(EALang.appointment_cancelled, undefined, "success");
-			} else if (response.cancellation_result === 'cancellation_refused') {
-				Students.displayNotification(EALang.hint_fail_to_cancel_timesake, undefined, "failure");
+			
+			if (response === 'SUCCESS') {
+				Tutors.displayNotification("Service Status Modified.", undefined, "success");
 			} else {
-				Students.displayNotification("Something went wrong on the output of the cancellation");
+				Tutors.displayNotification("Something went wrong on the output of the Modification");
 			}
             
-            this.resetForm();
-            this.filter();
+			var ins = this;
+			setTimeout(function() {
+            	ins.resetForm();
+            	ins.filter(undefined, undefined, undefined, undefined, undefined, id, true);
+			}, 500);
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 
@@ -307,26 +351,24 @@
      */
     TutorsAppointmentManagementHelper.prototype.display = function (appointment) {
 		
-        $('#appointment-id').val(appointment.appointment_id);		
-		
-		$('#remark').val((appointment.remark !== null && appointment.remark !== "") ? appointment.remark : "None");
+        $('#appointment-id').val(appointment.id);		
+
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
-		$('#stars').val(appointment.stars);
-		$('#com_or_sug').val(appointment.com_or_sug);
-		
-		$('#description').val(appointment.appointment_description);
 		$('#service_type').val(appointment.service_type);
+//		$('#service_description').val(appointment.service_description);
 		
-		$('#tutor').val(appointment.first_name + " " + appointment.last_name);
+		$('#student_name').val(appointment.student_name);
 		$('#notes').val(appointment.notes);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
 		$('#start_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true));
 		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
 		
-		$('#feedback').val(appointment.feedback);
-		$('#suggestion').val(appointment.suggestion);
+		$('#stars').val(appointment.stars);
+		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
 		
+		$('#feedback').val(appointment.feedback_from_tutor);
+		$('#suggestion').val(appointment.suggestion_from_tutor);
     };
 
     /**
@@ -337,17 +379,19 @@
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    TutorsAppointmentManagementHelper.prototype.filter = function (bs, st, tn, selectId, display, first_load) {
+    TutorsAppointmentManagementHelper.prototype.filter = function (bs, st, sn, sd, ed, selectId, display, first_load) {
         display = display || false;
 
-        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/tutors_api/ajax_filter_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
+            service_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
 			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Students -') ? 'ALL' : tn)
+			student_name: JSON.stringify((sn === undefined || sn === '' || sn === '- Search all Students -') ? 'ALL' : sn),
+			start_date: JSON.stringify((sd === undefined || sd === '') ? 'ALL' : sd),
+			end_date: JSON.stringify((ed === undefined || ed === '') ? 'ALL' : ed)
         };
-
+		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -359,7 +403,7 @@
 			
 			//	If this is the first time, load tutors and service categories
 			if (first_load !== undefined && first_load === 'true') {
-				this.getAllTutors();
+				this.getAllStudents();
 				this.getAllServiceCategories();
 			}
 			
@@ -394,24 +438,27 @@
      */
     TutorsAppointmentManagementHelper.prototype.getFilterHtml = function (index, appointment) {
 		
-		//	The remark will be used in the first line
-		var remark = (appointment.remark !== '' && appointment.remark !== null) ?
-			appointment.remark : ("Appointment " + (index+1));
-		//	The booking_status will shown as a label in the first line
+		//	The service_type will be used in the first line
+		var service_type = (appointment.service_type !== '' && appointment.service_type !== null) ?
+			appointment.service_type : ("Appointment " + (index+1));
+		//	Stars in first line
+		var stars = appointment.stars;
+		
+		//	The student's name will be used in the second line
+        var student = appointment.student_name;
+		//	The booking_status will shown as a label in the second line
 		var booking_status = this.decodeBookingStatus(appointment.booking_status);
 		
-		//	The tutor's name will be used in the second line
-        var tutor = appointment.first_name + ' ' + appointment.last_name;
-		
-		//	The starting time will be used in the third line
+		//	The starting and ending time will be used in the third line
 		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
+		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
 
-		var line1 = "<strong>" + remark + "</strong>" + " " + "-" + " " + booking_status;
-		var line2 = tutor;
-		var line3 = start_time;
+		var line1 = "<strong>" + service_type + "</strong>" + " " + "<sup>" + stars + " stars</sup>";
+		var line2 = student + " " + "-" + " " + booking_status;
+		var line3 = start_time + " " + "~" + " " + end_time;
 			
         var html =
-            '<div class="entry" data-id="' + appointment.appointment_id + '">' +	//	Starting <div> block
+            '<div class="entry" data-id="' + appointment.id + '">' +	//	Starting <div> block
             line1 + "<br />" +	//	line1
             line2 + "<br />" +	//	line2
             line3 +	//	line2
@@ -467,7 +514,7 @@
 		//	If display === true, display the appointment
         if (display) {
             $.each(this.filterResults, function (index, appointment) {
-                if (appointment.appointment_id === id) {
+                if (appointment.id === id) {
                     this.display(appointment);
 //                    $('#edit-appointment, #delete-appointment').prop('disabled', false);
                     return false;
@@ -477,19 +524,18 @@
     };
 
     /**
-     * Clear assessment
+     * Clear Feedback
      */
-    TutorsAppointmentManagementHelper.prototype.clearAssess = function() {
-		$('#assess_feedback').val('');
-		$("#popup_assess input[name='rating']:checked")[0].checked = false;
-		$('.rating__input#rating-3').prop('checked', true);
+    TutorsAppointmentManagementHelper.prototype.clearFeedback = function() {
+		$('#popup_feedback_input').val('');
+		$('#popup_suggestion_input').val('');
     };	
 	
     /**
-     * Get all tutors and wrap them in an html
+     * Get all students and wrap them in an html
      */
-    TutorsAppointmentManagementHelper.prototype.getAllTutors = function() {
-        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_tutor';
+    TutorsAppointmentManagementHelper.prototype.getAllStudents = function() {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_students';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
@@ -502,11 +548,11 @@
 			//	Clear all data
 			$('#filter-my_appointments #filter-student-name span').html('');
 			
-			//	Iterate through all tutors, generate htmls for them and
+			//	Iterate through all students, generate htmls for them and
 			//	add them to the list
-			$.each(response, function (index, tutor) {
-				var display_tutor = (tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
+			$.each(response, function (index, student) {
+				var display_student = (student.name.length >= 35) ? "Too Long!!!!!!!!!" : student.name;
+				var html = "<li class='filter-item filter-item--find' title='" + student.name + "'>" + display_student + "</li>";
 				$('#filter-my_appointments #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -546,6 +592,32 @@
 		$(filterItem).filter(function() {
 			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
+    };
+	
+    /**
+     * Get all service categories and wrap them in an html
+     */
+    TutorsAppointmentManagementHelper.prototype.validateDateTime = function(sd, ed) {
+		//	Use moment.js to parse the date
+		var start_date = moment(sd);
+		var end_date = moment(ed);
+		//	Check if dates separately are valid
+		var start_valid = (sd === '') || start_date.isValid();
+		var end_valid = (ed === '') || end_date.isValid();
+		//	Check Validity
+		if (start_valid && end_valid) {
+			//	If end_date is before start_date, gg
+			if (start_date > end_date) {
+				Tutors.displayNotification("Ending Date is before Starting Date!", undefined, "failure");
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			//	If Any of them is invalid, gg
+			Tutors.displayNotification("Invalid Date Input!", undefined, "failure");
+			return false;
+		}
     };
 	
     window.TutorsAppointmentManagementHelper = TutorsAppointmentManagementHelper;
