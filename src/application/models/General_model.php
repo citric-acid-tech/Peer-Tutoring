@@ -36,8 +36,14 @@ class General_model extends CI_Model{
             ->result_array();
     }
 
+    public function get_all_students(){
+        return $this->db->select('
+            CONCAT(ea_users.first_name, \' \', ea_users.last_name)
+            ') 
+            ->from('ea_users')
+            ->where('id_roles != ', 1)
+            ->get()
+            ->result_array();
+    }
 }
-
-
-
 ?>

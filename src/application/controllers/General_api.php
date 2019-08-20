@@ -76,5 +76,31 @@ class General_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function ajax_get_all_students(){
+        //
+        try{
+            
+            $this->load->model('general_model');
+            
+            // Get input
+
+            // Query
+            $result = $this->general_model->get_all_students();
+            
+            // Log
+
+                // TODO
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 }
 ?>
