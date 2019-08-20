@@ -202,7 +202,7 @@ root {
     margin-bottom: 20px;
 }
 
-#filter-my_appointments #am_sc_display, #filter-my_appointments #ma_tn_display {
+#filter-my_appointments #am_sc_display, #filter-my_appointments #am_tn_display {
 	/* default: none */
 	display: none;
 }

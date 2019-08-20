@@ -50,19 +50,13 @@
                   			</ul>
                   		</div>
  
-                  		
-                  		
-                   		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" autocomplete="off" />
-                  		<div id="ma_tn_display">
-                  			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- Search all Tutors -"><strong>Search all Tutors</strong></li>
+                   		<input type="text" class="key form-control" id="tutor-appointment_management_students" placeholder="Type for a Student" title="Select a Student" autocomplete="off" />
+                  		<div id="am_tn_display">
+                  			<ul id="filter-student-name" class="filter-list">
+                  				<li class="filter-item filter-item--close" title="- Search all Students -"><strong>Search all Students</strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
-                  		
-                  		
-                  		
-                  		
                    </div>
                    
                    <div class="input-group-addon">
@@ -91,15 +85,15 @@
 
     	<div class="record-details col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-10">
             <div class="btn-toolbar">
-                <div id="cancel-assess-group" class="btn-group">
-                    <button id="cancel-appointment" class="btn btn-default">
-                        <i class="glyphicon glyphicon-remove"></i>&nbsp;
-                        <?= lang('cancel_appointment') ?>
+                <div id="modify-feedback-group" class="btn-group">
+                    <button id="modify_service_status" class="btn btn-default">
+                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;
+                        <?= lang('modify_service_status') ?>
                     </button>
                     
-                    <button id="assess-appointment" class="btn btn-primary">
+                    <button id="provide_feedback_and_suggestions" class="btn btn-primary">
                         <i class="glyphicon glyphicon-pencil"></i>&nbsp;
-                        <?= lang('assess') ?>
+                        <?= lang('provide_feedback_and_suggestions') ?>
                     </button>
                 </div>
            </div>

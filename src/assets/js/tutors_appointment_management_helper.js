@@ -26,7 +26,7 @@
             $('#filter-my_appointments .selected').removeClass('selected');
             instance.resetForm();
 			var sc = $('#filter-my_appointments #tutor-appointment_management_service_category').val();
-			var tn = $('#filter-my_appointments #my_appointments_tutor').val();
+			var tn = $('#filter-my_appointments #tutor-appointment_management_students').val();
             instance.filter($("#tutor-appointment_management_booking_status option:selected").val(),
 						   sc,
 						   tn);
@@ -40,12 +40,12 @@
 			$("#tutor-appointment_management_booking_status option:selected")[0].selected = false;
 			$('#tutor-appointment_management_booking_status .default_bs').prop('selected', true);
 			$('#filter-my_appointments #tutor-appointment_management_service_category').val('');
-            $('#filter-my_appointments #my_appointments_tutor').val('');
+            $('#filter-my_appointments #tutor-appointment_management_students').val('');
             instance.filter();
             instance.resetForm();
 			//	re-filter
 			instance.filterList('.tutors-page #filter-service-category span li', '');
-			instance.filterList('.tutors-page #filter-tutor-name span li', '');
+			instance.filterList('.tutors-page #filter-student-name span li', '');
         });
 
         /**
@@ -75,16 +75,16 @@
 			
 			//	If cancelled, disable cancel appointment button
 			if (appointment.booking_status === '0') {
-				$('#cancel-appointment').prop('disabled', false);
+				$('#modify_service_status').prop('disabled', false);
 			} else {
-				$('#cancel-appointment').prop('disabled', true);
+				$('#modify_service_status').prop('disabled', true);
 			}
 			
 			//	If finished and not cancelled, enable assess appointment button
 			if (appointment.booking_status === '1') {
-				$('#assess-appointment').prop('disabled', false);
+				$('#provide_feedback_and_suggestions').prop('disabled', false);
 			} else {
-				$('#assess-appointment').prop('disabled', true);
+				$('#provide_feedback_and_suggestions').prop('disabled', true);
 			}
         });
 
@@ -92,7 +92,7 @@
         /**
          * Event: Cancel Appointment Button "Click"
          */
-        $('#cancel-appointment').click(function () {
+        $('#modify_service_status').click(function () {
 			//	Get current appointment id
             var appointmentId = $('#appointment-id').val();
             var buttons = [
@@ -119,7 +119,7 @@
         /**
          * Event: Assess Service Button "Click"
          */
-		$('.tutors-page #assess-appointment').click(function() {
+		$('.tutors-page #provide_feedback_and_suggestions').click(function() {
 			$('#popup_assess .curtain').fadeIn();
 			$('#assess_popup').fadeIn();
 		});
@@ -201,9 +201,9 @@
         /**
          * Event: click the input bar, show filter details of tutor name
          */
-		$('.tutors-page #my_appointments_tutor').focus(function() {
+		$('.tutors-page #tutor-appointment_management_students').focus(function() {
 //			$('#filter-my_appointments .curtain').fadeIn();
-			$('#filter-my_appointments #ma_tn_display').fadeIn();
+			$('#filter-my_appointments #am_tn_display').fadeIn();
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
@@ -214,9 +214,9 @@
         /**
          * Event: Typing tutor
          */
-		$('.tutors-page #my_appointments_tutor').on("keyup", function() {
+		$('.tutors-page #tutor-appointment_management_students').on("keyup", function() {
 			var val = $(this).val().toLowerCase();
-			instance.filterList('.tutors-page #filter-tutor-name span li', val);
+			instance.filterList('.tutors-page #filter-student-name span li', val);
 		});
 		
 		/**
@@ -235,10 +235,10 @@
 		/**
          * Event: Press list items for tutor name
          */
-		$(document).on('click', '.tutors-page #ma_tn_display .filter-item--close, .tutors-page #ma_tn_display .filter-item--find', function() {
-			$('.tutors-page #my_appointments_tutor').val($(this).attr("title"));
-			$('#filter-my_appointments #ma_tn_display').fadeOut();
-			instance.filterList('.tutors-page #filter-tutor-name span li', $('.tutors-page #my_appointments_tutor').val().toLowerCase());
+		$(document).on('click', '.tutors-page #am_tn_display .filter-item--close, .tutors-page #am_tn_display .filter-item--find', function() {
+			$('.tutors-page #tutor-appointment_management_students').val($(this).attr("title"));
+			$('#filter-my_appointments #am_tn_display').fadeOut();
+			instance.filterList('.tutors-page #filter-student-name span li', $('.tutors-page #tutor-appointment_management_students').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
 			$('#filter-my_appointments #clear-filter').prop('disabled', false);
@@ -286,9 +286,9 @@
         $('.record-details').find('input, textarea').val('');
 
         //	Disable all operation buttons when the form is reset
-		$('#cancel-appointment, #assess-appointment').prop('disabled', true);
+		$('#modify_service_status, #provide_feedback_and_suggestions').prop('disabled', true);
 		//	Show the button group
-        $('#cancel-assess-group').show();
+        $('#modify-feedback-group').show();
 		
 		//	Enable search input buttons
         $('#filter-my_appointments button').prop('disabled', false);
@@ -345,7 +345,7 @@
             csrfToken: GlobalVariables.csrfToken,
             booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
 			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn)
+			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Students -') ? 'ALL' : tn)
         };
 
         $.post(postUrl, postData, function (response) {
@@ -500,14 +500,14 @@
             }
 			
 			//	Clear all data
-			$('#filter-my_appointments #filter-tutor-name span').html('');
+			$('#filter-my_appointments #filter-student-name span').html('');
 			
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
 				var display_tutor = (tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
 				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
-				$('#filter-my_appointments #filter-tutor-name span').append(html);
+				$('#filter-my_appointments #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
