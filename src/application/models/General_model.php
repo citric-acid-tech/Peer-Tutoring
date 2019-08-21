@@ -38,7 +38,9 @@ class General_model extends CI_Model{
 
     public function get_all_students(){
         return $this->db->select('
-            CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name') 
+                ea_users.id AS id,
+                CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name
+            ') 
             ->from('ea_users')
             ->where('id_roles != ', 1)
             ->get()

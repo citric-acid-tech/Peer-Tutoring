@@ -15,12 +15,43 @@ class Data_generator extends CI_Controller{
         $this->generate_service_types();
         $this->generate_services(); 
         $this->generate_appointments();
+        $this->generate_my_appointments();
         echo 'Finshed';       
     }
 
     public function generate_appointments(){
         $user_id = 1;
+        $serv_arr = $this->students_model->get_available_appointments('ALL', 'Mike Kazura');
+
+        $students_arr = $this->general_model->get_all_students();
+        $num_students = sizeof($students_arr);
+
+        echo 'size of serv_arr: ' . sizeof($serv_arr) . ' ';
+
+
+        $num_serv = sizeof($serv_arr);
+
+        $remark_arr = ['Favorite', 'Important', 'Mid Prov', 'WTF'];
+
+        // Generate 25 appointments
+        for($i = 0; $i < 25; $i++){
+            $service_id = $serv_arr[mt_rand(0, $num_serv - 1)]['service_id'];
+            $note = mt_rand(0, 3) < 1 ? 'Da lao bring bring me.' : 'null';
+            $remark = $remark_arr[mt_rand(0, 3)];
+            
+            $this->students_model->new_appointment($students_arr[mt_rand(0, $num_students - 1)]['id'], $service_id, 'DEFAULT', 'DEFAULT', $note, $remark);
+
+        }
+        echo 'Generate appointments successfully. <br />';
+    }
+
+    public function generate_my_appointments(){
+        $user_id = 1;
         $serv_arr = $this->general_model->get_all_services();
+
+        echo 'size of serv_arr: ' . sizeof($serv_arr) . ' ';
+
+
         $num_serv = sizeof($serv_arr);
 
         $remark_arr = ['Favorite', 'Important', 'Mid Prov', 'WTF'];
@@ -30,7 +61,8 @@ class Data_generator extends CI_Controller{
             $service_id = $serv_arr[mt_rand(0, $num_serv - 1)]['id'];
             $note = mt_rand(0, 3) < 1 ? 'Da lao bring bring me.' : 'null';
             $remark = $remark_arr[mt_rand(0, 3)];
-            $this->students_model->new_appointment(1, $service_id, 'DEFAULT', 'DEFAULT', $note, $remark);
+            
+            $result = $this->students_model->new_appointment(1, $service_id, 'DEFAULT', 'DEFAULT', $note, $remark);
         }
         echo 'Generate appointments successfully. <br />';
     }

@@ -6,8 +6,7 @@ class Tutors_model extends CI_Model{
         $this->db->select('
             ea_appointments.id                                     AS id,
             ea_appointments.book_datetime                          AS book_datetime,
-            ea_appointments.start_datetime                         AS start_datetime,
-            ea_appointments.end_datetime                           AS end_datetime,
+
             ea_appointments.booking_status                         AS booking_status,
             ea_appointments.feedback                               AS feedback_from_tutor,
             ea_appointments.suggestion                             AS suggestion_from_tutor,
@@ -16,6 +15,10 @@ class Tutors_model extends CI_Model{
             ea_appointments.notes                                  AS notes,
 
             ea_service_categories.name                             AS service_type,
+
+            ea_services.description                                AS description,
+            ea_services.start_datetime                             AS start_datetime,
+            ea_services.end_datetime                               AS end_datetime,
 
             CONCAT(students.first_name, \' \', students.last_name) AS student_name
         ')
@@ -33,10 +36,10 @@ class Tutors_model extends CI_Model{
             $this->db->where('CONCAT(students.first_name, \' \', students.last_name) = ', $student_name);
         }
         if( $start_date != 'ALL' ){
-            $this->db->where('ea_appointments.start_datetime > ', $start_date . ' 00:00');
+            $this->db->where('ea_services.start_datetime > ', $start_date . ' 00:00');
         }
         if( $end_date != 'ALL' ){
-            $this->db->where('ea_appointments.end_datetime < ', $end_date . ' 23:59');
+            $this->db->where('ea_services.end_datetime < ', $end_date . ' 23:59');
         }
         if( $service_status != 'ALL' ){
             $this->db->where('ea_appointments.booking_status', $service_status);
