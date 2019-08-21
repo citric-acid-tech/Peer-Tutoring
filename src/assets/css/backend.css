@@ -701,6 +701,16 @@ body .form-horizontal .controls {
     margin-left: 5px;
 }
 
+
+
+
+
+
+
+
+
+
+
 /* BACKEND SETTINGS PAGE
    -------------------------------------------------------------------- */
 #settings-page h2 {
@@ -807,6 +817,13 @@ body .form-horizontal .controls {
 #settings-page #update-ea {
     margin-left: 12px;
 }
+
+
+
+
+
+
+
 
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

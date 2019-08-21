@@ -60,6 +60,7 @@ class Tutors extends CI_Controller{
         $this->load->model('user_model');
 
         $view['base_url'] = $this->config->item('base_url');
+		$view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
         $view['date_format'] = $this->settings_model->get_setting('date_format');
         $view['time_format'] = $this->settings_model->get_setting('time_format');
         $view['company_name'] = $this->settings_model->get_setting('company_name');

@@ -291,6 +291,11 @@ root {
 	font-size: 15px;
 	font-weight: bold;
 }
+#tutor-settings-page label.control-label {
+	font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	font-size: 15px;
+	font-weight: bold;
+}
 .record-details .form-group input.form-control {
 	font-size: 14px;
 	/* Show ellipsis on long messages, later implementation will make it show fully on click */
@@ -503,10 +508,23 @@ root {
 
 
 
+/* Tutor Settings */
+#tutor-settings-page #save, #tutor-settings-page #cancel {
+	display: none;
+}
 
+#tutor-settings-page .form-group input.form-control {
+	font-size: 14px;
+	/* Show ellipsis on long messages, later implementation will make it show fully on click */
+	text-overflow: ellipsis;
+}
 
-
-
+#tutor-settings-page input:read-only,
+select:disabled,
+textarea:read-only {
+    opacity: 0.85;
+    box-shadow: none;
+}
 
 
 
