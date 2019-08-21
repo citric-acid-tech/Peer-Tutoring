@@ -149,6 +149,40 @@ class Tutors_api extends CI_Controller{
 	            ->set_content_type('application/json')
 	            ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
 	    }
-	}    
+    }
+    
+    public function ajax_get_settings(){
+        //
+	    try{
+	        
+	        $this->load->model('tutors_model');
+	        
+	        // Get input
+            
+            //// From front end
+
+                /* NULL */
+
+            //// From session
+            $user_id = $this->session->userdata('user_id');
+            $language = $this->session->userdata('language');
+	
+	        // Query
+	        $result = $this->tutors_model->get_settings($user_id, $language);
+
+	        // Log
+	
+	            // TODO
+	
+	        $this->output
+	            ->set_content_type('application/json')
+	            ->set_output(json_encode($result), TRUE);
+	
+	    }catch (Exception $exc){
+	        $this->output
+	            ->set_content_type('application/json')
+	            ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+	    }
+    }
 }
 ?>

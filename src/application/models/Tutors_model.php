@@ -85,5 +85,30 @@ class Tutors_model extends CI_Model{
         return $this->db->update('ea_appointments', $data);
 
     }
+
+    public function get_settings($user_id, $language){
+
+        $select_tab = $language == '简体中文'
+            ? '
+                last_name     AS given_name,
+                first_name    AS surname,
+                personal_page AS personal_page,
+                introduction  AS introduction 
+            '
+            :'
+                first_name    AS given_name,
+                last_name     AS surname,
+                personal_page AS personal_page,
+                introduction  AS introduction
+            '
+            ;
+
+        return $this->db
+            ->select($select_tab)
+            ->from('ea_users')
+            ->where('id', $user_id)
+            ->get()
+            ->result_array();
+    }
 }
 ?>

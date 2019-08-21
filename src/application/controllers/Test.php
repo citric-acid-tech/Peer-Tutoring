@@ -17,7 +17,7 @@ class Test extends CI_Controller{
     public function index($year = 2019, $month = 8){
 
         /*** Use $this-> to call your test method here. */
-        $this->test_filter_appointments();
+        $this->test_get_settings();
         /*** *****************************************  */
 
         // $prefs = array(
@@ -34,6 +34,17 @@ class Test extends CI_Controller{
         // $this->test_admin_save_settings();
     }
 
+    public function test_get_settings(){
+        $this->load->model('tutors_model');
+        echo '<br /> Chinese <br />';
+        $result = $this->tutors_model->get_settings(1, '简体中文');
+        $this->output_result_array($result);
+        echo '<br />';
+
+        echo '<br /> English <br />';
+        $result = $this->tutors_model->get_settings(1, 'english');
+        $this->output_result_array($result);
+    }
     
 
     public function test_create_account(){
