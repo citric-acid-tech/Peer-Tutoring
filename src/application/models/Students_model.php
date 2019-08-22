@@ -57,8 +57,6 @@ class Students_model extends CI_Model{
 
         // query
 
-        //ea_appointments.description        AS appointment_description,
-
         $this->db
             ->select('
             ea_appointments.id                 AS appointment_id,
