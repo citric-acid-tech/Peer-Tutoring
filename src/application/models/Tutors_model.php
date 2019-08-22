@@ -10,7 +10,7 @@ class Tutors_model extends CI_Model{
      * @param service_type   the service type of the appointment, corresponding to ea_services_categories.name
      *                       input srting 'ALL' if the user want to select all the service types
      * 
-     * @param tutor_name     the exactly correct name of student
+     * @param student_name   the exactly correct name of student
      *                       input srting 'ALL' if the user want to select all the students
      * 
      * @param service_status the booking status in ea_appointments of the appointments

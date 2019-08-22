@@ -2,6 +2,11 @@
 
 class General_model extends CI_Model{
 
+    /**
+     * Get all the services in database
+     * 
+     * @return array the result of the query
+     */
     public function get_all_services(){
         return $this->db
             ->select('ea_services.id AS id')
@@ -10,6 +15,11 @@ class General_model extends CI_Model{
             ->result_array();
     }
 
+    /**
+     * Get all the users in database
+     * 
+     * @return array the result of the query
+     */
     public function get_all_users(){
         return $this->db
             ->select('CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name')
@@ -18,6 +28,11 @@ class General_model extends CI_Model{
             ->result_array();
     }
 
+    /**
+     * Get all the tutors in database
+     * 
+     * @return array the result of the query
+     */
     public function get_all_tutors(){
         return $this->db
             ->select('CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name')
@@ -27,6 +42,11 @@ class General_model extends CI_Model{
             ->result_array();
     }
 
+    /**
+     * Get all the service types in database
+     * 
+     * @return array the result of the query
+     */
     public function get_all_service_types(){
 
         return $this->db
@@ -36,6 +56,11 @@ class General_model extends CI_Model{
             ->result_array();
     }
 
+    /**
+     * Get all the students in database
+     * 
+     * @return array the result of the query
+     */
     public function get_all_students(){
         return $this->db->select('
                 ea_users.id AS id,

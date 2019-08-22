@@ -2,6 +2,9 @@
 
 class Admin_model extends CI_Model{
     
+    /**
+     * Useless for now
+     */
     public function new_tutor($first_name, $last_name, $personal_page, 
                                 $introduction, $phone_number, $eamil, $address, $flexible_column){
         
@@ -19,6 +22,20 @@ class Admin_model extends CI_Model{
         return $this->db->insert('ea_users', $data);
     }
 
+    /**
+     * Create a new service
+     * 
+     * @param date                the date of this service
+     * @param start_time          the started time of the service
+     * @param end_time            the end time of the service
+     * @param service_type        the service type (ea_service_categories.name) of this service
+     * @param tutor_name          the tutor who hosts this service
+     * @param address             the address of this service
+     * @param capacity            the volumn or max number of students can attend
+     * @param service_description the description of the service 
+     * 
+     * @return boolean            success or not
+     */
     public function new_service($date, $start_time, $end_time, $service_type, $tutor_name,
         $address, $capacity, $service_description){
         
@@ -52,6 +69,20 @@ class Admin_model extends CI_Model{
         return $this->db->insert('ea_services', $data);
     }
 
+    /**
+     * Modify the infomation of  the current and existed service
+     * 
+     * @param date                the date of this service
+     * @param start_time          the started time of the service
+     * @param end_time            the end time of the service
+     * @param service_type        the service type (ea_service_categories.name) of this service
+     * @param tutor_name          the tutor who hosts this service
+     * @param address             the address of this service
+     * @param capacity            the volumn or max number of students can attend
+     * @param service_description the description of the service 
+     * 
+     * @return boolean            success or not 
+     */
     public function edit_service($service_id, $date, $start_time, $end_time, $service_type, 
         $address, $capacity, $service_description){
         
@@ -88,6 +119,12 @@ class Admin_model extends CI_Model{
         return $this->db->update('ea_services', $data);
     }
 
+    /**
+     * Create a new service type in the name filed in ea_service_categories table
+     * 
+     * @param name        the name of the service
+     * @param description the description of this service type
+     */
     public function new_service_type($name, $description){
         // Verify if this name is already exists or not
         $cnt = $this->db
@@ -108,12 +145,33 @@ class Admin_model extends CI_Model{
         return $this->db->insert('ea_service_categories', $data);
     }
 
+    /**
+     * Get all the appointment in the database. The administrator can also use the filter to select specified appointments.
+     * 
+     * @param service_type   the service type of the appointment, corresponding to ea_services_categories.name
+     *                       input srting 'ALL' if the user want to select all the service types
+     * 
+     * @param tutor_name     the exactly correct name of tutor
+     *                       input srting 'ALL' if the user want to select all the tutors
+     * 
+     * @param student_name   the exactly correct name of student
+     *                       input srting 'ALL' if the user want to select all the students
+     * 
+     * @param service_status the booking status in ea_appointments of the appointments
+     *                       input srting 'ALL' if the user want to select all status   
+     * 
+     * @param start_date     the start date of the time interval    
+     *                       input srting 'ALL' if the user want to select appointments with a time interval like this (-oo, end_date]
+     *  
+     * @param end_date       the end date of the time interval
+     *                       input srting 'ALL' if the user want to select appointments with a time interval like this [start_date, +oo)
+     * 
+     * @return array the result of the query
+     */
     public function filter_appointments_management($service_type, $tutor_name, $student_name, $service_status, $start_date, $end_date){
         $this->db->select('
             ea_appointments.id                                     AS id,
             ea_appointments.book_datetime                          AS book_datetime,
-            ea_appointments.start_datetime                         AS start_datetime,
-            ea_appointments.end_datetime                           AS end_datetime,
             ea_appointments.booking_status                         AS booking_status,
             ea_appointments.feedback                               AS feedback_from_tutor,
             ea_appointments.suggestion                             AS suggestion_from_tutor,
@@ -121,6 +179,8 @@ class Admin_model extends CI_Model{
             ea_appointments.comment_or_suggestion                  AS comment_or_suggestion_from_student,
 
             ea_service_categories.name                             AS service_type,
+            ea_services.start_datetime                             AS start_datetime,
+            ea_services.end_datetime                               AS end_datetime,
 
             CONCAT(students.first_name, \' \', students.last_name) AS student_name,
             CONCAT(tutors.first_name, \' \', tutors.last_name)     AS tutor_name
@@ -141,10 +201,10 @@ class Admin_model extends CI_Model{
             $this->db->where('CONCAT(students.first_name, \' \', students.last_name) = ', $student_name);
         }
         if( $start_date != 'ALL' ){
-            $this->db->where('ea_appointments.start_datetime > ', $start_date . ' 00:00');
+            $this->db->where('ea_services.start_datetime > ', $start_date . ' 00:00');
         }
         if( $end_date != 'ALL' ){
-            $this->db->where('ea_appointments.end_datetime < ', $end_date . ' 23:59');
+            $this->db->where('ea_services.start_datetime < ', $end_date . ' 23:59');
         }
         if( $service_status != 'ALL' ){
             $this->db->where('ea_appointments.booking_status', $service_status);
@@ -154,6 +214,15 @@ class Admin_model extends CI_Model{
 
     }
 
+    /**
+     * Get all the tutors in database. The administrator can also use the filter to get the infomation of
+     * the specified tutors
+     * 
+     * @param tutor_name     the exactly correct name of tutor
+     *                       input srting 'ALL' if the user want to select all the tutors
+     * 
+     * @return array         the result of the query
+     */
     public function filter_tutors($tutor_name){
         $this->db->select('
                 CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
@@ -177,6 +246,21 @@ class Admin_model extends CI_Model{
             ->result_array();
     }
 
+    /**
+     * Modify the tutor's information
+     * 
+     * @param tutor_id        the id in ea_users of the tutor whose information is going to be modified
+     * @param first_name      the first name of the tutor
+     * @param last_name       the last name of the tutor
+     * @param personal_page   the link of personal page
+     * @param introduction    the introduction
+     * @param phone_number    the phone number
+     * @param email           the email address
+     * @param address         the default address of the teaching venue
+     * @param flexible_column the content of the flexible column
+     * 
+     * @return boolean        success or not
+     */
     public function edit_tutor($tutor_id, $first_name, $last_name, $personal_page, 
             $introduction, $phone_number, $eamil, $address, $flexible_column){
 
@@ -193,11 +277,22 @@ class Admin_model extends CI_Model{
         return $this->db->update('ea_users', $data);
     }
 
+    /**
+     * Get all the services. Administrators can also use filter to get the specified services
+     * 
+     * @param tutor_name    the exactly correct name of the tutor
+     * @param semester_info a string like '2019-Fall', '2019-Summer'
+     * @param week          the week that the administrator want to check
+     * 
+     * @return array        the result of the query
+     */
     public function filter_services($tutor_name, $semester_info, $week){
 
         if(is_null($tutor_name)){
             return 'tutor_name absence.';
         }
+
+        // :: Get the first day and the last day of this semester
 
         include(APPPATH . 'config' . DIRECTORY_SEPARATOR . 'semesters.php');
 
@@ -238,6 +333,16 @@ class Admin_model extends CI_Model{
             ->result_array();
     }
 
+    /**
+     * Administrators schedule all weeks in the semester for a tutor by a given schema of one week.
+     * 
+     * @param tutor_name    the name of the tutor
+     * @param semester_info a string like '2019-Fall', '2019-Summer'
+     * @param services_id   an array contains all the service ids of the given schema
+     * @param week          the week of the given schema
+     * 
+     * @return boolean      success or not
+     */
     public function schedule_current_schema_to_all_weeks($tutor_name, $semester_info, $services_id, $week){
         
         if(is_null($tutor_name)){
@@ -306,19 +411,6 @@ class Admin_model extends CI_Model{
                 $tmp_Datetime_pointer->add( new DateInterval('P7D') );
             }
         }
-
-        // **********************************************
-        // TEST
-        // echo sizeof($data) . '<br />';
-        // foreach($data AS $row){
-        //     foreach($row as $key => $val){
-        //         echo $key . ' ' . $val . '<br />';
-        //     }
-        //     echo '<br />';
-        // }
-        // END OF TEST
-        // **********************************************
-
         
         // :: Clean all the services in this semester
         
@@ -377,6 +469,14 @@ class Admin_model extends CI_Model{
         return array($app_delete_bool, $services_delete_bool, $services_insert_bool);
     }
 
+    /**
+     * Get all the sevice types. Administrators can also use the filter to select specified service type
+     * 
+     * @param service_type   the service type of the appointment, corresponding to ea_services_categories.name
+     *                       input srting 'ALL' if the user want to select all the service types
+     * 
+     * @return array         the result of the query
+     */
     public function filter_service_types($service_type){
         $this->db->select('
             ea_service_categories.id          AS id,
@@ -418,6 +518,15 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
+    /**
+     * Modify the infomation of the service type related to the given id of the service type in ea_service_categories
+     * 
+     * @param service_type_id the id in ea_service_categories of the service type
+     * @param name            name if the service type
+     * @param description     the description
+     * 
+     * @return boolean        success or not
+     */
     public function edit_service_type($service_type_id, $name, $description){
         $this->db->where('ea_service_categories.id', $service_type_id);
         $data = [
@@ -427,6 +536,9 @@ class Admin_model extends CI_Model{
         return $this->db->update('ea_service_categories', $data);
     }
 
+    /**
+     * Seems duplicated
+     */
     public function admin_filter_appointments($service_type, $tutor_name, $student_name,
             $start_date, $end_date, $booking_status){
         $this->db->select('
@@ -502,11 +614,6 @@ class Admin_model extends CI_Model{
      */
     public function send_email_service_deletion_inform($email){
         // TODO
-    }
-
-    
+    }    
 }
-
-
-
 ?>
