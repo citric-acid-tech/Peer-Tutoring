@@ -1,11 +1,11 @@
-window.Tutors = window.Tutors || {};
+window.Admin = window.Admin || {};
 
 /**
- * Tutors
+ * Admin
  *
  * This module contains functions that are used in the students section of the application.
  *
- * @module Tutors
+ * @module Admin
  */
 (function (exports) {
 
@@ -22,7 +22,7 @@ window.Tutors = window.Tutors || {};
 		//	footer's position at the page
         $(window)
             .on('resize', function () {
-                Tutors.placeFooterToBottom();
+                Admin.placeFooterToBottom();
             })
             .trigger('resize');
 		
@@ -51,7 +51,7 @@ window.Tutors = window.Tutors || {};
     });
 
     /**
-     * Tutors Constants
+     * Admin Constants
      */
     exports.DB_SLUG_ADMIN = 'admin';
     exports.DB_SLUG_PROVIDER = 'provider';
@@ -153,4 +153,4 @@ window.Tutors = window.Tutors || {};
 		x.classList.toggle("change_navicon");
     };
 
-})(window.Tutors);
+})(window.Admin);

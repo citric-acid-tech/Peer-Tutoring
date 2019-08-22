@@ -1,5 +1,5 @@
 /**
- * TUTORS CSS FILE FOR PEER-TUTORING CLE SUSTECH
+ * STUDENTS CSS FILE FOR PEER-TUTORING CLE SUSTECH
  */
 
 root {
@@ -198,39 +198,39 @@ root {
 
 
 /* My-Appointments: COMPONENTS */
-.tutors-page .filter-records {
+.admin-page .filter-records {
     margin-bottom: 20px;
 }
 
-#filter-my_appointments #am_sc_display, #filter-my_appointments #am_tn_display {
+#appointments_management-page #aa_st_display, #appointments_management-page #aa_tn_display {
 	/* default: none */
 	display: none;
 }
 
-.tutors-page #available_appointments_service_category, .tutors-page #available_appointments_tutor {
+.admin-page #available_appointments_service_category, .admin-page #available_appointments_tutor {
 	margin-top: 6px;
 }
 
-.tutors-page .filter-records form .input-group-selection select {
+.admin-page .filter-records form .input-group-selection select {
 	opacity: 0.85;
 	box-shadow: none;
 }
-.tutors-page .filter-records form .input-group-selection select option {
+.admin-page .filter-records form .input-group-selection select option {
 	text-align: center;
 }
 
-.tutors-page .filter-records form .key {
+.admin-page .filter-records form .key {
     margin-right: 15px;
     float: left;
 }
 
-.tutors-page .filter-records form .input-group-addon {
+.admin-page .filter-records form .input-group-addon {
     padding-top: 0;
     padding-right: 0;
     border-top: none;
 }
 
-.tutors-page .filter-list {
+.admin-page .filter-list {
 	margin: 20px 0;
 	padding-top: 5px;
 	padding-left: 0;
@@ -238,7 +238,7 @@ root {
 	width: 100%;
 	text-align: center;
 }
-.tutors-page .filter-item {
+.admin-page .filter-item {
 	position: relative;
 	display: block;
 	padding: 10px 15px;
@@ -248,36 +248,34 @@ root {
 	
 	user-select: none;
 	cursor: pointer;
-	
-	transition: all 0.2s;
 }
-.tutors-page .filter-item:focus, .tutors-page .filter-item:hover {
+.admin-page .filter-item:focus, .admin-page .filter-item:hover {
 	background-color: rgba(41, 109, 151, 0.8);
 	color: snow;
 }
 
 /* Watch this, not yet adjusted */
-.tutors-page .filter-records .results {
+.admin-page .filter-records .results {
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 450px;
     outline: none;
 }
 
-.tutors-page .filter-records .results .entry {
+.admin-page .filter-records .results .entry {
     padding: 10px 7px;
 }
 
-.tutors-page .filter-records .results .entry:hover:not(.selected) {
+.admin-page .filter-records .results .entry:hover:not(.selected) {
     background-color: #F3F3F3;
     cursor: pointer;
 }
 
-.tutors-page .filter-records .results .entry.selected {
+.admin-page .filter-records .results .entry.selected {
     background-color: #F4F4F4;
     border-right: 5px solid #296d97;
 }
 
-.tutors-page .filter-records .results hr {
+.admin-page .filter-records .results hr {
     margin: 5px 0;
 }
 /* Watch this, not yet adjusted */
@@ -287,11 +285,6 @@ root {
     margin-bottom: 20px;
 }
 .record-details .form-group label.control-label {
-	font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
-	font-size: 15px;
-	font-weight: bold;
-}
-#tutor-settings-page label.control-label {
 	font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
 	font-size: 15px;
 	font-weight: bold;
@@ -313,7 +306,7 @@ root {
 
 
 /* popups */
-.tutors-page .curtain {
+.admin-page .curtain {
 	background-color: black;
 	position: fixed;
 	width: 100%;
@@ -326,10 +319,10 @@ root {
 	/* Default hide */
 	display: none;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window {
+.admin-page #popup_assess #assess_popup {
 	position: absolute;
-	width: 1150px;
-	height: 630px;
+	width: 666px;
+	height: 480px;
 	
 	left: 50%;
 	top: 50%;
@@ -342,7 +335,7 @@ root {
 	/* Default hide */
 	display: none;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window .feedback-title h2 {
+.admin-page #popup_assess #assess_popup .assess-title h2 {
 	user-select: none;
 	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
 	letter-spacing: 1px;
@@ -352,7 +345,7 @@ root {
 }
 
 /* Rating stars */
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .stars {
+.admin-page #popup_assess #assess_popup form .stars {
 	/* Prevent whitespace issues */
 	display: inline-flex;
 }
@@ -411,13 +404,13 @@ root {
 }
 /* Rating stars */
 
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window .feedback-container {
+.admin-page #popup_assess #assess_popup .assess-container {
 	width: 100%;
 	box-sizing: border-box;
 	margin: 5px 0 0;
 	text-align: center;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form textarea {
+.admin-page #popup_assess #assess_popup form textarea {
 	display: inline-block;
 	box-sizing: border-box;
 	width: 86%;
@@ -427,7 +420,7 @@ root {
 	outline: none;
 	color:  #76838f;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form input {
+.admin-page #popup_assess #assess_popup form input {
 	border: 1px solid white;
 	display: inline-block;
 	box-sizing: border-box;
@@ -439,11 +432,11 @@ root {
 	outline: none;
 	color:  #76838f;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form input:hover {
+.admin-page #popup_assess #assess_popup form input:hover {
 	outline: none;
 	border: 1px solid #62a8ea;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .feedback_popup_buttons {
+.admin-page #popup_assess #assess_popup form .assess_buttons {
 	background-color: #62a8ea;
 	border: none;
 	width: 43%;
@@ -455,13 +448,13 @@ root {
 	font-weight: bold;
 	margin: 10px 0;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .feedback_popup_buttons:hover {
+.admin-page #popup_assess #assess_popup form .assess_buttons:hover {
 	opacity: 0.7;
 }
-.tutors-page .rate {
+.admin-page .rate {
 	font-size: 26px;
 }
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form hr {
+.admin-page #popup_assess #assess_popup form hr {
 	margin: 16px;
 }
 
@@ -478,19 +471,21 @@ root {
 	display: none;
 }
 
-.tutors-page .nav {
+.admin-page .nav {
 	/* styles of ul */
 	background-color: #f4f4f4;
 	margin-bottom: 15px;
 }
-.tutors-page .nav li {
+.admin-page .nav li {
 	cursor: pointer;
 }
-.tutors-page .nav li #check-calendar-tabnav {
+.admin-page .nav li #check-calendar-tabnav {
+	
+}
+.admin-page .nav-tabs>li.active>a, .admin-page .nav-tabs>li.active>a:focus {
 	background-color: rgba(41, 109, 151, 0.8);
 	color: snow;
 }
-
 
 
 
@@ -505,30 +500,129 @@ root {
 
 
 
+/* Select by time */
+.admin-page .center-text {
+	text-align: center;
+}
+.admin-page #select-by-time-tab .wrapper {
+	margin: 20px 0;
+}
+.admin-page .calendar-block div#sel_calendar {
+	font-size: 15px;
+	margin: 0 auto;
+}
+.admin-page .calendar-block div#sel_calendar .ui-datepicker {
+	margin: 0 auto;
+}
+.admin-page .calendar-block div#sel_calendar tbody .ui-datepicker-week-col {
+	opacity: 0.8;
+	padding-top: 5px;
+	font-size: 12px;
+}
+.admin-page .calendar-block div#sel_calendar .ui-state-hover {
+	background-color: rgba(41, 109, 151, 0.5)!important;
+	color: snow;
+	border-radius: 50px;
+	width: 22px;
+	height: 22px;
+	line-height: 1.3;
+	margin: 4px;
+}
+.admin-page .calendar-block div#sel_calendar .ui-state-highlight {
+	background-color: rgba(53, 182, 111, 1.0)!important;
+	width: 25px;
+	height: 25px;
+}
+.admin-page .calendar-block div#sel_calendar .ui-state-active {
+	background-color: rgba(41, 109, 151, 1.0)!important;
+	width: 25px;
+	height: 25px;
+}
+.admin-page .calendar-block #show_calendar_date {
+	width: 270px;
+	text-align: center;
+	padding: 10px;
+	border: 2px solid rgba(41, 109, 151, 0.6);
+	border-radius: 10px;
+	font-weight: bold;
+	cursor: inherit;
+	color: rgba(41, 109, 151, 0.9);
+	user-select: none;
+}
+.admin-page .calendar-block #show_calendar_date:focus {
+	outline: none;
+}
+.admin-page .calendar-block .hints {
+	width: 270px;
+	margin: 10px auto;
+}
+.admin-page .calendar-block .hints .hints-today {
+	background-color: rgba(53, 182, 111, 1.0);
+	padding: 3px;
+	border-radius: 67px;
+	font-weight: bold;
+	color: snow;
+}
+.admin-page .calendar-block .hints .hints-selected {
+	background-color: rgba(41,109,151,1.0);
+	padding: 3px;
+	border-radius: 50px;
+	font-weight: bold;
+	color: snow;
+}
+.admin-page .calendar-block hr {
+	width: 300px;
+	margin: 6px auto;
+}
+.admin-page .calendar-block .help-block {
+	width: 270px;
+	margin: 0 auto;
+	text-align: justify;
+}
 
 
 
-/* Tutor Settings */
-#tutor-settings-page #save, #tutor-settings-page #cancel {
+#split-stutime {
 	display: none;
 }
 
-#tutor-settings-page .form-group input.form-control {
-	font-size: 14px;
-	/* Show ellipsis on long messages, later implementation will make it show fully on click */
-	text-overflow: ellipsis;
+
+
+.admin-page .sel-tutor-by-time #date-title {
+	width: 200px;
+	border: none;
+	text-align: center;
+	font-weight: bold;
+	font-size: 36px;
+	color: rgba(41,109,151,0.8)
+}
+.admin-page .sel-tutor-by-time #date-title:focus {
+	outline: none;
+}
+.admin-page .sel-tutor-by-time .available-tutors-at-time {
+	height: 285px;
+	overflow-y: scroll;
 }
 
-#tutor-settings-page input:read-only,
-select:disabled,
-textarea:read-only {
-    opacity: 0.85;
-    box-shadow: none;
+
+
+
+.admin-page .sel-tutor-by-time .available-tutors-at-time .entry {
+	padding: 10px 7px;
+	margin-right: 10px;
+}
+.admin-page .sel-tutor-by-time .available-tutors-at-time .entry.selected {
+	background-color: #f4f4f4;
+	border-right: 5px solid #296d97;
+}
+.admin-page .sel-tutor-by-time .available-tutors-at-time .entry:hover:not(.selected) {
+	background-color: #f3f3f3;
+	cursor: pointer;
 }
 
 
 
-
+/* Select by time */
 
 
 
@@ -550,6 +644,11 @@ textarea:read-only {
     #calendar-page #calendar-actions {
         text-align: left;
     }
+}
+@media (max-width: 991px) {
+	#split-stutime {
+		display: block;
+	}
 }
 
 @media (max-width: 860px) {
