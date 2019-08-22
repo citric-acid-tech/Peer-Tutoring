@@ -219,8 +219,7 @@ class Students_api extends CI_Controller{
 
             // Get input
             $service_id = json_decode($this->input->post('service_id'), TRUE);
-            $start_datetime = json_decode($this->input->post('start_datetime'), TRUE);
-            $end_datetime = json_decode($this->input->post('end_datetime'), TRUE);
+
             $note = json_decode($this->input->post('note'), TRUE);
             $remark = json_decode($this->input->post('remark'), TRUE);
             $user_id = $this->session->user_data('user_id');
@@ -228,7 +227,7 @@ class Students_api extends CI_Controller{
             // Upload File? TODO
 
             // Query
-            if ($this->students_model->new_appointment($user_id, $service_id, $start_datetime, $end_datetime, $note, $remark) ){
+            if ($this->students_model->new_appointment($user_id, $service_id,  $note, $remark) ){
                 $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode('success'));

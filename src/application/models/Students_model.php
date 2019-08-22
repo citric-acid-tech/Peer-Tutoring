@@ -63,8 +63,8 @@ class Students_model extends CI_Model{
             ->select('
             ea_appointments.id                 AS appointment_id,
             ea_appointments.book_datetime      AS book_datetime,
-            ea_appointments.start_datetime     AS start_datetime,
-            ea_appointments.end_datetime       AS end_datetime,
+            ea_services.start_datetime         AS start_datetime,
+            ea_services.end_datetime           AS end_datetime,
             ea_appointments.notes              AS notes,
             ea_appointments.hash               AS hash,
             ea_appointments.is_unavailable     AS is_unavailable,
@@ -122,8 +122,9 @@ class Students_model extends CI_Model{
         // current time and the start datetime of the appointment
         $appointment_info = 
             $this->db
-                ->select('ea_appointments.*, TIMESTAMPDIFF(MINUTE,now(), ea_appointments.start_datetime) AS time_diff')
+                ->select('ea_appointments.*, TIMESTAMPDIFF(MINUTE,now(), ea_services.start_datetime) AS time_diff')
                 ->from('ea_appointments')
+                ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
                 ->where('id', $appointment_id)
                 ->get()
                 ->row_array();
@@ -335,7 +336,7 @@ class Students_model extends CI_Model{
      * 
      * @return boolean   success or not
      */
-    public function new_appointment($user_id, $service_id, $start_datetime, $end_datetime, $note, $remark){
+    public function new_appointment($user_id, $service_id, $note, $remark){
 
         //:: Check if this appointment can be booked or not.
 
@@ -361,30 +362,11 @@ class Students_model extends CI_Model{
 
         $book_datetime = $this->db->select('NOW()')->get()->row_array()['NOW()'];
 
-        if( $start_datetime === 'DEFAULT'){
-            $start_datetime = $this->db
-                ->select('ea_services.start_datetime AS start')
-                ->from('ea_services')
-                ->where('ea_services.id', $service_id)
-                ->get()
-                ->row_array()['start'];
-        }
-
-        if( $end_datetime === 'DEFAULT'){
-            $end_datetime = $this->db
-                ->select('ea_services.end_datetime AS end')
-                ->from('ea_services')
-                ->where('ea_services.id', $service_id)
-                ->get()
-                ->row_array()['end'];
-        }
 
         $data = array(
             'id_services' => $service_id,
             'id_users_customer' => $user_id,
             'book_datetime' => $book_datetime,
-            'start_datetime' => $start_datetime,
-            'end_datetime' => $end_datetime,
             'notes' => $note,
             'remark' => $remark
         );
