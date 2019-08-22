@@ -312,7 +312,7 @@ class Students_model extends CI_Model{
                 ->from('ea_services')
                 ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
                 ->where('ea_services.start_datetime > ', $date . ' 00:00')
-                ->where('ea_services.start_datetime <', $date . '23:59')
+                ->where('ea_services.start_datetime < ', $date . ' 23:59')
                 ->group_by('tutor_name')
                 ->order_by('start_datetime', 'ASC')
                 ->get()

@@ -60,13 +60,26 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				helper.filter(undefined, undefined, undefined, undefined, 'true');
 			} else if ($(this).attr('href') === '#select-by-time-tab') {
 				helper = studentsAvailableAppointmentsTimeHelper;
-				helper.resetForm();
-				helper.filter(undefined, undefined, undefined, undefined, 'true');
+				//	Guess what, a date picker!
+				//	beforeShowDay: $.datepicker.noWeekends
+				$('#sel_calendar').datepicker({
+					dateFormat: "yy-mm-dd",
+					altField: "#show_calendar_date, #date-title",
+					autoSize: true,
+					firstDay: 1,
+					showOtherMonths: true,
+					hideIfNoPrevNext: true,
+					minDate: "0",
+					maxDate: "1w",
+					showWeek: true,
+					onSelect: function() {
+						helper.filter($('#date-title').val());
+					}
+				});
+				helper.filter($('#date-title').val());
 			} else if ($(this).attr('href') === '#check-available-time-in-calendar') {
 				//	This may not happens, cause it cannot be changed directly
 				helper = studentsAvailableAppointmentsCalendarHelper;
-				helper.resetForm();
-				helper.filter(undefined, undefined, undefined, undefined, 'true');
 			} else {
 				alert("What have you pressed, my friend??");
 			}

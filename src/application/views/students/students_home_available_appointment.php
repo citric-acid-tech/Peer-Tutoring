@@ -126,7 +126,7 @@
 					<br />
 				
 					<div class="btn-toolbar">
-					     <div id="check-available-time-group" class="btn-group">
+					     <div id="check-available-time-group-tutor" class="btn-group">
 					         <button id="check-available-time-tutor" class="btn btn-primary">
 					             <i class="fas fa-calendar-alt"></i>&nbsp;
 					             <?= lang('check_available_time') ?>
@@ -139,7 +139,47 @@
 		
 		<!-- Select by Time Tab -->
 		<div role="tabpanel" class="tab-pane" id="select-by-time-tab">
-			<p>Select by Time!</p>
+			<div class="container">
+				<div class="wrapper row">
+					<div class="col-xs-12 col-sm-12 col-md-4 center-text calendar-block">
+						<h4>
+							<input type="text" id="show_calendar_date" readonly />
+						</h4>
+						<div id="sel_calendar"></div>
+						<div class="row hints">
+							<div class="col-xs-6">
+								<span class="hints-today">15</span> - Today
+							</div>
+							<div class="col-xs-6">
+								<span class="hints-selected">25</span> - Selected
+							</div>
+						</div>
+						<hr />
+						<span class="help-block">
+							Select a date to check on the tutors available for some services.
+						</span>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-1"><hr id="split-stutime" /></div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-7 sel-tutor-by-time">
+						<!-- Button Toolbar -->
+						<div class="btn-toolbar">
+						     <div id="check-available-time-group-time" class="btn-group">
+						         <button id="check-available-time-time" class="btn btn-primary">
+						             <i class="fas fa-calendar-alt"></i>&nbsp;
+						             <?= lang('check_available_time') ?>
+						         </button>
+						     </div>
+						</div>
+						<h4>
+							Available Tutors on &nbsp;<input id="date-title" readonly />
+						</h4>
+						<hr />
+						<div class="available-tutors-at-time"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<!-- Check Available Time in Calendar Tab -->

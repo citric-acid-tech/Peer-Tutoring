@@ -16,7 +16,7 @@
 		</div>
 		<!-- End of Home Footer -->
 		
-		<script src="<?= asset_url('assets/js/tutors.js', NULL, 'js') ?>"></script>
+		<script src="<?= asset_url('assets/js/admin.js', NULL, 'js') ?>"></script>
 		<script src="<?= asset_url('assets/js/general_functions.js', NULL, 'js') ?>"></script>
 	</body>
 </html>

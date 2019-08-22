@@ -52,7 +52,7 @@
          *
          * Display the Available Appointments Select by Tutor data of the selected row.
          */
-        $(document).on('click', '.entry', function () {
+        $(document).on('click', '.students-page .filter-records .results .entry', function () {
 			//	Get clicked id
             var tutorID = $(this).attr('data-id');
 			
@@ -162,7 +162,7 @@
         //	Disable all operation buttons when the form is reset
 		$('#check-available-time-tutor').prop('disabled', true);
 		//	Show the button group
-        $('#check-available-time-group').show();
+        $('#check-available-time-group-tutor').show();
 		
 		//	Enable search input buttons
         $('#filter-aa_tutors button').prop('disabled', false);
