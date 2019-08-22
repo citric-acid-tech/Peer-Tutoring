@@ -123,7 +123,7 @@ class Students_model extends CI_Model{
                 ->select('ea_appointments.*, TIMESTAMPDIFF(MINUTE,now(), ea_services.start_datetime) AS time_diff')
                 ->from('ea_appointments')
                 ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
-                ->where('id', $appointment_id)
+                ->where('ea_appointments.id', $appointment_id)
                 ->get()
                 ->row_array();
 
