@@ -57,7 +57,7 @@ class Students_model extends CI_Model{
             ea_users.last_name                 AS last_name,
              
             ea_service_categories.name         AS service_type,
-            ea_Service_categories.description  AS appointment_description,
+            ea_service_categories.description  AS appointment_description,
             
             ea_services.name                   AS service_name
             ')
