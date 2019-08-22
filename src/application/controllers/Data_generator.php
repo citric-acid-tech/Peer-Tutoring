@@ -39,7 +39,7 @@ class Data_generator extends CI_Controller{
             $note = mt_rand(0, 3) < 1 ? 'Da lao bring bring me.' : 'null';
             $remark = $remark_arr[mt_rand(0, 3)];
             
-            $this->students_model->new_appointment($students_arr[mt_rand(0, $num_students - 1)]['id'], $service_id, 'DEFAULT', 'DEFAULT', $note, $remark);
+            $this->students_model->new_appointment($students_arr[mt_rand(0, $num_students - 1)]['id'], $service_id, $note, $remark);
 
         }
         echo 'Generate appointments successfully. <br />';
@@ -62,7 +62,7 @@ class Data_generator extends CI_Controller{
             $note = mt_rand(0, 3) < 1 ? 'Da lao bring bring me.' : 'null';
             $remark = $remark_arr[mt_rand(0, 3)];
             
-            $result = $this->students_model->new_appointment(1, $service_id, 'DEFAULT', 'DEFAULT', $note, $remark);
+            $result = $this->students_model->new_appointment(1, $service_id,  $note, $remark);
         }
         echo 'Generate appointments successfully. <br />';
     }
