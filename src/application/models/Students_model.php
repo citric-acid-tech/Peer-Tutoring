@@ -120,7 +120,7 @@ class Students_model extends CI_Model{
         // current time and the start datetime of the appointment
         $appointment_info = 
             $this->db
-                ->select('ea_appointments.*, TIMESTAMPDIFF(MINUTE,now(), ea_services.start_datetime) AS time_diff')
+                ->select('TIMESTAMPDIFF(MINUTE,now(), ea_services.start_datetime) AS time_diff')
                 ->from('ea_appointments')
                 ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
                 ->where('ea_appointments.id', $appointment_id)
@@ -139,9 +139,9 @@ class Students_model extends CI_Model{
         if($time_diff >= MIN_CANCEL_AHEAD_MINS){
 
             // Change the booking status of the corresponding appointment
-            $appointment_info['booking_status'] = '3';
-            unset($appointment_info['time_diff']);
-            $this->db->replace('ea_appointments', $appointment_info);
+            $this->db->set('booking_status', '3');
+            $this->db->where('id', $appointment_id);
+            $this->db->update('ea_appointments');
 
             // Change the appointments number of the relating service
             $id_services = $appointment_info['id_services'];
