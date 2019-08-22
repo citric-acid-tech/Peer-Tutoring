@@ -2,6 +2,26 @@
 
 class Tutors_model extends CI_Model{
 
+    /**
+     * Get all the appointment related to the current user. The user can also use the filter to select appointments
+     * with specified service type, student, service status and appointment date.
+     * 
+     * @param user_id        the id in ea_users of the current user
+     * @param service_type   the service type of the appointment, corresponding to ea_services_categories.name
+     *                       input srting 'ALL' if the user want to select all the service types
+     * 
+     * @param tutor_name     the exactly correct name of student
+     *                       input srting 'ALL' if the user want to select all the students
+     * 
+     * @param service_status the booking status in ea_appointments of the appointments
+     *                       input srting 'ALL' if the user want to select all status     
+     * 
+     * @param start_date     the start date of the time interval    
+     *                       input srting 'ALL' if the user want to select appointments with a time interval like this (-oo, end_date]
+     *  
+     * @param end_date       the end date of the time interval
+     *                       input srting 'ALL' if the user want to select appointments with a time interval like this [start_date, +oo)
+     */
     public function filter_appointments($user_id, $service_type, $student_name, $service_status, $start_date, $end_date){
         $this->db->select('
             ea_appointments.id                                     AS id,
@@ -39,7 +59,7 @@ class Tutors_model extends CI_Model{
             $this->db->where('ea_services.start_datetime > ', $start_date . ' 00:00');
         }
         if( $end_date != 'ALL' ){
-            $this->db->where('ea_services.end_datetime < ', $end_date . ' 23:59');
+            $this->db->where('ea_services.start_datetime < ', $end_date . ' 23:59');
         }
         if( $service_status != 'ALL' ){
             $this->db->where('ea_appointments.booking_status', $service_status);
@@ -48,12 +68,34 @@ class Tutors_model extends CI_Model{
         return $this->db->get()->result_array();
     }
 
+    /**
+     * Modify the status of the specified appointment
+     * 
+     * @param appointment_id the id in ea_appointments of the appointment which is going to be modified its booking status
+     * @param service_status the status to change
+     * 
+     * @return boolean       success or not
+     */
     public function modify_status($appointment_id, $service_status){
         $this->db->set('booking_status', $service_status);
         $this->db->where('id', $appointment_id);
         return $this->db->update('ea_appointments');
     }
 
+    /**
+     * Modify the tutor's settings
+     * If the language selection is Chinese, put the surname into the first_name field in ea_users.
+     * If the language selection is English, put the surname into the last_name field in ea_users.
+     * 
+     * @param user_id       the id in ea_users of the current user
+     * @param given_name    the given name
+     * @param surname       the surname
+     * @param introduction  the introduction
+     * @param personal_page the link of the personal page
+     * @param language      the language selection kept in session
+     * 
+     * @return boolean      success or not
+     */
     public function save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $language){
 
         if($language && $language == '简体中文'){
@@ -75,6 +117,15 @@ class Tutors_model extends CI_Model{
         return $this->db->update('ea_users', $data);
     }
 
+    /**
+     * Add and send feedback and suggestion to the student involved in the appointments
+     * 
+     * @param appointment_id the id in ea_appointments of the selected appointment
+     * @param feedback       the feedback
+     * @param suggestion     the suggestion
+     * 
+     * @return boolean       success or not
+     */
     public function save_feedback_and_suggestion($appointment_id, $feedback, $suggestion){
 
         $data = [
@@ -86,6 +137,14 @@ class Tutors_model extends CI_Model{
 
     }
 
+    /**
+     * Get the surname, given name, link of personal page and introduction of the user
+     * 
+     * @param user_id  the id in ea_users of the current user
+     * @param language the language selection in session
+     * 
+     * @return array   the result of the query
+     */
     public function get_settings($user_id, $language){
 
         $select_tab = $language == '简体中文'
