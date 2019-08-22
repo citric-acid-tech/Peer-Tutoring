@@ -120,7 +120,7 @@ class Students_model extends CI_Model{
         // current time and the start datetime of the appointment
         $appointment_info = 
             $this->db
-                ->select('TIMESTAMPDIFF(MINUTE,now(), ea_services.start_datetime) AS time_diff')
+                ->select('booking_status, id_services, TIMESTAMPDIFF(MINUTE,now(), ea_services.start_datetime) AS time_diff')
                 ->from('ea_appointments')
                 ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
                 ->where('ea_appointments.id', $appointment_id)

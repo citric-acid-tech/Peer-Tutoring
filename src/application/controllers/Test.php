@@ -17,7 +17,7 @@ class Test extends CI_Controller{
     public function index($year = 2019, $month = 8){
 
         /*** Use $this-> to call your test method here. */
-        $this->test_get_settings();
+        $this->test_cancel_appointment();
         /*** *****************************************  */
 
         // $prefs = array(
@@ -32,6 +32,12 @@ class Test extends CI_Controller{
         // $this->load->library('calendar',$prefs);
         // echo $this->calendar->generate($year, $month);
         // $this->test_admin_save_settings();
+    }
+
+    public function test_cancel_appointment(){
+        $this->load->model('students_model');
+        $appointment_id = 19;
+        echo $this->students_model->cancel_appointment($appointment_id);
     }
 
     public function test_get_settings(){
