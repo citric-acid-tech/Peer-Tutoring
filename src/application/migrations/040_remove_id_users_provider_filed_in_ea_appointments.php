@@ -5,7 +5,7 @@ class Migration_Remove_id_users_provider_filed_in_ea_appointments extends CI_Mig
     public function up(){
         
         $this->db->query(
-            'ALTER TABLE .`ea_appointments` 
+            'ALTER TABLE `ea_appointments` 
              DROP FOREIGN KEY `appointments_users_provider`;
                           
         ');
