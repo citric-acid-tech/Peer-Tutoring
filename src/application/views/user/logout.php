@@ -69,12 +69,6 @@
             <span class="glyphicon glyphicon-calendar"></span>
             <?= lang('d_home') ?>
         </a>
-
-        <a href="<?= site_url() ?>" class="btn btn-default btn-large">
-            <span class="glyphicon glyphicon-wrench"></span>
-            <?= lang('d_home') ?>
-        </a>
-
     </div>
 </body>
 </html>

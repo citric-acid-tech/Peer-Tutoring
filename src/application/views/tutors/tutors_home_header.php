@@ -41,7 +41,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<div id="header-logo" class="navbar-brand">
-					<a href="https://cle.sustech.edu.cn" target="_blank">
+					<a href="<?= site_url() ?>">
 						<img src="<?= base_url('assets/img/logo.png') ?>">
 					</a>
 				</div>
