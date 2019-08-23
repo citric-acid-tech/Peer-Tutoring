@@ -168,7 +168,7 @@ class Admin_model extends CI_Model{
      * 
      * @return array the result of the query
      */
-    public function filter_appointments_management($service_type, $tutor_name, $student_name, $service_status, $start_date, $end_date){
+    public function filter_appointments_management($service_type, $tutor_name, $student_name, $start_date, $end_date, $service_status,$appointment_id){
         $this->db->select('
             ea_appointments.id                                     AS id,
             ea_appointments.book_datetime                          AS book_datetime,
@@ -191,6 +191,13 @@ class Admin_model extends CI_Model{
         ->join('ea_users AS students', 'students.id = ea_appointments.id_users_customer', 'inner')
         ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner');
 
+        if( $appointment_id != 'ALL' ){
+            $this->db->where('ea_appointments.id', $appointment_id);
+            // Return directly
+            return $this->db
+                ->order_by('ea_services.start_datetime')->get()->result_array();
+        }
+
         if( $service_type != 'ALL' ){
             $this->db->where('ea_service_categories.name', $service_type);
         }
@@ -210,7 +217,8 @@ class Admin_model extends CI_Model{
             $this->db->where('ea_appointments.booking_status', $service_status);
         }
 
-        return $this->db->get()->result_array();
+        return $this->db
+            ->order_by('ea_services.start_datetime')->get()->result_array();
 
     }
 
@@ -539,54 +547,56 @@ class Admin_model extends CI_Model{
     /**
      * Seems duplicated
      */
-    public function admin_filter_appointments($service_type, $tutor_name, $student_name,
-            $start_date, $end_date, $booking_status){
-        $this->db->select('
-            ea_appointments.id                                     AS id,
+    // public function admin_filter_appointments($service_type, $tutor_name, $student_name,
+    //         $start_date, $end_date, $booking_status){
+    //     $this->db->select('
+    //         ea_appointments.id                                     AS id,
 
-            ea_service_categories.name                             AS service_type,
+    //         ea_service_categories.name                             AS service_type,
 
-            CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
-            CONCAT(stu_tab.first_name, \' \', stu_tab.last_name)   AS student_name,
+    //         CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
+    //         CONCAT(stu_tab.first_name, \' \', stu_tab.last_name)   AS student_name,
             
-            ea_appointments.book_datetime                          AS book_datetime,
-            ea_appointments.booking_status                         AS booking_status,
-            ea_appointments.feedback                               AS feedback_from_tutor,
-            ea_appointments.suggestion                             AS suggestion_from_tutor,
-            ea_appointments.comment_or_suggestion                  AS comment_or_suggestion_from_student,
-            ea_appointments.stars                                  AS stars,
+    //         ea_appointments.book_datetime                          AS book_datetime,
+    //         ea_appointments.booking_status                         AS booking_status,
+    //         ea_appointments.feedback                               AS feedback_from_tutor,
+    //         ea_appointments.suggestion                             AS suggestion_from_tutor,
+    //         ea_appointments.comment_or_suggestion                  AS comment_or_suggestion_from_student,
+    //         ea_appointments.stars                                  AS stars,
 
-            ea_services.start_datetime                             AS start_datetime,
-            ea_services.end_datetime                               AS end_datetime
-        ')
-        ->from('ea_appointments')
-        ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
-        ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
-        ->join('ea_users AS stu_tab', 'stu_tab.id = ea_appointments.id_users_customer', 'inner')
-        ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner');
+    //         ea_services.start_datetime                             AS start_datetime,
+    //         ea_services.end_datetime                               AS end_datetime
+    //     ')
+    //     ->from('ea_appointments')
+    //     ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
+    //     ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+    //     ->join('ea_users AS stu_tab', 'stu_tab.id = ea_appointments.id_users_customer', 'inner')
+    //     ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner');
+        
+        
 
-        if( $service_type != 'ALL'){
-            $this->db->where('ea_service_categories.name', $service_type);
-        }
-        if( $tutor_name != 'ALL'){
-            $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
-        }
-        if( $student_name != 'ALL'){
-            $this->db->where('CONCAT(stu_tab.first_name, \' \', stu_tab.last_name) = ', $student_name);
-        }
-        if( $start_date != 'ALL'){
-            $this->db->where('ea_services.start_datetime >', $start_date . ' 00:00');
-        }
-        if( $end_date != 'ALL'){
-            $this->db->where('ea_services.start_datetime <', $end_date . ' 23:59');
-        }
-        if( $booking_status != 'ALL'){
-            $this->db->where('ea_appointments.booking_status', $booking_status);
-        }
+    //     if( $service_type != 'ALL'){
+    //         $this->db->where('ea_service_categories.name', $service_type);
+    //     }
+    //     if( $tutor_name != 'ALL'){
+    //         $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+    //     }
+    //     if( $student_name != 'ALL'){
+    //         $this->db->where('CONCAT(stu_tab.first_name, \' \', stu_tab.last_name) = ', $student_name);
+    //     }
+    //     if( $start_date != 'ALL'){
+    //         $this->db->where('ea_services.start_datetime >', $start_date . ' 00:00');
+    //     }
+    //     if( $end_date != 'ALL'){
+    //         $this->db->where('ea_services.start_datetime <', $end_date . ' 23:59');
+    //     }
+    //     if( $booking_status != 'ALL'){
+    //         $this->db->where('ea_appointments.booking_status', $booking_status);
+    //     }
 
-        return $this->db
-            ->order_by('ea_services.start_datetime')->get()->result_array();
-    }
+    //     return $this->db
+    //         ->order_by('ea_services.start_datetime')->get()->result_array();
+    // }
 
     public function save_settings($upload_file_max_size, 
             $max_services_checking_ahead_day, $max_appointment_cancel_ahead_day){

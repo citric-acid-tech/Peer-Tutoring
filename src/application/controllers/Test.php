@@ -17,7 +17,7 @@ class Test extends CI_Controller{
     public function index($year = 2019, $month = 8){
 
         /*** Use $this-> to call your test method here. */
-        $this->test_cancel_appointment();
+        $this->test_filter_appointments_management();
         /*** *****************************************  */
 
         // $prefs = array(
@@ -240,7 +240,8 @@ class Test extends CI_Controller{
         $start_date = 'ALL';
         $end_date = 'ALL';
         $service_status = 'ALL';
-        $result = $this->admin_model->filter_appointments_management($service_type, $tutor_name, $student_name, $service_status, $start_date, $end_date);
+        $id = 'ALL';
+        $result = $this->admin_model->filter_appointments_management($service_type, $tutor_name, $student_name,  $start_date, $end_date, $service_status,$id);
         echo 'amount: ' . sizeof($result) . ' <br />';
         echo $this->output_result_array($result);
     }

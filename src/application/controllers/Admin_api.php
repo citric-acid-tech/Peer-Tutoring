@@ -434,11 +434,12 @@ class Admin_api extends CI_Controller{
             $start_date = json_decode($this->input->post('start_date'), TRUE);
             $end_date = json_decode($this->input->post('end_date'), TRUE);
             $booking_status = json_decode($this->input->post('booking_status'), TRUE);
+            $appointment_id = json_decode($this->input->post('appointment_id'), TRUE); 
 
             // Query
             $result = $this->admin_model
-                ->admin_filter_appointments($service_type, $tutor_name, $student_name,
-                                        $start_date, $end_date, $booking_status);
+                ->filter_appointments_management($service_type, $tutor_name, $student_name,
+                                        $start_date, $end_date, $booking_status, $appointment_id);
             // Log
 
                 // TODO
