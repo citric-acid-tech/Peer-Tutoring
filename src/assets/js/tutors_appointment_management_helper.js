@@ -232,7 +232,7 @@
 			Tutors.placeFooterToBottom();
 		});	
         /**
-         * Event: click the input bar, show filter details of tutor name
+         * Event: click the input bar, show filter details of student name
          */
 		$('.tutors-page #tutor-appointment_management_students').focus(function() {
 //			$('#filter-my_appointments .curtain').slideDown(360);
@@ -245,7 +245,7 @@
 		});
 		
         /**
-         * Event: Typing tutor
+         * Event: Typing student
          */
 		$('.tutors-page #tutor-appointment_management_students').on("keyup", function() {
 			var val = $(this).val().toLowerCase();
@@ -266,7 +266,7 @@
 			Tutors.placeFooterToBottom();
 		});
 		/**
-         * Event: Press list items for tutor name
+         * Event: Press list items for student name
          */
 		$(document).on('click', '.tutors-page #am_tn_display .filter-item--close, .tutors-page #am_tn_display .filter-item--find', function() {
 			$('.tutors-page #tutor-appointment_management_students').val($(this).attr("title"));

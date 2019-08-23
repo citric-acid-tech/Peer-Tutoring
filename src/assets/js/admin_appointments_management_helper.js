@@ -23,13 +23,20 @@
          * Event: Filter My Appointments Form "Submit"
          */
         $('#filter-appointments_management form').submit(function () {
+			var id = $('#appointment-id').val();
+			var bs = $("#my_appointments_booking_status option:selected").val();
+			var st = $('#filter-appointments_management #appointments_management_service_type').val();
+			var tn = $('#filter-appointments_management #appointments_management_tutor').val();
+			var sn = $('#filter-appointments_management #appointments_management_students').val();
+			var start_dt = $('#filter-appointments_management #appointments_management_start_date').val();
+			var end_dt = $('#filter-appointments_management #appointments_management_end_date').val();
+			//	Validate date time
+			if (!instance.validateDateTime(start_dt, end_dt)) {
+				return false;
+			}
             $('#filter-appointments_management .selected').removeClass('selected');
             instance.resetForm();
-			var sc = $('#filter-appointments_management #appointments_management_service_type').val();
-			var tn = $('#filter-appointments_management #appointments_management_tutor').val();
-//            instance.filter($("#my_appointments_booking_status option:selected").val(),
-//						   sc,
-//						   tn);
+            instance.filter(id, bs, st, tn, sn, start_dt, end_dt);
             return false;	//	why?
         });
 
@@ -37,13 +44,22 @@
          * Event: Filter My Appointments Button "Click"
          */
         $('#filter-appointments_management .clear').click(function () {
+			//	Reset booking status input
+			$("#appointments_management_booking_status option:selected")[0].selected = false;
+			$('#appointments_management_booking_status .default_bs').prop('selected', true);
+			//	Reset service type input
 			$('#filter-appointments_management #appointments_management_service_type').val('');
+			//	Reset tutor and student filter input
             $('#filter-appointments_management #appointments_management_tutor').val('');
+            $('#filter-appointments_management #appointments_management_students').val('');
+			//	Reset date inputs
+			$('#appointments_management_start_date, #appointments_management_end_date').val('');
             instance.filter();
             instance.resetForm();
 			//	re-filter
 			instance.filterList('.admin-page #filter-service-type span li', '');
 			instance.filterList('.admin-page #filter-tutor-name span li', '');
+			instance.filterList('.admin-page #filter-student-name span li', '');
         });
 
         /**
@@ -58,7 +74,7 @@
 			//	Find the appointment according to id and get its data
             var appointment = {};
             $.each(instance.filterResults, function (index, item) {
-                if (item.appointment_id === appointmentId) {
+                if (item.id === appointmentId) {
                     appointment = item;
                     return false;
                 }
@@ -73,18 +89,32 @@
         });    	
 		
         /**
-         * Event: Typing categoies
+         * Event: Typing Service Types
          */
 		$('.admin-page #appointments_management_service_type').on("keyup", function() {
 			var val = $(this).val().toLowerCase();
 			instance.filterList('.admin-page #filter-service-type span li', val);
 		});
+        /**
+         * Event: Typing tutor
+         */
+		$('.admin-page #appointments_management_tutor').on("keyup", function() {
+			var val = $(this).val().toLowerCase();
+			instance.filterList('.admin-page #filter-tutor-name span li', val);
+		});
+        /**
+         * Event: Typing student
+         */
+		$('.admin-page #appointments_management_students').on("keyup", function() {
+			var val = $(this).val().toLowerCase();
+			instance.filterList('.admin-page #filter-student-name span li', val);
+		});
 		
         /**
-         * Event: click the input bar, show filter details of service categories
+         * Event: click the input bar, show filter details of service types
          */
 		$('.admin-page #appointments_management_service_type').focus(function() {
-			$('#filter-appointments_management #aa_st_display').fadeIn();
+			$('#filter-appointments_management #am_st_display').fadeIn();
 			//	disable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
@@ -96,7 +126,19 @@
          */
 		$('.admin-page #appointments_management_tutor').focus(function() {
 //			$('#filter-appointments_management .curtain').fadeIn();
-			$('#filter-appointments_management #aa_tn_display').fadeIn();
+			$('#filter-appointments_management #am_tn_display').fadeIn();
+			//	disable two buttons
+			$('#filter-appointments_management #search-filter').prop('disabled', true);
+			$('#filter-appointments_management #clear-filter').prop('disabled', true);
+			//	Place footer one more time
+			Admin.placeFooterToBottom();
+		});
+        /**
+         * Event: click the input bar, show filter details of student name
+         */
+		$('.admin-page #appointments_management_students').focus(function() {
+//			$('#filter-appointments_management .curtain').slideDown(360);
+			$('#filter-appointments_management #am_sn_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
@@ -104,20 +146,12 @@
 			Admin.placeFooterToBottom();
 		});
 		
-        /**
-         * Event: Typing tutor
-         */
-		$('.admin-page #appointments_management_tutor').on("keyup", function() {
-			var val = $(this).val().toLowerCase();
-			instance.filterList('.admin-page #filter-tutor-name span li', val);
-		});
-		
 		/**
          * Event: Press list items for service categories
          */
-		$(document).on('click', '.admin-page #aa_st_display .filter-item--close, .admin-page #aa_st_display .filter-item--find', function() {
+		$(document).on('click', '.admin-page #am_st_display .filter-item--close, .admin-page #am_st_display .filter-item--find', function() {
 			$('.admin-page #appointments_management_service_type').val($(this).attr("title"));
-			$('#filter-appointments_management #aa_st_display').fadeOut();
+			$('#filter-appointments_management #am_st_display').fadeOut();
 			instance.filterList('.admin-page #filter-service-type span li', $('.admin-page #appointments_management_service_type').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
@@ -128,15 +162,38 @@
 		/**
          * Event: Press list items for tutor name
          */
-		$(document).on('click', '.admin-page #aa_tn_display .filter-item--close, .admin-page #aa_tn_display .filter-item--find', function() {
+		$(document).on('click', '.admin-page #am_tn_display .filter-item--close, .admin-page #am_tn_display .filter-item--find', function() {
 			$('.admin-page #appointments_management_tutor').val($(this).attr("title"));
-			$('#filter-appointments_management #aa_tn_display').fadeOut();
+			$('#filter-appointments_management #am_tn_display').fadeOut();
 			instance.filterList('.admin-page #filter-tutor-name span li', $('.admin-page #appointments_management_tutor').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
 			$('#filter-appointments_management #clear-filter').prop('disabled', false);
 			//	Place footer one more time
 			Admin.placeFooterToBottom();
+		});
+		/**
+         * Event: Press list items for student name
+         */
+		$(document).on('click', '.admin-page #am_sn_display .filter-item--close, .admin-page #am_sn_display .filter-item--find', function() {
+			$('.admin-page #appointments_management_students').val($(this).attr("title"));
+			$('#filter-appointments_management #am_sn_display').slideUp(360);
+			instance.filterList('.admin-page #filter-student-name span li', $('.admin-page #appointments_management_students').val().toLowerCase());
+			//	enable two buttons
+			$('#filter-appointments_management #search-filter').prop('disabled', false);
+			$('#filter-appointments_management #clear-filter').prop('disabled', false);
+			//	Place footer one more time
+			Admin.placeFooterToBottom();
+		});
+		
+		/**
+         * Event: When selecting date, other date pickers should not occur at the same time
+         */
+		$('#appointments_management_start_date').focus(function() {
+			$('#appointments_management_end_date').prop('disabled', true);
+		});
+		$('#appointments_management_end_date').focus(function() {
+			$('#appointments_management_start_date').prop('disabled', true);
 		});
 		
 	};
@@ -166,25 +223,20 @@
      */
     AdminAppointmentsManagementHelper.prototype.display = function (appointment) {
 		
-        $('#appointment-id').val(appointment.appointment_id);		
-		
-		$('#remark').val((appointment.remark !== null && appointment.remark !== "") ? appointment.remark : "None");
+        $('#appointment-id').val(appointment.id);
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
-		$('#stars').val(appointment.stars);
-		$('#com_or_sug').val(appointment.com_or_sug);
-		
-		$('#description').val(appointment.appointment_description);
 		$('#service_type').val(appointment.service_type);
-		
-		$('#tutor').val(appointment.first_name + " " + appointment.last_name);
-		$('#notes').val(appointment.notes);
+		$('#tutor').val(appointment.tutor_name);
+		$('#student').val(appointment.student_name);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
 		$('#start_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true));
 		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
 		
-		$('#feedback').val(appointment.feedback);
-		$('#suggestion').val(appointment.suggestion);
+		$('#stars').val(appointment.stars);
+		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
+		$('#feedback').val(appointment.feedback_from_tutor);
+		$('#suggestion').val(appointment.suggestion_from_tutor);
 		
     };
 
@@ -196,15 +248,19 @@
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    AdminAppointmentsManagementHelper.prototype.filter = function (bs, st, tn, selectId, display, first_load) {
+    AdminAppointmentsManagementHelper.prototype.filter = function (id, bs, st, tn, sn, sd, ed, selectId, display, first_load) {
         display = display || false;
 
-        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_filter_my_appointments';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
+			appointment_id: id,
+			booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
 			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn)
+			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn),
+			student_name: JSON.stringify((sn === undefined || sn === '' || sn === '- Search all Students -') ? 'ALL' : sn),
+			start_date: JSON.stringify((sd === undefined || sd === '') ? 'ALL' : sd),
+			end_date: JSON.stringify((ed === undefined || ed === '') ? 'ALL' : ed)
         };
 
         $.post(postUrl, postData, function (response) {
@@ -219,6 +275,7 @@
 			//	If this is the first time, load tutors and service categories
 			if (first_load !== undefined && first_load === 'true') {
 				this.getAllTutors();
+				this.getAllStudents();
 				this.getAllServiceCategories();
 			}
 			
@@ -253,32 +310,60 @@
      */
     AdminAppointmentsManagementHelper.prototype.getFilterHtml = function (index, appointment) {
 		
-		//	The remark will be used in the first line
-		var remark = (appointment.remark !== '' && appointment.remark !== null) ?
-			appointment.remark : ("Appointment " + (index+1));
+		//	The appointment_id and Service type will be used in the first line
+		var appointment_id = appointment.id;
+		var service_type = appointment.service_type;
 		//	The booking_status will shown as a label in the first line
 		var booking_status = this.decodeBookingStatus(appointment.booking_status);
 		
 		//	The tutor's name will be used in the second line
-        var tutor = appointment.first_name + ' ' + appointment.last_name;
+        var tutor = appointment.tutor_name;	
 		
-		//	The starting time will be used in the third line
+		//	The student's name will be used in the third line
+        var student = appointment.student_name;
+		
+		//	The starting and ending time will be used in the fourth line
 		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
+		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
 
-		var line1 = "<strong>" + remark + "</strong>" + " " + "-" + " " + booking_status;
-		var line2 = tutor;
-		var line3 = start_time;
+		var line1 = "<h5>" + appointment_id + "</h5>" + "<strong>" + service_type + "</strong>" + " " + "-" + " " + booking_status;
+		var line2 = "Tutor: " + tutor;
+		var line3 = "Student: " + student;
+		var line4 = start_time + " " + "~" + " " + end_time;
 			
         var html =
-            '<div class="entry" data-id="' + appointment.appointment_id + '">' +	//	Starting <div> block
+            '<div class="entry" data-id="' + appointment.id + '">' +	//	Starting <div> block
             line1 + "<br />" +	//	line1
             line2 + "<br />" +	//	line2
-            line3 +	//	line2
+            line3 + "<br />" +	//	line3
+            line4 +	//	line4
             '</div>	<hr />';		//	Ending </div> and a horizontal line
 		
         return html;
     };
 
+    /**
+     * Translate booking_status from numbers into language pack supported strings
+     *
+     * @param {Object} a number
+     *
+     * @return {String} Returns the string so it can be used as lang(str) or EALang.str
+     */
+    AdminAppointmentsManagementHelper.prototype.decodeBookingStatus = function (booking_status) {
+		
+		var translation_mark = "";
+		switch(booking_status) {
+			case "0": translation_mark = EALang.bs0;	break;
+			case "1": translation_mark = EALang.bs1;	break;
+			case "2": translation_mark = EALang.bs2;	break;
+			case "3": translation_mark = EALang.bs3;	break;
+			default: translation_mark = "no match booking status";
+		}
+		
+        return translation_mark;
+    };
+
+	
     /**
      * Select a specific record from the current filter results.
      *
@@ -305,7 +390,7 @@
 		//	If display === true, display the appointment
         if (display) {
             $.each(this.filterResults, function (index, appointment) {
-                if (appointment.appointment_id === id) {
+                if (appointment.id === id) {
                     this.display(appointment);
 //                    $('#edit-appointment, #delete-appointment').prop('disabled', false);
                     return false;
@@ -337,6 +422,33 @@
 				var display_tutor = (tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
 				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-appointments_management #filter-tutor-name span').append(html);
+			}.bind(this));
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+    /**
+     * Get all students and wrap them in an html
+     */
+    AdminAppointmentsManagementHelper.prototype.getAllStudents = function() {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_students';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			//	Clear all data
+			$('#filter-appointments_management #filter-student-name span').html('');
+			
+			//	Iterate through all students, generate htmls for them and
+			//	add them to the list
+			$.each(response, function (index, student) {
+				var display_student = (student.name.length >= 35) ? "Too Long!!!!!!!!!" : student.name;
+				var html = "<li class='filter-item filter-item--find' title='" + student.name + "'>" + display_student + "</li>";
+				$('#filter-appointments_management #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -375,6 +487,32 @@
 		$(filterItem).filter(function() {
 			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
+    };
+	
+    /**
+     * Get all service categories and wrap them in an html
+     */
+    AdminAppointmentsManagementHelper.prototype.validateDateTime = function(sd, ed) {
+		//	Use moment.js to parse the date
+		var start_date = moment(sd);
+		var end_date = moment(ed);
+		//	Check if dates separately are valid
+		var start_valid = (sd === '') || start_date.isValid();
+		var end_valid = (ed === '') || end_date.isValid();
+		//	Check Validity
+		if (start_valid && end_valid) {
+			//	If end_date is before start_date, gg
+			if (start_date > end_date) {
+				Admin.displayNotification("Ending Date is before Starting Date!", undefined, "failure");
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			//	If Any of them is invalid, gg
+			Admin.displayNotification("Invalid Date Input!", undefined, "failure");
+			return false;
+		}
     };
 	
     window.AdminAppointmentsManagementHelper = AdminAppointmentsManagementHelper;
