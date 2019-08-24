@@ -596,7 +596,8 @@ class Admin_model extends CI_Model{
             $date_format, $time_format, 
             $upload_file_max_size, 
             $max_services_checking_ahead_day, 
-            $max_appointment_cancel_ahead_day){
+            $max_appointment_cancel_ahead_day,
+            $flexible_column_label){
         
         $this->db->where('name', 'company_name');
         $bool1 = $this->db->update('ea_settings', ['value' => $school_name]);
@@ -622,7 +623,10 @@ class Admin_model extends CI_Model{
         $this->db->where('name', 'company_link');
         $bool8 = $this->db->update('ea_settings', ['value' => $school_link]);
 
-        return $bool1 && $bool2 && $bool3 && $bool4 && $bool1 && $bool6 && $bool76 && $bool8;        
+        $this->db->where('name', 'flexible_column_label');
+        $bool9 = $this->db->update('ea_settings', ['value' => $flexible_column_label]);
+
+        return $bool1 && $bool2 && $bool3 && $bool4 && $bool1 && $bool6 && $bool76 && $bool8 && $bool9;        
 
     }
 
