@@ -17,6 +17,8 @@
 	<!-- Full Calendar -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/core/main.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/daygrid/main.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/list/main.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/timegrid/main.min.css', NULL, 'css') ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/admin.css', NULL, 'css') ?>" />
@@ -34,6 +36,8 @@
 	<!-- Full Calendar -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/core/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/daygrid/main.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/list/main.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/timegrid/main.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.
@@ -69,13 +73,6 @@
 						</a>
 					</li>
 
-                    <?php $active = ($active_menu == PRIV_ADMIN_SETTINGS) ? 'active' : '' ?>
-					<li class="<?= $active ?>">
-						<a href="<?= site_url('admin/admin_settings') ?>" class="menu-item" title="<?= lang('admin_settings_hint') ?>">
-							<?= lang('settings') ?>
-						</a>
-					</li>
-
                     <?php $active = ($active_menu == PRIV_ADMIN_APPOINTMENTS_MANAGEMENT) ? 'active' : '' ?>
 					<li class="<?= $active ?>">
 						<a href="<?= site_url('admin/appointments_management') ?>" class="menu-item" title="<?= lang('admin_appointments_management_hint') ?>">
@@ -90,6 +87,13 @@
 						</a>
 					</li>
 
+                    <?php $active = ($active_menu == PRIV_ADMIN_SETTINGS) ? 'active' : '' ?>
+					<li class="<?= $active ?>">
+						<a href="<?= site_url('admin/admin_settings') ?>" class="menu-item" title="<?= lang('admin_settings_hint') ?>">
+							<?= lang('settings') ?>
+						</a>
+					</li>
+				
 					<li>
 						<a href="<?= site_url('user/logout') ?>" class="menu-item" title="<?= lang('log_out_hint') ?>">
 							<?= lang('log_out') ?>
