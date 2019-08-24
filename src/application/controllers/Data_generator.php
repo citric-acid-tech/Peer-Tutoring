@@ -13,8 +13,7 @@ class Data_generator extends CI_Controller{
     public function index(){
         echo 'Don\'t close the page until it finishes.';
 
-        // generate_student_appointments($date, $status)
-
+        //generate_student_appointments($date, $status)
         $this->generate_users();
         $this->generate_services(); 
         $this->generate_tutor_appointments();
@@ -86,17 +85,19 @@ class Data_generator extends CI_Controller{
 
         for($i = 0; $i < $num_tutor; $i++){
 
-            $date = '2019-8-05';
-            $rand = mt_rand(8,20);
-            $start_time = $rand. ':00';
-            $end_time = ($rand + 1) . ':30';
-            $service_type = $service_types_arr[$i % $num_type]['name'];
-            $tutor_name = $tutors_arr[$i]['name'];
-            $address = 'XINYUAN';
-            $capacity = mt_rand(3,10);
-            $service_description = 'test desc';
-            $this->admin_model->new_service($date, $start_time, $end_time, $service_type, $tutor_name,
-                $address, $capacity, $service_description);
+            for($o = 0; $o < 7; $o++){
+                $date = '2019-8-0' . (5+$o);
+                $rand = mt_rand(8,20);
+                $start_time = $rand. ':00';
+                $end_time = ($rand + 1) . ':30';
+                $service_type = $service_types_arr[$i % $num_type]['name'];
+                $tutor_name = $tutors_arr[$i]['name'];
+                $address = 'XINYUAN';
+                $capacity = mt_rand(3,10);
+                $service_description = 'test desc';
+                $this->admin_model->new_service($date, $start_time, $end_time, $service_type, $tutor_name,
+                    $address, $capacity, $service_description);
+            }
             $services_arr = $this->admin_model->filter_services($tutor_name, '2019-Fall', 1);
 
             $services_id_arr = array();
