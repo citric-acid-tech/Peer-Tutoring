@@ -94,7 +94,7 @@
 			instance.resetForm();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
 			var val = $(this).val().toLowerCase();
-			instance.filterList('.admin-page #tutor_config .results div', val);
+			instance.filterList('.admin-page #tutor_config .results .entry', val);
 		});
 	};
 
@@ -141,9 +141,9 @@
 				Admin.displayNotification("ajax_edit_tutor: nonono", undefined, "failure");
 			}
 			
-			setTimeout(function() {
-				document.location.reload(true);
-			}, 500);
+			var newName = $('#first-name').val() + " " + $('#last-name').val();;
+			$('.admin-page #tutor_config .results .entry.selected')[0].title = newName;
+			$('.admin-page #tutor_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -237,7 +237,7 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong>" + tutor.name + "</strong></div>";
+				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + tutor.name + "</strong></div>";
 				$('.admin-page #tutor_config .results').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
