@@ -56,7 +56,7 @@
 					</a>
 				</div>
 
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu" aria-expanded="false" aria-controls="navbar" onClick="Students.naviconGo(this);">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu" aria-expanded="false" aria-controls="navbar" onClick="Admin.naviconGo(this);">
                 	<span class="sr-only">Toggle navigation</span>
                 	<span class="icon-bar bar1"></span>
                 	<span class="icon-bar bar2"></span>

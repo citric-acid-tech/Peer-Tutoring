@@ -279,8 +279,12 @@ root {
     margin: 5px 0;
 }
 
-.admin-page#services-page .results {
+.admin-page#services-page .tutor_config .results {
 	max-height: 333px;
+	overflow-y: scroll;
+}
+.admin-page#services-page #service_type_config .results {
+	max-height: 250px;
 	overflow-y: scroll;
 }
 /* Watch this, not yet adjusted */
@@ -306,9 +310,6 @@ root {
     opacity: 0.85;
     box-shadow: none;
 }
-
-
-
 
 /* Nav Tabs */
 .admin-page .nav {
@@ -346,7 +347,23 @@ root {
 .admin-page #tutor-save, .admin-page #tutor-cancel {
 	display: none;
 }
+.admin-page #service_type-save, .admin-page #service_type-cancel {
+	display: none;
+}
 
+
+
+.admin-page .current_tutors_in_this_service_type {
+    overflow-y: auto;
+    max-height: 340px;
+    outline: none;
+}
+.admin-page .current_tutors_in_this_service_type div {
+	padding: 10px 7px;
+}
+.admin-page .current_tutors_in_this_service_type hr {
+	margin: 5px 0;
+}
 
 
 

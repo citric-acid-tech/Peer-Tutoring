@@ -180,41 +180,41 @@
 					
 					<!-- Check and Edit service types -->
 					<div class="col-xs-12 col-sm-7 service_type-details-form">
-						<div class="btn-toolbar">
-							<!-- Initial Group -->
-							<div class="btn-group">
-								<button id="service_type-edit" class="btn btn-primary" title="<?= lang('edit') ?>">
-									<i class="fas fa-edit"></i>
-									&nbsp;
-									<?= lang('edit') ?>
-								</button>
-							</div>
-							<div class="btn-group">
-								<button id="service_type-new-service_type" class="btn btn-primary" title="New Tutor">
-									<i class="fas fa-plus"></i>
-									&nbsp;
-									New Tutor
-								</button>
-							</div>
-							<!-- Editing Group -->
-							<div class="btn-group">
-								<button id="service_type-save" class="btn btn-primary" title="<?= lang('save') ?>">
-									<i class="fas fa-save"></i>
-									&nbsp;
-									<?= lang('save') ?>
-								</button>
-							</div>
-							<div class="btn-group">
-								<button id="service_type-cancel" class="btn btn-default" title="<?= lang('cancel') ?>">
-									<i class="fas fa-times"></i>
-									&nbsp;
-									<?= lang('cancel') ?>
-								</button>
-							</div>
-						</div>
-						<h3><?= lang('details') ?></h3>
 						<!-- Left Column -->
 						<div class="col-xs-12 col-sm-12 col-md-6">
+							<div class="btn-toolbar">
+								<!-- Initial Group -->
+								<div class="btn-group">
+									<button id="service_type-edit" class="btn btn-primary" title="<?= lang('edit') ?>">
+										<i class="fas fa-edit"></i>
+										&nbsp;
+										<?= lang('edit') ?>
+									</button>
+								</div>
+								<div class="btn-group">
+									<button id="service_type-new-service_type" class="btn btn-primary" title="New Tutor">
+										<i class="fas fa-plus"></i>
+										&nbsp;
+										New Tutor
+									</button>
+								</div>
+								<!-- Editing Group -->
+								<div class="btn-group">
+									<button id="service_type-save" class="btn btn-primary" title="<?= lang('save') ?>">
+										<i class="fas fa-save"></i>
+										&nbsp;
+										<?= lang('save') ?>
+									</button>
+								</div>
+								<div class="btn-group">
+									<button id="service_type-cancel" class="btn btn-default" title="<?= lang('cancel') ?>">
+										<i class="fas fa-times"></i>
+										&nbsp;
+										<?= lang('cancel') ?>
+									</button>
+								</div>
+							</div>
+							<h3><?= lang('details') ?></h3>
 							<div class="form-group">
 							    <label class="control-label" for="service_type-id">Service ID</label>
 							    <input id="service_type-id" class="form-control" readonly>
@@ -225,12 +225,14 @@
 							</div>
 							<div class="form-group">
 							    <label class="control-label" for="service_type-description"><?= lang('description') ?></label>
-							    <input id="service_type-description" class="form-control" readonly>
+							    <textarea id="service_type-description" class="form-control" style="resize: none;" rows="3" readonly></textarea>
 							</div>
 						</div>
 						<!-- Right Column -->
 						<div class="col-xs-12 col-sm-12 col-md-6">
-							
+							<h3><?= lang('current_tutors_in_this_service_type') ?></h3>
+							<hr />
+							<div class="current_tutors_in_this_service_type"></div>
 						</div>
 					</div>
 				</div>

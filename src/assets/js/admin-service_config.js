@@ -80,6 +80,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			} else if ($(this).attr('href') === '#service_type_config') {
 				helper = adminServiceConfigServiceTypeHelper;
 				helper.getAllServiceTypes();
+				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
 			} else {
 				alert("What have you pressed, my friend??");
 			}

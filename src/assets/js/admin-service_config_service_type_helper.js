@@ -18,35 +18,140 @@
      */
     AdminServiceConfigServiceTypeHelper.prototype.bindEventHandlers = function () {
         var instance = this;
+		var editing = false;
 
         /**
          * Event: Filter Entry "Click"
          *
-         * Display the My Appointments data of the selected row.
+         * Display the Available Appointments Select by Tutor data of the selected row.
          */
-        $(document).on('click', '.students-page .sel-tutor-by-time .available-tutors-at-time .entry', function() {
-			//	Change selected display
-            $('.students-page .sel-tutor-by-time .available-tutors-at-time .entry.selected').removeClass('selected');
-            $(this).addClass('selected');
+        $(document).on('click', '.admin-page #service_type_config .results .entry', function () {
+			if (editing) {
+				return false;
+			}
 			
-			$('#check-available-time-time').prop('disabled', false);
+			//	Get clicked id
+            var serviceTypeID = $(this).attr('data-id');
+			
+			instance.filter(serviceTypeID);
+			
+			//	Enable buttons
+			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', false);
+			
+			//	Change selected display
+            $('.admin-page #service_type_config .results .selected').removeClass('selected');
+            $(this).addClass('selected');
         });
-
+		
         /**
-         * Event: Check Available Time Button "Click"
+         * Event: Edit Button "Click"
          */
-		$('.students-page #check-available-time-time').click(function() {
-			//	Jump to 'calendar' tab
-			alert("Jump to 'calendar' tab");
+		$('.admin-page #service_type-edit').click(function() {
+			editing = true;
+			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', true);
+			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').hide();
+			$('.admin-page #service_type-save, .admin-page #service_type-cancel').fadeIn(360);
+			$('.service_type-details-form').find('input, textarea').attr('readonly', false);
+			$('.admin-page #service_type-id').attr('readonly', true);
+		});
+        /**
+         * Event: New Tutor Button "Click"
+         */
+		$('.admin-page #service_type-new-service_type').click(function() {
+			//	TBC
+			alert("New Service Type");
+		});		
+        /**
+         * Event: Save Tutor Button "Click"
+         */
+		$('.admin-page #service_type-save').click(function() {
+			instance.saveEdition();
+			$('.service_type-details-form').find('input, textarea').attr('readonly', true);
+			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
+			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
+			editing = false;
+			$('.admin-page #service_type_config #service_type-id').attr('readonly', false);
+		});		
+        /**
+         * Event: Cancel Button "Click"
+         */
+		$('.admin-page #service_type-cancel').click(function() {
+			instance.filter($('.admin-page #service_type-id').val());
+			$('.service_type-details-form').find('input, textarea').attr('readonly', true);
+			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
+			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
+			editing = false;
+			$('.admin-page #service_type_config #service_type-id').attr('readonly', false);
+		});
+			
+		var t = null;
+        /**
+         * Event: Typing tutor
+         */
+		$('.admin-page #service_type_config #service_type-service_type').on("keyup", function() {
+			if (editing) {
+				return false;
+			}
+			if (t) {
+				clearTimeout(t);
+			}
+			var obj = this;
+			t = setTimeout(function() {
+				instance.resetForm();
+				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
+				var val = $(obj).val().toLowerCase();
+				instance.filterList('.admin-page #service_type_config .results .entry', val);
+			}, 200);
 		});
 	};
 
+    /**
+     * Upload
+     */
+    AdminServiceConfigServiceTypeHelper.prototype.saveEdition = function () {
+        var service_type_id = $('#service_type-id').val();
+		var service_type_name = $('#service_type-name').val();
+		var service_type_description = $('#service_type-description').val();
+		
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_service_type';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			service_type_id : service_type_id,
+			name : JSON.stringify(service_type_name),
+			description : JSON.stringify(service_type_description)
+        };
+		
+		var obj = this;
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				Admin.displayNotification("Uploaded successfully.", undefined, "success");
+			} else if (response === 'fail') {
+				Admin.displayNotification("ajax_edit_service_type: nonono", undefined, "failure");
+			}
+			
+			var newName = $('#service_type-name').val();
+			$('.admin-page #service_type_config .results .entry.selected')[0].title = newName;
+			$('.admin-page #service_type_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
     /**
      * Bring the tutor form back to its initial state.
      */
     AdminServiceConfigServiceTypeHelper.prototype.resetForm = function () {
 		//	Clear all inputs
         $('.service_type-details-form').find('input, textarea').val('');
+		
+		//	Clear Demonstration Box
+		$('.current_tutors_in_this_service_type').html('');
 
 		//	Handle the button group
         $('#service_type-save, #service_type-cancel').hide();
@@ -69,23 +174,30 @@
     AdminServiceConfigServiceTypeHelper.prototype.display = function (service_type) {
         $('#service_type-id').val(service_type.info.id);
 		$('#service_type-name').val(service_type.info.name);
-		$('#service_type-description').val(service_type.info.personal_page);
-		//	MORE
+		$('#service_type-description').val(service_type.info.description);
+		//	MORE ON THE RIGHT
+		$('.current_tutors_in_this_service_type').html('');
+		$.each(service_type.tutors, function(index, tutor) {
+			var html = "<div title='" + tutor + "' style='text-align:center;'><strong>" + tutor + "</strong></div><hr />";
+			$('.current_tutors_in_this_service_type').append(html);
+		}.bind(this));
     };
 	
     /**
-     * Filter tutor records.
+     * Filter turtor records.
      *
-     * @param {String} key This key string is used to filter the tutor records.
+     * @param {String} key This key string is used to filter the appointment records.
      * @param {Number} selectId Optional, if set then after the filter operation the record with the given
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.filter = function (date) {
-        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_get_available_tutors_date_selection';
+    AdminServiceConfigServiceTypeHelper.prototype.filter = function (id, display) {
+        display = display || false;
+
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_service_types';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-            date: JSON.stringify(date)
+			service_type_id : (id === undefined || id === '') ? JSON.stringify('ALL') : id
         };
 
         $.post(postUrl, postData, function (response) {
@@ -94,64 +206,18 @@
                 return;
             }
 			
-			//	Store results
-            this.filterResults = response;
+			var obj = this;
+			$.each(response, function(index, service_type) {
+				obj.display(service_type);
+			});
 			
-			//	Clear former results
-            $('.students-page .sel-tutor-by-time .available-tutors-at-time').html('');
-			
-			//	Iterate through all tutors, generate htmls for them and
-			//	add them to the results
-            $.each(response, function (index, tutor) {
-                var html = this.getFilterHtml(index, tutor);
-                $('.students-page .sel-tutor-by-time .available-tutors-at-time').append(html);
-            }.bind(this));
-			
-			//	If there are no match, print a message in the result block
-            if (response.length === 0) {
-                $('.students-page .sel-tutor-by-time .available-tutors-at-time').html('<em>' + EALang.no_records_found + '</em>');
-            }
-			
-			$('#check-available-time-time').prop('disabled', true);
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };
+    };	
 
-    /**
-     * Get the filter results row HTML code.
-     *
-     * @param {Object} tutor Contains the tutor data.
-     *
-     * @return {String} Returns the record HTML code.
-     */
-    AdminServiceConfigServiceTypeHelper.prototype.getFilterHtml = function (index, tutor) {
-		
-		//	The tutor's name will be used in the first line
-        var tutor_name = tutor.tutor_name;
-		
-		//	The personal page will be used in the second line
-		var personal_page = tutor.personal_page;
-		
-		//	The earliest starting time will be used in the third line
-		var earliest_start_datetime = GeneralFunctions.formatDate(Date.parse(tutor.earliest_start_datetime), GlobalVariables.dateFormat, true);
-
-		var line1 = "<strong>" + tutor_name + "</strong>";
-		var line2 = "Personal Page - " + personal_page;
-		var line3 = "Earliest service starts on " + earliest_start_datetime;
-			
-        var html =
-            '<div class="entry" data-id="' + "666" + '">' +	//	Starting <div> block
-            line1 + "<br />" +	//	line1
-            line2 + "<br />" +	//	line2
-            line3 +	//	line2
-            '</div>	<hr />';		//	Ending </div> and a horizontal line
-		
-        return html;
-    };
-	
     /**
      * Get all service categories and wrap them in an html
      */
-   AdminServiceConfigServiceTypeHelper.prototype.getAllServiceTypes = function() {
+   	AdminServiceConfigServiceTypeHelper.prototype.getAllServiceTypes = function() {
         var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
@@ -165,10 +231,10 @@
 			//	Clear all data
 			$('.admin-page #service_type_config .results').html('');
 			
-			//	Iterate through all services, generate htmls for them and
+			//	Iterate through all service_types, generate htmls for them and
 			//	add them to the list
-			$.each(response, function (index, service) {
-				var html = "<div class='entry' data-id='" + service.id + "' title='" + service.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + service.id + "</strong>" + " " + "-" + " " + "<strong>" + service.name + "</strong></div><hr />";
+			$.each(response, function (index, service_type) {
+				var html = "<div class='entry' data-id='" + service_type.id + "' title='" + service_type.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + service_type.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + service_type.name + "</strong></div>";
 				$('.admin-page #service_type_config .results').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
