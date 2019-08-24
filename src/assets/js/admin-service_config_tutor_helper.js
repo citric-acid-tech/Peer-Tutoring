@@ -248,7 +248,7 @@
      */
     AdminServiceConfigTutorHelper.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].innerHTML.toLowerCase().indexOf(filterValue) > -1);
+			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
     };
 	
