@@ -231,25 +231,25 @@ class Admin_model extends CI_Model{
      * 
      * @return array         the result of the query
      */
-    public function filter_tutors($tutor_name){
+    public function filter_tutors($tutor_id){
         $this->db->select('
-                CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
-                ea_users.first_name AS first_name,
-                ea_users.last_name AS last_name,
-                ea_users.personal_page AS personal_page,
-                ea_users.introduction AS introduction,
-                ea_users.address AS address,
+                ea_users.id              AS id,
+                ea_users.first_name      AS first_name,
+                ea_users.last_name       AS last_name,
+                ea_users.personal_page   AS personal_page,
+                ea_users.introduction    AS introduction,
+                ea_users.address         AS address,
                 ea_users.flexible_column AS flexible_coulmn,
-                ea_users.email AS email,
-                ea_users.phone_number AS phone_number
+                ea_users.email           AS email,
+                ea_users.phone_number    AS phone_number
             ')
             ->from('ea_users')
-            ->where('ea_users.id_roles', 2);
+            ->where('ea_users.id_roles <', 3);
 
-        if( $tutor_name != 'ALL'){
-            $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+        if( $tutor_id != 'ALL'){
+            $this->db->where('ea_users.id', $tutor_id);
         }
-        return $this->db  
+        return $this->db
             ->get()
             ->result_array();
     }
@@ -479,7 +479,7 @@ class Admin_model extends CI_Model{
      * 
      * @return array         the result of the query
      */
-    public function filter_service_types($service_type){
+    public function filter_service_types($service_type_id){
         $this->db->select('
             ea_service_categories.id          AS id,
             ea_service_categories.name        AS name,
@@ -487,8 +487,8 @@ class Admin_model extends CI_Model{
         ')
         ->from('ea_service_categories');
 
-        if($service_type != 'ALL'){
-            $this->db->where('ea_service_categories.name', $service_type);
+        if($service_type_id != 'ALL'){
+            $this->db->where('ea_service_categories.id', $service_type_id);
         }
 
         $service_type_info = $this->db->get()->result_array();

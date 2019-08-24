@@ -332,10 +332,10 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $service_type_id = json_decode($this->input->post('service_type_id'), TRUE);
             
             // Query
-            $result = $this->admin_model->filter_service_types($service_type);
+            $result = $this->admin_model->filter_service_types($service_type_id);
             
             // Log
 
