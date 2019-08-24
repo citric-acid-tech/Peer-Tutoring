@@ -231,25 +231,25 @@ class Admin_model extends CI_Model{
      * 
      * @return array         the result of the query
      */
-    public function filter_tutors($tutor_name){
+    public function filter_tutors($tutor_id){
         $this->db->select('
-                CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
-                ea_users.first_name AS first_name,
-                ea_users.last_name AS last_name,
-                ea_users.personal_page AS personal_page,
-                ea_users.introduction AS introduction,
-                ea_users.address AS address,
+                ea_users.id              AS id,
+                ea_users.first_name      AS first_name,
+                ea_users.last_name       AS last_name,
+                ea_users.personal_page   AS personal_page,
+                ea_users.introduction    AS introduction,
+                ea_users.address         AS address,
                 ea_users.flexible_column AS flexible_coulmn,
-                ea_users.email AS email,
-                ea_users.phone_number AS phone_number
+                ea_users.email           AS email,
+                ea_users.phone_number    AS phone_number
             ')
             ->from('ea_users')
-            ->where('ea_users.id_roles', 2);
+            ->where('ea_users.id_roles <', 3);
 
-        if( $tutor_name != 'ALL'){
-            $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+        if( $tutor_id != 'ALL'){
+            $this->db->where('ea_users.id', $tutor_id);
         }
-        return $this->db  
+        return $this->db
             ->get()
             ->result_array();
     }
@@ -302,9 +302,7 @@ class Admin_model extends CI_Model{
 
         // :: Get the first day and the last day of this semester
 
-        include(APPPATH . 'config' . DIRECTORY_SEPARATOR . 'semesters.php');
-
-        $tmp_arr = explode('-', $semester_info);
+        $semester = $this->get_semester_info();
 
         $first_day  = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ]['first_Monday'];
         $last_weeks = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ][ 'last_weeks' ];
@@ -359,9 +357,7 @@ class Admin_model extends CI_Model{
 
         // :: Get the first day and the last day of this semester
         
-        include(APPPATH . 'config' . DIRECTORY_SEPARATOR . 'semesters.php');
-
-        $tmp_arr = explode('-', $semester_info);
+        $semester = $this->get_semester_info();
 
         $first_day  = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ]['first_Monday'];
         $last_weeks = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ][ 'last_weeks' ];
@@ -483,7 +479,7 @@ class Admin_model extends CI_Model{
      * 
      * @return array         the result of the query
      */
-    public function filter_service_types($service_type){
+    public function filter_service_types($service_type_id){
         $this->db->select('
             ea_service_categories.id          AS id,
             ea_service_categories.name        AS name,
@@ -491,8 +487,8 @@ class Admin_model extends CI_Model{
         ')
         ->from('ea_service_categories');
 
-        if($service_type != 'ALL'){
-            $this->db->where('ea_service_categories.name', $service_type);
+        if($service_type_id != 'ALL'){
+            $this->db->where('ea_service_categories.id', $service_type_id);
         }
 
         $service_type_info = $this->db->get()->result_array();
@@ -596,17 +592,37 @@ class Admin_model extends CI_Model{
     //         ->order_by('ea_services.start_datetime')->get()->result_array();
     // }
 
-    public function save_settings($upload_file_max_size, 
-            $max_services_checking_ahead_day, $max_appointment_cancel_ahead_day){
+    public function save_settings($school_name, $school_email, $school_link, 
+            $date_format, $time_format, 
+            $upload_file_max_size, 
+            $max_services_checking_ahead_day, 
+            $max_appointment_cancel_ahead_day){
         
-        $this->db->where('name', 'upload_file_max_size(KB)');
-        $bool1 = $this->db->update('ea_settings', ['value' => $upload_file_max_size]);
+        $this->db->where('name', 'company_name');
+        $bool1 = $this->db->update('ea_settings', ['value' => $school_name]);
+
+        $this->db->where('name', 'company_email');
+        $bool2 = $this->db->update('ea_settings', ['value' => $school_email]);
+
+        $this->db->where('name', 'date_format');
+        $bool3 = $this->db->update('ea_settings', ['value' => $date_format]);
+                
+        $this->db->where('name', 'time_format');
+        $bool4 = $this->db->update('ea_settings', ['value' => $time_format]);
+
         $this->db->where('name', 'max_services_checking_ahead_day');
-        $bool2 = $this->db->update('ea_settings', ['value' => $max_services_checking_ahead_day]);
+        $bool5 = $this->db->update('ea_settings', ['value' => $max_services_checking_ahead_day]);
+
+        $this->db->where('name', 'upload_file_max_size(KB)');
+        $bool6 = $this->db->update('ea_settings', ['value' => $upload_file_max_size]);
+
         $this->db->where('name', 'max_appointment_cancel_ahead_day');
-        $bool3 = $this->db->update('ea_settings', ['value' => $max_appointment_cancel_ahead_day]);
-    
-        return $bool1 && $bool2 && $bool3;        
+        $bool7 = $this->db->update('ea_settings', ['value' => $max_appointment_cancel_ahead_day]);
+
+        $this->db->where('name', 'company_link');
+        $bool8 = $this->db->update('ea_settings', ['value' => $school_link]);
+
+        return $bool1 && $bool2 && $bool3 && $bool4 && $bool1 && $bool6 && $bool76 && $bool8;        
 
     }
 
@@ -622,6 +638,11 @@ class Admin_model extends CI_Model{
      */
     public function send_email_service_deletion_inform($email){
         // TODO
-    }    
+    }  
+    
+    protected function get_semester_info(){
+        $json = $this->db->select('value')->from('ea_settings')->where('name', 'semester_json')->get()->row_array()['value'];
+        return json_decode($json, TRUE);
+    }
 }
 ?>

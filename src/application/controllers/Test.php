@@ -17,9 +17,8 @@ class Test extends CI_Controller{
     public function index($year = 2019, $month = 8){
 
         /*** Use $this-> to call your test method here. */
-        $this->test_filter_appointments_management();
+        // $this->test_filter_appointments_management();
         /*** *****************************************  */
-
         // $prefs = array(
         //     'show_next_prev' => TRUE,
         //     'next_prev_url' => ''

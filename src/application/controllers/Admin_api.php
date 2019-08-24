@@ -332,10 +332,10 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $service_type_id = json_decode($this->input->post('service_type_id'), TRUE);
             
             // Query
-            $result = $this->admin_model->filter_service_types($service_type);
+            $result = $this->admin_model->filter_service_types($service_type_id);
             
             // Log
 
@@ -471,9 +471,15 @@ class Admin_api extends CI_Controller{
             $max_services_checking_ahead_day = json_decode($this->input->post('max_services_checking_ahead_day'), TRUE);
             $max_appointment_cancel_ahead_day= json_decode($this->input->post('max_appointment_cancel_ahead_day'), TRUE);
 
+            $school_name = json_decode($this->input->post('school_name'), TRUE);
+            $school_email = json_decode($this->input->post('school_email'), TRUE);
+            $date_format = json_decode($this->input->post('date_format'), TRUE);
+            $time_format = json_decode($this->input->post('time_format'), TRUE);
+            $school_link = json_decode($this->input->post('school_link'), TRUE);
+
             // Query
-            $result = $this->admin_model->save_settings($upload_file_max_size, 
-                $max_services_checking_ahead_day, $max_appointment_cancel_ahead_day);
+            $result = $this->admin_model->save_settings($school_name, $school_email, $school_link, $date_format, 
+                    $time_format, $upload_file_max_size, $max_services_checking_ahead_day, $max_appointment_cancel_ahead_day);
             // Log
 
                 // TODO
