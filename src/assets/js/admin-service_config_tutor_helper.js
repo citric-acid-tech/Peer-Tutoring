@@ -88,6 +88,9 @@
          * Event: Typing tutor
          */
 		$('.admin-page #tutor_config #tutor-name').on("keyup", function() {
+			if (editing) {
+				return false;
+			}
 			instance.resetForm();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
 			var val = $(this).val().toLowerCase();
