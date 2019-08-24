@@ -343,6 +343,13 @@ root {
 
 
 
+.admin-page #tutor-save, .admin-page #tutor-cancel {
+	display: none;
+}
+
+
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

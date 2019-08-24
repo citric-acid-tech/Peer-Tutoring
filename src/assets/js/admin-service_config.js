@@ -76,6 +76,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			} else if ($(this).attr('href') === '#tutor_config') {
 				helper = adminServiceConfigTutorHelper;
 				helper.getAllTutors();
+				$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
 			} else if ($(this).attr('href') === '#service_type_config') {
 				helper = adminServiceConfigServiceTypeHelper;
 				helper.getAllServiceTypes();
