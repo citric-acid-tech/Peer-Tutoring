@@ -8,4 +8,6 @@
 	});
 </script>
 
-<div id="admin-full-calendar"></div>
+<div class="container">
+	<div id="admin-full-calendar"></div>
+</div>

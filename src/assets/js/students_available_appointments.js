@@ -23,6 +23,9 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 	var studentsAvailableAppointmentsTutorHelper = new StudentsAvailableAppointmentsTutorHelper();
 	var studentsAvailableAppointmentsTimeHelper = new StudentsAvailableAppointmentsTimeHelper();
 	var studentsAvailableAppointmentsCalendarHelper = new StudentsAvailableAppointmentsCalendarHelper();
+	
+	//	Rendered First?
+	var calendarIsRendered = false;
 
     /**
      * This method initializes the Students My Appointment page.
@@ -81,6 +84,27 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				//	This may not happens, cause it cannot be changed directly
 				//	This may still happen if privileges are added
 				helper = studentsAvailableAppointmentsCalendarHelper;
+				//	Guess what, a large calendar!!!
+				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
+				if (!calendarIsRendered) {
+					var calendarEl = document.getElementById('student-full-calendar');
+					var calendar = new FullCalendar.Calendar(calendarEl, {
+						plugins: [ 'dayGrid', 'timeGrid', 'list' ],
+						defaultView: 'timeGridWeek',
+						header: {
+							center: 'dayGridMonth,timeGridFourDay'	// buttons for switching between views
+						},
+						views: {
+							timeGridFourDay: {
+								type: 'timeGrid',
+								duration: {days: 4},
+								buttonText: '4 day'
+							}
+						}
+					});
+					calendar.render();
+					calendarIsRendered = true;
+				}
 			} else {
 				alert("What have you pressed, my friend??");
 			}
@@ -88,14 +112,6 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			//	Place footer one more time
 			Students.placeFooterToBottom();
 		});
-		
-//		document.addEventListener('DOMContentLoaded', function() {
-//			var calendarEl = document.getElementById('student-full-calendar');
-//			var calendar = new FullCalendar.Calendar(calendarEl, {
-//				plugins: [ 'dayGrid' ]
-//			});
-//			calendar.render();
-//		});
 		
         studentsAvailableAppointmentsTutorHelper.bindEventHandlers();
         studentsAvailableAppointmentsTimeHelper.bindEventHandlers();

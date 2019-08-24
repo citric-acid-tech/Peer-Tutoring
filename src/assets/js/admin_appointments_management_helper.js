@@ -254,7 +254,7 @@
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_appointments';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			appointment_id: id,
+			appointment_id: (id === undefined || id === '') ? JSON.stringify('ALL') : id,
 			booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
 			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
 			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn),

@@ -28,14 +28,6 @@
     $(document).ready(function() {
 		StudentsAvailableAppointments.initialize(true);
     });
-	
-	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('student-full-calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-			plugins: [ 'dayGrid' ]
-		});
-		calendar.render();
-	});
 </script>
 
 <div id="available_appointments-page" class="container-fluid students-page">
@@ -192,7 +184,6 @@
 		
 		<!-- Check Available Time in Calendar Tab -->
 		<div role="tabpanel" class="tab-pane" id="check-available-time-in-calendar">
-			<p>Check Available Time in the Calendar!</p>
 			<div id="student-full-calendar"></div>
 		</div>
 	</div>
