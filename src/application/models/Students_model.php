@@ -136,7 +136,16 @@ class Students_model extends CI_Model{
         }
 
         // MIN_CANCEL_AHEAD_MINS locates in config/constants.php
-        if($time_diff >= MIN_CANCEL_AHEAD_MINS){
+
+        $MIN_CANCEL_AHEAD_MINS = $this->db->select('value')
+            ->from('ea_settings')
+            ->where('name', 'max_appointment_cancel_ahead_day')
+            ->get()
+            ->row_array()['value'];
+
+        $MIN_CANCEL_AHEAD_MINS *= 24 * 60;
+
+        if($time_diff >= $MIN_CANCEL_AHEAD_MINS){
 
             // Change the booking status of the corresponding appointment
             $this->db->set('booking_status', '3');
@@ -168,9 +177,16 @@ class Students_model extends CI_Model{
      */
     public function get_available_appointments($service_type, $tutor_name){
         
+        $MIN_BOOK_AHEAD_MINS = $this->db->select('value')
+            ->from('ea_settings')
+            ->where('name', 'max_services_checking_ahead_day')
+            ->get()
+            ->row_array()['value'];
+
+        $MIN_BOOK_AHEAD_MINS *= 24 * 60;
         // Get the latest available start datetime
         $latest_available_start_time = 
-            $this->db->select('TIMESTAMPADD(MINUTE, ' . MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
+            $this->db->select('TIMESTAMPADD(MINUTE, ' . $MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
                       ->get()
                       ->row_array()['result'];
 
@@ -240,9 +256,17 @@ class Students_model extends CI_Model{
      */
     public function get_available_tutors($service_type, $tutor_name){
 
+        $MIN_BOOK_AHEAD_MINS = $this->db->select('value')
+            ->from('ea_settings')
+            ->where('name', 'max_services_checking_ahead_day')
+            ->get()
+            ->row_array()['value'];
+
+        $MIN_BOOK_AHEAD_MINS *= 24 * 60;
+
         // Get the latest available start datetime
         $latest_available_start_time = 
-            $this->db->select('TIMESTAMPADD(MINUTE, ' . MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
+            $this->db->select('TIMESTAMPADD(MINUTE, ' . $MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
                       ->get()
                       ->row_array()['result'];
 
