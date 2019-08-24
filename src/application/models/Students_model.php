@@ -371,10 +371,12 @@ class Students_model extends CI_Model{
 
         if($this->db->insert('ea_appointments',$data)){
             //// Increase the number of appointment of the relating service
+            $insert_id = $this->db->insert_id();
+
             $this->db->set('appointments_number', 'appointments_number + 1', FALSE);
             $this->db->where('id', $service_id);
             $this->db->update('ea_services');
-            return TRUE;
+            return $insert_id;
         }else{
             return FALSE;
         }

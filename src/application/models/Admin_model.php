@@ -406,9 +406,7 @@ class Admin_model extends CI_Model{
 
             $tmp_Datetime_pointer = new Datetime($first_day);
             $tmp_Datetime_pointer->add(new DateInterval('P'.$diff_days.'D'));
-
-            echo $tmp_Datetime_pointer->format('Y-m-d') . '<br />';
-
+            
             for($j = 0; $j < $last_weeks; $j++){    
 
                 $row_data['start_datetime'] = $tmp_Datetime_pointer->format('Y-m-d') . ' ' . $start_time;

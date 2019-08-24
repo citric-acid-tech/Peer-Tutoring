@@ -10,7 +10,7 @@ $semester['2019'] = [
         'last_weeks' => '6'
     ],
     'Fall' => [
-        'first_Monday' => '2019-09-02', 
+        'first_Monday' => '2019-08-05', 
         'last_weeks' => '17'
     ]
 ];

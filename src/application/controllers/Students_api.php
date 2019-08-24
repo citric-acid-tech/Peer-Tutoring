@@ -227,7 +227,7 @@ class Students_api extends CI_Controller{
             // Upload File? TODO
 
             // Query
-            if ($this->students_model->new_appointment($user_id, $service_id,  $note, $remark) ){
+            if ($this->students_model->new_appointment($user_id, $service_id,  $note, $remark) !== FALSE){
                 $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode('success'));

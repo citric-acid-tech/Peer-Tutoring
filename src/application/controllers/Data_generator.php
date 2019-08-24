@@ -7,27 +7,29 @@ class Data_generator extends CI_Controller{
         $this->load->model('students_model');
         $this->load->model('admin_model');
         $this->load->model('general_model');
+        $this->load->model('tutors_model');
     }
 
     public function index(){
-        $this->generate_students();
-        $this->generate_tutors();
-        $this->generate_service_types();
+        echo 'Don\'t close the page until it finishes.';
+
+        // generate_student_appointments($date, $status)
+
+        $this->generate_users();
         $this->generate_services(); 
-        $this->generate_appointments();
-        $this->generate_my_appointments();
+        $this->generate_tutor_appointments();
         echo 'Finshed';       
     }
 
-    public function generate_appointments(){
+    public function generate_tutor_appointments(){
         $user_id = 1;
-        $serv_arr = $this->students_model->get_available_appointments('ALL', 'Mike Kazura');
+        $name = 
+            $this->db->select('CONCAT(first_name, \' \', last_name) AS name')
+                ->from('ea_users')->get()->row_array()['name'];
+        $serv_arr = $this->students_model->get_available_appointments('ALL', $name);
 
         $students_arr = $this->general_model->get_all_students();
         $num_students = sizeof($students_arr);
-
-        echo 'size of serv_arr: ' . sizeof($serv_arr) . ' ';
-
 
         $num_serv = sizeof($serv_arr);
 
@@ -38,66 +40,93 @@ class Data_generator extends CI_Controller{
             $service_id = $serv_arr[mt_rand(0, $num_serv - 1)]['service_id'];
             $note = mt_rand(0, 3) < 1 ? 'Da lao bring bring me.' : 'null';
             $remark = $remark_arr[mt_rand(0, 3)];
-            
             $this->students_model->new_appointment($students_arr[mt_rand(0, $num_students - 1)]['id'], $service_id, $note, $remark);
-
         }
         echo 'Generate appointments successfully. <br />';
     }
 
-    public function generate_my_appointments(){
+    public function generate_student_appointments($date, $status){
+
         $user_id = 1;
-        $serv_arr = $this->general_model->get_all_services();
+        $remark_arr = ['Favorite', 'Important', 'Mid Prov', 'WTF', 'Good', 'Recommended', 'Girls here'];
+        // Make not started appointments
+        $tutors_arr = $this->students_model->get_available_tutors_date_selection($date);
+        $num_tutor = sizeof($tutors_arr);
 
-        echo 'size of serv_arr: ' . sizeof($serv_arr) . ' ';
-
-
-        $num_serv = sizeof($serv_arr);
-
-        $remark_arr = ['Favorite', 'Important', 'Mid Prov', 'WTF'];
-
-        // Generate 25 appointments
-        for($i = 0; $i < 25; $i++){
-            $service_id = $serv_arr[mt_rand(0, $num_serv - 1)]['id'];
-            $note = mt_rand(0, 3) < 1 ? 'Da lao bring bring me.' : 'null';
-            $remark = $remark_arr[mt_rand(0, 3)];
-            
-            $result = $this->students_model->new_appointment(1, $service_id,  $note, $remark);
+        for($i = 0; $i < $num_tutor; $i++){
+            $aval_apps_arr = $this->students_model->get_available_appointments('ALL', $tutors_arr[$i]['tutor_name']);
+            foreach($aval_apps_arr AS $row){
+                $note = mt_rand(0, 5) < 1 ? 'Da lao bring bring me.' : 'I want to learn some nb stuff.';
+                $remark = $remark_arr[mt_rand(0, 6)];
+                $app_id = $this->students_model->new_appointment($user_id, $row['service_id'], $note, $remark);
+                $this->tutors_model->modify_status($app_id, $status);
+            }
         }
         echo 'Generate appointments successfully. <br />';
     }
 
     public function generate_services(){
-        $date_array = $this->get_date_array();
-
         $this->load->model('general_model');
-        $arr = $this->general_model->get_all_tutors();
-        $num_tutor = sizeof($arr);
+        $this->load->model('admin_model');
 
-        $service_arr = $this->get_service_arr();
+        $this->load->database();
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0;');
+        $this->db->query('TRUNCATE TABLE ea_services;');
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1;');
+
+        $tutors_arr = $this->general_model->get_all_tutors();
+        $num_tutor = sizeof($tutors_arr);
+        $tutors_arr[$num_tutor]['name'] = 
+            $this->db->select('CONCAT(first_name, \' \', last_name) AS name')
+                ->from('ea_users')->get()->row_array()['name'];
+        $num_tutor++;
+
+        $service_types_arr = $this->general_model->get_all_service_types(); 
+        $num_type = sizeof($service_types_arr);
 
         for($i = 0; $i < $num_tutor; $i++){
-            $service_index = mt_rand(0, 9);
-            $service_type = $service_arr[$service_index]['name'];
-            $tutor_name = $arr[$i]['name'];
-            $address = 'CLE B' . mt_rand(1,9) .  ' R' . mt_rand(0,7) . mt_rand(0, 2) . mt_rand(0, 9);
-            $capacity = mt_rand(1, 15);
-            $service_description = $service_arr[$service_index]['description'];
-            $this->admin_model->new_service_batch($date_array, $service_type, $tutor_name, $address, $capacity, $service_description);
-        }
 
+            $date = '2019-8-05';
+            $rand = mt_rand(8,20);
+            $start_time = $rand. ':00';
+            $end_time = ($rand + 1) . ':30';
+            $service_type = $service_types_arr[$i % $num_type]['name'];
+            $tutor_name = $tutors_arr[$i]['name'];
+            $address = 'XINYUAN';
+            $capacity = mt_rand(3,10);
+            $service_description = 'test desc';
+            $this->admin_model->new_service($date, $start_time, $end_time, $service_type, $tutor_name,
+                $address, $capacity, $service_description);
+            $services_arr = $this->admin_model->filter_services($tutor_name, '2019-Fall', 1);
+
+            $services_id_arr = array();
+            $k = 0;
+            foreach($services_arr AS $row){
+                $services_id_arr[$k++] = $row['id'];
+            }
+
+            $semester = '2019-Fall';
+            $services_id = $services_id_arr;
+            $week = 1;
+            $this->admin_model->schedule_current_schema_to_all_weeks($tutor_name, $semester, $services_id, $week);
+        }
         echo 'Generate services successfully. <br />';
     }
 
-    public function generate_service_types(){
-        $arr = $this->get_service_arr();
-        for($i = 0; $i < 10; $i++){
-            $this->admin_model->new_service_type($arr[$i]['name'], $arr[$i]['description']);
-        }
-        echo 'Generate service types successfully. Sine the service types are generated by enumeration, don\' generate again.';
+    public function generate_users(){
+        $this->load->database();
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0;');
+        $this->db->query('TRUNCATE TABLE ea_users;');
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1;');
+
+        $this->generate_tutors();
+        $this->generate_students();
     }
 
     public function generate_tutors(){
+
+        
+
         // 15 chinese
         for($i = 0; $i < 15; $i++){
             $this->students_model->new_student(
@@ -216,202 +245,6 @@ class Data_generator extends CI_Controller{
         $num = count($arr);
 
         return $arr[mt_rand(0, $num - 1)];
-    }
-
-    public function get_service_arr(){
-        $arr = [
-            [
-                'name' => 'Fun with Java',
-                'description' => 'This class will tell you how to do everything with Java, including finding boy/girl friends.'
-            ],
-            [
-                'name' => 'NB Calculus',
-                'description' => 'Calculus is the easiliest thing in this planet, Let\' make it more difficult.'
-            ],
-            [
-                'name' => 'TOFEL Writing',
-                'description' => 'Pass TOFEL with fully scored writing'
-            ],
-            [
-                'name' => 'IELTS Touch Fish',
-                'description' => 'How to pass IELTS while touching fish and even stroking water'
-            ],
-            [
-                'name' => 'DiaoBao English',
-                'description' => 'Do you want to have a fluent DiaoBao English?'
-            ],
-            [
-                'name' => 'One Chinese',
-                'description' => 'One Chinese word per class'
-            ],
-            [
-                'name' => 'Fun with PHP',
-                'description' => 'PHP is the best programming language in the world. So let\' make it worse'
-            ],
-            [
-                'name' => 'CodeIgniter Tutorial',
-                'description' => 'Do you want to be diao bao just like the backend guy?'
-            ],
-            [
-                'name' => 'Parkour',
-                'description' => 'Fly through the city.'
-            ],
-            [
-                'name' => 'Fly an Jet Fighter',
-                'description' => 'Jet Fighter is an national defense machine. Everyone should know how to control it.'
-            ]
-            
-        ];
-        return $arr;
-    }
-
-    public function get_date_array(){
-        return json_decode('
-            {
-                "2019-10-01":{
-                        "1":{
-                            "date":"2019-10-01",
-                            "start_time_h":"08",
-                            "start_time_m":"00",
-                            "end_time_h":"09",
-                            "end_time_m":"30"
-                        },
-                        "2":{
-                            "date":"2019-10-01",
-                            "start_time_h":"21",
-                            "start_time_m":"00",
-                            "end_time_h":"22",
-                            "end_time_m":"30"
-                        }
-                },
-                "2019-10-11":{
-                        "1":{
-                            "date":"2019-10-11",
-                            "start_time_h":"08",
-                            "start_time_m":"00",
-                            "end_time_h":"09",
-                            "end_time_m":"30"
-                        }
-                },
-                "2019-10-18":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-10-25":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-11-01":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-11-08":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-11-05":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-11":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-14":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-16":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-17":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-19":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-20":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-21":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                },
-                "2019-08-22":{
-                    "1":{
-                        "date":"2019-10-11",
-                        "start_time_h":"08",
-                        "start_time_m":"00",
-                        "end_time_h":"09",
-                        "end_time_m":"30"
-                    }
-                }
-            }
-        ', TRUE);
     }
 
 }
