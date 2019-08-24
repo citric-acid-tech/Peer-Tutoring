@@ -84,6 +84,7 @@
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
 		});
 			
+		var t = null;
         /**
          * Event: Typing tutor
          */
@@ -91,10 +92,16 @@
 			if (editing) {
 				return false;
 			}
-			instance.resetForm();
-			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
-			var val = $(this).val().toLowerCase();
-			instance.filterList('.admin-page #tutor_config .results .entry', val);
+			if (t) {
+				clearTimeout(t);
+			}
+			var obj = this;
+			t = setTimeout(function() {
+				instance.resetForm();
+				$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
+				var val = $(obj).val().toLowerCase();
+				instance.filterList('.admin-page #tutor_config .results .entry', val);
+			}, 200);
 		});
 	};
 
