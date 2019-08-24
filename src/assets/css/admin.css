@@ -255,28 +255,33 @@ root {
 }
 
 /* Watch this, not yet adjusted */
-.admin-page .filter-records .results {
+.admin-page .results {
     overflow-y: auto;
     max-height: 450px;
     outline: none;
 }
 
-.admin-page .filter-records .results .entry {
+.admin-page .results .entry {
     padding: 10px 7px;
 }
 
-.admin-page .filter-records .results .entry:hover:not(.selected) {
+.admin-page .results .entry:hover:not(.selected) {
     background-color: #F3F3F3;
     cursor: pointer;
 }
 
-.admin-page .filter-records .results .entry.selected {
+.admin-page .results .entry.selected {
     background-color: #F4F4F4;
     border-right: 5px solid #296d97;
 }
 
-.admin-page .filter-records .results hr {
+.admin-page .results hr {
     margin: 5px 0;
+}
+
+.admin-page#services-page .results {
+	max-height: 333px;
+	overflow-y: scroll;
 }
 /* Watch this, not yet adjusted */
 
@@ -284,12 +289,12 @@ root {
 /*    max-width: 800px;*/
     margin-bottom: 20px;
 }
-.record-details .form-group label.control-label {
+.admin-page .form-group label.control-label {
 	font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
 	font-size: 15px;
 	font-weight: bold;
 }
-.record-details .form-group input.form-control {
+.record-details .form-group input.form-control, .admin-page input.form-control {
 	font-size: 14px;
 	/* Show ellipsis on long messages, later implementation will make it show fully on click */
 	text-overflow: ellipsis;
@@ -303,6 +308,41 @@ root {
 }
 
 
+
+
+/* Nav Tabs */
+.admin-page .nav {
+	/* styles of ul */
+	background-color: #f4f4f4;
+	margin-bottom: 15px;
+}
+.admin-page .nav li {
+	cursor: pointer;
+}
+.admin-page .nav-tabs>li.active>a, .admin-page .nav-tabs>li.active>a:focus {
+	background-color: rgba(41, 109, 151, 0.8);
+	color: snow;
+}
+/* Nav Tabs */
+
+
+/* Horizontal Rule */
+.admin-page .split-column-content {
+	display: none;
+}
+
+
+.admin-page .filter-box {
+	text-align: center;
+	border: 2px solid rgba(41, 109, 151, 0.6);
+	padding: 10px;
+}
+.admin-page .filter-box input {
+	text-align: center;
+}
+
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {
@@ -314,7 +354,7 @@ root {
     }
 }
 @media (max-width: 991px) {
-	#split-stutime {
+	.admin-page .split-column-content {
 		display: block;
 	}
 }

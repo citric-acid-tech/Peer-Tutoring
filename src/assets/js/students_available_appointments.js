@@ -92,7 +92,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 						plugins: [ 'dayGrid', 'timeGrid', 'list' ],
 						defaultView: 'timeGridWeek',
 						header: {
-							center: 'dayGridMonth,timeGridFourDay'	// buttons for switching between views
+							center: 'timeGridWeek,dayGridMonth,timeGridFourDay,timeGridDay,listWeek'	// buttons for switching between views
 						},
 						views: {
 							timeGridFourDay: {

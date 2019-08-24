@@ -326,7 +326,7 @@
 		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
 		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
 
-		var line1 = "<h5>" + appointment_id + "</h5>" + "<strong>" + service_type + "</strong>" + " " + "-" + " " + booking_status;
+		var line1 = "<strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + appointment_id + " " + "</strong>" + "<strong>" + service_type + "</strong>" + " " + "-" + " " + booking_status;
 		var line2 = "Tutor: " + tutor;
 		var line3 = "Student: " + student;
 		var line4 = start_time + " " + "~" + " " + end_time;
