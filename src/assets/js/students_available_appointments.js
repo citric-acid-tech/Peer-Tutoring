@@ -79,6 +79,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				helper.filter($('#date-title').val());
 			} else if ($(this).attr('href') === '#check-available-time-in-calendar') {
 				//	This may not happens, cause it cannot be changed directly
+				//	This may still happen if privileges are added
 				helper = studentsAvailableAppointmentsCalendarHelper;
 			} else {
 				alert("What have you pressed, my friend??");
@@ -86,8 +87,15 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			
 			//	Place footer one more time
 			Students.placeFooterToBottom();
-			
 		});
+		
+//		document.addEventListener('DOMContentLoaded', function() {
+//			var calendarEl = document.getElementById('student-full-calendar');
+//			var calendar = new FullCalendar.Calendar(calendarEl, {
+//				plugins: [ 'dayGrid' ]
+//			});
+//			calendar.render();
+//		});
 		
         studentsAvailableAppointmentsTutorHelper.bindEventHandlers();
         studentsAvailableAppointmentsTimeHelper.bindEventHandlers();

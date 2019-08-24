@@ -14,6 +14,9 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/ui/trumbowyg.min.css', NULL, 'css') ?>" />
 	<!-- Add Font Awesome for icons -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
+	<!-- Full Calendar -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/core/main.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/daygrid/main.min.css', NULL, 'css') ?>" />
 
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/students.css', NULL, 'css') ?>" />
@@ -27,6 +30,9 @@
 	<script src="<?= asset_url('assets/ext/trumbowyg/trumbowyg.min.js', NULL, 'js') ?>"></script>
 	<!-- Add Font Awesome for icons -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
+	<!-- Full Calendar -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/core/main.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/daygrid/main.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.
