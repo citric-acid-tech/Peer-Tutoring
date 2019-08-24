@@ -69,20 +69,6 @@
 						</a>
 					</li>
 
-                    <?php $active = ($active_menu == PRIV_SERVICE_TYPES_CONFIG) ? 'active' : '' ?>
-					<li class="<?= $active ?>">
-						<a href="<?= site_url('admin/service_types_config') ?>" class="menu-item" title="<?= lang('service_type_config_hint') ?>">
-							<?= lang('service_types_configuration') ?>
-						</a>
-					</li>
-
-                    <?php $active = ($active_menu == PRIV_TUTORS_CONFIG) ? 'active' : '' ?>
-					<li class="<?= $active ?>">
-						<a href="<?= site_url('admin/tutors_config') ?>" class="menu-item" title="<?= lang('tutors_config_hint') ?>">
-							<?= lang('tutor_configuration') ?>
-						</a>
-					</li>
-
                     <?php $active = ($active_menu == PRIV_ADMIN_SETTINGS) ? 'active' : '' ?>
 					<li class="<?= $active ?>">
 						<a href="<?= site_url('admin/admin_settings') ?>" class="menu-item" title="<?= lang('admin_settings_hint') ?>">

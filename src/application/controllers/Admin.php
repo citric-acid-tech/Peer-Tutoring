@@ -53,68 +53,6 @@ class Admin extends CI_Controller{
         $this->load->view('admin/admin_home_footer', $view);
     }
 
-    public function service_types_config(){
-
-
-        $this->session->set_userdata('dest_url', site_url('admin'));
-
-        if ( ! $this->_has_privileges(PRIV_SERVICE_TYPES_CONFIG))
-        {
-            return;
-        }
-
-        $this->load->model('settings_model');
-        $this->load->model('roles_model');
-        $this->load->model('user_model');
-
-        $view['base_url'] = $this->config->item('base_url');
-        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
-        $view['date_format'] = $this->settings_model->get_setting('date_format');
-        $view['time_format'] = $this->settings_model->get_setting('time_format');
-        $view['company_name'] = $this->settings_model->get_setting('company_name');
-
-        $user = $this->user_model->get_settings($this->session->userdata('user_id'));
-
-        $this->set_user_data($view);
-
-        $view['active_menu'] = PRIV_SERVICE_TYPES_CONFIG;
-
-        $this->load->view('admin/admin_home_header', $view);
-        $this->load->view('admin/admin_home_service_types_config', $view);
-        $this->load->view('admin/admin_home_footer', $view);
-    }
-
-    public function tutors_config(){
-
-
-        $this->session->set_userdata('dest_url', site_url('admin'));
-
-        if ( ! $this->_has_privileges(PRIV_TUTORS_CONFIG))
-        {
-            return;
-        }
-
-        $this->load->model('settings_model');
-        $this->load->model('roles_model');
-        $this->load->model('user_model');
-
-        $view['base_url'] = $this->config->item('base_url');
-        $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
-        $view['date_format'] = $this->settings_model->get_setting('date_format');
-        $view['time_format'] = $this->settings_model->get_setting('time_format');
-        $view['company_name'] = $this->settings_model->get_setting('company_name');
-
-        $user = $this->user_model->get_settings($this->session->userdata('user_id'));
-
-        $this->set_user_data($view);
-
-        $view['active_menu'] = PRIV_TUTORS_CONFIG;
-
-        $this->load->view('admin/admin_home_header', $view);
-        $this->load->view('admin/admin_home_tutors_config', $view);
-        $this->load->view('admin/admin_home_footer', $view);
-    }
-
     public function admin_settings(){
 
 
