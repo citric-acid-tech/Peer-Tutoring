@@ -37,14 +37,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
 		//	Guess what, a large calendar!!!
-		//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
-		//	slotDuration: '02:00',	//	Slot Time Duration: 2 hours
 		//	height: 500	// If 'auto', natural height and no scroll bar
 		//	contentHeight: 500
 		//	aspectRatio: 2
-		//	windowResizeDelay: 200	// to prevent overly frequent size adjustments
 		//	allDaySlot: false
-		//	slotLabelInterval: "02:00"
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			//	plugins to import
@@ -81,11 +77,38 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					buttonText: "day - list"
 				}
 			},
+			//	Date & Time Options
+//			slotDuration: '01:00',	//	Slot Time Duration: 2 hours
+//			slotLabelInterval: "02:00",
+			slotLabelFormat: {
+				hour: 'numeric',
+				minute: '2-digit',
+				omitZeroMinute: false,	//	Do not omit zeros
+				meridiem: 'short'
+			},
+			minTime: "00:00:00",
+			maxTime: "24:00:00",
+			dayRender: function() {
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			validRange: {	//	Please use function to compute the range later, referring to the docs
+  			  start: '2019-08-24',
+  			  end: '2020-01-01'
+  			},
+			//	Locale
+			firstDay: 1,
 			//	Define the placement of the header
 			header: {
 				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
 				center: 'title',	// put title in the center
 				right: 'custBut prev,today,next'	// buttons for locating a date
+			},
+			//	View Rendering Callbacks
+			viewSkeletonRender: function() {
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			datesRender: function() {
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
 			},
 			//	Size options
 			height: 'auto',
@@ -94,8 +117,6 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				Admin.placeFooterToBottom();	//	Fix the footer gg problem
   			},
 			//	TimeGrid-only options
-			minTime: "00:00:00",
-			maxTime: "24:00:00",
 			nowIndicator: true,	//	Go to current time position
 			//	List-only options
 			listDayFormat: true,
