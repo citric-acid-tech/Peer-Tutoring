@@ -32,6 +32,7 @@ class Test extends CI_Controller{
         // echo $this->calendar->generate($year, $month);
         // $this->test_admin_save_settings();
         // echo get_flexible_column_label();
+        $this->test_new_service();
     }
 
     public function test_cancel_appointment(){

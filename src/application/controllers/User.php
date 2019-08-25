@@ -133,6 +133,7 @@ class User extends CI_Controller {
             if ($user_data)
             {
                 $this->session->set_userdata($user_data); // Save data on user's session.
+                // user_id, user_email, role sulg, username
                 $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode(AJAX_SUCCESS));

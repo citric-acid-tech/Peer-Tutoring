@@ -19,7 +19,11 @@ class Admin_model extends CI_Model{
             'personal_page' => $personal_page
         );
 
-        return $this->db->insert('ea_users', $data);
+        $result =  $this->db->insert('ea_users', $data);
+
+        $this->log_operation('new_tutor', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -65,8 +69,12 @@ class Admin_model extends CI_Model{
             'id_users_provider' => $tutor_id,
             'address' => $address
         );
+        
+        $result = $this->db->insert('ea_services', $data);
 
-        return $this->db->insert('ea_services', $data);
+        $this->log_operation('new_service', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -116,7 +124,14 @@ class Admin_model extends CI_Model{
         );
         
         $this->db->where('ea_services.id', $service_id);
-        return $this->db->update('ea_services', $data);
+
+        $result = $this->db->update('ea_services', $data);
+
+        // Log operation
+        $data['service_id'] = $service_id;
+        $this->log_operation('edit_service', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -142,7 +157,11 @@ class Admin_model extends CI_Model{
             'name' => $name,
             'description' => $description
         );
-        return $this->db->insert('ea_service_categories', $data);
+        $result =  $this->db->insert('ea_service_categories', $data);
+
+        $this->log_operation('new_service_type', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -282,7 +301,12 @@ class Admin_model extends CI_Model{
             'personal_page' => $personal_page
         );
         $this->db->where('ea_users.id', $tutor_id);
-        return $this->db->update('ea_users', $data);
+        $result = $this->db->update('ea_users', $data);
+
+        $data['tutor_id'] = $tutor_id;
+        $this->log_operation('edit_tutor', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -468,7 +492,12 @@ class Admin_model extends CI_Model{
         // :: Insert new services
         $services_insert_bool =  $this->db->insert_batch('ea_services', $data);
 
-        return array($app_delete_bool, $services_delete_bool, $services_insert_bool);
+        
+        $input_arr = array($tutor_name, $semester_info, $services_id, $week);
+        $output_arr = array($app_delete_bool, $services_delete_bool, $services_insert_bool);
+        $this->log_operation('schedule_current_schema_to_all_weeks', $input_arr, $output_arr);
+
+        return $output_arr;
     }
 
     /**
@@ -535,7 +564,12 @@ class Admin_model extends CI_Model{
             'name' => $name,
             'description' => $description
         ];
-        return $this->db->update('ea_service_categories', $data);
+        $result = $this->db->update('ea_service_categories', $data);
+
+        $data['service_type_id'] = $service_type_id;
+        $this->log_operation('edit_service_type', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -626,7 +660,18 @@ class Admin_model extends CI_Model{
         $this->db->where('name', 'flexible_column_label');
         $bool9 = $this->db->update('ea_settings', ['value' => $flexible_column_label]);
 
-        return $bool1 && $bool2 && $bool3 && $bool4 && $bool1 && $bool6 && $bool76 && $bool8 && $bool9;        
+        $input_arr = array($school_name, $school_email, $school_link, 
+        $date_format, $time_format, 
+        $upload_file_max_size, 
+        $max_services_checking_ahead_day, 
+        $max_appointment_cancel_ahead_day,
+        $flexible_column_label);
+
+        $output_arr = array($bool1, $bool2, $bool3, $bool4, $bool5, $bool6, $bool7, $bool8, $bool9);
+
+        $this->log_operation('save_settings', $input_arr, $output_arr);
+
+        return $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9;        
 
     }
 
@@ -647,6 +692,21 @@ class Admin_model extends CI_Model{
     protected function get_semester_info(){
         $json = $this->db->select('value')->from('ea_settings')->where('name', 'semester_json')->get()->row_array()['value'];
         return json_decode($json, TRUE);
+    }
+
+    protected function log_operation($op, $input_arr, $output_arr){
+        $data = array();
+        $now_datetimeObj = new DateTime();
+        $now = $now_datetimeObj->format('Y-m-d H:i:s');
+        $data = [
+            'id_users' => $this->session->userdata('user_id'),
+            'operation' => $op,
+            'input_json' => json_encode($input_arr),
+            'output_json' => json_encode($output_arr),
+            'timestamp' => $now
+       ];
+
+        $this->db->insert('ea_admin_log', $data);
     }
 }
 ?>
