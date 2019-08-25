@@ -60,9 +60,30 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					}
 				}	
 			},
+			//	views customizations
+			views: {
+				timeGridWeek: {
+					buttonText: "week - time"
+				},
+				timeGridDay: {
+					buttonText: "day - time"
+				},
+				dayGridWeek: {
+					buttonText: "week - grid"
+				},
+				dayGridDay: {
+					buttonText: "day - grid"
+				},
+				listWeek: {
+					buttonText: "week - list"
+				},
+				listDay: {
+					buttonText: "day - list"
+				}
+			},
 			//	Define the placement of the header
 			header: {
-				left: 'timeGridWeek,timeGridDay,listWeek',	// buttons for switching between views
+				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
 				center: 'title',	// put title in the center
 				right: 'custBut prev,today,next'	// buttons for locating a date
 			},
@@ -75,8 +96,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			//	TimeGrid-only options
 			minTime: "00:00:00",
 			maxTime: "24:00:00",
-			nowIndicator: true	//	Go to current time position
-			
+			nowIndicator: true,	//	Go to current time position
+			//	List-only options
+			listDayFormat: true,
+			listDayAltFormat: true
 		});
 		calendar.render();
 //		alert(calendar.getOption('header').right);
