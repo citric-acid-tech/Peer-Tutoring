@@ -38,22 +38,35 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Other default initializations
 		//	Guess what, a large calendar!!!
 		//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
+		//	height: 500
+		//	contentHeight: 500
+		//	aspectRatio: 2
+		//	windowResizeDelay: 200	// to prevent overly frequent size adjustments
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			plugins: [ 'dayGrid', 'timeGrid', 'list' ],
 			defaultView: 'timeGridWeek',
-			header: {
-				center: 'timeGridWeek,dayGridMonth,timeGridFourDay,timeGridDay,listWeek'	// buttons for switching between views
+			customButtons: {
+				custBut: {
+					text: 'A Custom Button',
+					click: function() {
+						alert("Hi, I'm a custom button by Peter S!");
+					}
+				}	
 			},
-			views: {
-				timeGridFourDay: {
-					type: 'timeGrid',
-					duration: {days: 4},
-					buttonText: '4 day'
-				}
-			}
+			header: {
+				left: 'timeGridWeek,timeGridDay,listWeek',	// buttons for switching between views
+				center: 'title',	// put title in the center
+				right: 'custBut prev,today,next'	// buttons for locating a date
+			},
+			windowResizeDelay: 200,
+  			windowResize: function() {
+				//	Fix the footer gg problem
+				Admin.placeFooterToBottom();
+  			}
 		});
 		calendar.render();
+//		alert(calendar.getOption('header').right);
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
