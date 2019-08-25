@@ -38,14 +38,20 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Other default initializations
 		//	Guess what, a large calendar!!!
 		//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
-		//	height: 500
+		//	slotDuration: '02:00',	//	Slot Time Duration: 2 hours
+		//	height: 500	// If 'auto', natural height and no scroll bar
 		//	contentHeight: 500
 		//	aspectRatio: 2
 		//	windowResizeDelay: 200	// to prevent overly frequent size adjustments
+		//	allDaySlot: false
+		//	slotLabelInterval: "02:00"
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
+			//	plugins to import
 			plugins: [ 'dayGrid', 'timeGrid', 'list' ],
+			//	Default View
 			defaultView: 'timeGridWeek',
+			//	Some Customized Buttons
 			customButtons: {
 				custBut: {
 					text: 'A Custom Button',
@@ -54,16 +60,23 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					}
 				}	
 			},
+			//	Define the placement of the header
 			header: {
 				left: 'timeGridWeek,timeGridDay,listWeek',	// buttons for switching between views
 				center: 'title',	// put title in the center
 				right: 'custBut prev,today,next'	// buttons for locating a date
 			},
+			//	Size options
+			height: 'auto',
 			windowResizeDelay: 200,
   			windowResize: function() {
-				//	Fix the footer gg problem
-				Admin.placeFooterToBottom();
-  			}
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
+  			},
+			//	TimeGrid-only options
+			minTime: "00:00:00",
+			maxTime: "24:00:00",
+			nowIndicator: true	//	Go to current time position
+			
 		});
 		calendar.render();
 //		alert(calendar.getOption('header').right);
