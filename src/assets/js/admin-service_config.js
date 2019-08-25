@@ -116,6 +116,36 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
   			windowResize: function() {
 				Admin.placeFooterToBottom();	//	Fix the footer gg problem
   			},
+			//	Show week numbers
+			weekNumbers: true,
+//			weekNumberCalculation: function(date) {	//	Calculate the week number according to the semester
+//				
+//			},
+//			weekLabel: "周",	//	Specify this in language pack later, or maybe use the locale
+			//	Super Cool Nav-Links options
+			navLinks: true,
+			navLinkDayClick: function(date, jsEvent) {
+				switch(calendar.view.type) {	// If in week, go to corresponding day; If in day, go to timeGrid
+					case "timeGridWeek": calendar.changeView("timeGridDay", date); break;
+					case "dayGridWeek": calendar.changeView("dayGridDay", date); break;
+					case "listWeek": calendar.changeView("listDay", date); break;
+					case "timeGridDay": calendar.changeView("timeGridDay", date); break;
+					case "dayGridDay": calendar.changeView("timeGridDay", date); break;
+					case "listDay": calendar.changeView("timeGridDay", date); break;
+					default: alert("navLinkDayClick: sth wrong with the implementation");
+				}
+  			},
+			navLinkWeekClick: function(weekStart, jsEvent) {
+				switch(calendar.view.type) {	// If in day, go to corresponding week; If in week, go to timeGrid
+					case "timeGridDay": calendar.changeView("timeGridWeek", weekStart); break;
+					case "dayGridDay": calendar.changeView("dayGridWeek", weekStart); break;
+					case "listDay": calendar.changeView("listWeek", weekStart); break;
+					case "timeGridWeek": calendar.changeView("timeGridWeek", weekStart); break;
+					case "dayGridWeek": calendar.changeView("timeGridWeek", weekStart); break;
+					case "listWeek": calendar.changeView("timeGridWeek", weekStart); break;
+					default: alert("navLinkWeekClick: sth wrong with the implementation");
+				}
+  			},
 			//	TimeGrid-only options
 			nowIndicator: true,	//	Go to current time position
 			//	List-only options
