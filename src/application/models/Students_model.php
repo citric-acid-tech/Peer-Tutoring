@@ -145,6 +145,7 @@ class Students_model extends CI_Model{
 
         $MIN_CANCEL_AHEAD_MINS *= 24 * 60;
 
+        $result = TRUE;
         if($time_diff >= $MIN_CANCEL_AHEAD_MINS){
 
             // Change the booking status of the corresponding appointment
@@ -157,11 +158,14 @@ class Students_model extends CI_Model{
             $this->db->set('appointments_number', 'appointments_number - 1', FALSE);
             $this->db->where('id', $id_services);
             $this->db->update('ea_services');
-            return TRUE;
+            $result = TRUE;
 
         }else{
-            return FALSE;
+            $result = FALSE;
         }
+
+        $this->log_operation('cancel_appointment', $appointment_id, $result);
+
     }
 
     /**
@@ -238,7 +242,10 @@ class Students_model extends CI_Model{
         $this->db->set('stars', $stars);
         $this->db->set('comment_or_suggestion', $comment_or_suggestion);
         $this->db->where('id', $appointment_id);
-        $this->db->update('ea_appointments');
+        $result = $this->db->update('ea_appointments');
+
+        $data = array($appointment_id, $stars, $comment_or_suggestion);
+        $thus->log_operation('rate_and_comment', $data, $result);
     }
 
 
@@ -393,6 +400,7 @@ class Students_model extends CI_Model{
             'remark' => $remark
         );
 
+        $result = true;
         if($this->db->insert('ea_appointments',$data)){
             //// Increase the number of appointment of the relating service
             $insert_id = $this->db->insert_id();
@@ -400,10 +408,14 @@ class Students_model extends CI_Model{
             $this->db->set('appointments_number', 'appointments_number + 1', FALSE);
             $this->db->where('id', $service_id);
             $this->db->update('ea_services');
-            return $insert_id;
+            $result = $insert_id;
         }else{
-            return FALSE;
+            $result = FALSE;
         }
+
+        $this->log_operation('new_appointment', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -422,6 +434,21 @@ class Students_model extends CI_Model{
 
         return $this->db->insert('ea_users', $data);
         
+    }
+
+    protected function log_operation($op, $input_arr, $output_arr){
+        $data = array();
+        $now_datetimeObj = new DateTime();
+        $now = $now_datetimeObj->format('Y-m-d H:i:s');
+        $data = [
+            'id_users' => $this->session->userdata('user_id'),
+            'operation' => $op,
+            'input_json' => json_encode($input_arr),
+            'output_json' => json_encode($output_arr),
+            'timestamp' => $now
+       ];
+
+        $this->db->insert('ea_student_log', $data);
     }
 }
 ?>

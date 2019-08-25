@@ -79,7 +79,12 @@ class Tutors_model extends CI_Model{
     public function modify_status($appointment_id, $service_status){
         $this->db->set('booking_status', $service_status);
         $this->db->where('id', $appointment_id);
-        return $this->db->update('ea_appointments');
+        $result =  $this->db->update('ea_appointments');
+
+        $data = array('appointment_id' => $appointment_id, 'service_status' => $service_status);
+        $this->log_operation('modify_status', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -114,7 +119,13 @@ class Tutors_model extends CI_Model{
         ];
 
         $this->db->where('id', $user_id);
-        return $this->db->update('ea_users', $data);
+        $result = $this->db->update('ea_users', $data);
+
+        $data['user_id'] = $user_id;
+        $data['language'] = $language;
+        $this->log_operation('save_feedback_and_suggestion', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -133,8 +144,12 @@ class Tutors_model extends CI_Model{
             'suggestion' => $suggestion
         ];
         $this->db->where('id', $appointment_id);
-        return $this->db->update('ea_appointments', $data);
+        $result =  $this->db->update('ea_appointments', $data);
 
+        $data['appointment_id'] = $appointment_id;
+        $this->log_operation('save_feedback_and_suggestion', $data, $result);
+
+        return $result;
     }
 
     /**
@@ -168,6 +183,21 @@ class Tutors_model extends CI_Model{
             ->where('id', $user_id)
             ->get()
             ->result_array();
+    }
+
+    protected function log_operation($op, $input_arr, $output_arr){
+        $data = array();
+        $now_datetimeObj = new DateTime();
+        $now = $now_datetimeObj->format('Y-m-d H:i:s');
+        $data = [
+            'id_users' => $this->session->userdata('user_id'),
+            'operation' => $op,
+            'input_json' => json_encode($input_arr),
+            'output_json' => json_encode($output_arr),
+            'timestamp' => $now
+       ];
+
+        $this->db->insert('ea_tutor_log', $data);
     }
 }
 ?>
