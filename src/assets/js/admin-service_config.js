@@ -44,7 +44,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			//	plugins to import
-			plugins: [ 'dayGrid', 'timeGrid', 'list' ],
+			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
 			//	Default View
 			defaultView: 'timeGridWeek',
 			//	Some Customized Buttons
@@ -146,6 +146,34 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					default: alert("navLinkWeekClick: sth wrong with the implementation");
 				}
   			},
+			//	Date Clicking & Selecting Options
+			selectable: true,
+			selectMirror: true,
+//			unselectAuto: false,	//	By setting it as false, selected will not disappear when the user clicks outer positions
+			unselectCancel: "#create_event",	//	Selected will not disappear if specified element is clicked
+//			selectOverlap: function(event) {	//	Defines whether the user can select overlapped regions
+//				
+//			},
+//			selectConstraint: {	// Limiting regions the user can select
+//				start: "2019-08-27",
+//				end: "2019-08-28"
+//			},
+//			selectAllow: function(selectInfo) {	//	This is an upgrade of `selectConstraint`, live-scan the block the user is attempting to click and check if it is valid
+//				alert(selectInfo.start);
+//				alert(selectInfo.end);
+//				alert(typeof selectInfo.end);
+//			},
+			selectMinDistance: 1,	//	Non-zero value helps differentiate dragging and clicking
+			dateClick: function(dateClickInfo) {
+				alert("Date Clicked but not necessarily Selected:\n" + dateClickInfo.date);
+			},
+			select: function(selectionInfo) {
+				helper.currentSelect = selectionInfo;
+				alert("Date Region Selected:\n" + selectionInfo.start + "\n~\n" + selectionInfo.end);	
+			},
+//			unselect: function(jsEvent, view) {	//	callback when a region is unselected
+//					
+//			},
 			//	TimeGrid-only options
 			nowIndicator: true,	//	Go to current time position
 			//	List-only options

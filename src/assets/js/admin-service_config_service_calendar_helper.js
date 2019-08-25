@@ -11,6 +11,7 @@
      */
     function AdminServiceConfigServiceCalendarHelper() {
         this.filterResults = {};
+		this.currentSelect = {};
     }
 
     /**
@@ -19,6 +20,13 @@
     AdminServiceConfigServiceCalendarHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 		
+   		/**
+   		 * Event: Create Event button clicked
+   		 */
+		$('.admin-page #service-calendar .calendar-btns #create_event').click(function() {
+			alert("Okay sir. Creating an event.\nHere is what I got:\n" + 
+				 instance.currentSelect.start + "\n~\n" + instance.currentSelect.end);
+		});
 	};
 	
     window.AdminServiceConfigServiceCalendarHelper = AdminServiceConfigServiceCalendarHelper;

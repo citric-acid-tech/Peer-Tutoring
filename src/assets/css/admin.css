@@ -366,6 +366,12 @@ root {
 }
 
 
+/* Calendars */
+.admin-page .btn-toolbar.calendar-btns {
+	padding-right: 5px;
+	margin-bottom: 10px;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

@@ -19,7 +19,8 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/daygrid/main.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/list/main.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fullcalendar/packages/timegrid/main.min.css', NULL, 'css') ?>" />
-
+	<!-- Full Calendar: Interaction has no css -->
+	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/students.css', NULL, 'css') ?>" />
 
@@ -37,6 +38,7 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/daygrid/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/list/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/timegrid/main.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/interaction/main.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

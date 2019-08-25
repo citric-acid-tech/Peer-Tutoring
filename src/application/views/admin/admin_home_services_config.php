@@ -53,6 +53,13 @@
 	<div class="tab-content">
 		<!-- Check Available Time in Calendar Tab -->
 		<div role="tabpanel" class="tab-pane active" id="service-calendar">
+			<!-- toolbar -->
+			<div class="btn-toolbar calendar-btns">
+				<div class="btn-group">
+					<button id="create_event" class="btn btn-primary" title="Create an Event">Create an Event</button>
+				</div>
+			</div>
+			<!-- Guess what, a large calendar! -->
 			<div id="admin-full-calendar"></div>
 		</div>
 	
