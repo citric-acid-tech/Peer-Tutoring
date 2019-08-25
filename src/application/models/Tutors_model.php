@@ -101,8 +101,10 @@ class Tutors_model extends CI_Model{
      * 
      * @return boolean      success or not
      */
-    public function save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $language){
-
+    public function save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $email, $phone_number, $address, $language){
+        // email
+        // phone_number
+        // address
         if($language && $language == '简体中文'){
             $first_name = $surname;
             $last_name = $given_name;
@@ -115,7 +117,10 @@ class Tutors_model extends CI_Model{
             'first_name' => $first_name,
             'last_name' => $last_name,
             'introduction' => $introduction,
-            'personal_page' => $personal_page
+            'personal_page' => $personal_page,
+            'email' => $email,
+            'address' => $address,
+            'phone_number' => $phone_number
         ];
 
         $this->db->where('id', $user_id);
@@ -167,13 +172,19 @@ class Tutors_model extends CI_Model{
                 last_name     AS given_name,
                 first_name    AS surname,
                 personal_page AS personal_page,
-                introduction  AS introduction 
+                introduction  AS introduction,
+                email         AS email,
+                address       AS address,
+                phone_number  AS phone_number
             '
             :'
                 first_name    AS given_name,
                 last_name     AS surname,
                 personal_page AS personal_page,
-                introduction  AS introduction
+                introduction  AS introduction,
+                email         AS email,
+                address       AS address,
+                phone_number  AS phone_numbe
             '
             ;
 
