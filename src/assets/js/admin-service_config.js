@@ -174,7 +174,20 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 //			unselect: function(jsEvent, view) {	//	callback when a region is unselected
 //					
 //			},
-			//	TimeGrid-only options
+			//	Business Hours
+			businessHours: [
+				{
+					daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday, Tuesday, Wednesday, Thursday, Friday
+					startTime: '06:00', // 6am
+					endTime: '24:00' // 12pm
+				},
+				{
+					daysOfWeek: [ 0, 6 ], // Saturday, Sunday
+					startTime: '07:00', // 7am
+					endTime: '19:00' // 7pm
+				}
+			],
+			//	nowIndicator
 			nowIndicator: true,	//	Go to current time position
 			//	List-only options
 			listDayFormat: true,
