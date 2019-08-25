@@ -288,7 +288,8 @@ class Students_model extends CI_Model{
             ea_users.id                                             AS tutor_id,
             CONCAT(ea_users.first_name, \' \', ea_users.last_name ) AS tutor_name,
             ea_users.personal_page                                  AS personal_page,
-            MIN(ea_services.start_datetime)                         AS earliest_start_datetime
+            MIN(ea_services.start_datetime)                         AS earliest_start_datetime,
+            ea_users.flexible_column                                AS flexible_column
             ')
             ->from('ea_services')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
@@ -338,7 +339,8 @@ class Students_model extends CI_Model{
                 ->select('
                 CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
                 ea_users.personal_page                                 AS personal_page,
-                MIN(ea_services.start_datetime)                        AS earliest_start_datetime
+                MIN(ea_services.start_datetime)                        AS earliest_start_datetime,
+                ea_users.flexible_column                               AS flexible_column
                 ')
                 ->from('ea_services')
                 ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')

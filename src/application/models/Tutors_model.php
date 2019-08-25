@@ -101,7 +101,8 @@ class Tutors_model extends CI_Model{
      * 
      * @return boolean      success or not
      */
-    public function save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $email, $phone_number, $address, $language){
+    public function save_settings($user_id, $given_name, $surname, $introduction, 
+            $personal_page, $email, $phone_number, $address, $language, $flexible_column){
         // email
         // phone_number
         // address
@@ -120,7 +121,8 @@ class Tutors_model extends CI_Model{
             'personal_page' => $personal_page,
             'email' => $email,
             'address' => $address,
-            'phone_number' => $phone_number
+            'phone_number' => $phone_number,
+            'flexible_column' => $flexible_column
         ];
 
         $this->db->where('id', $user_id);
@@ -169,22 +171,24 @@ class Tutors_model extends CI_Model{
 
         $select_tab = $language == '简体中文'
             ? '
-                last_name     AS given_name,
-                first_name    AS surname,
-                personal_page AS personal_page,
-                introduction  AS introduction,
-                email         AS email,
-                address       AS address,
-                phone_number  AS phone_number
+                last_name       AS given_name,
+                first_name      AS surname,
+                personal_page   AS personal_page,
+                introduction    AS introduction,
+                email            AS email,
+                address         AS address,
+                phone_number    AS phone_number,
+                flexible_coulmn AS flexible_coulmn
             '
             :'
-                first_name    AS given_name,
-                last_name     AS surname,
-                personal_page AS personal_page,
-                introduction  AS introduction,
-                email         AS email,
-                address       AS address,
-                phone_number  AS phone_numbe
+                first_name      AS given_name,
+                last_name       AS surname,
+                ppersonal_page   AS personal_page,
+                introduction    AS introduction,
+                email            AS email,
+                address         AS address,
+                phone_number    AS phone_number,
+                flexible_coulmn AS flexible_coulmn
             '
             ;
 

@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @return String get the url of the attachment from database according to the id of the appointment
+ */
 function get_attachment_url($appointment_id){
     $ci =& get_instance();
     $ci->load->database();

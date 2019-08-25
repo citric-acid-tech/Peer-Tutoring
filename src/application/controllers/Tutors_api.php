@@ -103,12 +103,14 @@ class Tutors_api extends CI_Controller{
         $email = json_decode($this->input->post('email'), TRUE);
         $phone_number = json_decode($this->input->post('phone_number'), TRUE);
         $address = json_decode($this->input->post('address'), TRUE);
+        $flexible_column = json_decode($this->input->post('flexible_column'), TRUE);
 
         $user_id = $this->session->userdata('user_id');
         $language = $this->session->userdata('language');
 
         // Query
-        $result = $this->tutors_model->save_settings($user_id, $given_name, $surname, $introduction, $personal_page, $email, $phone_number, $address, $language);
+        $result = $this->tutors_model->save_settings($user_id, $given_name, $surname, $introduction, 
+            $personal_page, $email, $phone_number, $address, $language, $flexible_column);
         $result = $result ? AJAX_SUCCESS : 'Fail';
         // Log
 
