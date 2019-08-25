@@ -111,12 +111,12 @@ class Admin_api extends CI_Controller{
             $introduction = json_decode($this->input->post('introduction'), TRUE);
             $address = json_decode($this->input->post('address'), TRUE);
             $flexible_column = json_decode($this->input->post('flexible_column'), TRUE);
-            $eamil = json_decode($this->input->post('eamil'), TRUE);
+            $email = json_decode($this->input->post('email'), TRUE);
             $phone_number = json_decode($this->input->post('phone_number'), TRUE);
 
             // Query
             $result = $this->admin_model->edit_tutor($tutor_id, $first_name, $last_name, $personal_page, 
-                                        $introduction, $phone_number, $eamil, $address, $flexible_column);
+                                        $introduction, $phone_number, $email, $address, $flexible_column);
             
             // Log
 

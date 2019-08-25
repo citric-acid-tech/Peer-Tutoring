@@ -299,7 +299,8 @@ class Admin_model extends CI_Model{
             'phone_number' => $phone_number,
             'address' => $address,
             'introduction' => $introduction,
-            'personal_page' => $personal_page
+            'personal_page' => $personal_page,
+            'flexible_column' => $flexible_column
         );
         $this->db->where('ea_users.id', $tutor_id);
         $result = $this->db->update('ea_users', $data);
