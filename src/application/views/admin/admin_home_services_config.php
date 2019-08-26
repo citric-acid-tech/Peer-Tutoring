@@ -56,10 +56,13 @@
 			<!-- toolbar -->
 			<div class="btn-toolbar calendar-btns">
 				<div class="btn-group">
-					<button id="create_event" class="btn btn-primary" title="Create an Event">Create an Event</button>
+					<button id="show_selected" class="btn btn-primary" title="What have I selected?">What have I selected?</button>
 				</div>
 				<div class="btn-group">
 					<button id="fetch_event_0" class="btn btn-default" title="Check on Event 0">Check on Event 0</button>
+				</div>
+				<div class="btn-group">
+					<button id="add_event_through_button" class="btn btn-info" title="Add an Event">Add an Event</button>
 				</div>
 			</div>
 			<!-- Guess what, a large calendar! -->

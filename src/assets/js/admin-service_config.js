@@ -92,7 +92,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	allDaySlot: false
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			//	plugins to import
-			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
+			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction', 'rrule' ],
 			//	Default View
 			defaultView: 'timeGridWeek',
 			//	Some Customized Buttons
@@ -257,8 +257,12 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				{
 					id: 'testEvent2',
 					title: 'Test Event 2',
-					start: '2019-08-29 07:00',
-					end: '2019-08-29 09:00'
+					//	Below is a way to use basics for recurring events
+					daysOfWeek: [ 1, 3, 5 ],
+					startTime: '07:00',
+					endTime: '09:00',
+					startRecur: '2019-08-25',
+					//	Below is a way to use RRule plugin for recurring events, but it's not working...
 				},
 				{
 					id: 'testEvent3',
