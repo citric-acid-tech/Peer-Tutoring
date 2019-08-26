@@ -37,11 +37,59 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
 		//	Guess what, a large calendar!!!
+		var calendarEl = document.getElementById('admin-full-calendar');
+		var calendar = AdminServiceConfig.initCalendar(calendarEl);
+		helper.calendar = calendar;
+		calendar.render();
+//		alert(calendar.getOption('header').right);
+		
+        if (defaultEventHandlers) {
+            _bindEventHandlers();
+        }
+    };
+
+    /**
+     * Default event handlers declaration for Students My Appointment page.
+     */
+    function _bindEventHandlers() {
+		
+        /**
+         * Event: Page Tab Button "Click"
+		 *
+		 * Changes the displayed tab
+         */
+		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
+			if ($(this).attr('href') === '#service-calendar') {
+				helper = adminServiceConfigServiceCalendarHelper;
+			} else if ($(this).attr('href') === '#tutor_config') {
+				helper = adminServiceConfigTutorHelper;
+				helper.getAllTutors();
+				$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
+			} else if ($(this).attr('href') === '#service_type_config') {
+				helper = adminServiceConfigServiceTypeHelper;
+				helper.getAllServiceTypes();
+				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
+			} else {
+				alert("What have you pressed, my friend??");
+			}
+			
+			//	Place footer one more time
+			Admin.placeFooterToBottom();
+		});
+		
+        adminServiceConfigServiceCalendarHelper.bindEventHandlers();
+        adminServiceConfigTutorHelper.bindEventHandlers();
+        adminServiceConfigServiceTypeHelper.bindEventHandlers();
+    }
+
+    /**
+     * 	Guess what, a large calendar!!!
+     */
+	exports.initCalendar = function(calendarEl) {
 		//	height: 500	// If 'auto', natural height and no scroll bar
 		//	contentHeight: 500
 		//	aspectRatio: 2
 		//	allDaySlot: false
-		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			//	plugins to import
 			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
@@ -191,48 +239,42 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			nowIndicator: true,	//	Go to current time position
 			//	List-only options
 			listDayFormat: true,
-			listDayAltFormat: true
+			listDayAltFormat: true,
+			//	Add some test events
+			events: [
+				{
+					id: 'testEvent0',
+					title: 'Test Event 0',
+					start: '2019-09-01 10:00',
+					end: '2019-09-01 12:00'
+				},
+				{
+					id: 'testEvent1',
+					title: 'Test Event 1',
+					start: '2019-08-27 08:00',
+					end: '2019-08-27 10:00'
+				},
+				{
+					id: 'testEvent2',
+					title: 'Test Event 2',
+					start: '2019-08-29 07:00',
+					end: '2019-08-29 09:00'
+				},
+				{
+					id: 'testEvent3',
+					title: 'Test Event 3',
+					start: '2019-08-29 13:00',
+					end: '2019-08-29 14:30'
+				},
+				{
+					id: 'testEvent4',
+					title: 'Test Event 4',
+					start: '2019-08-29 16:00',
+					end: '2019-08-29 18:30'
+				}
+			]
 		});
-		calendar.render();
-//		alert(calendar.getOption('header').right);
-		
-        if (defaultEventHandlers) {
-            _bindEventHandlers();
-        }
-    };
-
-    /**
-     * Default event handlers declaration for Students My Appointment page.
-     */
-    function _bindEventHandlers() {
-		
-        /**
-         * Event: Page Tab Button "Click"
-		 *
-		 * Changes the displayed tab
-         */
-		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
-			if ($(this).attr('href') === '#service-calendar') {
-				helper = adminServiceConfigServiceCalendarHelper;
-			} else if ($(this).attr('href') === '#tutor_config') {
-				helper = adminServiceConfigTutorHelper;
-				helper.getAllTutors();
-				$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
-			} else if ($(this).attr('href') === '#service_type_config') {
-				helper = adminServiceConfigServiceTypeHelper;
-				helper.getAllServiceTypes();
-				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
-			} else {
-				alert("What have you pressed, my friend??");
-			}
-			
-			//	Place footer one more time
-			Admin.placeFooterToBottom();
-		});
-		
-        adminServiceConfigServiceCalendarHelper.bindEventHandlers();
-        adminServiceConfigTutorHelper.bindEventHandlers();
-        adminServiceConfigServiceTypeHelper.bindEventHandlers();
-    }
-
+		return calendar;
+	};
+	
 })(window.AdminServiceConfig);

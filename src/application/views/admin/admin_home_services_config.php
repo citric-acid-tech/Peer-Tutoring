@@ -58,6 +58,9 @@
 				<div class="btn-group">
 					<button id="create_event" class="btn btn-primary" title="Create an Event">Create an Event</button>
 				</div>
+				<div class="btn-group">
+					<button id="fetch_event_0" class="btn btn-default" title="Check on Event 0">Check on Event 0</button>
+				</div>
 			</div>
 			<!-- Guess what, a large calendar! -->
 			<div id="admin-full-calendar"></div>
