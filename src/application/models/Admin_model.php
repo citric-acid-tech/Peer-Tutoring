@@ -357,17 +357,22 @@ class Admin_model extends CI_Model{
         $end_datetime = $tmp_date->format('Y-m-d') . ' 00:00'; // Monday of the next week
         
         $this->db->select('
-           ea_services.id             AS id,
-           ea_services.start_datetime AS start_datetime,
-           ea_services.end_datetime   AS end_datetime,
-           ea_service_categories.name AS service_type
+           ea_users.id                                            AS tutor_id,
+           CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
+           ea_services.id                                         AS id,
+           ea_services.start_datetime                             AS start_datetime,
+           ea_services.end_datetime                               AS end_datetime,
+           ea_service_categories.name                             AS service_type
         ')
         ->from('ea_services')
         ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
         ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
         ->where('start_datetime > ', $start_datetime)
-        ->where('start_datetime <', $end_datetime) // Using end_datetime is also fine
-        ->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+        ->where('start_datetime <', $end_datetime); // Using end_datetime is also fine
+
+        if($tutor_name != 'ALL'){
+            $this->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+        }
 
         return $this->db->get()
             ->result_array();
