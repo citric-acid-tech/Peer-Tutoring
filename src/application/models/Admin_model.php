@@ -328,6 +328,8 @@ class Admin_model extends CI_Model{
 
         // :: Get the first day and the last day of this semester
 
+        $tmp_arr = explode('-', $semester_info);
+
         $semester = $this->get_semester_info();
 
         $first_day  = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ]['first_Monday'];
@@ -389,6 +391,8 @@ class Admin_model extends CI_Model{
 
         // :: Get the first day and the last day of this semester
         
+        $tmp_arr = explode('-', $semester_info);
+
         $semester = $this->get_semester_info();
 
         $first_day  = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ]['first_Monday'];
