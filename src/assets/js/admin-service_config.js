@@ -123,6 +123,11 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				},
 				listDay: {
 					buttonText: "day - list"
+				},
+				list: {
+					//	These two do not seem to be mixable
+					listDayAltFormat: true
+//					listDayFormat: true
 				}
 			},
 			//	Date & Time Options
@@ -237,9 +242,6 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			],
 			//	nowIndicator
 			nowIndicator: true,	//	Go to current time position
-			//	List-only options
-			listDayFormat: true,
-			listDayAltFormat: true,
 			//	Add some test events
 			events: [
 				{
@@ -276,7 +278,11 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					start: '2019-08-29 16:00',
 					end: '2019-08-29 18:30'
 				}
-			]
+			],
+			//	Advance: Draggables
+			editable: true,
+//			eventResizableFromStart: true,
+			droppable: true	// External event can be dropped on the calendar
 		});
 		return calendar;
 	};
