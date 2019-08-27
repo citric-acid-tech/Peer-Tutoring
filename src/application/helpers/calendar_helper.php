@@ -1,10 +1,15 @@
 <?php
 
-function get_semester_and_week($date){
+function get_semester_and_weeks($date){
     $tmp = new DateTime($date);
     $semester = array();
     $semester = json_decode(get_semester_info_json(), TRUE);
     $year = $tmp->format('Y');
+
+    if( ! array_key_exists($year, $semester)){
+        echo 'SB';
+        return json_encode(array('semester'=>'undefined', 'weeks'=>'undefined'));
+    }
 
     $Spring_begin = new DateTime($semester[$year]['Spring']['first_Monday']);
     $Spring_last = $semester[$year]['Spring']['last_weeks'];
