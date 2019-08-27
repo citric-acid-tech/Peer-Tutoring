@@ -371,7 +371,7 @@ class Admin_model extends CI_Model{
         ->where('start_datetime <', $end_datetime); // Using end_datetime is also fine
 
         if($tutor_name != 'ALL'){
-            $this->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+            $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
         }
 
         return $this->db->get()
