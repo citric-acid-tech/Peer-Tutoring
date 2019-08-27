@@ -95,6 +95,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction', 'rrule' ],
 			//	Default View
 			defaultView: 'timeGridWeek',
+			//	Locales
+			locale: 'zh-cn',	//	Default 简体中文
 			//	Some Customized Buttons
 			customButtons: {
 				custBut: {
@@ -102,7 +104,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					click: function() {
 						alert("Hi, I'm a custom button by Peter S!");
 					}
-				}	
+				}
 			},
 			//	views customizations
 			views: {
@@ -123,6 +125,18 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				},
 				listDay: {
 					buttonText: "day - list"
+				},
+				list: {
+					//	These two do not seem to be mixable
+					listDayAltFormat: true
+//					listDayFormat: true
+				},
+				dayGrid: {
+					//	Advanced: Event Popup
+					eventLimit: 20	//	A lot of places to show
+				},
+				timeGrid: {
+					eventLimit: 2	// only for all-day slots
 				}
 			},
 			//	Date & Time Options
@@ -237,9 +251,6 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			],
 			//	nowIndicator
 			nowIndicator: true,	//	Go to current time position
-			//	List-only options
-			listDayFormat: true,
-			listDayAltFormat: true,
 			//	Add some test events
 			events: [
 				{
@@ -276,7 +287,13 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					start: '2019-08-29 16:00',
 					end: '2019-08-29 18:30'
 				}
-			]
+			],
+			//	Advance: Draggables
+			editable: true,
+//			eventResizableFromStart: true,
+			droppable: true,	// External event can be dropped on the calendar			
+			//	Advance: Touch Support
+//			longPressDelay: 1000	// Defult is 1000
 		});
 		return calendar;
 	};
