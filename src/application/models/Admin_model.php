@@ -333,8 +333,14 @@ class Admin_model extends CI_Model{
         $first_day  = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ]['first_Monday'];
         $last_weeks = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ][ 'last_weeks' ];
         
-        if(is_null($week) || $week <= 0 || $week > $last_weeks){
-            return 'week absence or overflow';
+        if(is_null($week)){
+            return 'week absence';
+        }
+        if($week <= 0){
+            return 'week should be larger than 0';
+        }
+        if($week > $last_weeks){
+            return 'week is larger than the length of the semester.';
         }
 
         $tmp_date = new Datetime($first_day);
