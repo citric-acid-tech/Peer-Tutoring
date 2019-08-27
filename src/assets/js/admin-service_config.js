@@ -282,7 +282,9 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			//	Advance: Draggables
 			editable: true,
 //			eventResizableFromStart: true,
-			droppable: true	// External event can be dropped on the calendar
+			droppable: true,	// External event can be dropped on the calendar
+			//	Advance: Touch Support
+//			longPressDelay: 1000	// Defult is 1000
 		});
 		return calendar;
 	};
