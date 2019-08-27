@@ -74,6 +74,10 @@ window.Admin = window.Admin || {};
     exports.PRIV_APPOINTMENTS_MANAGEMENT = 'appointments_management';
     exports.PRIV_TUTOR_SETTINGS = 'tutor_settings';
 	
+	//	Locales for calendar
+	exports.CALENDAR_LOCALES_ENGLISH = 'english';
+	exports.CALENDAR_LOCALES_ZH_CN = 'zh-cn';
+	
     /**
      * Place the students footer always on the bottom of the page.
      */
