@@ -74,7 +74,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					hideIfNoPrevNext: true,
 					minDate: "0",
 					maxDate: "1w",
-					showWeek: true,
+//					showWeek: true,
 					onSelect: function() {
 						helper.filter($('#date-title').val());
 					}

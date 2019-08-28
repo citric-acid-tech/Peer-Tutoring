@@ -36,6 +36,9 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Select by Tutor by default
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
+		var curTime = moment().format("YYYY-MM-DD");
+		
+		
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = AdminServiceConfig.initCalendar(calendarEl);
@@ -178,10 +181,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
   			windowResize: function() {
 				Admin.placeFooterToBottom();	//	Fix the footer gg problem
   			},
-			//	Show week numbers
-			weekNumbers: true,
+			//	Show week numbers: show on external position
+//			weekNumbers: true,
 //			weekNumberCalculation: function(date) {	//	Calculate the week number according to the semester
-//				
+//				<?=  =>
 //			},
 //			weekLabel: "周",	//	Specify this in language pack later, or maybe use the locale
 			//	Super Cool Nav-Links options
@@ -252,42 +255,33 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			//	nowIndicator
 			nowIndicator: true,	//	Go to current time position
 			//	Add some test events
-			events: [
-				{
-					id: 'testEvent0',
-					title: 'Test Event 0',
-					start: '2019-09-01 10:00',
-					end: '2019-09-01 12:00'
-				},
-				{
-					id: 'testEvent1',
-					title: 'Test Event 1',
-					start: '2019-08-27 08:00',
-					end: '2019-08-27 10:00'
-				},
-				{
-					id: 'testEvent2',
-					title: 'Test Event 2',
-					//	Below is a way to use basics for recurring events
-					daysOfWeek: [ 1, 3, 5 ],
-					startTime: '07:00',
-					endTime: '09:00',
-					startRecur: '2019-08-25',
-					//	Below is a way to use RRule plugin for recurring events, but it's not working...
-				},
-				{
-					id: 'testEvent3',
-					title: 'Test Event 3',
-					start: '2019-08-29 13:00',
-					end: '2019-08-29 14:30'
-				},
-				{
-					id: 'testEvent4',
-					title: 'Test Event 4',
-					start: '2019-08-29 16:00',
-					end: '2019-08-29 18:30'
-				}
-			],
+			events: function(fetchInfo, successCallback, failureCallback) {
+				var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
+        		var postData = {
+        		    csrfToken: GlobalVariables.csrfToken,
+        		    tutor_name: JSON.stringify('OVO JJ'),
+					semester: JSON.stringify('2019-Fall'),
+					week: JSON.stringify('4')
+        		};
+        		$.post(postUrl, postData, function (response) {
+        		    if (!GeneralFunctions.handleAjaxExceptions(response)) {
+        		        return;
+        		    }
+					
+					var results = [];
+					alert(JSON.stringify(response));
+					$.each(response, function(index, service) {
+						var eve  = {
+							id: service.id,
+							title: service.service_type,
+							start: service.start_datetime,
+							end: service.end_datetime
+						};
+						results.push(eve);
+					});
+					successCallback(results);
+        		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+			},
 			//	Advance: Draggables
 			editable: true,
 //			eventResizableFromStart: true,
