@@ -79,6 +79,7 @@ class General_model extends CI_Model{
     }
 
     /**
+     * A list of names of the setting in ea_settings table
      * 
      * @return array settings in database
      */
