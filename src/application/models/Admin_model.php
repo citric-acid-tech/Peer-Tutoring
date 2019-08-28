@@ -258,10 +258,9 @@ class Admin_model extends CI_Model{
                 ea_users.personal_page   AS personal_page,
                 ea_users.introduction    AS introduction,
                 ea_users.address         AS address,
-                ea_users.flexible_column AS flexible_coulmn,
+                ea_users.flexible_column AS flexible_column,
                 ea_users.email           AS email,
-                ea_users.phone_number    AS phone_number,
-                ea_users.flexible_coulmn AS flexible_column
+                ea_users.phone_number    AS phone_number
             ')
             ->from('ea_users')
             ->where('ea_users.id_roles <', 3);
