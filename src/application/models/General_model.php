@@ -77,5 +77,24 @@ class General_model extends CI_Model{
             ->get()
             ->result_array();
     }
+
+    /**
+     * 
+     * @return array settings in database
+     */
+    public function get_settings_batch($key_arr){
+        $rtn = array();
+
+        $this->db->select('name, value')->from('ea_settings');
+        foreach($key_arr AS $key){
+            $this->db->or_where('name', $key);
+        }
+        $result = $this->db->get()->result_array();
+        
+        foreach($result AS $row){
+            $rtn[$row['name']] = $row['value'];
+        }
+        return $rtn;
+    }
 }
 ?>

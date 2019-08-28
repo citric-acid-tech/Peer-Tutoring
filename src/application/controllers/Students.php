@@ -22,23 +22,19 @@ class Students extends CI_Controller{
 
         $this->session->set_userdata('dest_url', site_url('students'));
 
-        if ( ! $this->_has_privileges(PRIV_MY_APPOINTMENTS))
-        {
+        if ( ! $this->_has_privileges(PRIV_MY_APPOINTMENTS)){
             return;
         }
 
-        $this->load->model('appointments_model');
-        $this->load->model('settings_model');
         $this->load->model('roles_model');
         $this->load->model('user_model');
+        $this->load->model('general_model');
 
         $view['base_url'] = $this->config->item('base_url');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
 
-        $view['book_advance_timeout'] = $this->settings_model->get_setting('book_advance_timeout');
-        $view['date_format'] = $this->settings_model->get_setting('date_format');
-        $view['time_format'] = $this->settings_model->get_setting('time_format');
-        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $settings = array('book_advance_timeout', 'date_format', 'time_format', 'company_name');
+        $view = array_merge($view, $this->general_model->get_settings_batch($settings));
         
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
 
@@ -60,22 +56,18 @@ class Students extends CI_Controller{
             return;
         }
 
-        $this->load->model('appointments_model');
-        $this->load->model('settings_model');
+        $this->load->model('general_model');
         $this->load->model('roles_model');
         $this->load->model('user_model');
 
         $view['base_url'] = $this->config->item('base_url');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
 
-        $view['book_advance_timeout'] = $this->settings_model->get_setting('book_advance_timeout');
-        $view['date_format'] = $this->settings_model->get_setting('date_format');
-        $view['time_format'] = $this->settings_model->get_setting('time_format');
-        $view['company_name'] = $this->settings_model->get_setting('company_name');
-        $view['semester_json']  = $this->settings_model->get_setting('semester_json');
+        
+        $settings = array('book_advance_timeout', 'date_format', 'time_format', 'company_name', 'semester_json');
+        $view = array_merge($view, $this->general_model->get_settings_batch($settings));
 
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
-
 
         $this->set_user_data($view);
 

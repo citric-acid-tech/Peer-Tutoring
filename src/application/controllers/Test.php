@@ -32,7 +32,17 @@ class Test extends CI_Controller{
         // echo $this->calendar->generate($year, $month);
         // $this->test_admin_save_settings();
         // echo get_flexible_column_label();
-        force_download(get_attachment_url(3), NULL);
+        
+        $this->test_get_settings_batch();
+        
+        // force_download(get_attachment_url(3), NULL);
+    }
+
+    public function test_get_settings_batch(){
+        $this->load->model('general_model');
+        $view['test'] = 'test_value';
+        $view = array_merge($view, $this->general_model->get_settings_batch(array('company_name', 'flexible_column_label')));
+        echo var_dump($view);
     }
 
     public function test_cancel_appointment(){

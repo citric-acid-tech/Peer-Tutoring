@@ -175,20 +175,20 @@ class Tutors_model extends CI_Model{
                 first_name      AS surname,
                 personal_page   AS personal_page,
                 introduction    AS introduction,
-                email            AS email,
+                email           AS email,
                 address         AS address,
                 phone_number    AS phone_number,
-                flexible_coulmn AS flexible_coulmn
+                flexible_column AS flexible_column
             '
             :'
                 first_name      AS given_name,
                 last_name       AS surname,
-                ppersonal_page   AS personal_page,
+                personal_page   AS personal_page,
                 introduction    AS introduction,
-                email            AS email,
+                email           AS email,
                 address         AS address,
                 phone_number    AS phone_number,
-                flexible_coulmn AS flexible_coulmn
+                flexible_column AS flexible_column
             '
             ;
 
