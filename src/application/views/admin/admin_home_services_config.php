@@ -56,8 +56,13 @@
 		<div role="tabpanel" class="tab-pane active" id="service-calendar">
 			<!-- toolbar -->
 			<div class="container calendar_upper_header" style="text-align: center;">
-				<div class="col-xs-12 col-md-6"><h4><span id="calendar_semeseter"></span></h4></div>
-				<div class="col-xs-12 col-md-6"><h4>Week <span id="calendar_week_number"></span></h4></div>
+				<div class="col-xs-12 col-md-12">
+					<h4>
+						<span id="calendar_semeseter"></span>
+						&nbsp;&nbsp;
+						<span id="calendar_week_number"></span>
+					</h4>
+				</div>
 			</div>
 			<div class="btn-toolbar calendar-btns">
 				<div class="btn-group">

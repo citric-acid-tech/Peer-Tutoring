@@ -494,7 +494,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @return {Boolean} true if inside
      */
     exports.inInterval = function (start, end, date) {
-		return date.isBetween(start, end, null, '[]');
+		return date.isBetween(start, end, null, '[)');
     };
 	
 })(window.GeneralFunctions);

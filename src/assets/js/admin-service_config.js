@@ -255,33 +255,39 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			events: function(fetchInfo, successCallback, failureCallback) {
 				//	Get Week from start date
 				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
-				$('#calendar_semeseter').html(weekNumAndSem.semester);
-				$('#calendar_week_number').html(weekNumAndSem.weekNumber);
-				var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
-        		var postData = {
-        		    csrfToken: GlobalVariables.csrfToken,
-        		    tutor_name: JSON.stringify('OVO JJ'),
-					semester: JSON.stringify(weekNumAndSem.semester),
-					week: JSON.stringify(weekNumAndSem.weekNumber)
-        		};
-        		$.post(postUrl, postData, function (response) {
-        		    if (!GeneralFunctions.handleAjaxExceptions(response)) {
-        		        return;
-        		    }
-					
-					var results = [];
-//					alert(JSON.stringify(response));
-					$.each(response, function(index, service) {
-						var eve  = {
-							id: service.id,
-							title: service.service_type,
-							start: service.start_datetime,
-							end: service.end_datetime
-						};
-						results.push(eve);
-					});
-					successCallback(results);
-        		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+				if (weekNumAndSem.weekNumber === '-1') {
+					$('#calendar_semeseter').html(weekNumAndSem.semester);
+					$('#calendar_week_number').html('');
+					successCallback([]);
+				} else {
+					$('#calendar_semeseter').html(weekNumAndSem.semester);
+					$('#calendar_week_number').html("Week " + weekNumAndSem.weekNumber);
+					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
+        			var postData = {
+        			    csrfToken: GlobalVariables.csrfToken,
+        			    tutor_name: JSON.stringify('OVO JJ'),
+						semester: JSON.stringify(weekNumAndSem.semester),
+						week: JSON.stringify(weekNumAndSem.weekNumber)
+        			};
+        			$.post(postUrl, postData, function (response) {
+        			    if (!GeneralFunctions.handleAjaxExceptions(response)) {
+        			        return;
+        			    }
+						
+						var results = [];
+//						alert(JSON.stringify(response));
+						$.each(response, function(index, service) {
+							var eve  = {
+								id: service.id,
+								title: service.service_type,
+								start: service.start_datetime,
+								end: service.end_datetime
+							};
+							results.push(eve);
+						});
+						successCallback(results);
+        			}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+				}
 			},
 			//	Advance: Draggables
 			editable: true,
