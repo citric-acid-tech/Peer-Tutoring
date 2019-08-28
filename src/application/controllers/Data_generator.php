@@ -4,6 +4,7 @@ class Data_generator extends CI_Controller{
     
     public function __construct(){
         parent::__construct();
+        $this->load->library('session');
         $this->load->model('students_model');
         $this->load->model('admin_model');
         $this->load->model('general_model');
@@ -14,10 +15,30 @@ class Data_generator extends CI_Controller{
         echo 'Don\'t close the page until it finishes.';
 
         //generate_student_appointments($date, $status)
+        $this->generate_service_types();
         $this->generate_users();
         $this->generate_services(); 
         $this->generate_tutor_appointments();
         echo 'Finshed';       
+    }
+
+    public function generate_service_types(){
+        $this->load->database();
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0;');
+        $this->db->query('TRUNCATE TABLE ea_service_categories;');
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1;');
+
+        $this->admin_model->new_service_type('Fly a Jet Fighter', 'Jet fighter is an important national defense device. 
+                                    It is important to learn how to drive it.');
+        $this->admin_model->new_service_type('Diaobao English' , 'Do you want to learn a fluent and diaobao English?');
+        $this->admin_model->new_service_type('Fun with PHP', 'PHP is the best programming language in the world. Let\'s fuck it.');
+        $this->admin_model->new_service_type('CodeIgniter Tutorial', 'Do you want to be as diao as the backend guy?');
+        $this->admin_model->new_service_type('Fuck a Guitar', 'The best guitar course in SUSDesk');
+        $this->admin_model->new_service_type('Fail on TOFEL', 'Don\'t know how to avoid to pass TOFEL? Don\'t be worry. You have me!');
+        $this->admin_model->new_service_type('Introduction to GTA5', 'What is wrong with the name of the service types? Take this.');
+        $this->admin_model->new_service_type('CTE', 'One of the best band in this world.');
+        $this->admin_model->new_service_type('POP Music = shit', 'Normal Music Class.');
+        $this->admin_model->new_service_type('Advanced instant noodle', 'A professional course about how to make your instant noodle good enough. Prerequisites: Fly a Jet Fighter');
     }
 
     public function generate_tutor_appointments(){
