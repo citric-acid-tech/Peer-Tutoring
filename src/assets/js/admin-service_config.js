@@ -36,9 +36,6 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Select by Tutor by default
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
-		var curTime = moment().format("YYYY-MM-DD");
-		
-		
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = AdminServiceConfig.initCalendar(calendarEl);
@@ -256,12 +253,16 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			nowIndicator: true,	//	Go to current time position
 			//	Add some test events
 			events: function(fetchInfo, successCallback, failureCallback) {
+				//	Get Week from start date
+				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
+				$('#calendar_semeseter').html(weekNumAndSem.semester);
+				$('#calendar_week_number').html(weekNumAndSem.weekNumber);
 				var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
         		var postData = {
         		    csrfToken: GlobalVariables.csrfToken,
         		    tutor_name: JSON.stringify('OVO JJ'),
-					semester: JSON.stringify('2019-Fall'),
-					week: JSON.stringify('4')
+					semester: JSON.stringify(weekNumAndSem.semester),
+					week: JSON.stringify(weekNumAndSem.weekNumber)
         		};
         		$.post(postUrl, postData, function (response) {
         		    if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -269,7 +270,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
         		    }
 					
 					var results = [];
-					alert(JSON.stringify(response));
+//					alert(JSON.stringify(response));
 					$.each(response, function(index, service) {
 						var eve  = {
 							id: service.id,

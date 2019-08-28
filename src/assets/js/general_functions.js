@@ -431,4 +431,70 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         return result;
     };
 
+    /**
+     * Get a week number and semester string
+     *
+     * @param {Date} The date to be computed, as a string
+	 *
+     * @return {Object, Object} Returns an array of a week number and a semester string.
+     */
+    exports.getSemAndWeeks = function (date) {
+		var sem_info = GlobalVariables.semester_json;
+		var format_date = moment(date, 'YYYY-MM-DD');
+		var year = format_date.year();
+		
+		//	check if this year exists
+		if (sem_info[year] === undefined) {
+			alert("GeneralFunctions.getSemAndWeeks() --> No such year: " + year);
+			return false;
+		}
+		
+		var spring_begin = moment(sem_info[year].Spring.first_Monday, 'YYYY-MM-DD');
+		var spring_last = parseInt(sem_info[year].Spring.last_weeks) * 7;
+		var spring_end = moment(spring_begin).add(spring_last, 'days');
+		
+		var summer_begin = moment(sem_info[year].Summer.first_Monday, 'YYYY-MM-DD');
+		var summer_last = parseInt(sem_info[year].Summer.last_weeks) * 7;
+		var summer_end = moment(summer_begin).add(summer_last, 'days');
+		
+		var fall_begin = moment(sem_info[year].Fall.first_Monday, 'YYYY-MM-DD');
+		var fall_last = parseInt(sem_info[year].Fall.last_weeks) * 7;
+		var fall_end = moment(fall_begin).add(fall_last, 'days');
+
+		if (GeneralFunctions.inInterval(spring_begin, spring_end, format_date)) {
+			return {
+				weekNumber: (Math.floor(moment.duration(format_date.diff(spring_begin)).asDays() / 7) + 1).toString(),
+				semester: year + "-Spring"
+			};
+		} else if (GeneralFunctions.inInterval(summer_begin, summer_end, format_date)) {
+			return {
+				weekNumber: (Math.floor(moment.duration(format_date.diff(summer_begin)).asDays() / 7) + 1).toString(),
+				semester: year + "-Summer"
+			};
+		} else if (GeneralFunctions.inInterval(fall_begin, fall_end, format_date)) {
+			return {
+				weekNumber: (Math.floor(moment.duration(format_date.diff(fall_begin)).asDays() / 7) + 1).toString(),
+				semester: year + "-Fall"
+			};
+		} else {
+			return {
+				weekNumber: "-1",
+				semester: "Out of Semester"
+			};
+		}
+    };
+	
+    /**
+     * Determine whether the date is between start and end dates
+     *
+     * @param {Moment} start date
+     * @param {Moment} end date
+     * @param {Moment} given date
+	 *
+     * @return {Boolean} true if inside
+     */
+    exports.inInterval = function (start, end, date) {
+		return date.isBetween(start, end, null, '[]');
+    };
+	
 })(window.GeneralFunctions);

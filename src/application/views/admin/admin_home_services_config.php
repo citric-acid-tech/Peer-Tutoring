@@ -22,7 +22,8 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
-        timeFormat         : <?= json_encode($time_format) ?>
+        timeFormat         : <?= json_encode($time_format) ?>,
+		semester_json      : <?= $semester_json ?>
     };
 
     $(document).ready(function() {
@@ -54,9 +55,9 @@
 		<!-- Check Available Time in Calendar Tab -->
 		<div role="tabpanel" class="tab-pane active" id="service-calendar">
 			<!-- toolbar -->
-			<div class="container">
-				<div class="col-xs-12 col-md-4"><h4><span id="calendar_semeseter"></span></h4></div>
-				<div class="col-xs-12 col-md-4"><h4>Week <span id="calendar_week_number"></span></h4></div>
+			<div class="container calendar_upper_header" style="text-align: center;">
+				<div class="col-xs-12 col-md-6"><h4><span id="calendar_semeseter"></span></h4></div>
+				<div class="col-xs-12 col-md-6"><h4>Week <span id="calendar_week_number"></span></h4></div>
 			</div>
 			<div class="btn-toolbar calendar-btns">
 				<div class="btn-group">
