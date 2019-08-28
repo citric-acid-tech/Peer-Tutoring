@@ -306,7 +306,7 @@ class Students_model extends CI_Model{
             }
         return 
             $this->db
-                ->group_by('tutor_name')
+                ->group_by('tutor_name, tutor_id')
                 ->order_by('start_datetime', 'ASC')
                 ->get()
                 ->result_array();
