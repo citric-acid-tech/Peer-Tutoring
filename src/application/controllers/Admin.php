@@ -41,6 +41,7 @@ class Admin extends CI_Controller{
         $view['date_format'] = $this->settings_model->get_setting('date_format');
         $view['time_format'] = $this->settings_model->get_setting('time_format');
         $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $view['semester_json']  = $this->settings_model->get_setting('semester_json');
 
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
 
