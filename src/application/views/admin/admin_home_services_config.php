@@ -42,12 +42,12 @@
 		</li>
 		<li role="presentation">
 			<a href="#tutor_config" aria-controls="tutor_config" role="tab" data-toggle="tab">
-				<?= lang('select_by_tutor_tab') ?>
+				<?= lang('tutor') ?>
 			</a>
 		</li>
 		<li role="presentation">
 			<a href="#service_type_config" aria-controls="service_type_config" role="tab" data-toggle="tab">
-				<?= lang('select_by_time_tab') ?>
+				<?= lang('service_type') ?>
 			</a>
 		</li>
 	</ul>   
@@ -57,7 +57,7 @@
 		<div role="tabpanel" class="tab-pane active" id="service-calendar">
 			<!-- toolbar -->
 			<div class="container calendar_upper_header" style="text-align: center;">
-				<div class="col-xs-12 col-md-12">
+				<div class="col-xs-12">
 					<h4>
 						<span id="calendar_semeseter"></span>
 						&nbsp;&nbsp;
@@ -70,14 +70,14 @@
 					<button id="show_selected" class="btn btn-primary" title="What have I selected?">What have I selected?</button>
 				</div>
 				<div class="btn-group">
-					<button id="fetch_event_0" class="btn btn-default" title="Check on Event 0">Check on Event 0</button>
-				</div>
-				<div class="btn-group">
 					<button id="add_event_through_button" class="btn btn-info" title="Add an Event">Add an Event</button>
 				</div>
 			</div>
 			<!-- Guess what, a large calendar! -->
 			<div id="admin-full-calendar"></div>
+			<div id="cal_edit_popup">
+				
+			</div>
 		</div>
 	
 		<!-- Select by Tutor Tab -->
@@ -216,10 +216,10 @@
 									</button>
 								</div>
 								<div class="btn-group">
-									<button id="service_type-new-service_type" class="btn btn-primary" title="New Tutor">
+									<button id="service_type-new-service_type" class="btn btn-primary" title="New Service Type">
 										<i class="fas fa-plus"></i>
 										&nbsp;
-										New Tutor
+										New Service Type
 									</button>
 								</div>
 								<!-- Editing Group -->
