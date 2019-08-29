@@ -29,15 +29,15 @@
 				 instance.currentSelect.start + "\n~\n" + instance.currentSelect.end);
 		});
 		
-   		/**
-   		 * Event: Check Event button clicked
-   		 */
-		$('.admin-page #service-calendar .calendar-btns #fetch_event_0').click(function() {
-			var event = instance.calendar.getEventById('testEvent0');
-			alert("Yes sir. You want to check on test event 0 right?\nHere is what I got:\n" + 
-				 "Title: " + event.title + "\n" +
-				  event.start + "\n~\n" + event.end);
-		});
+//   		/**
+//   		 * Event: Check Event button clicked
+//   		 */
+//		$('.admin-page #service-calendar .calendar-btns #fetch_event_0').click(function() {
+//			var event = instance.calendar.getEventById('testEvent0');
+//			alert("Yes sir. You want to check on test event 0 right?\nHere is what I got:\n" + 
+//				 "Title: " + event.title + "\n" +
+//				  event.start + "\n~\n" + event.end);
+//		});
 		
    		/**
    		 * Event: Add Event button clicked
