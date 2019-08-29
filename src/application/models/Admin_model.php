@@ -3,7 +3,7 @@
 class Admin_model extends CI_Model{
     
     /**
-     * Useless for now
+     * For testing
      */
     public function new_tutor($first_name, $last_name, $personal_page, 
                                 $introduction, $phone_number, $eamil, $address, $flexible_column){
@@ -21,6 +21,62 @@ class Admin_model extends CI_Model{
 
         $result =  $this->db->insert('ea_users', $data);
 
+        $this->log_operation('new_tutor', $data, $result);
+
+        return $result;
+    }
+
+    /**
+     * @param sid The sid of the student
+     * @return boolean success or not
+     */
+    public function new_sid_tutor($sid){
+        
+        $result = FALSE;
+
+        $registration = 
+            $this->db->select('COUNT(*)')
+                ->from('ea_users')
+                ->where('ea_users.cas_sid', $sid)
+                ->get()
+                ->row_array()['COUNT(*)'];
+
+        // This user hasn't registered yet
+        if($registration == 0){
+
+            $this->db->trans_begin();
+            // insert into ea_users
+            $data = array(
+                'id_roles' => 2,
+                'cas_sid' => $sid
+            );
+    
+            $this->db->insert('ea_users', $data);
+    
+            $id_users = $this->db->insert_id();
+            
+            // inset into ea_user_settings
+            $data = array(
+                'id_users' => $id_users,
+                'username' => $sid,
+            );
+
+            if( !$this->db->insert('ea_user_settings', $data) ){
+                $this->db->trans_rollback();
+                $result = FALSE;
+            }else{
+                $result = TRUE;
+            }
+
+            $this->db->trans_complete();
+
+        }else{
+            $this->db->set('id_rolres', '2');
+            $this->dn->where('sid', $sid);
+            $result = $this->db->update('ea_users');
+        }
+
+        $data = array('sid' => $sid);
         $this->log_operation('new_tutor', $data, $result);
 
         return $result;

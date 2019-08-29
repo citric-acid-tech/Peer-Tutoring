@@ -62,18 +62,10 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $first_name = json_decode($this->input->post('first_name'), TRUE);
-            $last_name = json_decode($this->input->post('last_name'), TRUE);
-            $personal_page = json_decode($this->input->post('personal_page'), TRUE);
-            $introduction = json_decode($this->input->post('introduction'), TRUE);
-            $address = json_decode($this->input->post('address'), TRUE);
-            $flexible_column = json_decode($this->input->post('flexible_column'), TRUE);
-            $eamil = json_decode($this->input->post('eamil'), TRUE);
-            $phone_number = json_decode($this->input->post('phone_number'), TRUE);
+            $sid = json_decode($this->input->post('sid'), TRUE);
 
             // Query
-            $result = $this->admin_model->new_tutor($first_name, $last_name, $personal_page, 
-                                        $introduction, $phone_number, $eamil, $address, $flexible_column);
+            $result = $this->admin_model->new_sid_tutor($sid);
             
             // Log
 
