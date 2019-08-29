@@ -13,13 +13,13 @@
 
 use \EA\Engine\Types\NonEmptyText;
 use \EA\Engine\Types\Email;
-
 /**
  * User Controller
  *
  * @package Controllers
  */
 class User extends CI_Controller {
+
     /**
      * Class Constructor
      */
@@ -27,6 +27,7 @@ class User extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
+        $this->load->library('cas');
 
         // Set user's selected language.
         if ($this->session->userdata('language'))
@@ -48,6 +49,19 @@ class User extends CI_Controller {
     public function index()
     {
         header('Location: ' . site_url('user/login'));
+    }
+
+    /**
+     * Redirect to CAS page
+     */
+    public function cas_login()
+    {
+        $this->cas->forceAuthentication();
+        if (isset($_REQUEST['logout'])) {
+            phpCAS::logout();
+        }
+        $user = $this->cas->getAttributes();
+        echo '<pre>'; print_r($user); echo '</pre>';
     }
 
     /**
