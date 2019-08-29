@@ -52,6 +52,24 @@ class Config {
     const GOOGLE_CLIENT_ID      = '';
     const GOOGLE_CLIENT_SECRET  = '';
     const GOOGLE_API_KEY        = '';
+
+    // ------------------------------------------------------------------------
+    // phpCAS SETTINGS
+    // ------------------------------------------------------------------------
+
+    const CAS_DEBUG = TRUE;
+    const CAS_DISABLE_SERVER_VALIDATION = TRUE;
+    const VENDOR_CAS_SOURCE = 'vendor/jasig/phpcas/source';
+
+    ///////////////////////////////////////
+    // Basic Config of the phpCAS client //
+    ///////////////////////////////////////
+    // Full Hostname of your CAS Server
+    const CAS_HOST = 'cas.sustech.edu.cn';
+    // Context of the CAS Server
+    const CAS_CONTEXT = '/cas';
+    // Port of your CAS server. Normally for a https server it's 443
+    const CAS_PORT = 443;
 }
 
 /* End of file config.php */
