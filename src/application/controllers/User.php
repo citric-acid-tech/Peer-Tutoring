@@ -95,7 +95,7 @@ class User extends CI_Controller {
      * Display the logout page.
      */
     public function logout(){
-        
+
         $this->load->model('settings_model');
 
         $this->session->unset_userdata('user_id');
@@ -107,7 +107,7 @@ class User extends CI_Controller {
         $view['base_url'] = $this->config->item('base_url');
         $view['company_name'] = $this->settings_model->get_setting('company_name');
 
-        $this->cas->logout();
+        $this->cas->logout(site_url(''));
 
         $this->load->view('user/logout', $view);
     }
