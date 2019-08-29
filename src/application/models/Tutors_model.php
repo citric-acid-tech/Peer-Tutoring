@@ -40,7 +40,8 @@ class Tutors_model extends CI_Model{
             ea_services.start_datetime                             AS start_datetime,
             ea_services.end_datetime                               AS end_datetime,
 
-            CONCAT(students.first_name, \' \', students.last_name) AS student_name
+            CONCAT(students.first_name, \' \', students.last_name) AS student_name,
+            students.cas_sid                                       AS student_sid
         ')
         ->from('ea_appointments')
         ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
