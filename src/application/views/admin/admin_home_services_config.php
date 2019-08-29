@@ -23,7 +23,8 @@
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
-		semester_json      : <?= $semester_json ?>
+		semester_json      : <?= $semester_json ?>,
+		curLanguage        : <?= json_encode($language) ?>
     };
 
     $(document).ready(function() {

@@ -39,6 +39,11 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = AdminServiceConfig.initCalendar(calendarEl);
+		switch(GlobalVariables.curLanguage) {
+			case "english": calendar.setOption('locale', Admin.CALENDAR_LOCALES_ENGLISH); break;
+			case "简体中文": calendar.setOption('locale', Admin.CALENDAR_LOCALES_ZH_CN); break;
+			default: calendar.setOption('locale', Admin.CALENDAR_LOCALES_ENGLISH);
+		}
 		helper.calendar = calendar;
 		calendar.render();
 //		alert(calendar.getOption('header').right);
