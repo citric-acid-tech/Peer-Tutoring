@@ -53,7 +53,7 @@ class Admin extends CI_Controller{
             $view['language'] = $this->session->userdata('language');
         }
         else{
-            $view['language'] = $this->config->item('language')
+            $view['language'] = $this->config->item('language');
         }
 
         $this->load->view('admin/admin_home_header', $view);

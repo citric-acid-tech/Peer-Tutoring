@@ -76,9 +76,8 @@ class Students extends CI_Controller{
         // Set user's selected language.
         if ($this->session->userdata('language')){
             $view['language'] = $this->session->userdata('language');
-        }
-        else{
-            $view['language'] = $this->config->item('language')
+        }else{
+            $view['language'] = $this->config->item('language');
         }
 
         $this->load->view('students/students_home_header', $view);
