@@ -33,9 +33,18 @@ class Test extends CI_Controller{
         // $this->test_admin_save_settings();
         // echo get_flexible_column_label();
         
-        $this->test_remove_service();
+        // $this->test_remove_service();
         
         // force_download(get_attachment_url(3), NULL);
+    }
+
+    public function add_admin($sid){
+        $ci = & get_instance();
+        $ci->db->set('id_roles', '1');
+        $ci->db->where('cas_sid', $sid);
+        $result = $ci->db->update('ea_users');
+
+        echo $result ? $sid . ' is administrator now.' : 'Failed to add admin.';
     }
 
     public function test_remove_service(){
