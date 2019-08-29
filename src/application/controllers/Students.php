@@ -73,6 +73,8 @@ class Students extends CI_Controller{
 
         $view['active_menu'] = PRIV_AVAILABLE_APPOINTMENTS;
 
+        $view['language'] = $this->session->userdata('language');
+
         $this->load->view('students/students_home_header', $view);
         $this->load->view('students/students_home_available_appointment', $view);
         $this->load->view('students/students_home_footer', $view);

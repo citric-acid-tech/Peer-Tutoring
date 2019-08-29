@@ -48,6 +48,8 @@ class Admin extends CI_Controller{
 
         $view['active_menu'] = PRIV_SERVICES_CONFIG;
 
+        $view['language'] = $this->session->userdata('language');
+
         $this->load->view('admin/admin_home_header', $view);
         $this->load->view('admin/admin_home_services_config', $view);
         $this->load->view('admin/admin_home_footer', $view);
