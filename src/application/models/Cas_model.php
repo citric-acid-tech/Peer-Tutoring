@@ -19,6 +19,9 @@ class Cas_model extends CI_Model{
 
         // User has not registered yet ?
         if($registration == 0){
+
+            $this->db->trans_begin();
+
             $data = array(
                 'first_name' => $cas_user_data['name'],
                 'email' => $cas_user_data['email'],
@@ -32,7 +35,12 @@ class Cas_model extends CI_Model{
             $id_users = $this->db->insert_id();
             
             $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
-            $this->db->insert('ea_user_settings', $data);
+            
+            if ( ! $this->db->insert('ea_user_settings', $data) ){
+                $this->db->trans_rollback();
+            }
+
+            $this->db->trans_complete();
         }
 
         // Get user data
