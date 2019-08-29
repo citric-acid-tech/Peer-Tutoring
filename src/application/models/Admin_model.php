@@ -135,6 +135,22 @@ class Admin_model extends CI_Model{
     }
 
     /**
+     * Remove a specified service by given id
+     * 
+     * @param service_id the id in ea_services of the specified service
+     * @return boolean success or not
+     */
+    public function remove_service($service_id){
+        $this->db->where('ea_services.id', $service_id);
+        $result = $this->db->delete('ea_services');
+
+        $data = array('service id' => $service_id);
+        $this->log_operation('remove service', $data, $result);
+
+        return $result;
+    }
+
+    /**
      * Create a new service type in the name filed in ea_service_categories table
      * 
      * @param name        the name of the service

@@ -33,9 +33,15 @@ class Test extends CI_Controller{
         // $this->test_admin_save_settings();
         // echo get_flexible_column_label();
         
-        $this->test_get_settings_batch();
+        $this->test_remove_service();
         
         // force_download(get_attachment_url(3), NULL);
+    }
+
+    public function test_remove_service(){
+        $this->load->model('admin_model');
+        $result = $this->admin_model->remove_service(140);
+        echo $result ? '1' : '0';
     }
 
     public function test_get_settings_batch(){

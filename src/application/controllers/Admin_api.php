@@ -257,6 +257,35 @@ class Admin_api extends CI_Controller{
         }
     }
 
+    public function ajax_remove_service(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $service_id = json_decode($this->input->post('service_id'), TRUE);
+
+            // Query
+            $result = $this->admin_model->remove_service($service_id);
+
+            if($result == TRUE){
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('success'), TRUE);
+            }else{
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode('fail'), TRUE);
+            }
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
     public function ajax_schedule_current_schema_to_all_weeks(){
         //
         try{
