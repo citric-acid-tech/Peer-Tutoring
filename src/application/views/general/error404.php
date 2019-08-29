@@ -71,13 +71,9 @@
 
         <a href="<?= site_url() ?>" class="btn btn-primary btn-large">
             <span class="glyphicon glyphicon-calendar"></span>
-            <?= lang('book_appointment_title') ?>
+            <?= lang('d_home') ?>
         </a>
-
-        <a href="<?= site_url('backend') ?>" class="btn btn-default btn-large">
-            <span class="glyphicon glyphicon-wrench"></span>
-            <?= lang('backend_section') ?>
-        </a>
+        
     </div>
 
     <?php google_analytics_script() ?>
