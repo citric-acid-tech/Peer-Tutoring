@@ -273,6 +273,9 @@ class Admin_model extends CI_Model{
             ea_services.start_datetime                             AS start_datetime,
             ea_services.end_datetime                               AS end_datetime,
 
+            tutors.cas_sid                                         AS tutor_sid,
+            students.cas_sid                                       AS student_sid,
+            
             CONCAT(students.first_name, \' \', students.last_name) AS student_name,
             CONCAT(tutors.first_name, \' \', tutors.last_name)     AS tutor_name
         ')
@@ -324,6 +327,7 @@ class Admin_model extends CI_Model{
      */
     public function filter_tutors($tutor_id){
         $this->db->select('
+                ea_users.cas_sid         AS sid,
                 ea_users.id              AS id,
                 ea_users.first_name      AS first_name,
                 ea_users.last_name       AS last_name,
