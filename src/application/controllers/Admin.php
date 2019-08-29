@@ -48,7 +48,13 @@ class Admin extends CI_Controller{
 
         $view['active_menu'] = PRIV_SERVICES_CONFIG;
 
-        $view['language'] = $this->session->userdata('language');
+        // Set user's selected language.
+        if ($this->session->userdata('language')){
+            $view['language'] = $this->session->userdata('language');
+        }
+        else{
+            $view['language'] = $this->config->item('language')
+        }
 
         $this->load->view('admin/admin_home_header', $view);
         $this->load->view('admin/admin_home_services_config', $view);
