@@ -31,7 +31,7 @@ class Cas_model extends CI_Model{
 
             $id_users = $this->db->insert_id();
             
-            $data = array('id_users' => $id_users, 'username' => $cas_user_data['name']);
+            $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
             $this->db->insert('ea_user_settings', $data);
         }
 
