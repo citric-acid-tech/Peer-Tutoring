@@ -54,40 +54,48 @@ class User extends CI_Controller {
     /**
      * Redirect to CAS page
      */
-    public function cas_login()
-    {
+    public function login(){
+
+        $this->load->model('cas_model');
+
         $this->cas->forceAuthentication();
         if (isset($_REQUEST['logout'])) {
             phpCAS::logout();
         }
         $user = $this->cas->getAttributes();
-        echo '<pre>'; print_r($user); echo '</pre>';
-    }
+        
+        if($user){
+            $user_data = $this->cas_model->get_user_data($user);
+            $this->session->set_userdata($user_data);
 
-    /**
-     * Display the login page.
-     */
-    public function login()
-    {
-        $this->load->model('settings_model');
-
-        $view['base_url'] = $this->config->item('base_url');
-        $view['dest_url'] = $this->session->userdata('dest_url');
-
-        if ( ! $view['dest_url'])
-        {
-            $view['dest_url'] = site_url('backend');
+            header('Location: ' . site_url(''));
         }
-
-        $view['company_name'] = $this->settings_model->get_setting('company_name');
-        $this->load->view('user/login', $view);
     }
+
+    // /**
+    //  * Display the login page.
+    //  */
+    // public function login()
+    // {
+    //     $this->load->model('settings_model');
+
+    //     $view['base_url'] = $this->config->item('base_url');
+    //     $view['dest_url'] = $this->session->userdata('dest_url');
+
+    //     if ( ! $view['dest_url'])
+    //     {
+    //         $view['dest_url'] = site_url('backend');
+    //     }
+
+    //     $view['company_name'] = $this->settings_model->get_setting('company_name');
+    //     $this->load->view('user/login', $view);
+    // }
 
     /**
      * Display the logout page.
      */
-    public function logout()
-    {
+    public function logout(){
+        
         $this->load->model('settings_model');
 
         $this->session->unset_userdata('user_id');
@@ -98,6 +106,9 @@ class User extends CI_Controller {
 
         $view['base_url'] = $this->config->item('base_url');
         $view['company_name'] = $this->settings_model->get_setting('company_name');
+
+        $this->cas->logout();
+
         $this->load->view('user/logout', $view);
     }
 
