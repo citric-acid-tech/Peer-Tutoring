@@ -270,7 +270,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
         			var postData = {
         			    csrfToken: GlobalVariables.csrfToken,
-        			    tutor_name: JSON.stringify('OVO JJ'),
+        			    tutor_name: JSON.stringify('ALL'),
 						semester: JSON.stringify(weekNumAndSem.semester),
 						week: JSON.stringify(weekNumAndSem.weekNumber)
         			};
@@ -286,13 +286,29 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 								id: service.id,
 								title: service.service_type,
 								start: service.start_datetime,
-								end: service.end_datetime
+								end: service.end_datetime,
+								extendedProps: {
+									tutor: service.tutor_name
+								}
 							};
 							results.push(eve);
 						});
 						successCallback(results);
         			}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 				}
+			},
+			eventRender: function(info) {
+				var hover_message = info.event.title + " - " + info.event.extendedProps.tutor;
+				$(info.el).prop('title', hover_message);
+				$(info.el).qtip({
+					position: {
+						my: 'bottom center',
+						at: 'top center'
+					},
+					style: {
+						classes: 'qtip-green qtip-shadow custom-qtip'
+					}
+				});
 			},
 			//	Advance: Draggables
 			editable: true,
