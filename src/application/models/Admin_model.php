@@ -432,6 +432,7 @@ class Admin_model extends CI_Model{
         $end_datetime = $tmp_date->format('Y-m-d') . ' 00:00'; // Monday of the next week
         
         $this->db->select('
+           ea_service_categories.id                               AS service_type_id,
            ea_services.capacity                                   AS capacity,
            ea_services.address                                    AS address,
            ea_services.description                                AS service_description,
