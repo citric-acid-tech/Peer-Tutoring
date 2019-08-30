@@ -36,6 +36,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Select by Tutor by default
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
+		helper.getAllServiceTypes();
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = AdminServiceConfig.initCalendar(calendarEl);
@@ -46,6 +47,16 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		}
 		helper.calendar = calendar;
 		calendar.render();
+		//	Guess what, a date picker!!
+		$('#edit_service_date').datepicker({
+			dateFormat: "yy-mm-dd",
+			constrainInput: true,
+			autoSize: true,
+			navigationAsDateFormat: true,
+			firstDay: 1,
+			showOtherMonths: true,
+			showAnim: "fold"
+		});
 
 		//	Demo of Fuse.js
 //		var items = [
@@ -411,9 +422,9 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 //				alert(typeof selectInfo.end);
 //			},
 			selectMinDistance: 1,	//	Non-zero value helps differentiate dragging and clicking
-			dateClick: function(dateClickInfo) {
-				alert("Date Clicked but not necessarily Selected:\n" + dateClickInfo.date);
-			},
+//			dateClick: function(dateClickInfo) {
+//				alert("Date Clicked but not necessarily Selected:\n" + dateClickInfo.date);
+//			},
 			select: function(selectionInfo) {
 				helper.currentSelect = selectionInfo;
 				alert("Date Region Selected:\n" + selectionInfo.start + "\n~\n" + selectionInfo.end);	
@@ -468,7 +479,12 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 								start: service.start_datetime,
 								end: service.end_datetime,
 								extendedProps: {
-									tutor: service.tutor_name
+									tutor_id: service.tutor_id,
+									tutor: service.tutor_name,
+									capacity: service.capacity,
+									address: service.address,
+									description: service.service_description,
+									service_type_id: service.service_type_id
 								}
 							};
 							results.push(eve);
@@ -479,8 +495,9 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			},
 			eventRender: function(info) {
 				var hover_message = info.event.title + " - " + info.event.extendedProps.tutor;
-				$(info.el).prop('title', hover_message);
-				$(info.el).qtip({
+				var el = $(info.el);
+				el.prop('title', hover_message);
+				el.qtip({
 					position: {
 						my: 'bottom center',
 						at: 'top center'
@@ -489,11 +506,21 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						classes: 'qtip-green qtip-shadow custom-qtip'
 					}
 				});
+				//	CSS
+				el.css('cursor', 'pointer');
+				el.hover(function() {
+					el.toggleClass('service_hover');
+				});
+			},
+			eventClick: function(info) {
+				helper.loadEditPopup(info.event);
+				$('.admin-page .popup .curtain').fadeIn();
+				$('.admin-page .popup #cal_edit_popup').fadeIn();
 			},
 			//	Advance: Draggables
-			editable: true,
+//			editable: true,
 //			eventResizableFromStart: true,
-			droppable: true,	// External event can be dropped on the calendar			
+//			droppable: true,	// External event can be dropped on the calendar			
 			//	Advance: Touch Support
 //			longPressDelay: 1000	// Defult is 1000
 		});
