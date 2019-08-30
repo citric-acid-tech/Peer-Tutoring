@@ -432,6 +432,9 @@ class Admin_model extends CI_Model{
         $end_datetime = $tmp_date->format('Y-m-d') . ' 00:00'; // Monday of the next week
         
         $this->db->select('
+           ea_services.capacity                                   AS capacity,
+           ea_services.address                                    AS address,
+           ea_services.description                                AS service_description,
            ea_users.id                                            AS tutor_id,
            CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
            ea_services.id                                         AS id,
@@ -449,8 +452,34 @@ class Admin_model extends CI_Model{
             $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
         }
 
-        return $this->db->get()
+        $result =  $this->db->get()
             ->result_array();
+
+        $i = 0;
+        foreach($result AS $row){
+            $start_datetime = $row['start_datetime'];
+            $end_datetime = $row['end_datetime'];
+            $start_arr = explode(' ', $start_datetime);
+            $date = $start_arr[0];
+            $start_hm = explode(':', $start_arr[1]);
+            $start_h = $start_hm[0];
+            $start_m = $start_hm[1];
+
+            $end_arr = explode(' ', $end_datetime);
+            $end_hm = explode(':', $end_arr[1]);
+            $end_h = $end_hm[0];
+            $end_m = $end_hm[1];
+
+            $row['date'] = $date;
+            $row['start_h'] = $start_h;
+            $row['start_m'] = $start_m;
+            $row['end_h'] = $end_h;
+            $row['end_m'] = $end_m;
+
+            $result[$i++] = $row;
+        }
+
+        return $result;
     }
 
     /**
