@@ -56,6 +56,15 @@ class Admin extends CI_Controller{
             $view['language'] = $this->config->item('language');
         }
 
+        // Get semester_fucking_list
+        $semester_arr = json_decode($settings['semester_json'], TRUE);
+        $semester_list = array();
+        $i = 0;
+        foreach($semester_arr AS $year => $season){
+            $semester_list[$i++] = $year . '-' . $season;
+        }
+        $view['semester_list'] = $semester_list;
+
         $this->load->view('admin/admin_home_header', $view);
         $this->load->view('admin/admin_home_services_config', $view);
         $this->load->view('admin/admin_home_footer', $view);
