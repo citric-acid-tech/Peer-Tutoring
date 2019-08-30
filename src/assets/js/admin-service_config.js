@@ -507,7 +507,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					}
 				});
 				//	CSS
-				el.css('cursor', 'pointer');
+				el.css({
+					'cursor': 'pointer',
+					'transition': 'all 0.2s'
+				});
 				el.hover(function() {
 					el.toggleClass('service_hover');
 				});
