@@ -219,13 +219,13 @@ class Admin_api extends CI_Controller{
             $date = json_decode($this->input->post('date'), TRUE); // String sample: 2019-8-01
             $start_time = json_decode($this->input->post('start_time'), TRUE); // String sample: 23:00
             $end_time = json_decode($this->input->post('end_time'), TRUE);
-            $service_type = json_decode($this->input->post('service_type'), TRUE);
+            $service_type_id = json_decode($this->input->post('service_type_id'), TRUE);
             $address = json_decode($this->input->post('address'), TRUE);
             $capacity = json_decode($this->input->post('capacity'), TRUE);
             $service_description = json_decode($this->input->post('service_description'), TRUE);
 
             // Query
-            $result = $this->admin_model->edit_service($service_id, $date, $start_time, $end_time, $service_type, 
+            $result = $this->admin_model->edit_service($service_id, $date, $start_time, $end_time, $service_type_id, 
                     $address, $capacity, $service_description);
             
             // Log
