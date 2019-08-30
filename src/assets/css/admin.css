@@ -469,8 +469,9 @@ root {
 	color: snow!important;
 }
 .admin-page .service_hover {
-	background-color: rgba(199,21,133,0.9)!important;
+	background-color: rgba(199,21,133,0.95)!important;
 	color: snow!important;
+	z-index: 500!important;
 }
 /* EDIT POPUP */
 
