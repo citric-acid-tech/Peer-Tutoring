@@ -117,7 +117,7 @@ class Admin_model extends CI_Model{
 
         $this->log_operation('new_service', $data, $result);
 
-        return $result ? $insert_id : FALSE;
+        return $result ? $insert_id : -1;
     }
 
     /**

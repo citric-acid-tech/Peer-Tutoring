@@ -192,15 +192,12 @@ class Admin_api extends CI_Controller{
 
                 // TODO
 
-            if($result == TRUE){
-                $this->output
+            
+            $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode('success'), TRUE);
-            }else{
-                $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode('fail'), TRUE);
-            }
+                ->set_output(json_encode($result), TRUE);
+                // Return service id or -1 (if failed to isnert new service)
+            
 
         }catch (Exception $exc){
             $this->output
