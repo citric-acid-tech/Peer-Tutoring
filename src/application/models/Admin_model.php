@@ -96,17 +96,8 @@ class Admin_model extends CI_Model{
      * 
      * @return boolean            success or not
      */
-    public function new_service($date, $start_time, $end_time, $service_type_id, $tutor_name,
+    public function new_service($date, $start_time, $end_time, $service_type_id, $tutor_id,
         $address, $capacity, $service_description){
-        
-        //get tutor id and service id from database
-        $tutor_id = $this->db
-            ->select('ea_users.id AS id')
-            ->from('ea_users')
-            ->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) =', $tutor_name)
-            ->get()
-            ->row_array()['id'];
-        $service_categories_id = $service_type_id;
 
         // Decode the date array and insert all the service in batch
 
@@ -122,10 +113,11 @@ class Admin_model extends CI_Model{
         );
         
         $result = $this->db->insert('ea_services', $data);
+        $insert_id = $this->db->insert_id();
 
         $this->log_operation('new_service', $data, $result);
 
-        return $result;
+        return $result ? $insert_id : FALSE;
     }
 
     /**

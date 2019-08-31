@@ -182,9 +182,10 @@ class Admin_api extends CI_Controller{
             $address = json_decode($this->input->post('address'), TRUE);
             $capacity = json_decode($this->input->post('capacity'), TRUE);
             $service_description = json_decode($this->input->post('service_description'), TRUE);
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
 
             // Query
-            $result = $this->admin_model->new_service($date, $start_time, $end_time, $service_type_id, $tutor_name,
+            $result = $this->admin_model->new_service($date, $start_time, $end_time, $service_type_id, $tutor_id,
                     $address, $capacity, $service_description);
             
             // Log
