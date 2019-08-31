@@ -19,24 +19,6 @@
      */
     AdminServiceConfigServiceCalendarHelper.prototype.bindEventHandlers = function () {
         var instance = this;
-			
-//   		/**
-//   		 * Event: Add Event button clicked
-//   		 */
-//		$('.admin-page #service-calendar .calendar-btns #add_event_through_button').click(function() {
-//			var datetimeStr = prompt('Enter a date in YYYY-MM-DD format');
-//			var date = new Date(datetimeStr + 'T00:00:00');	// local time
-//			if (!isNaN(date.valueOf())) {
-//				instance.calendar.addEvent({
-//					title: 'Event added from pressing the button',
-//					start: date,
-//					allDay: true
-//				});
-//				alert('Event Added Successfully');
-//			} else {
-//				alert('Invalid date.');
-//			}
-//		});
 		
    		/**
    		 * Event: Edit Service Confirm button pressed
@@ -343,13 +325,13 @@
 		var time = moment(newData.start_time, 'HH:mm');
 		start_datetime.hour(time.hour());
 		start_datetime.minute(time.minute());
-		service.setProp('start', start_datetime);
+		service.setProp('start', start_datetime.toDate());
 		//	end
 		var end_datetime = moment(newData.date, 'YYYY-MM-DD');
 		time = moment(newData.end_time, 'HH:mm');
 		end_datetime.hour(time.hour());
 		end_datetime.minute(time.minute());
-		service.setProp('end', end_datetime);
+		service.setProp('end', end_datetime.toDate());
 		//	Modify calendar - IMPORTANT, or the event on the calendar will not move
 		service.setDates(start_datetime.toDate(), end_datetime.toDate());
 		
@@ -479,27 +461,63 @@
                 return;
             }
 			
-			if (response === 'success') {
-				Admin.displayNotification("Service Saved.", undefined, "success");
-			} else if (response === 'fail') {
+			if (response === '-1') {
 				Admin.displayNotification("Failure: Service could not be saved.", undefined, "failure");
+				return false;
 			} else {
-				Admin.displayNotification("Something went wrong on editing services");
+				Admin.displayNotification("Service Saved.", undefined, "success");
 			}
 			
 			//	Hide with TimeOut - See Tutor Appointments Management
 			$('.admin-page .popup .curtain').fadeOut();
-			$('.admin-page .popup #cal_edit_popup').fadeOut();
+			$('.admin-page .popup #cal_add_popup').fadeOut();
 			
 			//	sync the modified event
-			obj.syncEdited(id, postData);
+			obj.syncAdded(response, postData);
 			
 			//	Clear inputs!
 			setTimeout(function() {
-				obj.resetEditPopup();
+				obj.resetAddPopup();
 			}, 200);
 
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+    /**
+     * Sync Added Service
+     */
+   	AdminServiceConfigServiceCalendarHelper.prototype.syncAdded = function(id, newData) {
+		var cal = this.calendar;
+		
+		var title = $("select#add_service_service_type option[value='" + newData.service_type_id + "']").html();
+		//	start
+		var start_datetime = moment(newData.date, 'YYYY-MM-DD');
+		var time = moment(newData.start_time, 'HH:mm');
+		start_datetime.hour(time.hour());
+		start_datetime.minute(time.minute());
+		//	end
+		var end_datetime = moment(newData.date, 'YYYY-MM-DD');
+		time = moment(newData.end_time, 'HH:mm');
+		end_datetime.hour(time.hour());
+		end_datetime.minute(time.minute());
+		var tutor = $("select#add_service_tutor option[value='" + newData.tutor_id + "']").html();
+		
+		var event = {
+			id: id,
+			title: title,
+			start: start_datetime.toDate(),
+			end: end_datetime.toDate(),
+			extendedProps: {
+				tutor_id: newData.tutor_id,
+				tutor: tutor,
+				capacity: newData.capacity,
+				address: newData.address,
+				description: newData.service_description,
+				service_type_id: newData.service_type_id
+			}
+		};
+		
+		cal.addEvent(event);
     };
 	
     window.AdminServiceConfigServiceCalendarHelper = AdminServiceConfigServiceCalendarHelper;
