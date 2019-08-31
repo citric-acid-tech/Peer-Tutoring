@@ -465,7 +465,6 @@
 			tutor_id:				JSON.stringify(tutor_id)
         };
 		var obj = this;
-		alert(JSON.stringify(postData));
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {

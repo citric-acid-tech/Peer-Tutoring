@@ -104,7 +104,7 @@ class Admin_model extends CI_Model{
         $data = array(
             'description' => $service_description,
             'capacity' => $capacity,
-            'id_service_categories' => $service_categories_id,
+            'id_service_categories' => $service_type_id,
             'appointments_number' => 0,
             'start_datetime' => $date . ' ' . $start_time,
             'end_datetime' => $date . ' ' . $end_time,

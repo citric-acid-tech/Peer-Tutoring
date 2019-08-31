@@ -507,15 +507,12 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						semester: 	JSON.stringify(weekNumAndSem.semester),
 						week: 		JSON.stringify(weekNumAndSem.weekNumber)
         			};
-//					alert(JSON.stringify(postData));
         			$.post(postUrl, postData, function (response) {
         			    if (!GeneralFunctions.handleAjaxExceptions(response)) {
         			        return;
         			    }
 						
 						var results = [];
-//						alert(JSON.stringify(postData));
-//						alert(JSON.stringify(response));
 						$.each(response, function(index, service) {
 							var eve  = {
 								id: service.id,
