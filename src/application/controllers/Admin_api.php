@@ -140,12 +140,12 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
             $semester = json_decode($this->input->post('semester'), TRUE); //Sample = 2019-Fall, See also config/semesters.php
             $week = json_decode($this->input->post('week'), TRUE);
             
             // Query
-            $result = $this->admin_model->filter_services($tutor_name, $semester, $week);
+            $result = $this->admin_model->filter_services($tutor_id, $semester, $week);
             
             // Log
 

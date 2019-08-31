@@ -362,16 +362,16 @@ class Admin_model extends CI_Model{
     /**
      * Get all the services. Administrators can also use filter to get the specified services
      * 
-     * @param tutor_name    the exactly correct name of the tutor
+     * @param tutor_id      the id in ea_users of the specified tutor
      * @param semester_info a string like '2019-Fall', '2019-Summer'
      * @param week          the week that the administrator want to check
      * 
      * @return array        the result of the query
      */
-    public function filter_services($tutor_name, $semester_info, $week){
+    public function filter_services($tutor_id, $semester_info, $week){
 
-        if(is_null($tutor_name)){
-            return 'tutor_name absence.';
+        if(is_null($tutor_id)){
+            return 'tutor_id absence.';
         }
 
         // :: Get the first day and the last day of this semester
@@ -422,8 +422,8 @@ class Admin_model extends CI_Model{
         ->where('start_datetime > ', $start_datetime)
         ->where('start_datetime <', $end_datetime); // Using end_datetime is also fine
 
-        if($tutor_name != 'ALL'){
-            $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
+        if($tutor_id != 'ALL'){
+            $this->db->where('ea_users.id = ', $tutor_id);
         }
 
         $result =  $this->db->get()
