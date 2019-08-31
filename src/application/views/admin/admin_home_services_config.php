@@ -56,15 +56,18 @@
 		<!-- Check Available Time in Calendar Tab -->
 		<div role="tabpanel" class="tab-pane active" id="service-calendar">
 			<!-- toolbar -->
-			<div class="container calendar_upper_header" style="text-align: center;">
+			<div class="container calendar_upper_header" style="text-align:center;">
 				<div class="col-xs-12">
-					<h4>
+					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);padding: 10px 0;">
 						<span id="calendar_semeseter"></span>
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="calendar_week_number"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select id="calendar_tutor" title="Tutor" style="min-width:150px;"></select>
 					</h4>
 				</div>
 			</div>
+<!--
 			<div class="btn-toolbar calendar-btns">
 				<div class="btn-group">
 					<button id="show_selected" class="btn btn-primary" title="What have I selected?">What have I selected?</button>
@@ -73,6 +76,7 @@
 					<button id="add_event_through_button" class="btn btn-info" title="Add an Event">Add an Event</button>
 				</div>
 			</div>
+-->
 			<!-- Guess what, a large calendar! -->
 			<div id="admin-full-calendar"></div>
 			<div class="popup">
@@ -92,7 +96,9 @@
 							<input id="edit_service_et" type="time" style="width:18%;height:28px;" />
 						</div>
 						<div class="popup-container">
-							<input id="edit_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" />
+							<select id="edit_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
+							&nbsp;&nbsp;
+							<input id="edit_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:42%;" />
 						</div>
 						<div class="popup-container">
 							<textarea id="edit_service_description" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
@@ -103,9 +109,41 @@
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_delete" type="button" class="popup_buttons" value="Delete This Service" style="width:6%;background-color: mediumvioletred"><i class="fas fa-trash-alt"></i></button>
-							<button id="popup_confirm" type="button" class="popup_buttons" value="Confirm" style="width:40%;">Confirm</button>
-							<button id="popup_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
+							<button id="popup_edit_delete" type="button" class="popup_buttons" value="Delete This Service" style="width:6%;background-color: mediumvioletred"><i class="fas fa-trash-alt"></i></button>
+							<button id="popup_edit_confirm" type="button" class="popup_buttons" value="Confirm" style="width:40%;">Confirm</button>
+							<button id="popup_edit_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
+						</div>
+					</form>
+				</div>
+				<div id="cal_add_popup">
+					<form>
+						<div class="popup-title"><h2>Add Service</h2></div>
+						<hr />
+						<div class="popup-container">
+							<select id="add_service_service_type" title="Service Type *" style="height:28px;width:27%;"></select>
+							&nbsp;&nbsp;
+							<input id="add_service_date" type="text" placeholder="Date" title="Date" style="height:28px;width:16%" readonly />
+							&nbsp;<strong>-</strong>&nbsp;
+							<input id="add_service_st" type="time" style="width:18%;height:28px;" />
+							<strong>~</strong>
+							<input id="add_service_et" type="time" style="width:18%;height:28px;" />
+						</div>
+						<div class="popup-container">
+							<select id="add_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
+							&nbsp;&nbsp;
+							<input id="add_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:42%;" />
+						</div>
+						<div class="popup-container">
+							<textarea id="add_service_description" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
+						</div>
+						<div class="popup-container">
+							<textarea id="add_service_address" type="text" placeholder="Address *" rows="2" title="Address *" style="resize:none;"></textarea>
+						</div>
+						<hr />
+						<!-- Buttons -->
+						<div class="popup-container">
+							<button id="popup_add_confirm" type="button" class="popup_buttons" value="Confirm" style="width:43%;">Confirm</button>
+							<button id="popup_add_cancel" type="button" class="popup_buttons" value="Cancel" style="width:43%;">Cancel</button>
 						</div>
 					</form>
 				</div>

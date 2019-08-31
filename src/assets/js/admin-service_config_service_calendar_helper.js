@@ -11,7 +11,6 @@
      */
     function AdminServiceConfigServiceCalendarHelper() {
         this.filterResults = {};
-		this.currentSelect = {};
 		this.calendar = undefined;
     }
 
@@ -20,47 +19,29 @@
      */
     AdminServiceConfigServiceCalendarHelper.prototype.bindEventHandlers = function () {
         var instance = this;
-		
-   		/**
-   		 * Event: Create Event button clicked
-   		 */
-		$('.admin-page #service-calendar .calendar-btns #show_selected').click(function() {
-			alert("Okay sir. Creating an event.\nHere is what I got:\n" + 
-				 instance.currentSelect.start + "\n~\n" + instance.currentSelect.end);
-		});
-		
+			
 //   		/**
-//   		 * Event: Check Event button clicked
+//   		 * Event: Add Event button clicked
 //   		 */
-//		$('.admin-page #service-calendar .calendar-btns #fetch_event_0').click(function() {
-//			var event = instance.calendar.getEventById('testEvent0');
-//			alert("Yes sir. You want to check on test event 0 right?\nHere is what I got:\n" + 
-//				 "Title: " + event.title + "\n" +
-//				  event.start + "\n~\n" + event.end);
+//		$('.admin-page #service-calendar .calendar-btns #add_event_through_button').click(function() {
+//			var datetimeStr = prompt('Enter a date in YYYY-MM-DD format');
+//			var date = new Date(datetimeStr + 'T00:00:00');	// local time
+//			if (!isNaN(date.valueOf())) {
+//				instance.calendar.addEvent({
+//					title: 'Event added from pressing the button',
+//					start: date,
+//					allDay: true
+//				});
+//				alert('Event Added Successfully');
+//			} else {
+//				alert('Invalid date.');
+//			}
 //		});
-		
-   		/**
-   		 * Event: Add Event button clicked
-   		 */
-		$('.admin-page #service-calendar .calendar-btns #add_event_through_button').click(function() {
-			var datetimeStr = prompt('Enter a date in YYYY-MM-DD format');
-			var date = new Date(datetimeStr + 'T00:00:00');	// local time
-			if (!isNaN(date.valueOf())) {
-				instance.calendar.addEvent({
-					title: 'Event added from pressing the button',
-					start: date,
-					allDay: true
-				});
-				alert('Event Added Successfully');
-			} else {
-				alert('Invalid date.');
-			}
-		});
 		
    		/**
    		 * Event: Edit Service Confirm button pressed
    		 */
-		$('.admin-page .popup .popup_buttons#popup_confirm').click(function() {
+		$('.admin-page .popup .popup_buttons#popup_edit_confirm').click(function() {
 			//	Validate
 			if (!instance.validateEditPopup()) {
 				return false;
@@ -75,7 +56,7 @@
    		/**
    		 * Event: Edit Service Cancel button pressed
    		 */
-		$('.admin-page .popup .popup_buttons#popup_cancel').click(function() {
+		$('.admin-page .popup .popup_buttons#popup_edit_cancel').click(function() {
 			$('.admin-page .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
 			//	Clear inputs!
@@ -87,7 +68,7 @@
    		/**
    		 * Event: Edit Service Delete button pressed
    		 */
-		$('.admin-page .popup .popup_buttons#popup_delete').click(function() {
+		$('.admin-page .popup .popup_buttons#popup_edit_delete').click(function() {
 			//	Prompt: you really want to delete???
             var buttons = [
                 {
@@ -116,6 +97,40 @@
 			//	Clear inputs!
 		});
 		
+   		/**
+   		 * Event: Add Service Confirm button pressed
+   		 */
+		$('.admin-page .popup .popup_buttons#popup_add_confirm').click(function() {
+			//	Validate
+			if (!instance.validateAddPopup()) {
+				return false;
+			}
+			//	Save
+			instance.saveAddPopup();
+			//	Below will be done in saveEditPopup()
+			//	Hide with TimeOut - See Tutor Appointments Management
+			//	Clear inputs!
+		});
+		
+   		/**
+   		 * Event: Add Service Cancel button pressed
+   		 */
+		$('.admin-page .popup .popup_buttons#popup_add_cancel').click(function() {
+			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page .popup #cal_add_popup').fadeOut();
+			//	Clear inputs!
+			setTimeout(function() {
+				instance.resetAddPopup();
+			}, 200);
+		});
+		
+   		/**
+   		 * Event: Header tutor selected
+   		 */
+		$(document).on('change', '.admin-page select#calendar_tutor', function() {
+			instance.calendar.refetchEvents();
+		});
+		
 	};
 	
     /**
@@ -134,13 +149,53 @@
 			
 			//	Clear all data
 			$('.admin-page select#edit_service_service_type').html('');
+			$('.admin-page select#add_service_service_type').html('');
 			
 			//	Iterate through all service_types, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, service_type) {
 				var html = "<option value='" + service_type.id + "' title='" + service_type.name + "'>" + service_type.name + "</option>";
 				$('.admin-page select#edit_service_service_type').append(html);
+				$('.admin-page select#add_service_service_type').append(html);
 			}.bind(this));
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+    /**
+     * Get all tutors and wrap them in an html
+     */
+    AdminServiceConfigServiceCalendarHelper.prototype.getAllTutors = function() {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_tutor';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			//	Clear all data
+			$('.admin-page select#edit_service_tutor').html('');
+			$('.admin-page select#add_service_tutor').html('');
+			$('.admin-page select#calendar_tutor').html("<option value='-1' title='- ALL -'>- ALL -</option>");
+			
+			//	Iterate through all tutors, generate htmls for them and
+			//	add them to the list
+			$.each(response, function (index, tutor) {
+				var html = "<option value='" + tutor.id + "' title='" + tutor.name + "'>" + tutor.name + "</option>";
+				$('.admin-page select#edit_service_tutor').append(html);
+				$('.admin-page select#add_service_tutor').append(html);
+				$('.admin-page select#calendar_tutor').append(html);
+			}.bind(this));
+			
+//			//	no tutor originally
+//			if (response.length === 0) {
+//				var html = "<option value='-6' title='- No Tutor -'>- No Tutor -</option>";
+//				$('.admin-page select#edit_service_tutor').append(html);
+//				$('.admin-page select#add_service_tutor').append(html);
+//				$('.admin-page select#calendar_tutor').append(html);
+//			}
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
@@ -150,6 +205,8 @@
    	AdminServiceConfigServiceCalendarHelper.prototype.resetEditPopup = function() {
 		//	Service Type <select>
 		$("select#edit_service_service_type option:selected").prop('selected', false);
+		//	Tutor <select>
+		$("select#edit_service_tutor option:selected").prop('selected', false);
 		//	All other input boxes
 		$('#cal_edit_popup .popup-container').find('input, textarea').not('.popup_buttons').val('');
 		//	Reset ID
@@ -164,6 +221,9 @@
 		$('#edit_service_id').val(event.id);
 		//	Manage selecting service type
 		$("select#edit_service_service_type option[value='" + event.extendedProps.service_type_id + "']").prop('selected', true);
+		//	Manage selecting tutor
+		$("select#edit_service_tutor option[value='" + event.extendedProps.tutor_id + "']").prop('selected', true);
+		//	Others
 		$('#edit_service_address').val(event.extendedProps.address);
 		$('#edit_service_capacity').val(event.extendedProps.capacity);
 		$('#edit_service_description').val(event.extendedProps.description);
@@ -219,6 +279,7 @@
 		var start_time = $('#edit_service_st').val();
 		var end_time = $('#edit_service_et').val();
 		var service_type_id = $('select#edit_service_service_type option:selected').val();
+		var tutor_id = $('select#edit_service_tutor option:selected').val();
 		var address = $('#edit_service_address').val();
 		var capacity = $('#edit_service_capacity').val();
 		var description = $('#edit_service_description').val();
@@ -233,7 +294,8 @@
 			service_type_id:		JSON.stringify(service_type_id),
 			address:				JSON.stringify(address),
 			capacity:				JSON.stringify(capacity),
-			service_description:	JSON.stringify(description)
+			service_description:	JSON.stringify(description),
+			tutor_id:				JSON.stringify(tutor_id)
         };
 		var obj = this;
         $.post(postUrl, postData, function (response) {
@@ -296,6 +358,9 @@
 		service.setExtendedProp('address', newData.address);
 		service.setExtendedProp('description', newData.service_description);
 		service.setExtendedProp('service_type_id', newData.service_type_id);
+		service.setExtendedProp('tutor_id', newData.tutor_id);
+		service.setExtendedProp('tutor', 
+							   $("select#edit_service_tutor option[value='" + newData.tutor_id + "']").html());
     };
 	
     /**
@@ -330,6 +395,104 @@
 			
 			//	Remove event from calendar
 			cal.getEventById(id).remove();
+			
+			//	Clear inputs!
+			setTimeout(function() {
+				obj.resetEditPopup();
+			}, 200);
+
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+    /**
+     * Reset inputs of add popup
+     */
+   	AdminServiceConfigServiceCalendarHelper.prototype.resetAddPopup = function() {
+		//	Service Type <select>
+		$("select#add_service_service_type option:selected").prop('selected', false);
+		//	Tutor <select>
+		$("select#add_service_tutor option:selected").prop('selected', false);
+		//	All other input boxes
+		$('#cal_add_popup .popup-container').find('input, textarea').not('.popup_buttons').val('');
+    };
+	
+    /**
+     * Validate inputs of add popup
+     */
+   	AdminServiceConfigServiceCalendarHelper.prototype.validateAddPopup = function() {
+		//	Validate Capacity
+		var cap = $('#add_service_capacity').val();
+		if(!(/^\+?[1-9]\d*$/.test(cap))) {	//	If not a positive integer, gg
+			Admin.displayNotification("Capacity should be a positive integer...", undefined, "failure");
+			$('#add_service_capacity').toggleClass('gg');
+			setTimeout(function() {
+				$('#add_service_capacity').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		
+		//	Validate time range
+		var start = moment($('#add_service_st').val(), 'HH:mm');
+		var end = moment($('#add_service_et').val(), 'HH:mm');
+		if (start.isSameOrAfter(end)) {	//	If start >= end, gg
+			Admin.displayNotification("Supposed: Start time < End time", undefined, "failure");
+			$('#add_service_st, #add_service_et').toggleClass('gg');
+			setTimeout(function() {
+				$('#add_service_st, #add_service_et').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		
+		return true;
+    };
+	
+    /**
+     * Save inputs of add popup
+     */
+   	AdminServiceConfigServiceCalendarHelper.prototype.saveAddPopup = function() {
+		//	fetch data
+		var date = $('#add_service_date').val();
+		var start_time = $('#add_service_st').val();
+		var end_time = $('#add_service_et').val();
+		var service_type_id = $('select#add_service_service_type option:selected').val();
+		var address = $('#add_service_address').val();
+		var capacity = $('#add_service_capacity').val();
+		var description = $('#add_service_description').val();
+		var tutor_id = $('select#add_service_tutor option:selected').val();
+		
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service';
+        var postData = {
+            csrfToken:				GlobalVariables.csrfToken,
+			date:					JSON.stringify(date),
+			start_time:				JSON.stringify(start_time),
+			end_time:				JSON.stringify(end_time),
+			service_type_id:		JSON.stringify(service_type_id),
+			address:				JSON.stringify(address),
+			capacity:				JSON.stringify(capacity),
+			service_description:	JSON.stringify(description),
+			tutor_id:				JSON.stringify(tutor_id)
+        };
+		var obj = this;
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				Admin.displayNotification("Service Saved.", undefined, "success");
+			} else if (response === 'fail') {
+				Admin.displayNotification("Failure: Service could not be saved.", undefined, "failure");
+			} else {
+				Admin.displayNotification("Something went wrong on editing services");
+			}
+			
+			//	Hide with TimeOut - See Tutor Appointments Management
+			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page .popup #cal_edit_popup').fadeOut();
+			
+			//	sync the modified event
+			obj.syncEdited(id, postData);
 			
 			//	Clear inputs!
 			setTimeout(function() {

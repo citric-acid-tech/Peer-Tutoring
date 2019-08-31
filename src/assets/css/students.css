@@ -257,7 +257,7 @@ root {
 /* Watch this, not yet adjusted */
 .students-page .filter-records .results {
     overflow-y: auto;
-    max-height: 450px;
+    max-height: 320px;
     outline: none;
 }
 

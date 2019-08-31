@@ -33,10 +33,13 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 		
+//		alert(JSON.stringify(GlobalVariables.semester_list));
+		
 		//	Select by Tutor by default
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
 		helper.getAllServiceTypes();
+		helper.getAllTutors();
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = AdminServiceConfig.initCalendar(calendarEl);
@@ -48,7 +51,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		helper.calendar = calendar;
 		calendar.render();
 		//	Guess what, a date picker!!
-		$('#edit_service_date').datepicker({
+		$('#edit_service_date, #add_service_date').datepicker({
 			dateFormat: "yy-mm-dd",
 			constrainInput: true,
 			autoSize: true,
@@ -296,9 +299,17 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			//	Some Customized Buttons
 			customButtons: {
 				custBut: {
-					text: 'A Custom Button',
+					text: 'Add a Service',
 					click: function() {
-						alert("Hi, I'm a custom button by Peter S!");
+						//	Before showing, grab the date and time for loading
+						//	Load Tutor
+						var tutor_id = $("select#calendar_tutor option:selected").val();
+						if (tutor_id !== '-1') {
+							$("select#add_service_tutor option[value='" + tutor_id + "']").prop('selected', true);
+						}
+						//	Show
+						$('.admin-page .popup .curtain').fadeIn();
+						$('.admin-page .popup #cal_add_popup').fadeIn();
 					}
 				}
 			},
@@ -344,8 +355,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				omitZeroMinute: false,	//	Do not omit zeros
 				meridiem: 'short'
 			},
-			minTime: "00:00:00",
-			maxTime: "24:00:00",
+//			minTime: "00:00:00",
+//			maxTime: "24:00:00",
 			dayRender: function() {
 				Admin.placeFooterToBottom();	//	Fix the footer gg problem
 			},
@@ -408,7 +419,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			selectable: true,
 			selectMirror: true,
 //			unselectAuto: false,	//	By setting it as false, selected will not disappear when the user clicks outer positions
-			unselectCancel: "#create_event",	//	Selected will not disappear if specified element is clicked
+//			unselectCancel: "#create_event",	//	Selected will not disappear if specified element is clicked
 //			selectOverlap: function(event) {	//	Defines whether the user can select overlapped regions
 //				
 //			},
@@ -416,18 +427,48 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 //				start: "2019-08-27",
 //				end: "2019-08-28"
 //			},
-//			selectAllow: function(selectInfo) {	//	This is an upgrade of `selectConstraint`, live-scan the block the user is attempting to click and check if it is valid
-//				alert(selectInfo.start);
-//				alert(selectInfo.end);
-//				alert(typeof selectInfo.end);
-//			},
+			selectAllow: function(selectInfo) {
+				//	This is an upgrade of `selectConstraint`, live-scan the block the user is attempting to click and check if it is valid
+				var start = moment(selectInfo.start);
+				var end = moment(selectInfo.end);
+				// End date is exclusive, which could be the earliest of tomorrow
+				var threshold = moment(start.format('YYYY-MM-DD')).add(1, 'days');
+				
+				if (start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD')) {	//	Same day
+					return true;
+				} 
+				else if (threshold.isSame(end)) {	// different days, but the end is the earliest of the start time's next day
+					return true;
+				}
+				else {
+					return false;
+				}
+			},
 			selectMinDistance: 1,	//	Non-zero value helps differentiate dragging and clicking
 //			dateClick: function(dateClickInfo) {
 //				alert("Date Clicked but not necessarily Selected:\n" + dateClickInfo.date);
 //			},
 			select: function(selectionInfo) {
-				helper.currentSelect = selectionInfo;
-				alert("Date Region Selected:\n" + selectionInfo.start + "\n~\n" + selectionInfo.end);	
+				//	Before showing, grab the date and time for loading
+				//	Load selected date
+				var start = moment(selectionInfo.start);
+				var end = moment(selectionInfo.end);
+				$('#add_service_date').val(start.format('YYYY-MM-DD'));
+				$('#add_service_st').val(start.format('HH:mm'));
+				if (start.format('YYYY-MM-DD') !== end.format('YYYY-MM-DD')) {
+					//	If end is the earliest of the next day, round it to the latest of the current day
+					$('#add_service_et').val('23:59');
+				} else {
+					$('#add_service_et').val(end.format('HH:mm'));
+				}
+				//	Load Tutor
+				var tutor_id = $("select#calendar_tutor option:selected").val();
+				if (tutor_id !== '-1') {
+					$("select#add_service_tutor option[value='" + tutor_id + "']").prop('selected', true);
+				}
+				//	Show
+				$('.admin-page .popup .curtain').fadeIn();
+				$('.admin-page .popup #cal_add_popup').fadeIn();
 			},
 //			unselect: function(jsEvent, view) {	//	callback when a region is unselected
 //					
@@ -451,6 +492,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			events: function(fetchInfo, successCallback, failureCallback) {
 				//	Get Week from start date
 				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
+				var tutor_id = $('.admin-page select#calendar_tutor option:selected').val();
 				if (weekNumAndSem.weekNumber === '-1') {
 					$('#calendar_semeseter').html(weekNumAndSem.semester);
 					$('#calendar_week_number').html('');
@@ -460,17 +502,19 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					$('#calendar_week_number').html("Week " + weekNumAndSem.weekNumber);
 					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
         			var postData = {
-        			    csrfToken: GlobalVariables.csrfToken,
-        			    tutor_name: JSON.stringify('ALL'),
-						semester: JSON.stringify(weekNumAndSem.semester),
-						week: JSON.stringify(weekNumAndSem.weekNumber)
+        			    csrfToken: 	GlobalVariables.csrfToken,
+						tutor_id:	JSON.stringify((tutor_id === undefined || tutor_id === '-1') ? 'ALL' : tutor_id),
+						semester: 	JSON.stringify(weekNumAndSem.semester),
+						week: 		JSON.stringify(weekNumAndSem.weekNumber)
         			};
+//					alert(JSON.stringify(postData));
         			$.post(postUrl, postData, function (response) {
         			    if (!GeneralFunctions.handleAjaxExceptions(response)) {
         			        return;
         			    }
 						
 						var results = [];
+//						alert(JSON.stringify(postData));
 //						alert(JSON.stringify(response));
 						$.each(response, function(index, service) {
 							var eve  = {
@@ -511,9 +555,13 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					'cursor': 'pointer',
 					'transition': 'all 0.2s'
 				});
-				el.hover(function() {
-					el.toggleClass('service_hover');
-				});
+				if (!info.isMirror) {
+					el.hover(function() {
+						el.toggleClass('service_hover');
+					});
+				} else {
+					el.css('background-color', '#35b66f');
+				}
 			},
 			eventClick: function(info) {
 				helper.loadEditPopup(info.event);
