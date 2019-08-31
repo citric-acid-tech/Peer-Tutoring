@@ -299,7 +299,17 @@
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
 			
 			//	sync the modified event
-			obj.syncEdited(id, postData);
+			obj.syncEdited(id, {
+				service_id:				id,
+				date:					date,
+				start_time:				start_time,
+				end_time:				end_time,
+				service_type_id:		service_type_id,
+				address:				address,
+				capacity:				capacity,
+				service_description:	description,
+				tutor_id:				tutor_id
+        	});
 			
 			//	Clear inputs!
 			setTimeout(function() {
@@ -455,6 +465,7 @@
 			tutor_id:				JSON.stringify(tutor_id)
         };
 		var obj = this;
+		alert(JSON.stringify(postData));
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -473,7 +484,16 @@
 			$('.admin-page .popup #cal_add_popup').fadeOut();
 			
 			//	sync the modified event
-			obj.syncAdded(response, postData);
+			obj.syncAdded(response, {
+				date:					date,
+				start_time:				start_time,
+				end_time:				end_time,
+				service_type_id:		service_type_id,
+				address:				address,
+				capacity:				capacity,
+				service_description:	description,
+				tutor_id:				tutor_id
+        	});
 			
 			//	Clear inputs!
 			setTimeout(function() {
