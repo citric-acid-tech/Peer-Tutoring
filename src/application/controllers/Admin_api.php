@@ -221,10 +221,11 @@ class Admin_api extends CI_Controller{
             $address = json_decode($this->input->post('address'), TRUE);
             $capacity = json_decode($this->input->post('capacity'), TRUE);
             $service_description = json_decode($this->input->post('service_description'), TRUE);
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
 
             // Query
             $result = $this->admin_model->edit_service($service_id, $date, $start_time, $end_time, $service_type_id, 
-                    $address, $capacity, $service_description);
+                $address, $capacity, $tutor_id, $service_description);
             
             // Log
 

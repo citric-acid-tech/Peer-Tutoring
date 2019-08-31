@@ -127,7 +127,7 @@ class Admin_model extends CI_Model{
      * @param start_time          the started time of the service
      * @param end_time            the end time of the service
      * @param service_type        the service type (ea_service_categories.name) of this service
-     * @param tutor_name          the tutor who hosts this service
+     * @param tutor_id            the id in ea_users of the tutor
      * @param address             the address of this service
      * @param capacity            the volumn or max number of students can attend
      * @param service_description the description of the service 
@@ -135,15 +135,8 @@ class Admin_model extends CI_Model{
      * @return boolean            success or not 
      */
     public function edit_service($service_id, $date, $start_time, $end_time, $service_type_id, 
-        $address, $capacity, $service_description){
+        $address, $capacity, $tutor_id, $service_description){
         
-        //get tutor id and service id from database
-        $tutor_id = $this->db
-            ->select('ea_users.id AS id')
-            ->from('ea_users')
-            ->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) =', $tutor_name)
-            ->get()
-            ->row_array()['id'];
         $service_categories_id = $service_type_id;
 
         // Decode the date array and insert all the service in batch
