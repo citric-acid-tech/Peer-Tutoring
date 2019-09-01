@@ -468,8 +468,8 @@ class Admin_model extends CI_Model{
      */
     public function schedule_current_schema_to_all_weeks($tutor_id, $semester_info, $services_id, $week){
         
-        if(is_null($tutor_id)){
-            return 'tutor_name absence.';
+        if(is_null($tutor_id) || $tutor_id == 'ALL'){
+            return array(FALSE, FALSE, FALSE);
         }
 
         // :: Get the first day and the last day of this semester
@@ -482,7 +482,7 @@ class Admin_model extends CI_Model{
         $last_weeks = $semester[  $tmp_arr[0]  ][  $tmp_arr[1]  ][ 'last_weeks' ];
 
         if(is_null($week) || $week <= 0 || $week > $last_weeks){
-            return 'week absence or overflow';
+            return array(FALSE, FALSE, FALSE);
         }
 
         $last_day = new Datetime($first_day);
