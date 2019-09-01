@@ -464,22 +464,30 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		if (GeneralFunctions.inInterval(spring_begin, spring_end, format_date)) {
 			return {
 				weekNumber: (Math.floor(moment.duration(format_date.diff(spring_begin)).asDays() / 7) + 1).toString(),
-				semester: year + "-Spring"
+				semester: year + "-Spring",
+				year: year,
+				season: "Spring"
 			};
 		} else if (GeneralFunctions.inInterval(summer_begin, summer_end, format_date)) {
 			return {
 				weekNumber: (Math.floor(moment.duration(format_date.diff(summer_begin)).asDays() / 7) + 1).toString(),
-				semester: year + "-Summer"
+				semester: year + "-Summer",
+				year: year,
+				season: "Summer"
 			};
 		} else if (GeneralFunctions.inInterval(fall_begin, fall_end, format_date)) {
 			return {
 				weekNumber: (Math.floor(moment.duration(format_date.diff(fall_begin)).asDays() / 7) + 1).toString(),
-				semester: year + "-Fall"
+				semester: year + "-Fall",
+				year: year,
+				season: "Fall"
 			};
 		} else {
 			return {
 				weekNumber: "-1",
-				semester: "Out of Semester"
+				semester: "Out of Semester",
+				year: year,
+				season: "None"
 			};
 		}
     };
@@ -496,5 +504,17 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     exports.inInterval = function (start, end, date) {
 		return date.isBetween(start, end, null, '[)');
     };
+	
+    /**
+     * Compute a date according to the first Monday and a week number
+     *
+     * @param {Moment} first Monday
+     * @param {Number} week Number
+	 *
+     * @return {Moment} a date
+     */
+	 exports.computeDateForNav = function (firstMonday, weekNumber) {
+		 return moment(firstMonday).add((weekNumber-1)*7, 'days');
+	 };
 	
 })(window.GeneralFunctions);

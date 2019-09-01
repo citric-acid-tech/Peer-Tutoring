@@ -40,6 +40,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		//	Other default initializations
 		helper.getAllServiceTypes();
 		helper.getAllTutors();
+		helper.getAllSemesters();
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
 		var calendar = AdminServiceConfig.initCalendar(calendarEl);
@@ -50,6 +51,24 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		}
 		helper.calendar = calendar;
 		calendar.render();
+		//	remedy week number
+		var weekNumAndSem = GeneralFunctions.getSemAndWeeks(moment().toDate());		
+		if (weekNumAndSem.weekNumber === '-1') {
+			$("select#calendar_semester option[value='Out of Semester']").prop('selected', true);
+			$('#calendar_week_number').html('');
+		} else {
+			var sem_info = GlobalVariables.semester_json;
+			var year = weekNumAndSem.year;
+			var season = weekNumAndSem.season;
+			var last_weeks = parseInt(sem_info[year][season].last_weeks);
+			$('#calendar_week_number').html('');
+			for (var i = 1; i <= last_weeks; ++i) {
+				var html = "<option value='" + i + "'>Week " + i + "</option>";
+				$('#calendar_week_number').append(html);
+			}
+			$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
+			$("select#calendar_week_number option[value='" + weekNumAndSem.weekNumber + "']").prop('selected', true);
+		}
 		//	Guess what, a date picker!!
 		$('#edit_service_date, #add_service_date').datepicker({
 			dateFormat: "yy-mm-dd",
@@ -60,7 +79,21 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			showOtherMonths: true,
 			showAnim: "fold"
 		});
-
+		$('#calendar_gotodate').datepicker({
+			dateFormat: "yy-mm-dd",
+			constrainInput: true,
+			autoSize: true,
+			navigationAsDateFormat: true,
+			firstDay: 1,
+			showOtherMonths: true,
+			showAnim: "fold",
+			onSelect: function() {
+				var val = $(this).val();
+				calendar.gotoDate(new Date(val));
+				$(this).attr('value', 'Go to Date');
+			}
+		});
+		
 		//	Demo of Fuse.js
 //		var items = [
 //  {
@@ -298,7 +331,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			locale: 'zh-cn',	//	Default 简体中文
 			//	Some Customized Buttons
 			customButtons: {
-				custBut: {
+				addService: {
 					text: 'Add a Service',
 					click: function() {
 						//	Before showing, grab the date and time for loading
@@ -310,6 +343,14 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						//	Show
 						$('.admin-page .popup .curtain').fadeIn();
 						$('.admin-page .popup #cal_add_popup').fadeIn();
+					}
+				},
+				goToDate: {
+					text: 'Go To Date',
+					click: function() {
+						alert("This will be Schedule to all later");
+//						$('#gotoDate_datePicker').datepicker('show');
+//						calendar.gotoDate(new Date('2019-10-02'));
 					}
 				}
 			},
@@ -360,17 +401,17 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			dayRender: function() {
 				Admin.placeFooterToBottom();	//	Fix the footer gg problem
 			},
-			validRange: {	//	Please use function to compute the range later, referring to the docs
-  			  start: '2019-08-24',
-  			  end: '2020-01-01'
-  			},
+//			validRange: {	//	Please use function to compute the range later, referring to the docs
+//  			  start: '2019-08-24',
+//  			  end: '2020-01-01'
+//  			},
 			//	Locale
 			firstDay: 1,
 			//	Define the placement of the header
 			header: {
 				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
 				center: 'title',	// put title in the center
-				right: 'custBut prev,today,next'	// buttons for locating a date
+				right: 'goToDate addService prev,today,next'	// buttons for locating a date
 			},
 			//	View Rendering Callbacks
 			viewSkeletonRender: function() {
@@ -388,7 +429,6 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			//	Show week numbers: show on external position
 //			weekNumbers: true,
 //			weekNumberCalculation: function(date) {	//	Calculate the week number according to the semester
-//				<?=  =>
 //			},
 //			weekLabel: "周",	//	Specify this in language pack later, or maybe use the locale
 			//	Super Cool Nav-Links options
@@ -490,16 +530,15 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			nowIndicator: true,	//	Go to current time position
 			//	Add some test events
 			events: function(fetchInfo, successCallback, failureCallback) {
-				//	Get Week from start date
 				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
 				var tutor_id = $('.admin-page select#calendar_tutor option:selected').val();
 				if (weekNumAndSem.weekNumber === '-1') {
-					$('#calendar_semeseter').html(weekNumAndSem.semester);
+					$("select#calendar_semester option[value='Out of Semester']").prop('selected', true);
 					$('#calendar_week_number').html('');
 					successCallback([]);
 				} else {
-					$('#calendar_semeseter').html(weekNumAndSem.semester);
-					$('#calendar_week_number').html("Week " + weekNumAndSem.weekNumber);
+					$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
+					$("select#calendar_week_number option[value='" + weekNumAndSem.weekNumber + "']").prop('selected', true);
 					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
         			var postData = {
         			    csrfToken: 	GlobalVariables.csrfToken,

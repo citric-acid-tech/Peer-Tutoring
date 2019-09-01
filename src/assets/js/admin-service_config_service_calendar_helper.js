@@ -113,6 +113,50 @@
 			instance.calendar.refetchEvents();
 		});
 		
+   		/**
+   		 * Event: Header semester selected
+   		 */
+		$(document).on('change', '.admin-page select#calendar_semester', function() {
+			//	If the value is 'Out of Semester', go to current day
+			var sem_opt = $('select#calendar_semester option:selected');
+			if (sem_opt.val() === 'Out of Semester') {
+				Admin.displayNotification("Option Disallowed: Redirecting to current date", undefined, "failure");
+				instance.calendar.today();
+				return false;
+			}
+			//	Get last weeks as options of week number according to the given semester
+			var sem_info = GlobalVariables.semester_json;
+			var year = sem_opt.attr('data-year');
+			var season = sem_opt.attr('data-season');
+			var last_weeks = parseInt(sem_info[year][season].last_weeks);
+			$('#calendar_week_number').html('');
+			for (var i = 1; i <= last_weeks; ++i) {
+				var html = "<option value='" + i + "'>Week " + i + "</option>";
+				$('#calendar_week_number').append(html);
+			}
+			//	Get first Monday as options of week number according to the given semester
+			var first_Mon = sem_info[year][season].first_Monday;
+			//	Go to that date
+			instance.calendar.gotoDate(new Date(first_Mon));
+		});
+		
+   		/**
+   		 * Event: Header week number selected
+   		 */
+		$(document).on('change', '.admin-page select#calendar_week_number', function() {
+			//	Get first Monday as options of week number according to the given semester
+			var sem_opt = $('select#calendar_semester option:selected');
+			var sem_info = GlobalVariables.semester_json;
+			var year = sem_opt.attr('data-year');
+			var season = sem_opt.attr('data-season');
+			var first_Mon = moment(sem_info[year][season].first_Monday);
+			//	Compute the date according to first Monday and the given week number
+			var weekNum = parseInt($('select#calendar_week_number option:selected').val());
+			var date = GeneralFunctions.computeDateForNav(first_Mon, weekNum);
+			//	Go to that date
+			instance.calendar.gotoDate(date.toDate());
+		});
+		
 	};
 	
     /**
@@ -179,6 +223,32 @@
 //				$('.admin-page select#calendar_tutor').append(html);
 //			}
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+    /**
+     * Get all semesters and wrap them in an html
+     */
+    AdminServiceConfigServiceCalendarHelper.prototype.getAllSemesters = function() {
+		var sem_info = GlobalVariables.semester_json;
+		$.each(sem_info, function(year) {
+			var comb_sem_spr = year + "-Spring";
+			var comb_sem_sum = year + "-Summer";
+			var comb_sem_fal = year + "-Fall";
+			var html_spr = "<option value='" + comb_sem_spr +"' title='" + comb_sem_spr + "' data-year='" + year + "' data-season='Spring'>" + comb_sem_spr + "</option>";
+			var html_sum = "<option value='" + comb_sem_sum +"' title='" + comb_sem_sum + "' data-year='" + year + "' data-season='Summer'>" + comb_sem_sum + "</option>";
+			var html_fal = "<option value='" + comb_sem_fal +"' title='" + comb_sem_fal + "' data-year='" + year + "' data-season='Fall'>" + comb_sem_fal + "</option>";
+			$('.admin-page select#calendar_semester').html("<option value='Out of Semester' title='Out of Semester' data-year='" + year + "' data-season='None'>Out of Semester</option>");
+			$('.admin-page select#calendar_semester').append(html_spr);
+			$('.admin-page select#calendar_semester').append(html_sum);
+			$('.admin-page select#calendar_semester').append(html_fal);
+		});
+    };
+	
+    /**
+     * Get all week numbers and wrap them in an html
+     */
+    AdminServiceConfigServiceCalendarHelper.prototype.getWeekNumbers = function(sem_opt) {
+		
     };
 	
     /**

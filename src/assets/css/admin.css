@@ -491,6 +491,27 @@ root {
 /* popups */
 
 
+/* Calendar Buttons */
+.fc-goToDate-button, .fc-goToDate-button:active {
+	background-color: mediumpurple!important;
+	border-color: mediumpurple!important;
+	transition: all 0.2s!important;
+}
+.fc-goToDate-button:hover, .fc-goToDate-button:focus {
+	background-color: purple!important;
+	border-color: purple!important;
+}
+.fc-addService-button, .fc-addService-button:active {
+	background-color: rgb(41, 109, 151)!important;
+	border-color: rgb(41, 109, 151)!important;
+	transition: all 0.2s!important;
+}
+.fc-addService-button:hover, .fc-addService-button:focus {
+	background-color: rgb(36, 95, 131)!important;
+	border-color: rgb(36, 95, 131)!important;
+}
+/* Calendar Buttons */
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

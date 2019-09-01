@@ -59,11 +59,14 @@
 			<div class="container calendar_upper_header" style="text-align:center;">
 				<div class="col-xs-12">
 					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);padding: 10px 0;">
-						<span id="calendar_semeseter"></span>
+						<select id="calendar_semester" title="Semester" style="min-width:150px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<span id="calendar_week_number"></span>
+						<select id="calendar_week_number" title="Week Number" style="min-width:150px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<select id="calendar_tutor" title="Tutor" style="min-width:150px;"></select>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" id="calendar_gotodate" class="btn btn-primary" value="Go to Date" title="Go to Date" style="font-weight: bolder;" />
+						<input type="hidden" id="scapegoat" />
 					</h4>
 				</div>
 			</div>
