@@ -513,7 +513,7 @@ class Admin_model extends CI_Model{
 
             $start_day = explode(' ', $row_data['start_datetime'])[0];
             $diff_interval = date_diff(new Datetime($first_day), new Datetime($start_day));
-            $diff_days = $diff_interval->format('%d');
+            $diff_days = $diff_interval->format('%a');
             $diff_days %= 7;
 
             $start_time = explode(' ', $row_data['start_datetime'])[1];
