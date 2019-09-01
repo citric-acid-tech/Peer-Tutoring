@@ -295,6 +295,17 @@
      * Validate inputs of edit popup
      */
    	AdminServiceConfigServiceCalendarHelper.prototype.validateEditPopup = function() {
+		//	Validate Date
+		var date = $('#edit_service_date').val();
+		if (date === '') {	//	empty, gg
+			Admin.displayNotification("Please Choose a date!", undefined, "failure");
+			$('#edit_service_date').toggleClass('gg');
+			setTimeout(function() {
+				$('#edit_service_date').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		
 		//	Validate Capacity
 		var cap = $('#edit_service_capacity').val();
 		if(!(/^\+?[1-9]\d*$/.test(cap))) {	//	If not a positive integer, gg
@@ -306,9 +317,36 @@
 			return false;
 		}
 		
+		//	Validate address
+		var address = $('#edit_service_address').val();
+		if (address === '') {	//	empty, gg
+			Admin.displayNotification("Please offer the address for the service!", undefined, "failure");
+			$('#edit_service_address').toggleClass('gg');
+			setTimeout(function() {
+				$('#edit_service_address').toggleClass('gg');
+			}, 500);
+			return false;
+		} 
+		
 		//	Validate time range
 		var start = moment($('#edit_service_st').val(), 'HH:mm');
 		var end = moment($('#edit_service_et').val(), 'HH:mm');
+		if (!start.isValid()) {
+			Admin.displayNotification("Please finish Start Time", undefined, "failure");
+			$('#edit_service_st').toggleClass('gg');
+			setTimeout(function() {
+				$('#edit_service_st').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		if (!end.isValid()) {
+			Admin.displayNotification("Please finish End Time", undefined, "failure");
+			$('#edit_service_et').toggleClass('gg');
+			setTimeout(function() {
+				$('#edit_service_et').toggleClass('gg');
+			}, 500);
+			return false;
+		}
 		if (start.isSameOrAfter(end)) {	//	If start >= end, gg
 			Admin.displayNotification("Supposed: Start time < End time", undefined, "failure");
 			$('#edit_service_st, #edit_service_et').toggleClass('gg');
@@ -482,6 +520,17 @@
      * Validate inputs of add popup
      */
    	AdminServiceConfigServiceCalendarHelper.prototype.validateAddPopup = function() {
+		//	Validate Date
+		var date = $('#add_service_date').val();
+		if (date === '') {	//	empty, gg
+			Admin.displayNotification("Please Choose a date!", undefined, "failure");
+			$('#add_service_date').toggleClass('gg');
+			setTimeout(function() {
+				$('#add_service_date').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		
 		//	Validate Capacity
 		var cap = $('#add_service_capacity').val();
 		if(!(/^\+?[1-9]\d*$/.test(cap))) {	//	If not a positive integer, gg
@@ -493,9 +542,36 @@
 			return false;
 		}
 		
+		//	Validate address
+		var address = $('#add_service_address').val();
+		if (address === '') {	//	empty, gg
+			Admin.displayNotification("Please offer the address for the service!", undefined, "failure");
+			$('#add_service_address').toggleClass('gg');
+			setTimeout(function() {
+				$('#add_service_address').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		
 		//	Validate time range
 		var start = moment($('#add_service_st').val(), 'HH:mm');
 		var end = moment($('#add_service_et').val(), 'HH:mm');
+		if (!start.isValid()) {
+			Admin.displayNotification("Please finish Start Time", undefined, "failure");
+			$('#add_service_st').toggleClass('gg');
+			setTimeout(function() {
+				$('#add_service_st').toggleClass('gg');
+			}, 500);
+			return false;
+		}
+		if (!end.isValid()) {
+			Admin.displayNotification("Please finish End Time", undefined, "failure");
+			$('#add_service_et').toggleClass('gg');
+			setTimeout(function() {
+				$('#add_service_et').toggleClass('gg');
+			}, 500);
+			return false;
+		}
 		if (start.isSameOrAfter(end)) {	//	If start >= end, gg
 			Admin.displayNotification("Supposed: Start time < End time", undefined, "failure");
 			$('#add_service_st, #add_service_et').toggleClass('gg');

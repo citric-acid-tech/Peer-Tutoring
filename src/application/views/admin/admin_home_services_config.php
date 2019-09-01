@@ -92,7 +92,7 @@
 						<div class="popup-container">
 							<select id="edit_service_service_type" title="Service Type *" style="height:28px;width:27%;"></select>
 							&nbsp;&nbsp;
-							<input id="edit_service_date" type="text" placeholder="Date" title="Date" style="height:28px;width:16%" readonly />
+							<input id="edit_service_date" type="text" placeholder="Date *" title="Date *" style="height:28px;width:16%" readonly />
 							&nbsp;<strong>-</strong>&nbsp;
 							<input id="edit_service_st" type="time" style="width:18%;height:28px;" />
 							<strong>~</strong>
@@ -125,11 +125,11 @@
 						<div class="popup-container">
 							<select id="add_service_service_type" title="Service Type *" style="height:28px;width:27%;"></select>
 							&nbsp;&nbsp;
-							<input id="add_service_date" type="text" placeholder="Date" title="Date" style="height:28px;width:16%" readonly />
+							<input id="add_service_date" type="text" placeholder="Date *" title="Date *" style="height:28px;width:16%" readonly />
 							&nbsp;<strong>-</strong>&nbsp;
-							<input id="add_service_st" type="time" style="width:18%;height:28px;" />
+							<input id="add_service_st" type="time" style="width:18%;height:28px;" placeholder="Start *" title="Start *" />
 							<strong>~</strong>
-							<input id="add_service_et" type="time" style="width:18%;height:28px;" />
+							<input id="add_service_et" type="time" style="width:18%;height:28px;" placeholder="End *" title="End *" />
 						</div>
 						<div class="popup-container">
 							<select id="add_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
