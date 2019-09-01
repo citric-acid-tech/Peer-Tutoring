@@ -688,7 +688,7 @@
         var postData = {
             csrfToken:		GlobalVariables.csrfToken,
 			services_id:	JSON.stringify(services_id),
-			tutor_id:		JSON.stringify(tutor_id),
+			tutor_id:		JSON.stringify((tutor_id === undefined || tutor_id === '-1') ? 'ALL' : tutor_id),
 			week:			JSON.stringify(week),
 			semester:		JSON.stringify(semester)
         };
@@ -702,7 +702,7 @@
 			if (response === 'success') {
 				Admin.displayNotification("Successfully scheduled to all semester weeks", undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("Failure: Services could scheduled along.", undefined, "failure");
+				Admin.displayNotification("Failure: Services could not be scheduled along.", undefined, "failure");
 			} else {
 				Admin.displayNotification("Something went wrong on batch scheduling");
 			}
