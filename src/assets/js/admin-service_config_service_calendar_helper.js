@@ -640,6 +640,8 @@
 				tutor_id:				tutor_id
         	});
 			
+			//	Premium: Whether to jump to modified date
+			
 			//	Clear inputs!
 			setTimeout(function() {
 				obj.resetAddPopup();
