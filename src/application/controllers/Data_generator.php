@@ -13,8 +13,6 @@ class Data_generator extends CI_Controller{
 
     public function index(){
         echo 'Don\'t close the page until it finishes.';
-
-        //generate_student_appointments($date, $status)
         $this->generate_service_types();
         $this->generate_users();
         $this->generate_services(); 
@@ -99,6 +97,9 @@ class Data_generator extends CI_Controller{
         $tutors_arr[$num_tutor]['name'] = 
             $this->db->select('CONCAT(first_name, \' \', last_name) AS name')
                 ->from('ea_users')->get()->row_array()['name'];
+        $tutors_arr[$num_tutor]['id'] = 
+            $this->db->select('ea_users.id AS id')
+                ->from('ea_users')->get()->row_array()['id'];
         $num_tutor++;
 
         $service_types_arr = $this->general_model->get_all_service_types(); 
@@ -111,15 +112,15 @@ class Data_generator extends CI_Controller{
                 $rand = mt_rand(8,20);
                 $start_time = $rand. ':00';
                 $end_time = ($rand + 1) . ':30';
-                $service_type = $service_types_arr[$i % $num_type]['name'];
-                $tutor_name = $tutors_arr[$i]['name'];
+                $service_type_id = $service_types_arr[$i % $num_type]['id'];
+                $tutor_id = $tutors_arr[$i]['id'];
                 $address = 'XINYUAN';
                 $capacity = mt_rand(3,10);
                 $service_description = 'test desc';
-                $this->admin_model->new_service($date, $start_time, $end_time, $service_type, $tutor_name,
+                $this->admin_model->new_service($date, $start_time, $end_time, $service_type_id, $tutor_id,
                     $address, $capacity, $service_description);
             }
-            $services_arr = $this->admin_model->filter_services($tutor_name, '2019-Fall', 1);
+            $services_arr = $this->admin_model->filter_services($tutor_id, '2019-Fall', 1);
 
             $services_id_arr = array();
             $k = 0;
@@ -130,16 +131,23 @@ class Data_generator extends CI_Controller{
             $semester = '2019-Fall';
             $services_id = $services_id_arr;
             $week = 1;
-            $this->admin_model->schedule_current_schema_to_all_weeks($tutor_name, $semester, $services_id, $week);
+            $this->admin_model->schedule_current_schema_to_all_weeks($tutor_id, $semester, $services_id, $week);
         }
         echo 'Generate services successfully. <br />';
     }
 
     public function generate_users(){
         $this->load->database();
+
+        $user_id = $this->session->userdata('user_id');
+        echo 'save user ' . $user_id . '\'s data. <br />';
+        $data = $this->db->select('ea_users.*')->from('ea_users')->where('id', $user_id)->get()->row_array();
+
         $this->db->query('SET FOREIGN_KEY_CHECKS=0;');
         $this->db->query('TRUNCATE TABLE ea_users;');
         $this->db->query('SET FOREIGN_KEY_CHECKS=1;');
+
+        $this->db->insert('ea_users', $data);
 
         $this->generate_tutors();
         $this->generate_students();
