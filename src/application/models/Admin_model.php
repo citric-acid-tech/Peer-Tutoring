@@ -459,16 +459,16 @@ class Admin_model extends CI_Model{
     /**
      * Administrators schedule all weeks in the semester for a tutor by a given schema of one week.
      * 
-     * @param tutor_name    the name of the tutor
+     * @param tutor_id      the id in ea_users of the tutor
      * @param semester_info a string like '2019-Fall', '2019-Summer'
      * @param services_id   an array contains all the service ids of the given schema
      * @param week          the week of the given schema
      * 
      * @return boolean      success or not
      */
-    public function schedule_current_schema_to_all_weeks($tutor_name, $semester_info, $services_id, $week){
+    public function schedule_current_schema_to_all_weeks($tutor_id, $semester_info, $services_id, $week){
         
-        if(is_null($tutor_name)){
+        if(is_null($tutor_id)){
             return 'tutor_name absence.';
         }
 
@@ -536,13 +536,6 @@ class Admin_model extends CI_Model{
         // :: Clean all the services in this semester
         
         //// Deal with students who have already made appointment with these services.
-        
-        //// Get tutor's id
-        $tutor_id = $this->db->select('ea_users.id')
-                        ->from('ea_users')
-                        ->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name)
-                        ->get()
-                        ->row_array()['id'];
 
         //// Get the id of all the involved services
         $involved_services_id_arr = $this->db->select('ea_services.id')->from('ea_services')
@@ -588,7 +581,7 @@ class Admin_model extends CI_Model{
         $services_insert_bool =  $this->db->insert_batch('ea_services', $data);
 
         
-        $input_arr = array($tutor_name, $semester_info, $services_id, $week);
+        $input_arr = array($tutor_id, $semester_info, $services_id, $week);
         $output_arr = array($app_delete_bool, $services_delete_bool, $services_insert_bool);
         $this->log_operation('schedule_current_schema_to_all_weeks', $input_arr, $output_arr);
 
