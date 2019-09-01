@@ -468,6 +468,8 @@ class Admin_model extends CI_Model{
      */
     public function schedule_current_schema_to_all_weeks($tutor_id, $semester_info, $services_id, $week){
         
+        $this->db->trans_begin();
+
         if(is_null($tutor_id) || $tutor_id == 'ALL'){
             return array(FALSE, FALSE, FALSE);
         }
@@ -585,6 +587,12 @@ class Admin_model extends CI_Model{
         $output_arr = array($app_delete_bool, $services_delete_bool, $services_insert_bool);
         $this->log_operation('schedule_current_schema_to_all_weeks', $input_arr, $output_arr);
 
+
+        if($app_delete_bool && $services_delete_bool && $services_insert_bool){
+            $this->db->trans_commit();
+        }else{
+            $this->db->trans_rollback();
+        }
         return $output_arr;
     }
 

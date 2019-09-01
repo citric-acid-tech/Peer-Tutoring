@@ -38,6 +38,8 @@ class Cas_model extends CI_Model{
             
             if ( ! $this->db->insert('ea_user_settings', $data) ){
                 $this->db->trans_rollback();
+            }else{
+                $this->db->trans_commit();
             }
 
             $this->db->trans_complete();
