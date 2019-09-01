@@ -245,13 +245,6 @@
     };
 	
     /**
-     * Get all week numbers and wrap them in an html
-     */
-    AdminServiceConfigServiceCalendarHelper.prototype.getWeekNumbers = function(sem_opt) {
-		
-    };
-	
-    /**
      * Reset inputs of edit popup
      */
    	AdminServiceConfigServiceCalendarHelper.prototype.resetEditPopup = function() {
@@ -685,6 +678,36 @@
 		};
 		
 		cal.addEvent(event);
+    };
+	
+    /**
+     * Schedule to all weeks
+     */
+   	AdminServiceConfigServiceCalendarHelper.prototype.scheduleToAllWeeks = function(services_id, tutor_id, week, semester) {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_schedule_current_schema_to_all_weeks';
+        var postData = {
+            csrfToken:		GlobalVariables.csrfToken,
+			services_id:	JSON.stringify(services_id),
+			tutor_id:		JSON.stringify(tutor_id),
+			week:			JSON.stringify(week),
+			semester:		JSON.stringify(semester)
+        };
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			//	Delete: Successful in DB
+			if (response === 'success') {
+				Admin.displayNotification("Successfully scheduled to all semester weeks", undefined, "success");
+			} else if (response === 'fail') {
+				Admin.displayNotification("Failure: Services could scheduled along.", undefined, "failure");
+			} else {
+				Admin.displayNotification("Something went wrong on batch scheduling");
+			}
+
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     window.AdminServiceConfigServiceCalendarHelper = AdminServiceConfigServiceCalendarHelper;

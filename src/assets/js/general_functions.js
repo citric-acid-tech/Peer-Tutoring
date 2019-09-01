@@ -445,7 +445,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		
 		//	check if this year exists
 		if (sem_info[year] === undefined) {
-			alert("GeneralFunctions.getSemAndWeeks() --> No such year: " + year);
+			console.log("GeneralFunctions.getSemAndWeeks() --> No such year: " + year);
 			return false;
 		}
 		

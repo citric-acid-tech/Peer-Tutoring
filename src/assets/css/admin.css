@@ -492,12 +492,12 @@ root {
 
 
 /* Calendar Buttons */
-.fc-goToDate-button, .fc-goToDate-button:active {
+.fc-scheduleToAllWeeks-button, .fc-scheduleToAllWeeks-button:active {
 	background-color: mediumpurple!important;
 	border-color: mediumpurple!important;
 	transition: all 0.2s!important;
 }
-.fc-goToDate-button:hover, .fc-goToDate-button:focus {
+.fc-scheduleToAllWeeks-button:hover, .fc-scheduleToAllWeeks-button:focus {
 	background-color: purple!important;
 	border-color: purple!important;
 }

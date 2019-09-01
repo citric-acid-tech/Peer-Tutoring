@@ -345,12 +345,35 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						$('.admin-page .popup #cal_add_popup').fadeIn();
 					}
 				},
-				goToDate: {
-					text: 'Go To Date',
+				scheduleToAllWeeks: {
+					text: 'Schedule to All Weeks',
 					click: function() {
-						alert("This will be Schedule to all later");
-//						$('#gotoDate_datePicker').datepicker('show');
-//						calendar.gotoDate(new Date('2019-10-02'));
+						//	Prompt: you really want to do this???
+            			var buttons = [
+            			    {
+            			        text: EALang.confirm,
+            			        click: function () {
+									var services = calendar.getEvents();
+									var services_id = [];
+									$.each(services, function(index, service) {
+										services_id.push(service.id);
+									});
+									var tutor_id = $('select#calendar_tutor option:selected').val();
+									var week = $('select#calendar_week_number option:selected').val();
+									var semester = $('select#calendar_semester option:selected').val();
+            			            helper.scheduleToAllWeeks(services_id, tutor_id, week, semester);
+            			            $('#message_box').dialog('close');
+            			        }
+            			    },
+            			    {
+            			        text: EALang.cancel,
+            			        click: function () {
+            			            $('#message_box').dialog('close');
+            			        }
+            			    }
+            			];
+            			GeneralFunctions.displayMessageBox("Schedule Current Schema to All Weeks",
+														   "Are you sure you want to do this?", buttons);
 					}
 				}
 			},
@@ -396,8 +419,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				omitZeroMinute: false,	//	Do not omit zeros
 				meridiem: 'short'
 			},
-//			minTime: "00:00:00",
-//			maxTime: "24:00:00",
+			minTime: "07:00:00",
+			maxTime: "23:00:00",
 			dayRender: function() {
 				Admin.placeFooterToBottom();	//	Fix the footer gg problem
 			},
@@ -411,7 +434,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			header: {
 				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
 				center: 'title',	// put title in the center
-				right: 'goToDate addService prev,today,next'	// buttons for locating a date
+				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
 			},
 			//	View Rendering Callbacks
 			viewSkeletonRender: function() {
@@ -532,11 +555,28 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			events: function(fetchInfo, successCallback, failureCallback) {
 				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
 				var tutor_id = $('.admin-page select#calendar_tutor option:selected').val();
-				if (weekNumAndSem.weekNumber === '-1') {
+				if (weekNumAndSem === false) {successCallback([]);}
+				else if (weekNumAndSem.weekNumber === '-1') {
 					$("select#calendar_semester option[value='Out of Semester']").prop('selected', true);
-					$('#calendar_week_number').html('');
+					$('#calendar_week_number').css('display', 'none');
+					$('#calendar_tutor').css('display', 'none');
 					successCallback([]);
 				} else {
+					//	From "Out of Semester"
+					if ($('#calendar_week_number').css('display') === 'none' && $('#calendar_tutor').css('display') === 'none') {
+						//	Re-calculate
+						var sem_info = GlobalVariables.semester_json;
+						var year = weekNumAndSem.year;
+						var season = weekNumAndSem.season;
+						var last_weeks = parseInt(sem_info[year][season].last_weeks);
+						$('#calendar_week_number').html('');
+						for (var i = 1; i <= last_weeks; ++i) {
+							var html = "<option value='" + i + "'>Week " + i + "</option>";
+							$('#calendar_week_number').append(html);
+						}
+						$('#calendar_week_number').css('display', 'inline-block');
+						$('#calendar_tutor').css('display', 'inline-block');
+					}
 					$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
 					$("select#calendar_week_number option[value='" + weekNumAndSem.weekNumber + "']").prop('selected', true);
 					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
@@ -609,7 +649,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 //			eventResizableFromStart: true,
 //			droppable: true,	// External event can be dropped on the calendar			
 			//	Advance: Touch Support
-//			longPressDelay: 1000	// Defult is 1000
+			longPressDelay: 1000	// Defult is 1000
 		});
 		return calendar;
 	};
