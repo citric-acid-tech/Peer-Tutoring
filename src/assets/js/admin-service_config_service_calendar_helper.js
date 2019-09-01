@@ -110,6 +110,11 @@
    		 * Event: Header tutor selected
    		 */
 		$(document).on('change', '.admin-page select#calendar_tutor', function() {
+			if ($('select#calendar_tutor option:selected').val() === '-1') {
+				$(".fc-scheduleToAllWeeks-button").prop('disabled', true);
+			} else {
+				$(".fc-scheduleToAllWeeks-button").prop('disabled', false);
+			}
 			instance.calendar.refetchEvents();
 		});
 		
@@ -622,16 +627,7 @@
 			$('.admin-page .popup #cal_add_popup').fadeOut();
 			
 			//	sync the modified event
-			obj.syncAdded(response, {
-				date:					date,
-				start_time:				start_time,
-				end_time:				end_time,
-				service_type_id:		service_type_id,
-				address:				address,
-				capacity:				capacity,
-				service_description:	description,
-				tutor_id:				tutor_id
-        	});
+			obj.syncAdded();
 			
 			//	Premium: Whether to jump to modified date
 			
@@ -646,38 +642,8 @@
     /**
      * Sync Added Service
      */
-   	AdminServiceConfigServiceCalendarHelper.prototype.syncAdded = function(id, newData) {
-		var cal = this.calendar;
-		
-		var title = $("select#add_service_service_type option[value='" + newData.service_type_id + "']").html();
-		//	start
-		var start_datetime = moment(newData.date, 'YYYY-MM-DD');
-		var time = moment(newData.start_time, 'HH:mm');
-		start_datetime.hour(time.hour());
-		start_datetime.minute(time.minute());
-		//	end
-		var end_datetime = moment(newData.date, 'YYYY-MM-DD');
-		time = moment(newData.end_time, 'HH:mm');
-		end_datetime.hour(time.hour());
-		end_datetime.minute(time.minute());
-		var tutor = $("select#add_service_tutor option[value='" + newData.tutor_id + "']").html();
-		
-		var event = {
-			id: id,
-			title: title,
-			start: start_datetime.toDate(),
-			end: end_datetime.toDate(),
-			extendedProps: {
-				tutor_id: newData.tutor_id,
-				tutor: tutor,
-				capacity: newData.capacity,
-				address: newData.address,
-				description: newData.service_description,
-				service_type_id: newData.service_type_id
-			}
-		};
-		
-		cal.addEvent(event);
+   	AdminServiceConfigServiceCalendarHelper.prototype.syncAdded = function() {
+		this.calendar.refetchEvents();
     };
 	
     /**

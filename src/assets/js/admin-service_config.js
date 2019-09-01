@@ -51,6 +51,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		}
 		helper.calendar = calendar;
 		calendar.render();
+		$(".fc-scheduleToAllWeeks-button").prop('disabled', true);	//	Default: All tutors, so no this button
 		//	remedy week number
 		var weekNumAndSem = GeneralFunctions.getSemAndWeeks(moment().toDate());		
 		if (weekNumAndSem.weekNumber === '-1') {
