@@ -88,6 +88,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				//	Guess what, a large calendar!!!
 				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
 				if (!calendarIsRendered) {
+					helper.getAllServiceTypes();
 					//	Guess what, a large calendar!!!
 					var calendarEl = document.getElementById('student-full-calendar');
 					calendar = StudentsAvailableAppointments.initCalendar(calendarEl);
@@ -366,9 +367,9 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 //				}
 			},
 			eventClick: function(info) {
-//				helper.loadEditPopup(info.event);
-//				$('.admin-page .popup .curtain').fadeIn();
-//				$('.admin-page .popup #cal_edit_popup').fadeIn();
+				helper.loadAppointmentPopup(info.event);
+				$('.students-page .popup .curtain').fadeIn();
+				$('.students-page .popup #cal_appointment_popup').fadeIn();
 			},
 			//	Advance: Draggables
 //			editable: true,

@@ -201,37 +201,36 @@
 			<div id="student-full-calendar"></div>
 			<div class="popup">
 				<div class="curtain"></div>
-				<div id="cal_edit_popup">
+				<div id="cal_appointment_popup">
 					<form>
-						<div class="popup-title"><h2>Edit Service</h2></div>
+						<div class="popup-title"><h2>Make an Appointment</h2></div>
 						<hr />
-						<input id="edit_service_id" type="hidden" />
+						<input id="appointment_service_id" type="hidden" />
 						<div class="popup-container">
-							<select id="edit_service_service_type" title="Service Type *" style="height:28px;width:27%;"></select>
+							<select id="appointment_service_service_type" title="Service Type *" style="height:28px;width:27%;"></select>
 							&nbsp;&nbsp;
-							<input id="edit_service_date" type="text" placeholder="Date *" title="Date *" style="height:28px;width:16%" readonly />
+							<input id="appointment_service_date" type="text" placeholder="Date *" title="Date *" style="height:28px;width:16%" readonly />
 							&nbsp;<strong>-</strong>&nbsp;
-							<input id="edit_service_st" type="time" style="width:18%;height:28px;" />
+							<input id="appointment_service_st" type="time" style="width:18%;height:28px;" readonly />
 							<strong>~</strong>
-							<input id="edit_service_et" type="time" style="width:18%;height:28px;" />
+							<input id="appointment_service_et" type="time" style="width:18%;height:28px;" readonly />
 						</div>
 						<div class="popup-container">
-							<select id="edit_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
+							<select id="appointment_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
 							&nbsp;&nbsp;
-							<input id="edit_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:42%;" />
+							<input id="appointment_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:42%;" />
 						</div>
 						<div class="popup-container">
-							<textarea id="edit_service_description" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
+							<textarea id="appointment_service_description" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
 						</div>
 						<div class="popup-container">
-							<textarea id="edit_service_address" type="text" placeholder="Address *" rows="2" title="Address *" style="resize:none;"></textarea>
+							<textarea id="appointment_service_address" type="text" placeholder="Address *" rows="2" title="Address *" style="resize:none;"></textarea>
 						</div>
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_edit_delete" type="button" class="popup_buttons" value="Delete This Service" style="width:6%;background-color: mediumvioletred"><i class="fas fa-trash-alt"></i></button>
-							<button id="popup_edit_confirm" type="button" class="popup_buttons" value="Confirm" style="width:40%;">Confirm</button>
-							<button id="popup_edit_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
+							<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Confirm" style="width:40%;">Confirm</button>
+							<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
 						</div>
 					</form>
 				</div>
