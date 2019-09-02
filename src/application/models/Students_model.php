@@ -211,6 +211,7 @@ class Students_model extends CI_Model{
             ea_services.appointments_number                        AS appointments_number,
             ea_services.start_datetime                             AS start_datetime,
             ea_services.end_datetime                               AS end_datetime,
+            ea_services.address                                    AS address,
 
             ea_service_categories.name                             AS service_type, 
             ea_service_categories.description                      AS service_type_description,
