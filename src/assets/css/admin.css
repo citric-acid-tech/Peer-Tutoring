@@ -388,7 +388,7 @@ root {
 	display: none;
 }
 .admin-page .popup #cal_edit_popup {
-	position: absolute;
+	position: fixed;
 	width: 666px;
 	height: 540px;
 	
@@ -404,7 +404,7 @@ root {
 	display: none;
 }
 .admin-page .popup #cal_add_popup {
-	position: absolute;
+	position: fixed;
 	width: 666px;
 	height: 540px;
 	

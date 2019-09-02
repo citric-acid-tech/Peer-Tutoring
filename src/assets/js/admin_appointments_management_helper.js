@@ -119,7 +119,9 @@
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Admin.placeFooterToBottom();
+			setTimeout(function() {
+				Admin.placeFooterToBottom();
+			}, 500);
 		});	
         /**
          * Event: click the input bar, show filter details of tutor name
@@ -131,7 +133,9 @@
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Admin.placeFooterToBottom();
+			setTimeout(function() {
+				Admin.placeFooterToBottom();
+			}, 500);
 		});
         /**
          * Event: click the input bar, show filter details of student name
@@ -143,7 +147,9 @@
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Admin.placeFooterToBottom();
+			setTimeout(function() {
+				Admin.placeFooterToBottom();
+			}, 500);
 		});
 		
 		/**
@@ -157,7 +163,9 @@
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
 			$('#filter-appointments_management #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Admin.placeFooterToBottom();
+			setTimeout(function() {
+				Admin.placeFooterToBottom();
+			}, 500);
 		});
 		/**
          * Event: Press list items for tutor name
@@ -170,7 +178,9 @@
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
 			$('#filter-appointments_management #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Admin.placeFooterToBottom();
+			setTimeout(function() {
+				Admin.placeFooterToBottom();
+			}, 500);
 		});
 		/**
          * Event: Press list items for student name
@@ -183,7 +193,9 @@
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
 			$('#filter-appointments_management #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Admin.placeFooterToBottom();
+			setTimeout(function() {
+				Admin.placeFooterToBottom();
+			}, 500);
 		});
 		
 		/**
@@ -419,7 +431,7 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var display_tutor = (tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
 				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-appointments_management #filter-tutor-name span').append(html);
 			}.bind(this));
