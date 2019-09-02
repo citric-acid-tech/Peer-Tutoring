@@ -518,5 +518,40 @@ class Admin_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }  
     }
+
+    public function ajax_service_statistic(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $start_date = json_decode($this->input->post('start_date'), TRUE); // 'ALL' if don't select it
+            $end_date = json_decode($this->input->post('end_date'), TRUE); // 'ALL' if don't select it
+
+            // Query
+            $result = $this->admin_model->get_service_statistic($start_date, $end_date);
+            # '<service_type_name>' => [
+            #                           '0<booking_status>' => [
+            #                                                   'service_type_name' => <content>
+            #                                                   'status' => <number>
+            #                                                   'cnt' => <number>
+            #                                                  ]
+            #                            '1' => [...]
+            #                            ...
+            #                          ],
+            # '<service_type_name>' => [...]
+            # ...
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
+    }
 }
 ?>

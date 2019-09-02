@@ -771,6 +771,39 @@ class Admin_model extends CI_Model{
 
     }
 
+    public function get_service_statistic($start_date, $end_date){
+        $result = array();
+        $this->load->model('general_model');
+        $service_type_arr = $this->general_model->get_all_service_types();
+
+        foreach($service_type_arr AS $row){
+            for($i = 0; $i < 4; $i++){
+                $this->db
+                ->select('
+                     ea_service_categories.name     AS service_type_name,
+                     ea_appointments.booking_status AS status,
+                     COUNT(*)                       AS cnt
+                ')
+                ->from('ea_appointments')
+                ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
+                ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+                ->where('ea_appointments.booking_status', $i)
+                ->where('ea_services.id_service_categories', $row['id']);
+                if($start_date != 'ALL'){
+                    $this->db->where('ea_services.start_datetime >', $start_date . ' 00:00');
+                }
+                if($end_date != 'ALL'){
+                    $this->db->where('ea_services.start_datetime <', $end_date . ' 00:00');
+                }
+                $result[$row['name']][$i] = 
+                    $this->db
+                    ->get()
+                    ->row_array();
+            }
+        }
+        return $result;
+    }
+
     /**
      * Students will receive email from this function only if the appointments are related to
      * these deleted services.
