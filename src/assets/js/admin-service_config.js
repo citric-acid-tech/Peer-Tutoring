@@ -24,6 +24,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 	var adminServiceConfigTutorHelper = new AdminServiceConfigTutorHelper();
 	var adminServiceConfigServiceTypeHelper = new AdminServiceConfigServiceTypeHelper();
 
+	var calendar;
     /**
      * This method initializes the Students My Appointment page.
      *
@@ -32,9 +33,6 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
      */
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
-		
-//		alert(JSON.stringify(GlobalVariables.semester_list));
-		
 		//	Select by Tutor by default
         helper = adminServiceConfigServiceCalendarHelper;
 		//	Other default initializations
@@ -43,12 +41,16 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		helper.getAllSemesters();
 		//	Guess what, a large calendar!!!
 		var calendarEl = document.getElementById('admin-full-calendar');
-		var calendar = AdminServiceConfig.initCalendar(calendarEl);
+		calendar = AdminServiceConfig.initCalendar(calendarEl);
 		switch(GlobalVariables.curLanguage) {
 			case "english": calendar.setOption('locale', Admin.CALENDAR_LOCALES_ENGLISH); break;
 			case "简体中文": calendar.setOption('locale', Admin.CALENDAR_LOCALES_ZH_CN); break;
 			default: calendar.setOption('locale', Admin.CALENDAR_LOCALES_ENGLISH);
 		}
+		//	Media Queries
+		var mql = window.matchMedia("screen and (max-width: 1100px)");
+		mediaQueryResponse(mql);
+		mql.addListener(mediaQueryResponse);
 		helper.calendar = calendar;
 		calendar.render();
 		$(".fc-scheduleToAllWeeks-button").prop('disabled', true);	//	Default: All tutors, so no this button
@@ -273,8 +275,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 //		};
 //		var fuse = new Fuse(items, options);
 //		var result = fuse.search('');
-//		alert(JSON.stringify(result));
-                            
+//		alert(JSON.stringify(result));                 
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -654,5 +655,26 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		});
 		return calendar;
 	};
+	
+    /**
+     * Media Queries
+     */
+	function mediaQueryResponse(mql) {
+		if (mql.matches) {
+			calendar.setOption('header', {
+				left: 'title',	// put title in the first line
+				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
+			});
+			return true;
+		} else {
+			calendar.setOption('header', {
+				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+				center: 'title',	// put title in the center
+				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
+			});
+			return false;
+		}
+	}
 	
 })(window.AdminServiceConfig);

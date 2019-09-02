@@ -66,20 +66,9 @@
 						<select id="calendar_tutor" title="Tutor" style="min-width:150px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" id="calendar_gotodate" class="btn btn-primary" value="Go to Date" title="Go to Date" style="font-weight: bolder;" />
-						<input type="hidden" id="scapegoat" />
 					</h4>
 				</div>
 			</div>
-<!--
-			<div class="btn-toolbar calendar-btns">
-				<div class="btn-group">
-					<button id="show_selected" class="btn btn-primary" title="What have I selected?">What have I selected?</button>
-				</div>
-				<div class="btn-group">
-					<button id="add_event_through_button" class="btn btn-info" title="Add an Event">Add an Event</button>
-				</div>
-			</div>
--->
 			<!-- Guess what, a large calendar! -->
 			<div id="admin-full-calendar"></div>
 			<div class="popup">
@@ -154,7 +143,7 @@
 		</div>
 	
 		<!-- Select by Tutor Tab -->
-		<div role="tabpanel" class="tab-pane" id="tutor_config">
+		<div role="tabpanel" class="tab-pane fade" id="tutor_config">
 			<div class="container">
 				<div class="wrapper row">
 					<!-- filter tutors -->
@@ -256,7 +245,7 @@
 		</div>
 		
 		<!-- Select by Time Tab -->
-		<div role="tabpanel" class="tab-pane" id="service_type_config">
+		<div role="tabpanel" class="tab-pane fade" id="service_type_config">
 			<div class="container">
 				<div class="wrapper row">
 					<!-- filter service types -->

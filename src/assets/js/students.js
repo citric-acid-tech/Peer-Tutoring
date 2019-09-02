@@ -74,6 +74,10 @@ window.Students = window.Students || {};
     exports.PRIV_MY_APPOINTMENTS = 'my_appointments';
     exports.PRIV_AVAILABLE_APPOINTMENTS = 'available_appointments';
 	
+	//	Locales for calendar
+	exports.CALENDAR_LOCALES_ENGLISH = 'english';
+	exports.CALENDAR_LOCALES_ZH_CN = 'zh-cn';
+	
     /**
      * Place the students footer always on the bottom of the page.
      */

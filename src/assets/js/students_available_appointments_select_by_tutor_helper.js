@@ -101,7 +101,9 @@
 			$('#filter-aa_tutors #search-filter').prop('disabled', true);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			setTimeout(function() {
+				Students.placeFooterToBottom();
+			}, 500);
 		});	
         /**
          * Event: click the input bar, show filter details of tutor name
@@ -112,7 +114,9 @@
 			$('#filter-aa_tutors #search-filter').prop('disabled', true);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', true);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			setTimeout(function() {
+				Students.placeFooterToBottom();
+			}, 500);
 		});
 		
         /**
@@ -134,7 +138,9 @@
 			$('#filter-aa_tutors #search-filter').prop('disabled', false);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			setTimeout(function() {
+				Students.placeFooterToBottom();
+			}, 500);
 		});
 		/**
          * Event: Press list items for tutor name
@@ -147,7 +153,9 @@
 			$('#filter-aa_tutors #search-filter').prop('disabled', false);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', false);
 			//	Place footer one more time
-			Students.placeFooterToBottom();
+			setTimeout(function() {
+				Students.placeFooterToBottom();
+			}, 500);
 		});
 		
 	};
@@ -325,7 +333,7 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var display_tutor = (tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
 				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-aa_tutors #filter-tutor-name span').append(html);
 			}.bind(this));
