@@ -66,7 +66,6 @@
 						<select id="calendar_tutor" title="Tutor" style="min-width:150px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" id="calendar_gotodate" class="btn btn-primary" value="Go to Date" title="Go to Date" style="font-weight: bolder;" />
-						<input type="hidden" id="scapegoat" />
 					</h4>
 				</div>
 			</div>
@@ -154,7 +153,7 @@
 		</div>
 	
 		<!-- Select by Tutor Tab -->
-		<div role="tabpanel" class="tab-pane" id="tutor_config">
+		<div role="tabpanel" class="tab-pane fade" id="tutor_config">
 			<div class="container">
 				<div class="wrapper row">
 					<!-- filter tutors -->
@@ -256,7 +255,7 @@
 		</div>
 		
 		<!-- Select by Time Tab -->
-		<div role="tabpanel" class="tab-pane" id="service_type_config">
+		<div role="tabpanel" class="tab-pane fade" id="service_type_config">
 			<div class="container">
 				<div class="wrapper row">
 					<!-- filter service types -->
