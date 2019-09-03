@@ -356,7 +356,7 @@ class Students_model extends CI_Model{
      * 
      * @return boolean   success or not
      */
-    public function new_appointment($user_id, $service_id, $note, $remark){
+    public function new_appointment($user_id, $service_id, $note, $remark, $attachment_url){
 
         //:: Check if this appointment can be booked or not.
 
@@ -388,7 +388,8 @@ class Students_model extends CI_Model{
             'id_users_customer' => $user_id,
             'book_datetime' => $book_datetime,
             'notes' => $note,
-            'remark' => $remark
+            'remark' => $remark,
+            'attachment_url' => $attachment_url
         );
 
         $result = true;

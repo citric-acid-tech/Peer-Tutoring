@@ -243,7 +243,7 @@ class Students_api extends CI_Controller{
         }
     }
 
-    public function do_upload_file(){
+    public function ajax_do_upload_file(){
 
         $config['upload_path'] = './upload';
         $config['allowed_types'] = DOCUMENT_FORMAT;
@@ -254,11 +254,11 @@ class Students_api extends CI_Controller{
         //'userfile' is a from element in the form of the views
         if( ! $this->upload->do_upload('userfile')){
             $error = array('error' => $this->upload->display_errors());
-            //$this->load->view('test/upload_form', $error);
+            return $error;
         }else{
             $data = array('upload_data' => $this->upload->data());
-            //$this->load->view('test/upload_success', $data);
-        }
+            return $data;
+        }  
     }
 }
 ?>
