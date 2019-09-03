@@ -637,7 +637,7 @@ root {
 	/* Default hide */
 	display: none;
 }
-.students-page .popup #cal_edit_popup {
+.students-page .popup #cal_appointment_popup {
 	position: fixed;
 	width: 666px;
 	height: 540px;
