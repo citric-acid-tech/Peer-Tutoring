@@ -201,15 +201,12 @@ class Students_model extends CI_Model{
         $this->db
             ->select('
             ea_services.id                                         AS service_id,
-            ea_services.name                                       AS service_type,
-            ea_services.duration                                   AS duration,
             ea_services.description                                AS description,
             ea_services.capacity                                   AS capacity,
             ea_services.appointments_number                        AS appointments_number,
             ea_services.start_datetime                             AS start_datetime,
             ea_services.end_datetime                               AS end_datetime,
             ea_services.address                                    AS address,
-
             ea_service_categories.name                             AS service_type, 
             ea_service_categories.description                      AS service_type_description,
             
