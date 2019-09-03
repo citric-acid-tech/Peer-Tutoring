@@ -169,18 +169,15 @@ class Students_model extends CI_Model{
     }
 
     /**
-     * Search all the available appointments accoriding to the given tutor name and service type
+     * Search all the available appointments accoriding to the given tutor id
      * 
-     * @param service_type   the service type of the appointment, corresponding to ea_services_categories.name
-     *                       input srting 'ALL' if the user want to select all the service types
-     * 
-     * @param tutor_name     the exactly correct name of tutor
+     * @param tutor_id       the exactly correct id in ea_users of tutor
      *                       input srting 'ALL' if the user want to select all the tutors
      * 
      * @return array         the result array containing the result of the query
      */
-    public function get_available_appointments($service_type, $tutor_name){
-        
+    public function get_available_appointments($tutor_id){
+        // tutor_name
         $MIN_BOOK_AHEAD_MINS = $this->db->select('value')
             ->from('ea_settings')
             ->where('name', 'max_services_checking_ahead_day')
@@ -224,17 +221,11 @@ class Students_model extends CI_Model{
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
             ->where('ea_services.start_datetime < ', $latest_available_start_time)
-            ->where('ea_services.start_datetime > ', $now);
+            ->where('ea_services.start_datetime > ', $now)
+            ->where('ea_users.id', $tutor_id);
             
-            if($tutor_name != 'ALL'){
-                $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
-            }
-            if($service_type != 'ALL'){
-                $this->db->where('ea_service_categories.name', $service_type);
-            }
             
             return $this->db
-                ->order_by('start_datetime', 'ASC')
                 ->get()
                 ->result_array();
     }

@@ -123,11 +123,10 @@ class Students_api extends CI_Controller{
             $this->load->model('students_model');
             
             // Get input
-            $service_type = json_decode($this->input->post('service_type'), TRUE);
-            $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
 
             // Query
-            $result = $this->students_model->get_available_appointments($service_type, $tutor_name);
+            $result = $this->students_model->get_available_appointments($tutor_id);
 
             $this->output
                 ->set_content_type('application/json')
