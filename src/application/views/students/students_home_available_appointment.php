@@ -28,8 +28,6 @@
     };
 
     $(document).ready(function() {
-		//	GlobalVariables.baseUrl
-		//	"< ?= Config::BASE_URL ?>"
 		StudentsAvailableAppointments.initialize(true);
     });
 </script>
@@ -216,30 +214,30 @@
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
 					<!-- Provide a form to send file using CI framework -->
-					<form>
+					<form class="md-form">
 						<div class="popup-title"><h2>Make an Appointment</h2></div>
 						<hr />
 						<ul class="appoint_list">
 							<li>
-								<strong>Service</strong>: <span id="appointment_service_service_type">Learn PHP</span>
+								<strong>Service</strong>: <span id="appointment_service_service_type"></span>
 							</li>
 							<li>
-								<strong>Service Type Description</strong>: <span id="appointment_service_type_description">Learn PHP with full enthusiasm</span>
+								<strong>Service Type Description</strong>: <span id="appointment_service_type_description"></span>
 							</li>
 							<li>
-								<strong>Service Description</strong>: <span id="appointment_service_description">This service is fucking NB!</span>
+								<strong>Service Description</strong>: <span id="appointment_service_description"></span>
 							</li>
 							<li>
-								<strong>Tutor</strong>: <span id="appointment_service_tutor">Mike JJ</span>
+								<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong>Tutor</strong>: <span id="appointment_service_tutor"></span></a>
 							</li>
 							<li>
-								<strong>Capacity</strong>: <span id="appointment_service_appointed">3</span> / <span id="appointment_service_capacity">26</span>
+								<strong>Capacity</strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
 							</li>
 							<li>
-								<strong>Time</strong>: <span id="appointment_service_st">2019-08-15 08:20</span> ~ <span id="appointment_service_et">2019-08-16 22:22</span>
+								<strong>Time</strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
 							</li>
 							<li>
-								<strong>Address</strong>: <span id="appointment_service_address">Joy Highland, SUSTech</span>
+								<strong>Address</strong>: <span id="appointment_service_address"></span>
 							</li>
 						</ul>
 						
@@ -248,23 +246,27 @@
 						<hr />
 						<!-- Remark & Note -->
 						<div class="popup-container">
+							<h4 style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
+							<hr style="width:60%;margin: 20px auto;" />
 							<div style="width:43%;display:inline-block;">
 								<textarea id="appointment_service_remark" type="text" placeholder="Remark" rows="2" title="Remark" style="resize:none;width:100%;"></textarea>
 							</div>
 							<div style="width:43%;display:inline-block;">
 								<textarea id="appointment_service_note" type="text" placeholder="Note" rows="2" title="Note" style="resize:none;width:100%;"></textarea>
 							</div>
+							<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
 						</div>
 						<div class="popup-container">
 							<!-- size: KB -->
-							<input id="appointment_service_attach" type="file" class="filepond" name="filepond" />
+							<input id="appointment_service_attach" type="file" name="attach" class="inputfile" />
+							<label for="appointment_service_attach"><strong><i class="fas fa-upload"></i> &nbsp; Attach a File</strong></label>
 						</div>
 						
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Submit" style="width:40%;">Confirm</button>
-							<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
+							<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Submit">Confirm</button>
+							<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel">Cancel</button>
 						</div>
 					</form>
 				</div>

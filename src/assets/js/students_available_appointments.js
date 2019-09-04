@@ -29,8 +29,6 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 	var firstLoad = false;
 	var selected_tutor_id = '306';
 	var selected_tutor = 'Peter Mcgee';
-
-	var pond;
 	
     /**
      * This method initializes the Students My Appointment page.
@@ -46,18 +44,35 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
         helper.resetForm();
         helper.filter(undefined, undefined, undefined, undefined, 'true');
 		
-		//	Geez, File Pond
-		FilePond.parse(document.body);
-		FilePond.registerPlugin(
-			FilePondPluginFileValidateSize
-		);
-		pond = FilePond.create(
-			document.querySelector('#appointment_service_attach'),
-			{
-				checkValidity: true,
-				maxFileSize: '3MB'
-			}
-		);
+		//	File Input Settings
+		var inputs = $('.inputfile');
+		Array.prototype.forEach.call(inputs, function(input) {
+			var label = input.nextElementSibling;
+			var labelVal = label.innerHTML;
+			input.addEventListener('change', function(e) {
+				var fileName = e.target.value.split('\\').pop();
+				if (fileName) {
+					label.innerHTML = "<strong>" + fileName + "</strong>";
+					$('.inputfile + label').css({
+						"background-color": "snow",
+						"color": "#296d97"
+					});
+				} else {
+					label.innerHTML = labelVal;
+					$('.inputfile + label').css({
+						"background-color": "#296d97",
+						"color": "snow"
+					});
+				}
+			});
+			//	Firefox Bug
+			input.addEventListener('focus', function() {
+				input.classList.add('has-focus');
+			});
+			input.addEventListener('blur', function() {
+				input.classList.remove('has-focus');
+			});
+		});
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -105,7 +120,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				//	Guess what, a large calendar!!!
 				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
 				if (!firstLoad) {
-					helper.pond = pond;
+//					helper.pond = pond;
 					helper.getAllServiceTypes();
 					//	Guess what, a large calendar!!!
 					var calendarEl = document.getElementById('student-full-calendar');
@@ -368,6 +383,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				});
 			},
 			eventClick: function(info) {
+				helper.resetAppointmentPopup();
 				helper.loadAppointmentPopup(info.event);
 				$('.students-page .popup .curtain').fadeIn();
 				$('.students-page .popup #cal_appointment_popup').fadeIn();

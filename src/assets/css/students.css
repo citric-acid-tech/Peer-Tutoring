@@ -646,7 +646,7 @@ root {
 	border-radius: 10px;
 	position: fixed;
 	width: 666px;
-	height: 631px;
+	height: 750px;
 	
 	left: 50%;
 	top: 50%;
@@ -688,32 +688,45 @@ root {
 	width: 520px;
 	overflow-wrap: break-word;
 }
-.students-page .popup form textarea {
+.students-page .popup textarea {
 	width: 100%;
-	padding: 16px;
+	padding: 10px;
 	font-size: 16px;
 	color:  #76838f;
 	transition: all 0.2s;
 }
-.students-page .popup form textarea:hover, .students-page .popup form textarea:focus {
+::-webkit-input-placeholder {
+	text-align: center;
+}
+:-moz-input-placeholder {
+	text-align: center;
+}
+::-moz-input-placeholder {
+	text-align: center;
+}
+:-ms-input-placeholder{
+	text-align: center;
+}
+.students-page .popup textarea:hover, .students-page .popup textarea:focus {
 	border: 3px solid rgb(41, 109, 151, 0.7);
 }
-.students-page .popup form .popup_buttons {
+.students-page .popup .popup_buttons {
 	background-color: #296d97;
 	border: none;
-	width: 43%;
+	width: 42%;
 	height: 45px;
 	line-height: 45px;
 	color: white;
 	cursor: pointer;
 	font-size: 16px;
 	font-weight: bold;
-	margin: 10px 0;
+	margin: 10px 10px;
+	border-radius: 5px;
 }
-.students-page .popup form .popup_buttons:hover {
+.students-page .popup .popup_buttons:hover {
 	opacity: 0.7;
 }
-.students-page .popup form hr {
+.students-page .popup hr {
 	margin: 16px;
 }
 .students-page .gg {
@@ -729,7 +742,46 @@ root {
 
 
 
-
+/* File Input Implementation */
+/* Hide the input */
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+/* Style the label as a real button */
+.inputfile + label {
+	font-size: 1.25em;
+	font-weight: bolder;
+	padding: 5px 10px;
+	margin: 5px auto;
+	width: 88%;
+	color: white;
+	background-color: #296d97;
+	display: inline-block;
+	transition: all 0.2s;
+	border-radius: 5px;
+}
+.inputfile + label {
+	cursor: pointer;
+}
+.inputfile:focus + label, .inputfile.has-focus + label, .inputfile + label:hover {
+	opacity: 0.8;
+}
+/* Keyboard Navigation & Focus Indication */
+.inputfile:focus + label, .inputfile.has-focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+/* No events inside the styling label */
+.inputfile + label * {
+	pointer-events: none;
+}
+/* Firefox Bug is fixed above by introducing a new class .has-focus */
+/* File Input Implementation */
 
 
 
@@ -756,6 +808,12 @@ root {
 	}
 	.fc-left, .fc-center, .fc-right {
 		margin: 10px auto;
+	}
+	#calendar_semester, #calendar_week_number, #calendar_tutor, #calendar_gotodate,
+	#sel_tutor_by_name, #sel_tutor_by_time {
+		display: block;
+		margin: 3px auto;
+		text-align-last: center;
 	}
 }
 /* CALENDAR: HEADER */
@@ -788,11 +846,7 @@ root {
 
 /* CALENDAR: HEADER */
 @media (max-width: 750px) {
-	#calendar_semester, #calendar_week_number, #calendar_tutor, #calendar_gotodate {
-		display: block;
-		margin: 3px auto;
-		text-align-last: center;
-	}
+	
 }
 /* CALENDAR: HEADER */
 
