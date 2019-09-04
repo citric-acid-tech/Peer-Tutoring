@@ -257,10 +257,10 @@ class Students_api extends CI_Controller{
             $this->load->model('students_model');
 
             // Get input
-            $service_id = json_decode($this->input->post('service_id'), TRUE);
+//            $service_id = json_decode($this->input->post('service_id'), TRUE);
             $user_id = $this->session->user_data('user_id');
             
-            $result = $this->students_model->upload_file($user_id, $service_id);
+            $result = $this->students_model->upload_file($user_id, 0);
             // result : array
             //     result : FALSE         OR  TRUE
             //     msg    : error message OR  attachment_url

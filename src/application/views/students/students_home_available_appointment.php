@@ -140,7 +140,7 @@
 		</div>
 		
 		<!-- Select by Time Tab -->
-		<div role="tabpanel" class="tab-pane" id="select-by-time-tab">
+		<div role="tabpanel" class="tab-pane fade" id="select-by-time-tab">
 			<div class="container">
 				<div class="wrapper row">
 					<div class="col-xs-12 col-sm-12 col-md-4 center-text calendar-block">
@@ -185,7 +185,7 @@
 		</div>
 		
 		<!-- Check Available Time in Calendar Tab -->
-		<div role="tabpanel" class="tab-pane" id="check-available-time-in-calendar">
+		<div role="tabpanel" class="tab-pane fade" id="check-available-time-in-calendar">
 			<!-- toolbar -->
 			<div class="container calendar_upper_header" style="text-align:center;">
 				<div class="col-xs-12">
@@ -213,66 +213,65 @@
 			<div class="popup">
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
-					<!-- Provide a form to send file using CI framework -->
-					<form>
-						<div class="popup-title"><h2>Make an Appointment</h2></div>
-						<hr />
-						<ul class="appoint_list">
-							<li>
-								<strong>Service</strong>: <span id="appointment_service_service_type"></span>
-							</li>
-							<li>
-								<strong>Service Type Description</strong>: <span id="appointment_service_type_description"></span>
-							</li>
-							<li>
-								<strong>Service Description</strong>: <span id="appointment_service_description"></span>
-							</li>
-							<li>
-								<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong>Tutor</strong>: <span id="appointment_service_tutor"></span></a>
-							</li>
-							<li>
-								<strong>Capacity</strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
-							</li>
-							<li>
-								<strong>Time</strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
-							</li>
-							<li>
-								<strong>Address</strong>: <span id="appointment_service_address"></span>
-							</li>
-						</ul>
-						
-						<input id="appointment_service_id" type="hidden" />
-						
-						<hr />
-						<!-- Remark & Note -->
-						<div class="popup-container">
-							<h4 style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
-							<hr style="width:60%;margin: 20px auto;" />
-							<div style="width:43%;display:inline-block;">
-								<textarea id="appointment_service_remark" type="text" placeholder="Remark" rows="2" title="Remark" style="resize:none;width:100%;"></textarea>
-							</div>
-							<div style="width:43%;display:inline-block;">
-								<textarea id="appointment_service_note" type="text" placeholder="Note" rows="2" title="Note" style="resize:none;width:100%;"></textarea>
-							</div>
-							<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
+					<div class="popup-title"><h2>Make an Appointment</h2></div>
+					<hr />
+					<ul class="appoint_list">
+						<li>
+							<strong>Service</strong>: <span id="appointment_service_service_type"></span>
+						</li>
+						<li>
+							<strong>Service Type Description</strong>: <span id="appointment_service_type_description"></span>
+						</li>
+						<li>
+							<strong>Service Description</strong>: <span id="appointment_service_description"></span>
+						</li>
+						<li>
+							<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong>Tutor</strong>: <span id="appointment_service_tutor"></span></a>
+						</li>
+						<li>
+							<strong>Capacity</strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
+						</li>
+						<li>
+							<strong>Time</strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
+						</li>
+						<li>
+							<strong>Address</strong>: <span id="appointment_service_address"></span>
+						</li>
+					</ul>
+					
+					<input id="appointment_service_id" type="hidden" />
+					
+					<hr />
+					<!-- Remark & Note -->
+					<div class="popup-container">
+						<h4 style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
+						<hr style="width:60%;margin: 20px auto;" />
+						<div style="width:43%;display:inline-block;">
+							<textarea id="appointment_service_remark" type="text" placeholder="Remark" rows="2" title="Remark" style="resize:none;width:100%;"></textarea>
 						</div>
-						<div class="popup-container">
-							<?php echo form_open_multipart('students_api/do_upload');?>
-							<!-- size: KB -->
-							<!-- i class="fas fa-upload"></i -->
-							<input id="appointment_service_attach" type="file" name="attach" class="inputfile" size="3MB" />
-							<label for="appointment_service_attach"><strong>Attach a File</strong></label>
-							<input type="submit" class="popup_buttons" value="Upload" />
-							</form>
+						<div style="width:43%;display:inline-block;">
+							<textarea id="appointment_service_note" type="text" placeholder="Note" rows="2" title="Note" style="resize:none;width:100%;"></textarea>
 						</div>
-						
-						<hr />
-						<!-- Buttons -->
-						<div class="popup-container">
-							<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Submit">Confirm</button>
-							<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel">Cancel</button>
-						</div>
-					</form>
+						<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
+					</div>
+					<div class="popup-container">
+						<!-- ?php echo form_open_multipart('students_api/do_upload');? -->
+						<form action="http://localhost/Peer-Tutoring/src/index.php/students_api/do_upload" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+						<input type="hidden" name="csrfToken" />
+						<!-- size: KB -->
+						<!-- i class="fas fa-upload"></i -->
+						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" size="3MB" />
+						<label for="appointment_service_attach"><strong>Attach a File</strong></label>
+						<input type="submit" class="popup_buttons" value="Upload" />
+						</form>
+					</div>
+					
+					<hr />
+					<!-- Buttons -->
+					<div class="popup-container">
+						<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Submit">Confirm</button>
+						<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel">Cancel</button>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -74,6 +74,14 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			});
 		});
 		
+		//	Prevent Calendar from being clicked in the main page
+		$('.students-page .disabled').click(function(e) {
+//			e.preventDefault();
+//			return false;
+		});
+		
+		$("input[name='csrfToken']").prop('value', GlobalVariables.csrfToken);
+		
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }

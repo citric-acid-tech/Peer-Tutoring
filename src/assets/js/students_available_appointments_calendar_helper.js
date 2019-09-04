@@ -52,14 +52,14 @@
    		 * Event: Check by tutor clicked
    		 */
 		$('.students-page #sel_tutor_by_name').click(function() {
-			alert('Check Tutor by Name');
+			$("a[data-toggle='tab'][href='#select-by-tutor-tab']").tab('show');
 		});
 		
    		/**
    		 * Event: Check by tutor clicked
    		 */
 		$('.students-page #sel_tutor_by_time').click(function() {
-			alert('Check Tutor by Time');
+			$("a[data-toggle='tab'][href='#select-by-time-tab']").tab('show');
 		});
 		
 	};
