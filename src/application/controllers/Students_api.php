@@ -223,21 +223,19 @@ class Students_api extends CI_Controller{
             $remark = json_decode($this->input->post('remark'), TRUE);
             $file = $_FILES['file'];
             
-
             $user_id = $this->session->userdata('user_id');
-            
 
             // Upload File? TODO
             
             // Query
             if ($this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file) !== FALSE){
                 $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode('success'));
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode('success'));
             }else{
                 $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode('fail'));
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode('fail'));
             }
 
         }catch (Exception $exc){

@@ -378,6 +378,7 @@ class Students_model extends CI_Model{
         
         //// This appointment can not be booked since the volumn is limited.
         if($number['capacity'] == $number['num']){
+            unlink($attachment_url);
             return FALSE;
         }
 
@@ -386,7 +387,6 @@ class Students_model extends CI_Model{
         //// Insert the appointment into database
 
         $book_datetime = $this->db->select('NOW()')->get()->row_array()['NOW()'];
-
 
         $data = array(
             'id_services' => $service_id,
@@ -397,7 +397,7 @@ class Students_model extends CI_Model{
             'attachment_url' => $attachment_url
         );
 
-        $result = true;
+        $result = TRUE;
         if($this->db->insert('ea_appointments',$data)){
             //// Increase the number of appointment of the relating service
             $insert_id = $this->db->insert_id();
@@ -407,6 +407,7 @@ class Students_model extends CI_Model{
             $this->db->update('ea_services');
             $result = $insert_id;
         }else{
+            unlink($attachment_url);
             $result = FALSE;
         }
 
@@ -416,7 +417,10 @@ class Students_model extends CI_Model{
     }
 
     public function upload_file($user_id, $service_id, $file){
-        $data = $this->upload->data();
+
+        if(is_null($file)){
+            return FALSE;
+        }
 
         $hash_id = $this->db
             ->select('ea_users.cas_hash_id AS hash')
