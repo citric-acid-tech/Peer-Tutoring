@@ -170,11 +170,18 @@
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: function(data) {
-				console.log("success: " + JSON.stringify(data));
+			success: function(response) {
+				console.log("success: " + JSON.stringify(response));
+				if (response === 'success') {
+					Admin.displayNotification("Appointment Submitted.", undefined, "success");
+				} else if (response === 'fail') {
+					Admin.displayNotification("Failure: Appointment failed.", undefined, "failure");
+				} else {
+					Admin.displayNotification("Something went wrong on applying appointments");
+				}
 			},
-			error: function(data) {
-				console.log("error: " + JSON.stringify(data));
+			error: function(e) {
+				console.log("error: " + JSON.stringify(e));
 			}
 		});
 		

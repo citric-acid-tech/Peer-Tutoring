@@ -27,8 +27,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 	var calendar;
 	//	Rendered First?
 	var firstLoad = false;
-	var selected_tutor_id = '306';
-	var selected_tutor = 'Peter Mcgee';
+	var selected_tutor_id;
+	var selected_tutor;
 	
     /**
      * This method initializes the Students My Appointment page.
@@ -76,6 +76,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 		
 		//	Prevent Calendar from being clicked in the main page
 		$('.students-page .disabled').click(function(e) {
+			Students.displayNotification("Please select a tutor in the first two tabs~", undefined, "failure");
 			e.preventDefault();
 			return false;
 		});
