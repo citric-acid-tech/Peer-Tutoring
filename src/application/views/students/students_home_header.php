@@ -22,6 +22,8 @@
 	<!-- Full Calendar: Interaction has no css -->
 	<!-- Full Calendar: RRule has no css -->
 	<!-- Full Calendar: Locale has no css -->
+	<!-- File Pond -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/filepond/filepond-master/dist/filepond.min.css', NULL, 'css') ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/students.css', NULL, 'css') ?>" />
@@ -44,6 +46,9 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/interaction/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/rrule/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/core/locales-all.min.js', NULL, 'js') ?>"></script>
+	<!-- File Pond -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/filepond/filepond-master/dist/filepond.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/filepond/filepond-master/dist/filepond-plugin-file-validate-size.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

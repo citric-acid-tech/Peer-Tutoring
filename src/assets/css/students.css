@@ -487,7 +487,12 @@ root {
 	color: snow;
 }
 
-
+.students-page .nav-tabs>li.active>a#check-calendar-tabnav, .students-page .nav-tabs>li.active>a#check-calendar-tabnav:focus {
+	background-color: rgba(173, 90, 173, 0.8);
+	border: none;
+	color: snow;
+	font-weight: bolder;
+}
 
 
 
@@ -638,28 +643,33 @@ root {
 	display: none;
 }
 .students-page .popup #cal_appointment_popup {
+	border-radius: 10px;
 	position: fixed;
 	width: 666px;
-	height: 540px;
+	height: 631px;
 	
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	
 	box-sizing: border-box;
-	background-color: #e6e6e6;
+	background-color: white;
 	z-index: 1000;
 	
 	/* Default hide */
 	display: none;
 }
 .students-page .popup .popup-title h2 {
+	border-radius: 10px 10px 0 0;
 	user-select: none;
-	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
+	font-weight: bolder;
 	letter-spacing: 1px;
-	text-align: center;
-	color: #296d97;
-	margin: 26px 0;
+	text-align: left;
+	background-color: #296d97;
+	color: snow;
+	margin: 0;
+	padding: 20px 25px;
+	font-size: 30px;
 }
 .students-page .popup .popup-container {
 	width: 100%;
@@ -667,36 +677,29 @@ root {
 	margin: 5px 0 0;
 	text-align: center;
 }
+.students-page .popup .appoint_list {
+	width: 90%;
+	box-sizing: border-box;
+	margin: 5px 26px;
+	font-size: 18px;
+}
+.students-page .popup .appoint_list li {
+	list-style-type: square;
+	width: 520px;
+	overflow-wrap: break-word;
+}
 .students-page .popup form textarea {
-	display: inline-block;
-	box-sizing: border-box;
-	width: 86%;
+	width: 100%;
 	padding: 16px;
-	margin: 0 auto;
-	font-size: 14px;
-	outline: none;
+	font-size: 16px;
 	color:  #76838f;
 	transition: all 0.2s;
 }
-.students-page .popup form input, .students-page .popup form select {
-	border: 1px solid white;
-	display: inline-block;
-	box-sizing: border-box;
-	width: 86%;
-	height: 46px;
-	padding-left: 10px;
-	margin: 5px auto;
-	font-size: 14px;
-	outline: none;
-	color:  #76838f;
-	transition: all 0.2s;
-}
-.students-page .popup form input:hover, .students-page .popup form select:hover, .students-page .popup form textarea:hover {
-	outline: none;
-	border: 1px solid #62a8ea;
+.students-page .popup form textarea:hover, .students-page .popup form textarea:focus {
+	border: 3px solid rgb(41, 109, 151, 0.7);
 }
 .students-page .popup form .popup_buttons {
-	background-color: #62a8ea;
+	background-color: #296d97;
 	border: none;
 	width: 43%;
 	height: 45px;

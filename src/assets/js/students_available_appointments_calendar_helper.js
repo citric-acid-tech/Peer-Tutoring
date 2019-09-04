@@ -12,6 +12,7 @@
     function StudentsAvailableAppointmentsCalendarHelper() {
         this.filterResults = {};
 		this.calendar = undefined;
+		this.pond = undefined;
     }
 
     /**
@@ -43,7 +44,7 @@
 			$('.students-page .popup #cal_appointment_popup').fadeOut();
 			//	Clear inputs!
 			setTimeout(function() {
-				instance.resetAppointmentPopup();
+//				instance.resetAppointmentPopup();
 			}, 200);
 		});
 		

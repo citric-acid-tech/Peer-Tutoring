@@ -26,8 +26,12 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 	
 	var calendar;
 	//	Rendered First?
-	var calendarIsRendered = false;
+	var firstLoad = false;
+	var selected_tutor_id = '306';
+	var selected_tutor = 'Peter Mcgee';
 
+	var pond;
+	
     /**
      * This method initializes the Students My Appointment page.
      *
@@ -41,7 +45,20 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
         helper = studentsAvailableAppointmentsTutorHelper;
         helper.resetForm();
         helper.filter(undefined, undefined, undefined, undefined, 'true');
-
+		
+		//	Geez, File Pond
+		FilePond.parse(document.body);
+		FilePond.registerPlugin(
+			FilePondPluginFileValidateSize
+		);
+		pond = FilePond.create(
+			document.querySelector('#appointment_service_attach'),
+			{
+				checkValidity: true,
+				maxFileSize: '3MB'
+			}
+		);
+		
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
@@ -87,7 +104,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				helper = studentsAvailableAppointmentsCalendarHelper;
 				//	Guess what, a large calendar!!!
 				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
-				if (!calendarIsRendered) {
+				if (!firstLoad) {
+					helper.pond = pond;
 					helper.getAllServiceTypes();
 					//	Guess what, a large calendar!!!
 					var calendarEl = document.getElementById('student-full-calendar');
@@ -97,13 +115,9 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 						case "简体中文": calendar.setOption('locale', Students.CALENDAR_LOCALES_ZH_CN); break;
 						default: calendar.setOption('locale', Students.CALENDAR_LOCALES_ENGLISH);
 					}
-					//	Media Queries
-					var mql = window.matchMedia("screen and (max-width: 1100px)");
-					mediaQueryResponse(mql);
-					mql.addListener(mediaQueryResponse);
 					helper.calendar = calendar;
 					calendar.render();
-					calendarIsRendered = true;
+					firstLoad = true;
 				}
 			} else {
 				alert("What have you pressed, my friend??");
@@ -193,8 +207,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			firstDay: 1,
 			//	Define the placement of the header
 			header: {
-				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
-				center: 'title',	// put title in the center
+				left: 'title',	// put title in the first line
+				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
 				right: 'prev,today,next'	// buttons for locating a date
 			},
 			//	View Rendering Callbacks
@@ -279,92 +293,79 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			nowIndicator: true,	//	Go to current time position
 			//	Add some test events
 			events: function(fetchInfo, successCallback, failureCallback) {
-//				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
-//				var tutor_id = $('.admin-page select#calendar_tutor option:selected').val();
-//				if (weekNumAndSem === false) {successCallback([]);}
-//				else if (weekNumAndSem.weekNumber === '-1') {
-//					$("select#calendar_semester option[value='Out of Semester']").prop('selected', true);
-//					$('#calendar_week_number').css('display', 'none');
-//					$('#calendar_tutor').css('display', 'none');
-//					successCallback([]);
-//				} else {
-//					//	From "Out of Semester"
-//					if ($('#calendar_week_number').css('display') === 'none' && $('#calendar_tutor').css('display') === 'none') {
-//						//	Re-calculate
-//						var sem_info = GlobalVariables.semester_json;
-//						var year = weekNumAndSem.year;
-//						var season = weekNumAndSem.season;
-//						var last_weeks = parseInt(sem_info[year][season].last_weeks);
-//						$('#calendar_week_number').html('');
-//						for (var i = 1; i <= last_weeks; ++i) {
-//							var html = "<option value='" + i + "'>Week " + i + "</option>";
-//							$('#calendar_week_number').append(html);
-//						}
-//						$('#calendar_week_number').css('display', 'inline-block');
-//						$('#calendar_tutor').css('display', 'inline-block');
-//					}
-//					$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
-//					$("select#calendar_week_number option[value='" + weekNumAndSem.weekNumber + "']").prop('selected', true);
-//					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
-//        			var postData = {
-//        			    csrfToken: 	GlobalVariables.csrfToken,
-//						tutor_id:	JSON.stringify((tutor_id === undefined || tutor_id === '-1') ? 'ALL' : tutor_id),
-//						semester: 	JSON.stringify(weekNumAndSem.semester),
-//						week: 		JSON.stringify(weekNumAndSem.weekNumber)
-//        			};
-//        			$.post(postUrl, postData, function (response) {
-//        			    if (!GeneralFunctions.handleAjaxExceptions(response)) {
-//        			        return;
-//        			    }
-//						
-//						var results = [];
-//						$.each(response, function(index, service) {
-//							var eve  = {
-//								id: service.id,
-//								title: service.service_type,
-//								start: service.start_datetime,
-//								end: service.end_datetime,
-//								extendedProps: {
-//									tutor_id: service.tutor_id,
-//									tutor: service.tutor_name,
-//									capacity: service.capacity,
-//									address: service.address,
-//									description: service.service_description,
-//									service_type_id: service.service_type_id
-//								}
-//							};
-//							results.push(eve);
-//						});
-//						successCallback(results);
-//        			}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-//				}
+				var weekNumAndSem = GeneralFunctions.getSemAndWeeks(fetchInfo.start);
+				var tutor_id = selected_tutor_id;
+				var tutor = selected_tutor;
+				if (weekNumAndSem === false) {successCallback([]);}
+				else if (weekNumAndSem.weekNumber === '-1') {
+					$("span#calendar_semester").html("Out of Semester");
+					$('#calendar_week_number').css('display', 'none');
+					$('#calendar_tutor').css('display', 'none');
+					successCallback([]);
+				} else {
+					//	From "Out of Semester"
+					if ($('#calendar_week_number').css('display') === 'none' && $('#calendar_tutor').css('display') === 'none') {
+						$('#calendar_week_number').css('display', 'inline-block');
+						$('#calendar_tutor').css('display', 'inline-block');
+					}
+					$("span#calendar_semester").html(weekNumAndSem.semester);
+					$('span#calendar_week_number').html("Week " + weekNumAndSem.weekNumber);
+					$('.students-page span#calendar_tutor').html(tutor);
+					var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_available_appointments';
+        			var postData = {
+        			    csrfToken: 	GlobalVariables.csrfToken,
+						tutor_id:	JSON.stringify(tutor_id)
+        			};
+        			$.post(postUrl, postData, function (response) {
+        			    if (!GeneralFunctions.handleAjaxExceptions(response)) {
+        			        return;
+        			    }
+						
+						var results = [];
+						$.each(response, function(index, service) {
+							var eve  = {
+								id: service.id,
+								title: service.service_type,
+								start: service.start_datetime,
+								end: service.end_datetime,
+								extendedProps: {
+									service_description: service.description,
+									address: service.address,
+									service_type_description: service.service_type_description,
+									tutor: service.tutor_name,
+									tutor_page: service.personal_page,
+									capacity: service.capacity,
+									appointed: service.appointments_number
+								}
+							};
+							results.push(eve);
+						});
+						successCallback(results);
+        			}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+				}
 			},
 			eventRender: function(info) {
-//				var hover_message = info.event.title + " - " + info.event.extendedProps.tutor;
-//				var el = $(info.el);
-//				el.prop('title', hover_message);
-//				el.qtip({
-//					position: {
-//						my: 'bottom center',
-//						at: 'top center'
-//					},
-//					style: {
-//						classes: 'qtip-green qtip-shadow custom-qtip'
-//					}
-//				});
-//				//	CSS
-//				el.css({
-//
-//					'cursor': 'pointer',
-//					'transition': 'all 0.2s'
-//				});
-//				if (!info.isMirror) {
-//					el.hover(function() {
-//						el.toggleClass('service_hover');
-//					});
-//				} else {
-//					el.css('background-color', '#35b66f');
-//				}
+				var hover_message = info.event.title + " - " + info.event.extendedProps.tutor;
+				var el = $(info.el);
+				el.prop('title', hover_message);
+				el.qtip({
+					position: {
+						my: 'bottom center',
+						at: 'top center'
+					},
+					style: {
+						classes: 'qtip-green qtip-shadow custom-qtip'
+					}
+				});
+				//	CSS
+				el.css({
+
+					'cursor': 'pointer',
+					'transition': 'all 0.2s'
+				});
+				el.hover(function() {
+					el.toggleClass('service_hover');
+				});
 			},
 			eventClick: function(info) {
 				helper.loadAppointmentPopup(info.event);
@@ -380,26 +381,5 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 		});
 		return calendar;
 	};
-	
-    /**
-     * Media Queries
-     */
-	function mediaQueryResponse(mql) {
-		if (mql.matches) {
-			calendar.setOption('header', {
-				left: 'title',	// put title in the first line
-				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
-				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
-			});
-			return true;
-		} else {
-			calendar.setOption('header', {
-				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
-				center: 'title',	// put title in the center
-				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
-			});
-			return false;
-		}
-	}
 
 })(window.StudentsAvailableAppointments);

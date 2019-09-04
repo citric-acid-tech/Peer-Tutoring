@@ -23,10 +23,13 @@
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
-		curLanguage        : <?= json_encode($language) ?>
+		curLanguage        : <?= json_encode($language) ?>,
+		semester_json      : <?= $semester_json ?>
     };
 
     $(document).ready(function() {
+		//	GlobalVariables.baseUrl
+		//	"< ?= Config::BASE_URL ?>"
 		StudentsAvailableAppointments.initialize(true);
     });
 </script>
@@ -44,7 +47,7 @@
 				<?= lang('select_by_time_tab') ?>
 			</a>
 		</li>
-		<li role="presentation">
+		<li role="presentation" class="disabled">
 			<a id="check-calendar-tabnav" href="#check-available-time-in-calendar" aria-controls="check-available-time-in-calendar" role="tab" data-toggle="tab">
 				<?= lang('calendar') ?>
 			</a>
@@ -194,6 +197,16 @@
 						<span id="calendar_week_number" style="min-width:150px;"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="calendar_tutor" style="min-width:150px;"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button id="sel_tutor_by_name" class="btn btn-primary">
+						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
+						    Select Tutor by Name
+						</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button id="sel_tutor_by_time" class="btn btn-primary">
+						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
+						    Select Tutor by Time
+						</button>
 					</h4>
 				</div>
 			</div>
@@ -202,34 +215,55 @@
 			<div class="popup">
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
+					<!-- Provide a form to send file using CI framework -->
 					<form>
 						<div class="popup-title"><h2>Make an Appointment</h2></div>
 						<hr />
+						<ul class="appoint_list">
+							<li>
+								<strong>Service</strong>: <span id="appointment_service_service_type">Learn PHP</span>
+							</li>
+							<li>
+								<strong>Service Type Description</strong>: <span id="appointment_service_type_description">Learn PHP with full enthusiasm</span>
+							</li>
+							<li>
+								<strong>Service Description</strong>: <span id="appointment_service_description">This service is fucking NB!</span>
+							</li>
+							<li>
+								<strong>Tutor</strong>: <span id="appointment_service_tutor">Mike JJ</span>
+							</li>
+							<li>
+								<strong>Capacity</strong>: <span id="appointment_service_appointed">3</span> / <span id="appointment_service_capacity">26</span>
+							</li>
+							<li>
+								<strong>Time</strong>: <span id="appointment_service_st">2019-08-15 08:20</span> ~ <span id="appointment_service_et">2019-08-16 22:22</span>
+							</li>
+							<li>
+								<strong>Address</strong>: <span id="appointment_service_address">Joy Highland, SUSTech</span>
+							</li>
+						</ul>
+						
 						<input id="appointment_service_id" type="hidden" />
+						
+						<hr />
+						<!-- Remark & Note -->
 						<div class="popup-container">
-							<select id="appointment_service_service_type" title="Service Type *" style="height:28px;width:27%;"></select>
-							&nbsp;&nbsp;
-							<input id="appointment_service_date" type="text" placeholder="Date *" title="Date *" style="height:28px;width:16%" readonly />
-							&nbsp;<strong>-</strong>&nbsp;
-							<input id="appointment_service_st" type="time" style="width:18%;height:28px;" readonly />
-							<strong>~</strong>
-							<input id="appointment_service_et" type="time" style="width:18%;height:28px;" readonly />
+							<div style="width:43%;display:inline-block;">
+								<textarea id="appointment_service_remark" type="text" placeholder="Remark" rows="2" title="Remark" style="resize:none;width:100%;"></textarea>
+							</div>
+							<div style="width:43%;display:inline-block;">
+								<textarea id="appointment_service_note" type="text" placeholder="Note" rows="2" title="Note" style="resize:none;width:100%;"></textarea>
+							</div>
 						</div>
 						<div class="popup-container">
-							<select id="appointment_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
-							&nbsp;&nbsp;
-							<input id="appointment_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:42%;" />
+							<!-- size: KB -->
+							<input id="appointment_service_attach" type="file" class="filepond" name="filepond" />
 						</div>
-						<div class="popup-container">
-							<textarea id="appointment_service_description" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
-						</div>
-						<div class="popup-container">
-							<textarea id="appointment_service_address" type="text" placeholder="Address *" rows="2" title="Address *" style="resize:none;"></textarea>
-						</div>
+						
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Confirm" style="width:40%;">Confirm</button>
+							<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Submit" style="width:40%;">Confirm</button>
 							<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
 						</div>
 					</form>

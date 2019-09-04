@@ -388,44 +388,49 @@ root {
 	display: none;
 }
 .admin-page .popup #cal_edit_popup {
+	border-radius: 10px;
 	position: fixed;
 	width: 666px;
-	height: 540px;
+	height: 520px;
 	
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	
 	box-sizing: border-box;
-	background-color: #e6e6e6;
+	background-color: white;
 	z-index: 1000;
 	
 	/* Default hide */
 	display: none;
 }
 .admin-page .popup #cal_add_popup {
+	border-radius: 10px;
 	position: fixed;
 	width: 666px;
-	height: 540px;
+	height: 520px;
 	
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	
 	box-sizing: border-box;
-	background-color: #e6e6e6;
+	background-color: white;
 	z-index: 1000;
 	
 	/* Default hide */
 	display: none;
 }
 .admin-page .popup .popup-title h2 {
+	border-radius: 10px 10px 0 0;
 	user-select: none;
-	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
 	letter-spacing: 1px;
-	text-align: center;
-	color: #296d97;
-	margin: 26px 0;
+	text-align: left;
+	background-color: #296d97;
+	color: snow;
+	margin: 0;
+	padding: 20px 25px;
+	font-size: 30px;
 }
 .admin-page .popup .popup-container {
 	width: 100%;
@@ -462,7 +467,7 @@ root {
 	border: 1px solid #62a8ea;
 }
 .admin-page .popup form .popup_buttons {
-	background-color: #62a8ea;
+	background-color: #296d97;
 	border: none;
 	width: 43%;
 	height: 45px;

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilePond Demo</title>
+    <link href="./dist/filepond.css" rel="stylesheet">
+</head>
+<body>
+
+    <input type="file"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/filepond-polyfill"></script>
+    <script src="./dist/filepond.js"></script>
+    
+    <script>
+        // Get a reference to the file input element
+        var inputElement = document.querySelector('input[type="file"]');
+
+        // Create the FilePond instance
+        var pond = FilePond.create(inputElement);
+    </script>
+
+</body>
+</html>

@@ -101,7 +101,7 @@
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_edit_delete" type="button" class="popup_buttons" value="Delete This Service" style="width:6%;background-color: mediumvioletred"><i class="fas fa-trash-alt"></i></button>
+							<button id="popup_edit_delete" type="button" class="popup_buttons" value="Delete This Service" style="width:6%;background-color: rgba(255, 0, 0, 0.75);"><i class="fas fa-trash-alt"></i></button>
 							<button id="popup_edit_confirm" type="button" class="popup_buttons" value="Confirm" style="width:40%;">Confirm</button>
 							<button id="popup_edit_cancel" type="button" class="popup_buttons" value="Cancel" style="width:40%;">Cancel</button>
 						</div>
