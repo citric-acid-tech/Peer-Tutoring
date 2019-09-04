@@ -182,6 +182,7 @@
 			},
 			error: function(e) {
 				console.log("error: " + JSON.stringify(e));
+				Admin.displayNotification("Error: Something went wrong on applying appointments");
 			}
 		});
 		
