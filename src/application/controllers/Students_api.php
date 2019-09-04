@@ -222,7 +222,7 @@ class Students_api extends CI_Controller{
             $note = json_decode($this->input->post('note'), TRUE);
             $remark = json_decode($this->input->post('remark'), TRUE);
             $file = $_FILES['file'];
-            $filePath = $file['tmp_name'];
+            
 
             $user_id = $this->session->user_data('user_id');
                       

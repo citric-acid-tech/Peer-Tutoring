@@ -360,7 +360,7 @@ class Students_model extends CI_Model{
 
         //:: Check if this appointment can be booked or not.
         $attachment_url = $this->upload_file($user_id, $service_id, $file);
-        
+
         if($attachment_url === FALSE){
             return FALSE;
         }
@@ -425,7 +425,7 @@ class Students_model extends CI_Model{
             ->row_array()['hash'];
         
         $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id;
-        $file_tmp_path = DOCUMENT_SAVED_PATH . $file['tmp_name'];
+        $file_tmp_path = $file['tmp_name'];
 
         $result = move_uploaded_file($file_tmp_path, $file_target_path);
 
