@@ -173,16 +173,16 @@
 			success: function(response) {
 				console.log("success: " + JSON.stringify(response));
 				if (response === 'success') {
-					Admin.displayNotification("Appointment Submitted.", undefined, "success");
+					Students.displayNotification("Appointment Submitted.", undefined, "success");
 				} else if (response === 'fail') {
-					Admin.displayNotification("Failure: Appointment failed.", undefined, "failure");
+					Students.displayNotification("Failure: Appointment failed.", undefined, "failure");
 				} else {
-					Admin.displayNotification("Something went wrong on applying appointments");
+					Students.displayNotification("Something went wrong on applying appointments");
 				}
 			},
 			error: function(e) {
 				console.log("error: " + JSON.stringify(e));
-				Admin.displayNotification("Error: Something went wrong on applying appointments");
+				Students.displayNotification("Error: Something went wrong on applying appointments");
 			}
 		});
 		
