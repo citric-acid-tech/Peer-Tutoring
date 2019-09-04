@@ -11,6 +11,8 @@
      */
     function StudentsAvailableAppointmentsTutorHelper() {
         this.filterResults = {};
+		this.selected_tutor_id = undefined;
+		this.selected_tutor = undefined;
     }
 
     /**
@@ -81,7 +83,9 @@
          */
 		$('.students-page #check-available-time-tutor').click(function() {
 			//	Jump to 'calendar' tab
-			alert("Jump to 'calendar' tab");
+			instance.selected_tutor_id = $('#tutor-id').val();
+			instance.selected_tutor = $('#tutor_name').val();
+			$("a[data-toggle='tab'][href='#check-available-time-in-calendar']").tab('show');
 		});
 		
         /**
@@ -232,7 +236,7 @@
 			
 			//	Clear former results
             $('#filter-aa_tutors .results').html('');
-			
+				
 			//	Iterate through all appointments, generate htmls for them and
 			//	add them to the results
             $.each(response, function (index, tutor) {

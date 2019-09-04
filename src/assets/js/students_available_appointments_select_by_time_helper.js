@@ -11,6 +11,8 @@
      */
     function StudentsAvailableAppointmentsTimeHelper() {
         this.filterResults = {};
+		this.selected_tutor_id = undefined;
+		this.selected_tutor = undefined;
     }
 
     /**
@@ -37,7 +39,9 @@
          */
 		$('.students-page #check-available-time-time').click(function() {
 			//	Jump to 'calendar' tab
-			alert("Jump to 'calendar' tab");
+			instance.selected_tutor_id = $('.available-tutors-at-time .entry.selected').attr('data-id');
+			instance.selected_tutor = $('.available-tutors-at-time .entry.selected strong').html();
+			$("a[data-toggle='tab'][href='#check-available-time-in-calendar']").tab('show');
 		});
 	};
 
@@ -107,7 +111,7 @@
 		var line3 = "Earliest service starts on " + earliest_start_datetime;
 			
         var html =
-            '<div class="entry" data-id="' + "666" + '">' +	//	Starting <div> block
+            '<div class="entry" data-id="' + tutor.tutor_id + '">' +	//	Starting <div> block
             line1 + "<br />" +	//	line1
             line2 + "<br />" +	//	line2
             line3 +	//	line2

@@ -63,9 +63,16 @@
 		});
 		
 		$('#attach_upload').click(function() {
-			var path = GlobalVariables.baseUrl + '/index.php/students_api/do_upload';
-			var formData = new FormData($('#attach_form')[0]);
+			var path = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
+			var file = $('#appointment_service_attach').prop('files')[0];
+			var formData = new FormData();
+			formData.append('file', file, file.name);
 			formData.append('csrfToken', GlobalVariables.csrfToken);
+			
+			for (var key of formData.entries()) {
+				console.log(key[0] + ', ' + key[1]);
+			}
+			
 			$.ajax({
 				url: path,
 				type: 'POST',
@@ -74,10 +81,10 @@
 				contentType: false,
 				processData: false,
 				success: function(data) {
-					console.log("success: " + data);
+					console.log("success: " + JSON.stringify(data));
 				},
 				error: function(data) {
-					console.log("error: " + data);
+					console.log("error: " + JSON.stringify(data));
 				}
 			});
 		});
@@ -143,49 +150,72 @@
 		if (file === undefined) {
 			file = new File([""], "filename");
 		}
+		var path = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
 		//	Create a new FormData object
 		var formData = new FormData();
-		formData.append("file", file);
-		console.log(formData);
+		formData.append('file', file, file.name);
+		formData.append('csrfToken', GlobalVariables.csrfToken);
+		formData.append('service_id', JSON.stringify(id));
+		formData.append('remark', JSON.stringify(remark === '' ? 'ALL' : remark));
+		formData.append('note', JSON.stringify(note === '' ? 'ALL' : note));
 		
-        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
-        var postData = {
-            csrfToken:				GlobalVariables.csrfToken,
-			service_id:				id,
-			remark:					JSON.stringify(remark === '' ? 'ALL' : remark),
-			note:					JSON.stringify(note === '' ? 'ALL' : note),
-			file:					formData
-        };
-//			file:					(file === undefined) ? JSON.stringify('ALL') : file
-		var obj = this;
+		for (var key of formData.entries()) {
+			console.log(key[0] + ', ' + key[1]);
+		}
 		
-        $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			if (response === 'success') {
-				Admin.displayNotification("Appointment Submitted.", undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification("Failure: Appointment failed.", undefined, "failure");
-			} else {
-				Admin.displayNotification("Something went wrong on applying appointments");
+		$.ajax({
+			url: path,
+			type: 'POST',
+			data: formData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(data) {
+				console.log("success: " + JSON.stringify(data));
+			},
+			error: function(data) {
+				console.log("error: " + JSON.stringify(data));
 			}
-			
-			//	Hide with TimeOut - See Tutor Appointments Management
-			$('.admin-page .popup .curtain').fadeOut();
-			$('.admin-page .popup #cal_appointment_popup').fadeOut();
-			
-			//	sync the modified event
-			obj.syncAppointment(id);
-			
-			//	Clear inputs!
-			setTimeout(function() {
-				obj.resetAppointmentPopup();
-			}, 200);
-
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+		});
+		
+//        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
+//        var postData = {
+//            csrfToken:				GlobalVariables.csrfToken,
+//			service_id:				id,
+//			remark:					JSON.stringify(remark === '' ? 'ALL' : remark),
+//			note:					JSON.stringify(note === '' ? 'ALL' : note),
+//			file:					formData
+//        };
+////			file:					(file === undefined) ? JSON.stringify('ALL') : file
+//		var obj = this;
+//		
+//        $.post(postUrl, postData, function (response) {
+//			//	Test whether response is an exception or a warning
+//            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+//                return;
+//            }
+//			
+//			if (response === 'success') {
+//				Admin.displayNotification("Appointment Submitted.", undefined, "success");
+//			} else if (response === 'fail') {
+//				Admin.displayNotification("Failure: Appointment failed.", undefined, "failure");
+//			} else {
+//				Admin.displayNotification("Something went wrong on applying appointments");
+//			}
+//			
+//			//	Hide with TimeOut - See Tutor Appointments Management
+//			$('.admin-page .popup .curtain').fadeOut();
+//			$('.admin-page .popup #cal_appointment_popup').fadeOut();
+//			
+//			//	sync the modified event
+//			obj.syncAppointment(id);
+//			
+//			//	Clear inputs!
+//			setTimeout(function() {
+//				obj.resetAppointmentPopup();
+//			}, 200);
+//
+//        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     /**

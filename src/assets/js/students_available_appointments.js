@@ -76,8 +76,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 		
 		//	Prevent Calendar from being clicked in the main page
 		$('.students-page .disabled').click(function(e) {
-//			e.preventDefault();
-//			return false;
+			e.preventDefault();
+			return false;
 		});
 		
         if (defaultEventHandlers) {
@@ -122,6 +122,9 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			} else if ($(this).attr('href') === '#check-available-time-in-calendar') {
 				//	This may not happens, cause it cannot be changed directly
 				//	This may still happen if privileges are added
+				selected_tutor = helper.selected_tutor;
+				selected_tutor_id = helper.selected_tutor_id;
+				
 				helper = studentsAvailableAppointmentsCalendarHelper;
 				//	Guess what, a large calendar!!!
 				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
@@ -139,6 +142,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					helper.calendar = calendar;
 					calendar.render();
 					firstLoad = true;
+				} else {
+					calendar.refetchEvents();
 				}
 			} else {
 				alert("What have you pressed, my friend??");
