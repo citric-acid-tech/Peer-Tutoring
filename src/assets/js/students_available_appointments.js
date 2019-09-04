@@ -339,7 +339,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 						var results = [];
 						$.each(response, function(index, service) {
 							var eve  = {
-								id: service.id,
+								id: service.service_id,
 								title: service.service_type,
 								start: service.start_datetime,
 								end: service.end_datetime,

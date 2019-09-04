@@ -120,16 +120,25 @@
 		var remark = $('#appointment_service_remark').val();
 		var note = $('#appointment_service_note').val();
 		var file = $('#appointment_service_attach').prop('files')[0];
+		if (file === undefined) {
+			file = new File([""], "filename");
+		}
+		//	Create a new FormData object
+		var formData = new FormData();
+		formData.append("file", file);
+		console.log(formData);
 		
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
         var postData = {
             csrfToken:				GlobalVariables.csrfToken,
 			service_id:				id,
-			remark:					JSON.stringify(remark),
-			note:					JSON.stringify(note),
-			file:					(file === undefined) ? JSON.stringify('ALL') : file
+			remark:					JSON.stringify(remark === '' ? 'ALL' : remark),
+			note:					JSON.stringify(note === '' ? 'ALL' : note),
+			file:					formData
         };
+//			file:					(file === undefined) ? JSON.stringify('ALL') : file
 		var obj = this;
+		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {

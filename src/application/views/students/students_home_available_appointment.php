@@ -214,7 +214,7 @@
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
 					<!-- Provide a form to send file using CI framework -->
-					<form class="md-form">
+					<form>
 						<div class="popup-title"><h2>Make an Appointment</h2></div>
 						<hr />
 						<ul class="appoint_list">
@@ -257,9 +257,12 @@
 							<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
 						</div>
 						<div class="popup-container">
+							<form id="fileform">
 							<!-- size: KB -->
+							<!-- i class="fas fa-upload"></i -->
 							<input id="appointment_service_attach" type="file" name="attach" class="inputfile" />
-							<label for="appointment_service_attach"><strong><i class="fas fa-upload"></i> &nbsp; Attach a File</strong></label>
+							<label for="appointment_service_attach"><strong>Attach a File</strong></label>
+							</form>
 						</div>
 						
 						<hr />
