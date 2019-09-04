@@ -257,11 +257,12 @@
 							<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
 						</div>
 						<div class="popup-container">
-							<form id="fileform">
+							<?php echo form_open_multipart('students_api/do_upload');?>
 							<!-- size: KB -->
 							<!-- i class="fas fa-upload"></i -->
-							<input id="appointment_service_attach" type="file" name="attach" class="inputfile" />
+							<input id="appointment_service_attach" type="file" name="attach" class="inputfile" size="3MB" />
 							<label for="appointment_service_attach"><strong>Attach a File</strong></label>
+							<input type="submit" class="popup_buttons" value="Upload" />
 							</form>
 						</div>
 						
