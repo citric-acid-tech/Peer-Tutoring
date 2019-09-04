@@ -249,5 +249,32 @@ class Students_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function do_upload(){
+
+        //
+        try{
+            $this->load->model('students_model');
+
+            // Get input
+            $service_id = json_decode($this->input->post('service_id'), TRUE);
+            $user_id = $this->session->user_data('user_id');
+            
+            $result = $this->students_model->upload_file($user_id, $service_id);
+            // result : array
+            //     result : FALSE         OR  TRUE
+            //     msg    : error message OR  attachment_url
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 }
 ?>

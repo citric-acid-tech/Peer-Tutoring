@@ -415,25 +415,51 @@ class Students_model extends CI_Model{
         return $result;
     }
 
-    public function upload_file($user_id, $service_id, $file){
+    public function upload_file($user_id, $service_id){
 
-        $hash_id = $this->db
-            ->select('ea_users.cas_hash_id AS hash')
-            ->from('ea_users')
-            ->where('ea_users.id', $user_id)
-            ->get()
-            ->row_array()['hash'];
-        
-        $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id;
-        $file_tmp_path = $file['tmp_name'];
+        $config['upload_path'] = './upload';
+        $config['allowed_types'] = DOCUMENT_FORMAT;
+        $config['max_size'] = MAX_DOCUMENT_SIZE;
 
-        $result = move_uploaded_file($file_tmp_path, $file_target_path);
+        $this->load->library('upload', $config);
 
-        if( $result == TRUE){
-            return $file_target_path;
+        //'userfile' is a from element in the form of the views
+        if( ! $this->upload->do_upload('userfile')){
+            $error = $this->upload->display_errors();
+            $result = array('result' => FALSE, 'msg' => $error);
+            return $result;
         }else{
-            return FALSE;
-        }
+            $data = $this->upload->data();
+            // file_name test.png
+            // file_type image/png
+            // file_path C:/AppServ/Peer-Tutoring/src/upload/
+            // full_path C:/AppServ/Peer-Tutoring/src/upload/test.png
+            // raw_name test
+            // orig_name test.png
+            // client_name test.png
+            // file_ext .png
+            // file_size 962.67
+            // is_image 1
+            // image_width 1025
+            // image_height 1025
+            // image_type png
+            // image_size_str width="1025" height="1025"
+            $hash_id = $this->db
+                ->select('ea_users.cas_hash_id AS hash')
+                ->from('ea_users')
+                ->where('ea_users.id', $user_id)
+                ->get()
+                ->row_array()['hash'];
+        
+            $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id . $data['file_ext'];
+
+            $tmp_file_path = $data['full_path'];
+            copy($tmp_file_path, $file_target_path);
+            unlink($tmp_file_path);
+
+            $result = array('result' => TRUE, 'msg' => $file_target_path);    
+            return $result;
+        } 
     }
     /**
      * For testing
