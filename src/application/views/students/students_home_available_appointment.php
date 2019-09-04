@@ -257,12 +257,8 @@
 					<div class="popup-container">
 						<!-- size: KB -->
 						<!-- i class="fas fa-upload"></i -->
-						<form id="attach_form">
 						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" size="3MB" />
 						<label for="appointment_service_attach"><strong>Attach a File</strong></label>
-						<input id="attach_upload" type="button" class="popup_buttons" value="Upload" />
-						</form>
-
 					</div>
 					
 					<hr />
