@@ -224,51 +224,21 @@ class Students_api extends CI_Controller{
             $file = $_FILES['file'];
             
 
-            $user_id = $this->session->user_data('user_id');
+            $user_id = $this->session->userdata('user_id');
             
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($file['name']));
 
             // Upload File? TODO
             
             // Query
-            // if ($this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file) !== FALSE){
-            //     $this->output
-            //     ->set_content_type('application/json')
-            //     ->set_output(json_encode('success'));
-            // }else{
-            //     $this->output
-            //     ->set_content_type('application/json')
-            //     ->set_output(json_encode('fail'));
-            // }
-
-        }catch (Exception $exc){
-            $this->output
+            if ($this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file) !== FALSE){
+                $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
-    }
-
-    public function do_upload(){
-
-        //
-        try{
-            $this->load->model('students_model');
-
-            // Get input
-//            $service_id = json_decode($this->input->post('service_id'), TRUE);
-            $user_id = $this->session->user_data('user_id');
-            
-            $result = $this->students_model->upload_file($user_id, 0);
-            // result : array
-            //     result : FALSE         OR  TRUE
-            //     msg    : error message OR  attachment_url
-            
-            $this->output
+                ->set_output(json_encode('success'));
+            }else{
+                $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result));
-            
+                ->set_output(json_encode('fail'));
+            }
 
         }catch (Exception $exc){
             $this->output
