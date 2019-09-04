@@ -149,6 +149,7 @@ class Students_api extends CI_Controller{
             $service_type = json_decode($this->input->post('service_type'), TRUE);
             $tutor_name = json_decode($this->input->post('tutor_name'), TRUE);
 
+
             // Query
             $result = $this->students_model->get_available_tutors($service_type, $tutor_name);
 
@@ -218,15 +219,17 @@ class Students_api extends CI_Controller{
 
             // Get input
             $service_id = json_decode($this->input->post('service_id'), TRUE);
-
             $note = json_decode($this->input->post('note'), TRUE);
             $remark = json_decode($this->input->post('remark'), TRUE);
+            $file = $_FILES['file'];
+            $filePath = $file['tmp_name'];
+
             $user_id = $this->session->user_data('user_id');
-
+                      
             // Upload File? TODO
-
+            
             // Query
-            if ($this->students_model->new_appointment($user_id, $service_id,  $note, $remark) !== FALSE){
+            if ($this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file) !== FALSE){
                 $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode('success'));
@@ -241,24 +244,6 @@ class Students_api extends CI_Controller{
                 ->set_content_type('application/json')
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
-    }
-
-    public function ajax_do_upload_file(){
-
-        $config['upload_path'] = './upload';
-        $config['allowed_types'] = DOCUMENT_FORMAT;
-        $config['max_size'] = MAX_DOCUMENT_SIZE;
-        
-        $this->load->library('upload', $config);
-
-        //'userfile' is a from element in the form of the views
-        if( ! $this->upload->do_upload('userfile')){
-            $error = array('error' => $this->upload->display_errors());
-            return $error;
-        }else{
-            $data = array('upload_data' => $this->upload->data());
-            return $data;
-        }  
     }
 }
 ?>

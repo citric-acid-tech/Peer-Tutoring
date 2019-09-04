@@ -356,9 +356,14 @@ class Students_model extends CI_Model{
      * 
      * @return boolean   success or not
      */
-    public function new_appointment($user_id, $service_id, $note, $remark, $attachment_url){
+    public function new_appointment($user_id, $service_id, $note, $remark, $file){
 
         //:: Check if this appointment can be booked or not.
+        $attachment_url = $this->upload_file($user_id, $service_id, $file);
+        
+        if($attachment_url === FALSE){
+            return FALSE;
+        }
 
         //// Check if it is full.
         $number = $this->db
@@ -410,6 +415,26 @@ class Students_model extends CI_Model{
         return $result;
     }
 
+    public function upload_file($user_id, $service_id, $file){
+
+        $hash_id = $this->db
+            ->select('ea_users.cas_hash_id AS hash')
+            ->from('ea_users')
+            ->where('ea_users.id', $user_id)
+            ->get()
+            ->row_array()['hash'];
+        
+        $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id;
+        $file_tmp_path = DOCUMENT_SAVED_PATH . $file['tmp_name'];
+
+        $result = move_uploaded_file($file_tmp_path, $file_target_path);
+
+        if( $result == TRUE){
+            return $file_target_path;
+        }else{
+            return FALSE;
+        }
+    }
     /**
      * For testing
      * 
