@@ -430,35 +430,19 @@ class Students_model extends CI_Model{
             ->get()
             ->row_array()['hash'];
         
-        $ext = get_extension($file['name']);
+        $ext = $this->get_extension($file['name']);
     
-        $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id . $ext;
+        $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id .'.'. $ext;
 
-        $tmp_file_path = $data['full_path'];
-        copy($tmp_file_path, $file_target_path);
-        unlink($tmp_file_path);
+        move_uploaded_file($file['tmp_name'], $file_target_path);
    
         return $file_target_path;
     }
     
-    protected function get_extension($FILE_S_NAME){
-        if ( ($ext_pos = strrpos($FILE_S_NAME, '.')) === FALSE){
-			$filename = $FILE_S_NAME;
-		}else{
-            $ext = substr($FILE_S_NAME, $ext_pos);
-            $FILE_S_NAME = substr($FILE_S_NAME, 0, $ext_pos);
-            $filename =  str_replace('.', '_', $FILE_S_NAME) . $ext;
-        }
-        
-		$x = explode('.', $filename);
-
-		if (count($x) === 1){
-			return '';
-		}else{
-            $ext = strtolower(end($x));
-            return '.' . $ext;
-        }
-	}
+    protected function get_extension($file){
+        $info = pathinfo($file);
+        return $info['extension'];
+    }
     /**
      * For testing
      * 
