@@ -62,6 +62,26 @@
 			$("a[data-toggle='tab'][href='#select-by-time-tab']").tab('show');
 		});
 		
+		$('#attach_upload').click(function() {
+			var path = GlobalVariables.baseUrl + '/index.php/students_api/do_upload';
+			var formData = new FormData($('#attach_form')[0]);
+			formData.append('csrfToken', GlobalVariables.csrfToken);
+			$.ajax({
+				url: path,
+				type: 'POST',
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data) {
+					console.log("success: " + data);
+				},
+				error: function(data) {
+					console.log("error: " + data);
+				}
+			});
+		});
+		
 	};
 	
     /**

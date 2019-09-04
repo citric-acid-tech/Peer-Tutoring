@@ -255,15 +255,14 @@
 						<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
 					</div>
 					<div class="popup-container">
-						<!-- ?php echo form_open_multipart('students_api/do_upload');? -->
-						<form action="http://localhost/Peer-Tutoring/src/index.php/students_api/do_upload" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-						<input type="hidden" name="csrfToken" />
 						<!-- size: KB -->
 						<!-- i class="fas fa-upload"></i -->
+						<form id="attach_form">
 						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" size="3MB" />
 						<label for="appointment_service_attach"><strong>Attach a File</strong></label>
-						<input type="submit" class="popup_buttons" value="Upload" />
+						<input id="attach_upload" type="submit" class="popup_buttons" value="Upload" />
 						</form>
+
 					</div>
 					
 					<hr />

@@ -80,8 +80,6 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 //			return false;
 		});
 		
-		$("input[name='csrfToken']").prop('value', GlobalVariables.csrfToken);
-		
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
