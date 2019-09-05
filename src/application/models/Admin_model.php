@@ -793,7 +793,7 @@ class Admin_model extends CI_Model{
                     $this->db->where('ea_services.start_datetime >', $start_date . ' 00:00');
                 }
                 if($end_date != 'ALL'){
-                    $this->db->where('ea_services.start_datetime <', $end_date . ' 00:00');
+                    $this->db->where('ea_services.start_datetime <', $end_date . ' 23:59');
                 }
                 $result[$row['name']][$i] = 
                     $this->db
