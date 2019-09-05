@@ -71,7 +71,6 @@ class Students_api extends CI_Controller{
             $ajax_result = $isCanceled ? 'cancellation_accepted' : 'cancellation_refused';
 
             // Log
-            
 
             $this->output
                 ->set_content_type('application/json')

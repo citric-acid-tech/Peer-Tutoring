@@ -145,20 +145,28 @@ class Students_model extends CI_Model{
 
         $MIN_CANCEL_AHEAD_MINS *= 24 * 60;
 
-        $result = TRUE;
         if($time_diff >= $MIN_CANCEL_AHEAD_MINS){
+
+            $this->db->trans_begin();
 
             // Change the booking status of the corresponding appointment
             $this->db->set('booking_status', '3');
             $this->db->where('id', $appointment_id);
-            $this->db->update('ea_appointments');
+            $proc1 = $this->db->update('ea_appointments');
 
             // Change the appointments number of the relating service
             $id_services = $appointment_info['id_services'];
             $this->db->set('appointments_number', 'appointments_number - 1', FALSE);
             $this->db->where('id', $id_services);
-            $this->db->update('ea_services');
-            $result = TRUE;
+            $proc2 = $this->db->update('ea_services');
+
+            $result = $proc1 && $proc2;
+
+            if( ! $result){
+                $this->db->trans_rollback();
+            }
+
+            $this->db->trans_complete();
 
         }else{
             $result = FALSE;
@@ -166,6 +174,7 @@ class Students_model extends CI_Model{
 
         $this->log_operation('cancel_appointment', $appointment_id, $result);
 
+        return $result;
     }
 
     /**
