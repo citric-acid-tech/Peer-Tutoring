@@ -233,6 +233,7 @@ class Students_api extends CI_Controller{
                     ->set_output(json_encode($result));
                     //denied         # Something went wrong
                     //cap_full       # Capacity issue
+                    //booked         # already booked
                     //TRUE           # json_encode_boolean, success
 
         }catch (Exception $exc){

@@ -207,33 +207,63 @@ class Students_model extends CI_Model{
                 ->row_array()['now()'];
 
         // query
-        $this->db
-            ->select('
-            ea_services.id                                         AS service_id,
-            ea_services.description                                AS description,
-            ea_services.capacity                                   AS capacity,
-            ea_services.appointments_number                        AS appointments_number,
-            ea_services.start_datetime                             AS start_datetime,
-            ea_services.end_datetime                               AS end_datetime,
-            ea_services.address                                    AS address,
-            ea_service_categories.name                             AS service_type, 
-            ea_service_categories.description                      AS service_type_description,
-            
-            CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
+        $result = 
+            $this->db
+            //                                                         AS is_booked, (0 or 1)
+                ->select('
+                ea_services.id                                         AS service_id,
+                ea_services.description                                AS description,
+                ea_services.capacity                                   AS capacity,
+                ea_services.appointments_number                        AS appointments_number,
+                ea_services.start_datetime                             AS start_datetime,
+                ea_services.end_datetime                               AS end_datetime,
+                ea_services.address                                    AS address,
+                ea_service_categories.name                             AS service_type, 
+                ea_service_categories.description                      AS service_type_description,
+                
+                CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
 
-            ea_users.personal_page                                 AS personal_page
-            ')
-            ->from('ea_services')
-            ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
-            ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
-            ->where('ea_services.start_datetime < ', $latest_available_start_time)
-            ->where('ea_services.start_datetime > ', $now)
-            ->where('ea_users.id', $tutor_id);
-            
-            
-            return $this->db
+                ea_users.personal_page                                 AS personal_page
+                ')
+                ->from('ea_services')
+                ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+                ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+                ->where('ea_services.start_datetime < ', $latest_available_start_time)
+                ->where('ea_services.start_datetime > ', $now)
+                ->where('ea_users.id', $tutor_id)
+                ->order_by('service_id', 'ASC')
                 ->get()
                 ->result_array();
+            
+        $status_result = 
+            $this->db
+                ->select('
+                    ea_services.id AS service_id
+                ')
+                ->from('ea_services')
+                ->join('ea_appointments', 'ea_appointments.id_services = ea_services.id', 'inner')
+                ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+                ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+                ->where('ea_appointments.booking_status !=', '3')
+                ->where('ea_services.start_datetime < ', $latest_available_start_time)
+                ->where('ea_services.start_datetime > ', $now)
+                ->where('ea_users.id', $tutor_id)
+                ->order_by('service_id', 'ASC')
+                ->get()
+                ->result_array();
+
+        $size = sizeof($result);
+        $p = 0;
+        for($i = 0; $i < $size; $i++){
+            if($result[$i]['service_id'] == $status_result[$p]['service_id']){
+                $result[$i]['is_booked'] = '1';
+                $p++;
+            }else{
+                $result[$i]['is_booked'] = '0';
+            }
+        }
+
+        return $result;
     }
 
     public function rate_and_comment($appointment_id, $stars, $comment_or_suggestion){
@@ -375,7 +405,7 @@ class Students_model extends CI_Model{
             return FALSE;
         }
 
-        //// Check if it is full.
+        //:: Check if it is full.
         $number = $this->db
                 ->select('
                 ea_services.capacity AS capacity,
@@ -392,7 +422,7 @@ class Students_model extends CI_Model{
             return 'cap_full';
         }
 
-        //// Check if it is booked alrealy
+        //:: Check if it is booked alrealy
         $book_arr = $this->db
             ->select('ea_appointments.booking_status AS status')
             ->from('ea_appointments')
