@@ -378,9 +378,9 @@ class Students_model extends CI_Model{
                 ->row_array();
         
         //// This appointment can not be booked since the volumn is limited.
-        if($number['capacity'] == $number['num']){
+        if($number['capacity'] == $number['num'] || $number['capacity'] < $number['num'] ){
             unlink($attachment_url);
-            return FALSE;
+            return 'cap_full';
         }
 
         //:: Proceed
@@ -399,6 +399,9 @@ class Students_model extends CI_Model{
         );
 
         $result = TRUE;
+
+        $this->db->trans_begin();
+
         if($this->db->insert('ea_appointments',$data)){
             //// Increase the number of appointment of the relating service
             $insert_id = $this->db->insert_id();
@@ -409,8 +412,11 @@ class Students_model extends CI_Model{
             $result = $insert_id;
         }else{
             unlink($attachment_url);
-            $result = FALSE;
+            $this->db->trans_rollback();
+            $result = 'denied';
         }
+
+        $this->db->trans_complete();
 
         $this->log_operation('new_appointment', $data, $result);
 

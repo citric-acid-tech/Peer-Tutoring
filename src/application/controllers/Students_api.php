@@ -228,15 +228,13 @@ class Students_api extends CI_Controller{
             // Upload File? TODO
             
             // Query
-            if ($this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file) !== FALSE){
-                $this->output
+            $result = $this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file);
+            $this->output
                     ->set_content_type('application/json')
-                    ->set_output(json_encode('success'));
-            }else{
-                $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode('fail'));
-            }
+                    ->set_output(json_encode($result));
+                    //denied         # Something went wrong
+                    //cap_full       # Capacity issue
+                    //TRUE           # json_encode_boolean, success
 
         }catch (Exception $exc){
             $this->output
