@@ -102,7 +102,7 @@ class Students_model extends CI_Model{
             }
 
         return $this->db
-            ->order_by('start_datetime', 'ASC')
+            ->order_by('start_datetime', 'DESC')
             ->get()
             ->result_array();
     }
