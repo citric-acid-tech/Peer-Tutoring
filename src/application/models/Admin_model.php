@@ -776,12 +776,12 @@ class Admin_model extends CI_Model{
         $this->load->model('general_model');
         $service_type_arr = $this->general_model->get_all_service_types();
 
+        $p = 0;
         foreach($service_type_arr AS $row){
+            $result[$p]['name'] = $row['name'];
             for($i = 0; $i < 4; $i++){
                 $this->db
                 ->select('
-                     ea_service_categories.name     AS service_type_name,
-                     ea_appointments.booking_status AS status,
                      COUNT(*)                       AS cnt
                 ')
                 ->from('ea_appointments')
@@ -795,11 +795,13 @@ class Admin_model extends CI_Model{
                 if($end_date != 'ALL'){
                     $this->db->where('ea_services.start_datetime <', $end_date . ' 23:59');
                 }
-                $result[$row['name']][$i] = 
-                    $this->db
-                    ->get()
-                    ->row_array();
+                $cnt = $this->db
+                ->get()
+                ->row_array()['cnt'];
+
+                $result[$p][$i] = $cnt;
             }
+            $p++;
         }
         return $result;
     }

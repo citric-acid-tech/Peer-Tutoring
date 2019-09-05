@@ -531,17 +531,6 @@ class Admin_api extends CI_Controller{
 
             // Query
             $result = $this->admin_model->get_service_statistic($start_date, $end_date);
-            # '<service_type_name>' => [
-            #                           '0<booking_status>' => [
-            #                                                   'service_type_name' => <content>
-            #                                                   'status' => <number>
-            #                                                   'cnt' => <number>
-            #                                                  ]
-            #                            '1' => [...]
-            #                            ...
-            #                          ],
-            # '<service_type_name>' => [...]
-            # ...
             
             $this->output
                 ->set_content_type('application/json')
