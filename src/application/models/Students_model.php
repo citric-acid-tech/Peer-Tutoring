@@ -392,6 +392,28 @@ class Students_model extends CI_Model{
             return 'cap_full';
         }
 
+        //// Check if it is booked alrealy
+        $book_arr = $this->db
+            ->select('ea_appointments.booking_status AS status')
+            ->from('ea_appointments')
+            ->where('ea_appointments.id_users_customer', $user_id)
+            ->where('ea_appointments.id_services', $service_id)
+            ->get()
+            ->result_array();
+        
+        $booked = FALSE;
+        foreach($book_arr AS $row){
+            if($row['status'] != '3'){
+                $booked = TRUE;
+                break;
+            }
+        }
+
+        if($booked){
+            unlink($attachment_url);
+            return 'booked';
+        }
+
         //:: Proceed
 
         //// Insert the appointment into database
