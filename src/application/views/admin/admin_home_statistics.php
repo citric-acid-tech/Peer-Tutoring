@@ -29,7 +29,29 @@
 </script>
 
 <div id="settings-page" class="container-fluid admin-page">
-    <div class="row">
-    	HI! Statistics are here!!!
+    <div class="row" style="margin:auto;">
+    	<div class="container">
+    		<div style="text-align:center;">
+    			<input id="start_date" class="btn btn-primary" value="Start Date" type="button" title="Start Date" style="margin:10px;width:100px;height:50px;" readonly />
+    			<button id="clear_dates" class="btn btn-default" type="button" title="Clear Dates" style="margin:10px;width:50px;height:50px;"><i class="fas fa-minus fa-lg"></i></button>
+    			<input id="end_date" class="btn btn-primary" value="End Date" type="button" title="End Date" style="margin:10px;width:100px;height:50px;" readonly />
+    		</div>
+    	</div>
+		<table id="service_statistics" class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th><?= lang('service_type') ?></th>
+					<th><?= lang('bs0') ?></th>
+					<th><?= lang('bs1') ?></th>
+					<th><?= lang('bs2') ?></th>
+					<th><?= lang('bs3') ?></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr><td colspan="6"><strong>If you want to retrieve more statistics, <a href="mailto:11710116@mail.sustech.edu.cn">contact us!</a></strong></td></tr>
+			</tfoot>
+			<tbody></tbody>
+		</table>
     </div>
 </div>

@@ -22,6 +22,8 @@
 	<!-- Full Calendar: Interaction has no css -->
 	<!-- Full Calendar: RRule has no css -->
 	<!-- Full Calendar: Locale has no css -->
+	<!-- Jquery DataTables -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-newdatatables/datatables.min.css', NULL, 'css') ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/admin.css', NULL, 'css') ?>" />
@@ -46,6 +48,8 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/core/locales-all.min.js', NULL, 'js') ?>"></script>
 	<!-- Fuse.js -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fuse/Fuse-3.4.5/dist/fuse.js', NULL, 'js') ?>"></script>
+	<!-- Jquery DataTables -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/jquery-newdatatables/datatables.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

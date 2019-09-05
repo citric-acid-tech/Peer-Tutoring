@@ -19,6 +19,9 @@ window.AdminStatistics = window.AdminStatistics || {};
      * @type {Object}
      */
     var helper = {};
+	
+	var cnt = 0;
+	var datatable;
 
     /**
      * This method initializes the Admin Appointment Management page.
@@ -29,29 +32,78 @@ window.AdminStatistics = window.AdminStatistics || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
+		helper = new AdminStatisticsHelper();
+		
 		//	Guess what, a date picker!!
-		//	calculateWeek: myWeekCalc
-		//	showButtonPanel: true
-		//	numberOfMonths: [2, 2]
-		//	showOptions: {direction: "down"}
-		$('#appointments_management_start_date, #appointments_management_end_date').datepicker({
+		$('#start_date, #end_date').datepicker({
 			dateFormat: "yy-mm-dd",
 			constrainInput: true,
 			autoSize: true,
-			navigationAsDateFormat: true,
 			firstDay: 1,
 			showOtherMonths: true,
+			hideIfNoPrevNext: true,
+			navigationAsDateFormat: true,
 			showAnim: "fold",
+			onSelect: function() {
+				datatable.ajax.reload();
+			},
 			onClose: function() {
 				setTimeout(function () {
-					$('#appointments_management_start_date, #appointments_management_end_date').prop('disabled', false);
+					$('#start_date, #end_date').prop('disabled', false);
 				}, 100);
 			}
 		});
 		
-        helper = new AdminStatisticsHelper();
-        helper.resetForm();
-        helper.filter(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, 'true');
+		//	Guess what, a data table!
+		datatable = $('#service_statistics').DataTable({
+			"autoWidth": true,
+			"processing": true,
+			"scrollY": "420px",
+			"scrollCollapse": true,
+			responsive: true,
+			"ajax": function(data, callback, settings) {
+				var sd = $('#start_date').val();
+				var ed = $('#end_date').val();
+				if (!helper.validateDateTime(sd, ed)) {
+					callback({data:[]});
+					return false;
+				}
+				
+				var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_service_statistic';
+				var postData = {
+					csrfToken: GlobalVariables.csrfToken,
+					start_date: JSON.stringify((sd === undefined || sd === '' || sd === 'Start Date') ? 'ALL' : sd),
+					end_date: JSON.stringify((ed === undefined || ed === '' || ed === 'End Date') ? 'ALL' : ed)
+				};
+
+				$.post(postUrl, postData, function (response) {
+					//	Test whether response is an exception or a warning
+					if (!GeneralFunctions.handleAjaxExceptions(response)) {
+						return;
+					}			
+					//	Iterate through all services, generate htmls for them and
+					//	add them to the results			
+					cnt = 0;
+					
+					var dataArray = [];
+					var subArray = [];
+					for (var i = 0; i < response.length; ++i) {
+						var item = response[i];
+						subArray = [(++cnt).toString(), item.name, item.not_started, item.service_completed, item.service_finished, item.cancelled];
+						dataArray.push(subArray);
+					}
+					
+					callback(
+						{
+							data: dataArray
+						}
+					);
+					
+				}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+			}
+		});
+		
+		helper.datatable = datatable;
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
