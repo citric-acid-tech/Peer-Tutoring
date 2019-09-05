@@ -799,7 +799,16 @@ class Admin_model extends CI_Model{
                 ->get()
                 ->row_array()['cnt'];
 
-                $result[$p][$i] = $cnt;
+                if($i == 0){
+                    $key = 'not_started';
+                }else if($i == 1){
+                    $key = 'service_completed';
+                }else if($i == 2){
+                    $key = 'service_finished';
+                }else{ // $i == 3
+                    $key = 'cancelled';
+                }
+                $result[$p][$key] = $cnt;
             }
             $p++;
         }
