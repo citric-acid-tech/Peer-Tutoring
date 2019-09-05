@@ -668,67 +668,15 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
-    /**
-     * Seems duplicated
-     */
-    // public function admin_filter_appointments($service_type, $tutor_name, $student_name,
-    //         $start_date, $end_date, $booking_status){
-    //     $this->db->select('
-    //         ea_appointments.id                                     AS id,
-
-    //         ea_service_categories.name                             AS service_type,
-
-    //         CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS tutor_name,
-    //         CONCAT(stu_tab.first_name, \' \', stu_tab.last_name)   AS student_name,
-            
-    //         ea_appointments.book_datetime                          AS book_datetime,
-    //         ea_appointments.booking_status                         AS booking_status,
-    //         ea_appointments.feedback                               AS feedback_from_tutor,
-    //         ea_appointments.suggestion                             AS suggestion_from_tutor,
-    //         ea_appointments.comment_or_suggestion                  AS comment_or_suggestion_from_student,
-    //         ea_appointments.stars                                  AS stars,
-
-    //         ea_services.start_datetime                             AS start_datetime,
-    //         ea_services.end_datetime                               AS end_datetime
-    //     ')
-    //     ->from('ea_appointments')
-    //     ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
-    //     ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
-    //     ->join('ea_users AS stu_tab', 'stu_tab.id = ea_appointments.id_users_customer', 'inner')
-    //     ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner');
-        
-        
-
-    //     if( $service_type != 'ALL'){
-    //         $this->db->where('ea_service_categories.name', $service_type);
-    //     }
-    //     if( $tutor_name != 'ALL'){
-    //         $this->db->where('CONCAT(ea_users.first_name, \' \', ea_users.last_name) = ', $tutor_name);
-    //     }
-    //     if( $student_name != 'ALL'){
-    //         $this->db->where('CONCAT(stu_tab.first_name, \' \', stu_tab.last_name) = ', $student_name);
-    //     }
-    //     if( $start_date != 'ALL'){
-    //         $this->db->where('ea_services.start_datetime >', $start_date . ' 00:00');
-    //     }
-    //     if( $end_date != 'ALL'){
-    //         $this->db->where('ea_services.start_datetime <', $end_date . ' 23:59');
-    //     }
-    //     if( $booking_status != 'ALL'){
-    //         $this->db->where('ea_appointments.booking_status', $booking_status);
-    //     }
-
-    //     return $this->db
-    //         ->order_by('ea_services.start_datetime')->get()->result_array();
-    // }
-
     public function save_settings($school_name, $school_email, $school_link, 
             $date_format, $time_format, 
             $upload_file_max_size, 
             $max_services_checking_ahead_day, 
             $max_appointment_cancel_ahead_day,
-            $flexible_column_label){
+            $flexible_column_label, $semester_json){
         
+        $this->db->trans_begin();
+
         $this->db->where('name', 'company_name');
         $bool1 = $this->db->update('ea_settings', ['value' => $school_name]);
 
@@ -756,19 +704,29 @@ class Admin_model extends CI_Model{
         $this->db->where('name', 'flexible_column_label');
         $bool9 = $this->db->update('ea_settings', ['value' => $flexible_column_label]);
 
+        $this->db->where('name', 'semester_json');
+        $bool10 = $this->db->update('ea_settings', ['value' => $semester_json]);
+
         $input_arr = array($school_name, $school_email, $school_link, 
         $date_format, $time_format, 
         $upload_file_max_size, 
         $max_services_checking_ahead_day, 
         $max_appointment_cancel_ahead_day,
-        $flexible_column_label);
+        $flexible_column_label, $semester_json);
 
-        $output_arr = array($bool1, $bool2, $bool3, $bool4, $bool5, $bool6, $bool7, $bool8, $bool9);
+        $result = $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9 && $bool10;
+
+        if( ! $result){
+            $this->db->trans_rollback();
+        }
+
+        $this->db->trans_complete();
+
+        $output_arr = array($result);
 
         $this->log_operation('save_settings', $input_arr, $output_arr);
 
-        return $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9;        
-
+        return $result;
     }
 
     public function get_service_statistic($start_date, $end_date){
