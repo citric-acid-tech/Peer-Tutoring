@@ -35,6 +35,8 @@ class Admin_model extends CI_Model{
         $fail_arr = array();
         $p = 0;
 
+        $data = array();
+
         foreach($sid_arr AS $sid){
             $result = FALSE;
 
@@ -43,22 +45,37 @@ class Admin_model extends CI_Model{
                 continue;
             }
 
-            $exists = $this->db
+            $registration = $this->db
                 ->select('COUNT(*) AS cnt')
-                ->from('ea_buffer_tutor_assigned')
-                ->where('sid', $sid)
+                ->from('ea_users')
+                ->where('cas_sid', $sid)
                 ->get()
                 ->row_array()['cnt'];
-            
-            if($exists == '0'){
-                $data = array('sid' => $sid);
-                $result = $this->db->insert('ea_buffer_tutor_assigned', $data);
-            }
+                
+            if($registration != 0){ // This user is registered.
 
-            if( ! $result){
-                $fail_arr[$p++] = $sid;
+                $this->db->set('id_roles', '2');
+                $this->db->where('cas_sid', $sid);
+                if( ! $this->db->update('ea_users')){
+                    $fail_arr[$p++] = $sid;
+                }
+
+            }else{ // This user is not registered yet.
+                $exists = $this->db
+                    ->select('COUNT(*) AS cnt')
+                    ->from('ea_buffer_tutor_assigned')
+                    ->where('sid', $sid)
+                    ->get()
+                    ->row_array()['cnt'];
+            
+                if($exists == '0'){ // The sid is not in the buffer.
+                    $data = array('sid' => $sid);
+                    if ( ! $this->db->insert('ea_buffer_tutor_assigned', $data)){
+                        $fail_arr[$p++] = $sid;
+                    }
+                }
             }
-        }
+        }// END OF foreach
 
         $data = array('input_sid_arr' => $sid_arr, 'fail_arr' => $fail_arr);
 
