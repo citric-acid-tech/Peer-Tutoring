@@ -261,7 +261,7 @@ root {
     outline: none;
 }
 .students-page#my_appointments-page .filter-records .results {
-	max-height: 470px;
+	max-height: 540px;
 }
 
 .students-page .filter-records .results .entry {

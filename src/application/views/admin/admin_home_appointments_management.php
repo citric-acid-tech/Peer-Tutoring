@@ -90,14 +90,14 @@
                 </div>
     		</form>
 
-            <h3><?= lang('appointments') ?></h3>
+            <h3><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;<?= lang('appointments') ?></h3>
             
             <!-- Here are the results on the left -->
             <div class="results"></div>
     	</div>
 
     	<div class="record-details col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-10">
-			<h3><?= lang('details') ?></h3>
+			<h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
           
 			<div class="row">
 			    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">

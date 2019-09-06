@@ -36,7 +36,7 @@
 			instance.filter(serviceTypeID);
 			
 			//	Enable buttons
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', false);
+			$('.admin-page #service_type-edit').prop('disabled', false);
 			
 			//	Change selected display
             $('.admin-page #service_type_config .results .selected').removeClass('selected');
@@ -55,12 +55,38 @@
 			$('.admin-page #service_type-id').attr('readonly', true);
 		});
         /**
-         * Event: New Tutor Button "Click"
+         * Event: New Service Type Button "Click"
          */
 		$('.admin-page #service_type-new-service_type').click(function() {
-			//	TBC
-			alert("New Service Type");
+			$('.admin-page #service_type_config .popup .curtain').fadeIn();
+			$('.admin-page #service_type_new_service_type_popup').fadeIn();
+		});
+        /**
+         * Event: New Service Type Popup Save Button "Click"
+         */
+		$('.admin-page #popup_new_service_type_save').click(function() {
+			//	Grab data
+			var name = $('#new_service_type_name').val();
+			var description = $('#new_service_type_description').val();
+			//	Ajax Opeation
+			instance.saveNewPopup(name, description);
+			//	Below will be done in ajax
+			//	Re-filter everything
+			//	Hide
+			//	Clear popup with some Timeout
 		});		
+        /**
+         * Event: New Service Type Popup Cancel Button "Click"
+         */
+		$('.admin-page #popup_new_service_type_cancel').click(function() {
+			//	Hide
+			$('.admin-page #service_type_config .popup .curtain').fadeOut();
+			$('.admin-page #service_type_new_service_type_popup').fadeOut();
+			//	Clear popup with some Timeout
+			setTimeout(function() {
+				instance.clearNewPopup();
+			}, 300);
+		});
         /**
          * Event: Save Tutor Button "Click"
          */
@@ -70,7 +96,7 @@
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
 			editing = false;
-			$('.admin-page #service_type_config #service_type-id').attr('readonly', false);
+			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
 		});		
         /**
          * Event: Cancel Button "Click"
@@ -81,7 +107,7 @@
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
 			editing = false;
-			$('.admin-page #service_type_config #service_type-id').attr('readonly', false);
+			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
 		});
 			
 		var t = null;
@@ -98,7 +124,7 @@
 			var obj = this;
 			t = setTimeout(function() {
 				instance.resetForm();
-				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
+				$('.admin-page #service_type-edit').prop('disabled', true);
 				var val = $(obj).val().toLowerCase();
 				instance.filterList('.admin-page #service_type_config .results .entry', val);
 			}, 200);
@@ -142,6 +168,48 @@
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
+
+    /**
+     * Create a New Service type
+     */
+    AdminServiceConfigServiceTypeHelper.prototype.saveNewPopup = function (name, description) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service_type';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			name : JSON.stringify(name),
+			description : JSON.stringify(description)
+        };
+		
+		var obj = this;
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				Admin.displayNotification("Uploaded successfully.", undefined, "success");
+			} else if (response === 'fail') {
+				Admin.displayNotification("ajax_new_service_type: Saving Failed", undefined, "failure");
+			} else {
+				Admin.displayNotification("ajax_new_service_type: Unexpected Behavior", undefined, "failure");
+			}
+			
+			//	Re-filter everything
+			obj.resetForm();
+			obj.getAllServiceTypes();
+			//	Hide
+			$('.admin-page #service_type_config .popup .curtain').fadeOut();
+			$('.admin-page #service_type_new_service_type_popup').fadeOut();
+			//	Clear popup with some Timeout
+			setTimeout(function() {
+				obj.clearNewPopup();
+			}, 300);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
 	
     /**
      * Bring the tutor form back to its initial state.
@@ -164,6 +232,13 @@
 		//	selections are disabled. Writing as below removes the color when
 		//	resetting the form
         $('.admin-page #service_type_config .results').css('color', '');
+    };
+	
+    /**
+     * Clear Popup
+     */
+    AdminServiceConfigServiceTypeHelper.prototype.clearNewPopup = function () {
+		$('#service_type_new_service_type_popup').find('textarea, input').val('');
     };
 
     /**

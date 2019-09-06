@@ -31,7 +31,7 @@
 <div id="tutor-settings-page" class="container-fluid tutors-page">
 	<div class="container">
 		
-		<h3><?= lang('details') ?></h3>
+		<h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
 		
 		<hr />
 		
