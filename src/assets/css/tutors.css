@@ -259,7 +259,7 @@ root {
 /* Watch this, not yet adjusted */
 .tutors-page .filter-records .results {
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 520px;
     outline: none;
 }
 

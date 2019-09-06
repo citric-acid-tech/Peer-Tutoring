@@ -10,9 +10,7 @@
      * @class StudentsAvailableAppointmentsCalendarHelper
      */
     function StudentsAvailableAppointmentsCalendarHelper() {
-        this.filterResults = {};
 		this.calendar = undefined;
-		this.pond = undefined;
     }
 
     /**
@@ -79,6 +77,17 @@
 			"background-color": "#296d97",
 			"color": "snow"
 		});
+		//	Any behaviors cancelled on full capacity
+		$('#popup_apply_title_change strong').html('Apply Now!');
+		$('#popup_apply_title_change + hr').removeClass('stretch');
+		$('#capacity_check, #popup_apply_title_change').css('color', '#296d97');
+		$('#appointment_service_remark, #appointment_service_note').prop('readonly', false);
+		$('#appointment_service_remark, #appointment_service_note').css('background-color', 'white');
+		$('#appointment_service_attach + label').attr('for', 'appointment_service_attach');
+		$('#appointment_service_attach + label').removeClass('disabled');
+		$('#popup_appointment_confirm').show();
+		$('#popup_appointment_cancel').css('width', '42%');
+		$('#popup_appointment_cancel').html('Cancel');
     };
 	
     /**
@@ -93,8 +102,50 @@
 		$('#appointment_service_description').html(event.extendedProps.service_description);
 		$("#appointment_service_tutor").html(event.extendedProps.tutor);
 		$('#appointment_service_tutor_page').prop('href', event.extendedProps.tutor_page);
-		$('#appointment_service_appointed').html(event.extendedProps.appointed);
-		$('#appointment_service_capacity').html(event.extendedProps.capacity);
+		//	Capacity
+		var appointed = event.extendedProps.appointed;
+		var capacity = event.extendedProps.capacity;
+		if (parseInt(appointed) > parseInt(capacity)) {
+			alert("BUG! Contact us to fix it, thank you!");
+			$('#appointment_service_appointed').html('123999');
+			$('#appointment_service_capacity').html('123999');
+		} else if (parseInt(appointed) < parseInt(capacity)) {
+			$('#appointment_service_appointed').html(appointed);
+			$('#appointment_service_capacity').html(capacity);
+		} else if (parseInt(appointed) === parseInt(capacity)) {
+			//	Styles
+			$('#popup_apply_title_change strong').html('Full Capacity... Join us Next Time!');
+			$('#popup_apply_title_change + hr').addClass('stretch');
+			$('#capacity_check, #popup_apply_title_change').css('color', 'red');
+			$('#appointment_service_remark, #appointment_service_note').prop('readonly', true);
+			$('#appointment_service_remark, #appointment_service_note').css('background-color', 'lightgray');
+			$('#appointment_service_attach + label').attr('for', 'none');
+			$('#appointment_service_attach + label').addClass('disabled');
+			$('#popup_appointment_confirm').hide();
+			$('#popup_appointment_cancel').css('width', '90%');
+			$('#popup_appointment_cancel').html('Alright');
+			//	Load
+			$('#appointment_service_appointed').html(appointed);
+			$('#appointment_service_capacity').html(capacity);
+		} else {
+			alert("BUG! Contact us to fix it, thank you!");
+			$('#appointment_service_appointed').html('321999');
+			$('#appointment_service_capacity').html('321999');
+		}
+		//	Booked?
+		if (event.extendedProps.is_booked === '1') {
+			//	Styles
+			$('#popup_apply_title_change strong').html('Appointment Applied~');
+//			$('#popup_apply_title_change + hr').addClass('stretch');
+			$('#capacity_check, #popup_apply_title_change').css('color', 'green');
+			$('#appointment_service_remark, #appointment_service_note').prop('readonly', true);
+			$('#appointment_service_remark, #appointment_service_note').css('background-color', 'lightgray');
+			$('#appointment_service_attach + label').attr('for', 'none');
+			$('#appointment_service_attach + label').addClass('disabled');
+			$('#popup_appointment_confirm').hide();
+			$('#popup_appointment_cancel').css('width', '90%');
+			$('#popup_appointment_cancel').html('Nice');
+		}
 		//	Date
 		var start = moment(event.start);
 		var end = moment(event.end);
@@ -149,18 +200,24 @@
 				
 				if (response === 'success') {
 					Students.displayNotification("Appointment Submitted.", undefined, "success");
-				} else if (response === 'fail') {
-					Students.displayNotification("Failure: Appointment failed.", undefined, "failure");
+				} else if (response === 'booked') {
+					Students.displayNotification("Booked: You've already booked this appointment!", undefined, "failure");
+				} else if (response === 'cap_full') {
+					Students.displayNotification("Capacity: No available space now!.", undefined, "failure");
+				} else if (response === 'denied') {
+					Students.displayNotification("Denied: Something went wrong on applying appointments...");
 				} else {
-					Students.displayNotification("Something went wrong on applying appointments");
+					Students.displayNotification("Failure: Something went wrong on applying appointments...");
 				}
 				
 				//	Hide with TimeOut - See Tutor Appointments Management
 				$('.students-page .popup .curtain').fadeOut();
 				$('.students-page .popup #cal_appointment_popup').fadeOut();
 				
-				//	sync the modified event
-				obj.syncAppointment(id);
+				if (response === 'success') {
+					//	sync the modified event
+					obj.syncAppointment(id);
+				}
 				
 				//	Clear inputs!
 				setTimeout(function() {
@@ -182,6 +239,7 @@
 		var service = cal.getEventById(id);		
 		//	sync extended props
 		service.setExtendedProp('appointed', (parseInt($('#appointment_service_appointed').html())+1).toString());
+		service.setExtendedProp('is_booked', "1");
     };
 	
     /**

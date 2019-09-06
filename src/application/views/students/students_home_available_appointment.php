@@ -228,7 +228,7 @@
 						<li>
 							<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong>Tutor</strong>: <span id="appointment_service_tutor"></span></a>
 						</li>
-						<li>
+						<li id="capacity_check">
 							<strong>Capacity</strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
 						</li>
 						<li>
@@ -244,7 +244,7 @@
 					<hr />
 					<!-- Remark & Note -->
 					<div class="popup-container">
-						<h4 style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
+						<h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
 						<hr style="width:60%;margin: 20px auto;" />
 						<div style="width:43%;display:inline-block;">
 							<textarea id="appointment_service_remark" type="text" placeholder="Remark" rows="2" title="Remark" style="resize:none;width:100%;"></textarea>
@@ -264,8 +264,8 @@
 					<hr />
 					<!-- Buttons -->
 					<div class="popup-container">
-						<button id="popup_appointment_confirm" type="button" class="popup_buttons" value="Submit">Confirm</button>
-						<button id="popup_appointment_cancel" type="button" class="popup_buttons" value="Cancel">Cancel</button>
+						<button id="popup_appointment_confirm" type="button" class="popup_buttons">Confirm</button>
+						<button id="popup_appointment_cancel" type="button" class="popup_buttons">Cancel</button>
 					</div>
 				</div>
 			</div>

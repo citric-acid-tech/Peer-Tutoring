@@ -260,6 +260,9 @@ root {
     max-height: 320px;
     outline: none;
 }
+.students-page#my_appointments-page .filter-records .results {
+	max-height: 470px;
+}
 
 .students-page .filter-records .results .entry {
     padding: 10px 7px;
@@ -682,6 +685,8 @@ root {
 	box-sizing: border-box;
 	margin: 5px 26px;
 	font-size: 18px;
+	height: 265px;
+	overflow-y: scroll;
 }
 .students-page .popup .appoint_list li {
 	list-style-type: square;
@@ -784,8 +789,13 @@ root {
 /* File Input Implementation */
 
 
-
-
+.students-page #appointment_service_attach + label.disabled {
+	background-color: gray!important;
+	cursor: inherit;
+}
+.students-page #popup_apply_title_change + hr.stretch {
+	width: 72%!important;
+}
 
 
 

@@ -362,7 +362,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 									tutor: service.tutor_name,
 									tutor_page: service.personal_page,
 									capacity: service.capacity,
-									appointed: service.appointments_number
+									appointed: service.appointments_number,
+									is_booked: service.is_booked
 								}
 							};
 							results.push(eve);
@@ -386,10 +387,18 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				});
 				//	CSS
 				el.css({
-
 					'cursor': 'pointer',
 					'transition': 'all 0.2s'
 				});
+				if (info.event.extendedProps.capacity === info.event.extendedProps.appointed) {
+					//	equal value, as strings and as numbers, change to red
+					console.log(info.event);
+					el.css('background-color', 'red');
+				}
+				if (info.event.extendedProps.is_booked === '1') {
+					//	Booked, change to green #35B66F
+					el.css('background-color', '#35B66F');
+				}
 				el.hover(function() {
 					el.toggleClass('service_hover');
 				});
