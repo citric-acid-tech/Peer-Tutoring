@@ -29,7 +29,7 @@ class Cas_model extends CI_Model{
                 ->from('ea_buffer_tutor_assigned')
                 ->where('sid', $cas_user_data['sid'])
                 ->get()
-                ->result_array()['cnt'];
+                ->row_array()['cnt'];
             if($is_tutor == 1){
                 $default_registraion_id_role = 2;
                 $this->db->where('sid', $cas_user_data['sid']);
