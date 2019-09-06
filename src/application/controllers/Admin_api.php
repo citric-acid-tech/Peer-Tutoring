@@ -55,31 +55,21 @@ class Admin_api extends CI_Controller{
         }
     }
 
-    public function ajax_new_tutor(){
+    public function ajax_new_tutor_batch(){
         //
         try{
             
             $this->load->model('admin_model');
             
             // Get input
-            $sid = json_decode($this->input->post('sid'), TRUE);
+            $sid_text= json_decode($this->input->post('sid_text'), TRUE);
 
             // Query
-            $result = $this->admin_model->new_sid_tutor($sid);
+            $result = $this->admin_model->new_sid_tutor_batch($sid_text);
             
-            // Log
-
-                // TODO
-
-            if($result == TRUE){
-                $this->output
+            $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode('success'), TRUE);
-            }else{
-                $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode('fail'), TRUE);
-            }
+                ->set_output(json_encode($result), TRUE);
 
         }catch (Exception $exc){
             $this->output

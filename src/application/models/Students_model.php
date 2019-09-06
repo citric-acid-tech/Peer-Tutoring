@@ -485,8 +485,24 @@ class Students_model extends CI_Model{
     }
 
     public function upload_file($user_id, $service_id, $file){
-
+        // Check empty
         if(is_null($file)){
+            return FALSE;
+        }
+
+        $ext = $this->get_extension($file['name']);
+
+        // Check type
+        $ext_arr = explode('|', DOCUMENT_FORMAT);
+        $is_ok = FALSE;
+        foreach($ext_arr AS $val){
+            if($ext == $val){
+                $is_ok = TRUE;
+                break;
+            }
+        }
+
+        if( ! $is_ok){
             return FALSE;
         }
 
@@ -497,7 +513,7 @@ class Students_model extends CI_Model{
             ->get()
             ->row_array()['hash'];
         
-        $ext = $this->get_extension($file['name']);
+        
     
         $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id .'.'. $ext;
 
