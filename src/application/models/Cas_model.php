@@ -8,6 +8,7 @@ class Cas_model extends CI_Model{
     public function get_user_data($cas_user_data){
 
         $default_registraion_id_role = 3;
+
         $id_users = -1;
 
         $registration = 
@@ -22,6 +23,20 @@ class Cas_model extends CI_Model{
 
             $this->db->trans_begin();
 
+            // Examine if this user is assigned to be a tutor already.
+            $is_tutor = $this->db
+                ->select('COUNT(*) AS cnt')
+                ->from('ea_buffer_tutor_assigned')
+                ->where('sid', $cas_user_data['sid'])
+                ->get()
+                ->result_array()['cnt'];
+            if($is_tutor == 1){
+                $default_registraion_id_role = 2;
+                $this->db->where('sid', $cas_user_data['sid']);
+                $this->db->delete('ea_buffer_tutor_assigned');
+            }
+
+            // Register
             $data = array(
                 'first_name' => $cas_user_data['name'],
                 'email' => $cas_user_data['email'],

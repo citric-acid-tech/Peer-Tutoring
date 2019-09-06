@@ -43,49 +43,18 @@ class Admin_model extends CI_Model{
                 continue;
             }
 
-            $registration = 
-                $this->db->select('COUNT(*)')
-                    ->from('ea_users')
-                    ->where('ea_users.cas_sid', $sid)
-                    ->get()
-                    ->row_array()['COUNT(*)'];
-    
-            // This user hasn't registered yet
-            if($registration == 0){
-    
-                $this->db->trans_begin();
-                // insert into ea_users
-                $data = array(
-                    'id_roles' => 2,
-                    'cas_sid' => $sid,
-                    'first_name' => $sid
-                );
-        
-                $this->db->insert('ea_users', $data);
-        
-                $id_users = $this->db->insert_id();
-                
-                // inset into ea_user_settings
-                $data = array(
-                    'id_users' => $id_users,
-                    'username' => $sid,
-                );
-    
-                if( !$this->db->insert('ea_user_settings', $data) ){
-                    $this->db->trans_rollback();
-                    $result = FALSE;
-                }else{
-                    $result = TRUE;
-                }
-    
-                $this->db->trans_complete();
-    
-            }else{
-                $this->db->set('id_roles', '2');
-                $this->db->where('cas_sid', $sid);
-                $result = $this->db->update('ea_users');
-            }
+            $exists = $this->db
+                ->select('COUNT(*) AS cnt')
+                ->from('ea_buffer_tutor_assigned')
+                ->where('sid', $sid)
+                ->get()
+                ->row_array()['cnt'];
             
+            if($exists == '0'){
+                $data = array('sid' => $sid);
+                $result = $this->db->insert('ea_buffer_tutor_assigned', $data);
+            }
+
             if( ! $result){
                 $fail_arr[$p++] = $sid;
             }
@@ -93,7 +62,7 @@ class Admin_model extends CI_Model{
 
         $data = array('input_sid_arr' => $sid_arr, 'fail_arr' => $fail_arr);
 
-        $this->log_operation('new_tutor', $data, $result);
+        $this->log_operation('new_sid_tutor_batch', $data, 'no_value');
 
         return $fail_arr;
     }
