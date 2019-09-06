@@ -6,7 +6,7 @@ class Admin_model extends CI_Model{
      * For testing
      */
     public function new_tutor($first_name, $last_name, $personal_page, 
-                                $introduction, $phone_number, $eamil, $address, $flexible_column){
+                                $introduction, $phone_number, $email, $address, $flexible_column){
         
         $data = array(
             'first_name' => $first_name,
