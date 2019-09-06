@@ -58,9 +58,18 @@ window.AdminStatistics = window.AdminStatistics || {};
 		datatable = $('#service_statistics').DataTable({
 			"autoWidth": true,
 			"processing": true,
-			"scrollY": "420px",
+			"scrollY": "377px",
 			"scrollCollapse": true,
 			responsive: true,
+			"initComplete": function(settings, json) {
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"drawCallback": function( settings ) {
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"stateLoaded": function (settings, data) {
+				Admin.placeFooterToBottom();	//	Fix the footer gg problem
+			},
 			"ajax": function(data, callback, settings) {
 				var sd = $('#start_date').val();
 				var ed = $('#end_date').val();

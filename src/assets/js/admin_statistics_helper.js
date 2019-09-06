@@ -67,8 +67,8 @@
      */
     AdminStatisticsHelper.prototype.validateDateTime = function(sd, ed) {
 		//	Use moment.js to parse the date
-		var start_date = moment(sd);
-		var end_date = moment(ed);
+		var start_date = moment(sd, 'YYYY-MM-DD');
+		var end_date = moment(ed, 'YYYY-MM-DD');
 		//	Check if dates separately are valid
 		var start_valid = (sd === '') || (sd === 'Start Date') || start_date.isValid();
 		var end_valid = (ed === '') || (ed === 'End Date') || end_date.isValid();

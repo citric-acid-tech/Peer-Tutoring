@@ -633,4 +633,17 @@ root {
 }
 /* CALENDAR: HEADER */
 
+/* STATISTICS */
+@media (max-width: 420px) {
+	#start_date, #end_date, #clear_dates {
+		display: block;
+		margin: 15px auto!important;
+		text-align: center;
+	}
+	#end_date {
+		margin-bottom: 25px;
+	}
+}
+/* STATISTICS */
+
 /* Responsive Styles */
