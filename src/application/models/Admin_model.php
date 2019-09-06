@@ -746,6 +746,18 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
+    public function get_settings($key_arr){
+        $this->db
+            ->select('ea_settings.value AS value')
+            ->from('ea_settings');
+
+        foreach($key_arr AS $key){
+            $this->db->or_where('ea_settings.name', $key);
+        }
+        
+        return $this->db->get()->result_array();
+    }
+
     public function get_service_statistic($start_date, $end_date){
         $result = array();
         $this->load->model('general_model');

@@ -507,6 +507,44 @@ class Admin_api extends CI_Controller{
         }  
     }
 
+    public function ajax_get_settings(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $key_arr = array('
+                company_name', 
+                'company_email',
+                'date_format',
+                'time_format',
+                'max_services_checking_ahead_day',
+                'upload_file_max_size(KB)',
+                'max_appointment_cancel_ahead_day',
+                'company_link',
+                'flexible_column_label',
+                'semester_json'
+            );
+
+            // Query
+            $result = $this->admin_model->get_settings($key_arr);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
+    }
+
+/** Ajax interface for statistics */
+
     public function ajax_service_statistic(){
         //
         try{
