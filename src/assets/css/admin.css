@@ -260,6 +260,9 @@ root {
     max-height: 450px;
     outline: none;
 }
+.admin-page#services-page #tutor_config .results {
+	max-height: 350px;
+}
 
 .admin-page .results .entry {
     padding: 10px 7px;
