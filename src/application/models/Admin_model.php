@@ -57,7 +57,8 @@ class Admin_model extends CI_Model{
                 // insert into ea_users
                 $data = array(
                     'id_roles' => 2,
-                    'cas_sid' => $sid
+                    'cas_sid' => $sid,
+                    'first_name' => $sid
                 );
         
                 $this->db->insert('ea_users', $data);

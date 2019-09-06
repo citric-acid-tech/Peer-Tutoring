@@ -105,9 +105,9 @@ define('AVAILABILITIES_TYPE_FLEXIBLE', 'flexible');
 define('AVAILABILITIES_TYPE_FIXED', 'fixed');
 
 /* This is some regular setting about appointments */
-define('DOCUMENT_FORMAT', 'doc|docx|md|pdf|png'); 
+define('DOCUMENT_FORMAT', 'doc|docx|md|pdf|png|zip|jar|7z'); 
 define('DOCUMENT_SAVED_PATH', APPPATH . '..' . DIRECTORY_SEPARATOR .'upload' . DIRECTORY_SEPARATOR);
-define('MAX_DOCUMENT_SIZE',2048); // KB
+define('MAX_DOCUMENT_SIZE',6000); // KB
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
