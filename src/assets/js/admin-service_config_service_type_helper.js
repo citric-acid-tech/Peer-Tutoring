@@ -66,13 +66,13 @@
          */
 		$('.admin-page #popup_new_service_type_save').click(function() {
 			//	Grab data
+			var name = $('#new_service_type_name').val();
+			var description = $('#new_service_type_description').val();
 			//	Ajax Opeation
+			instance.saveNewPopup(name, description);
+			//	Below will be done in ajax
 			//	Re-filter everything
-			instance.resetForm();
-			instance.getAllServiceTypes();
 			//	Hide
-			$('.admin-page #service_type_config .popup .curtain').fadeOut();
-			$('.admin-page #service_type_new_service_type_popup').fadeOut();
 			//	Clear popup with some Timeout
 		});		
         /**
@@ -83,6 +83,9 @@
 			$('.admin-page #service_type_config .popup .curtain').fadeOut();
 			$('.admin-page #service_type_new_service_type_popup').fadeOut();
 			//	Clear popup with some Timeout
+			setTimeout(function() {
+				instance.clearNewPopup();
+			}, 300);
 		});
         /**
          * Event: Save Tutor Button "Click"
@@ -93,7 +96,7 @@
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
 			editing = false;
-			$('.admin-page #service_type_config #service_type-id').attr('readonly', false);
+			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
 		});		
         /**
          * Event: Cancel Button "Click"
@@ -104,7 +107,7 @@
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
 			editing = false;
-			$('.admin-page #service_type_config #service_type-id').attr('readonly', false);
+			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
 		});
 			
 		var t = null;
@@ -165,6 +168,48 @@
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
+
+    /**
+     * Create a New Service type
+     */
+    AdminServiceConfigServiceTypeHelper.prototype.saveNewPopup = function (name, description) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service_type';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			name : JSON.stringify(name),
+			description : JSON.stringify(description)
+        };
+		
+		var obj = this;
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				Admin.displayNotification("Uploaded successfully.", undefined, "success");
+			} else if (response === 'fail') {
+				Admin.displayNotification("ajax_new_service_type: Saving Failed", undefined, "failure");
+			} else {
+				Admin.displayNotification("ajax_new_service_type: Unexpected Behavior", undefined, "failure");
+			}
+			
+			//	Re-filter everything
+			obj.resetForm();
+			obj.getAllServiceTypes();
+			//	Hide
+			$('.admin-page #service_type_config .popup .curtain').fadeOut();
+			$('.admin-page #service_type_new_service_type_popup').fadeOut();
+			//	Clear popup with some Timeout
+			setTimeout(function() {
+				obj.clearNewPopup();
+			}, 300);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
 	
     /**
      * Bring the tutor form back to its initial state.
@@ -187,6 +232,13 @@
 		//	selections are disabled. Writing as below removes the color when
 		//	resetting the form
         $('.admin-page #service_type_config .results').css('color', '');
+    };
+	
+    /**
+     * Clear Popup
+     */
+    AdminServiceConfigServiceTypeHelper.prototype.clearNewPopup = function () {
+		$('#service_type_new_service_type_popup').find('textarea, input').val('');
     };
 
     /**
