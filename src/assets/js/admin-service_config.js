@@ -606,7 +606,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 									capacity: service.capacity,
 									address: service.address,
 									description: service.service_description,
-									service_type_id: service.service_type_id
+									service_type_id: service.service_type_id,
+									appointed: service.appointments_number
 								}
 							};
 							results.push(eve);
@@ -637,8 +638,27 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					el.hover(function() {
 						el.toggleClass('service_hover');
 					});
+					var appointed = parseInt(info.event.extendedProps.appointed);
+					var capacity = parseInt(info.event.extendedProps.capacity);
+					if (appointed < capacity) {
+						//	If no one makes an appointment, normal color
+						if (appointed !== 0) {
+							//	If there are appointments for this service, give a green color
+							el.css('background-color', '#35b66f');
+						}
+					} else if (appointed === capacity) {
+						//	If full capacity, give a red color
+						el.css('background-color', 'red');
+					} else if (appointed > capacity) {
+						//	Abnormal Behavior, ask for fixing
+						alert('Oops, sth wrong. Please contact us to fix it!');
+					} else {
+						//	Abnormal Behavior, ask for fixing
+						alert('Oops, sth wrong. Please contact us to fix it!');
+					}
 				} else {
-					el.css('background-color', '#35b66f');
+					// For Mirror select, give it orange
+					el.css('background-color', '#1e506f');
 				}
 			},
 			eventClick: function(info) {

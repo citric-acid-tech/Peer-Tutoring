@@ -261,6 +261,8 @@
 		$('#cal_edit_popup .popup-container').find('input, textarea').not('.popup_buttons').val('');
 		//	Reset ID
 		$('#edit_service_id').val('');
+		//	Reset Capacity Min to 1
+		$('#edit_service_capacity').prop('min', '1');
     };
 	
     /**
@@ -287,6 +289,10 @@
 		$('#edit_service_date').val(dateWithoutTime);
 		$('#edit_service_st').val(start.format('HH:mm'));
 		$('#edit_service_et').val(end.format('HH:mm'));
+		//	Load Appointed, Restrict Capacity input's min
+		var appointed = event.extendedProps.appointed;
+		$('#edit_service_appointed').val(appointed);
+		$('#edit_service_capacity').prop('min', appointed);
     };
 	
     /**

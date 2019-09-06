@@ -90,7 +90,11 @@
 						<div class="popup-container">
 							<select id="edit_service_tutor" title="Tutor *" style="height:28px;width:42%;"></select>
 							&nbsp;&nbsp;
-							<input id="edit_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:42%;" />
+							<input id="edit_service_appointed" type="text" title="Applied" style="height:28px;width:18%;text-align:right;" readonly />
+							&nbsp;
+							<strong>/</strong>
+							&nbsp;
+							<input id="edit_service_capacity" type="number" min="1" placeholder="Capacity *" title="Capacity *" style="height:28px;width:20%;" />
 						</div>
 						<div class="popup-container">
 							<textarea id="edit_service_description" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
