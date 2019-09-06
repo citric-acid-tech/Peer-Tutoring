@@ -77,7 +77,7 @@
                 </div>
     		</form>
 
-            <h3><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;<?= lang('appointments') ?></h3>
+            <h3><?= lang('appointments') ?></h3>
             
             <!-- Here are the results on the left -->
             <div class="results"></div>
@@ -98,7 +98,7 @@
                 </div>
            </div>
 			
-           <h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
+           <h3><?= lang('details') ?></h3>
           	
            <!-- hide appointment id for data transfer -->
            <input id="appointment-id" type="hidden">       
