@@ -112,6 +112,8 @@ window.AdminStatistics = window.AdminStatistics || {};
 			}
 		});
 		
+		Admin.placeFooterToBottom();	//	Fix the footer gg problem
+		
 		helper.datatable = datatable;
 
         if (defaultEventHandlers) {

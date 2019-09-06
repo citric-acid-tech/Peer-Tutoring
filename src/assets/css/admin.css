@@ -518,6 +518,12 @@ root {
 }
 /* Calendar Buttons */
 
+/* Statistics */
+#service_statistics_wrapper {
+	margin: 10px auto;
+}
+/* Statistics */
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
