@@ -36,7 +36,7 @@
 			instance.filter(serviceTypeID);
 			
 			//	Enable buttons
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', false);
+			$('.admin-page #service_type-edit').prop('disabled', false);
 			
 			//	Change selected display
             $('.admin-page #service_type_config .results .selected').removeClass('selected');
@@ -98,7 +98,7 @@
 			var obj = this;
 			t = setTimeout(function() {
 				instance.resetForm();
-				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
+				$('.admin-page #service_type-edit').prop('disabled', true);
 				var val = $(obj).val().toLowerCase();
 				instance.filterList('.admin-page #service_type_config .results .entry', val);
 			}, 200);

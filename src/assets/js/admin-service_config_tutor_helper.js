@@ -36,7 +36,7 @@
 			instance.filter(tutorID);
 			
 			//	Enable buttons
-			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', false);
+			$('.admin-page #tutor-edit').prop('disabled', false);
 			
 			//	Change selected display
             $('.admin-page #tutor_config .results .selected').removeClass('selected');
@@ -98,7 +98,7 @@
 			var obj = this;
 			t = setTimeout(function() {
 				instance.resetForm();
-				$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
+				$('.admin-page #tutor-edit').prop('disabled', true);
 				var val = $(obj).val().toLowerCase();
 				instance.filterList('.admin-page #tutor_config .results .entry', val);
 			}, 200);

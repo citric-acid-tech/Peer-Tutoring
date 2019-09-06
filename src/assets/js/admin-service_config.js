@@ -298,11 +298,11 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			} else if ($(this).attr('href') === '#tutor_config') {
 				helper = adminServiceConfigTutorHelper;
 				helper.getAllTutors();
-				$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').prop('disabled', true);
+				$('.admin-page #tutor-edit').prop('disabled', true);
 			} else if ($(this).attr('href') === '#service_type_config') {
 				helper = adminServiceConfigServiceTypeHelper;
 				helper.getAllServiceTypes();
-				$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').prop('disabled', true);
+				$('.admin-page #service_type-edit').prop('disabled', true);
 			} else {
 				alert("What have you pressed, my friend??");
 			}
