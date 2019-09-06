@@ -375,7 +375,6 @@ root {
 	margin-bottom: 10px;
 }
 
-
 /* popups */
 .admin-page .popup .curtain {
 	background-color: black;
@@ -573,6 +572,12 @@ root {
     }
 }
 
+@media (max-width: 1199px) {
+	.admin-page .split-column-content {
+		display: block;
+	}
+}
+
 /* CALENDAR: HEADER */
 @media (max-width: 1100px) {
 	.fc-toolbar.fc-header-toolbar {
@@ -584,12 +589,6 @@ root {
 	}
 }
 /* CALENDAR: HEADER */
-
-@media (max-width: 991px) {
-	.admin-page .split-column-content {
-		display: block;
-	}
-}
 
 @media (max-width: 860px) {
     #header #header-menu .menu-item {

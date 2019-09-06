@@ -148,6 +148,7 @@
 	
 		<!-- Tutor Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="tutor_config">
+			<br />
 			<div class="container">
 				<div class="wrapper row">
 					<!-- filter tutors -->
@@ -160,7 +161,7 @@
 							</span>
 						</div>
 						<!-- results -->
-						<h3><?= lang('tutor') ?></h3>
+						<h3><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;<?= lang('tutor') ?></h3>
 						<div class="results"></div>
 					</div>
 					
@@ -178,7 +179,7 @@
 								</button>
 							</div>
 							<div class="btn-group">
-								<button id="tutor-new-tutor" class="btn btn-primary" title="New Tutor">
+								<button id="tutor-new-tutor" class="btn btn-info" title="New Tutor">
 									<i class="fas fa-plus"></i>
 									&nbsp;
 									New Tutor
@@ -200,7 +201,7 @@
 								</button>
 							</div>
 						</div>
-						<h3><?= lang('details') ?></h3>
+						<h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
 						<!-- Left Column -->
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="form-group">
@@ -268,10 +269,11 @@
 		
 		<!-- Service Type Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="service_type_config">
-			<div class="container">
+			<br />
+			<div class="container" style="width:90%;">
 				<div class="wrapper row">
 					<!-- filter service types -->
-					<div class="col-xs-12 col-sm-4">
+					<div class="col-xs-12 col-md-12 col-lg-4">
 						<div class="form-group filter-box">
 							<label class="control-label" for="service_type-service_type">Search for a service type</label>
 							<input type="text" class="form-control" id="service_type-service_type" placeholder="Search for a service type" title="Search for a service type" autocomplete="off" />
@@ -280,16 +282,16 @@
 							</span>
 						</div>
 						<!-- results -->
-						<h3><?= lang('service_type') ?></h3>
+						<h3><i class="fas fa-school"></i>&nbsp;&nbsp;<?= lang('service_type') ?></h3>
 						<div class="results"></div>
 					</div>
 					
-					<div class="col-xs-12 col-sm-1"><hr class="split-column-content"></div>
+					<div class="col-xs-12 col-md-12 col-lg-1"><hr class="split-column-content"></div>
 					
 					<!-- Check and Edit service types -->
-					<div class="col-xs-12 col-sm-7 service_type-details-form">
+					<div class="col-xs-12 col-md-12 col-lg-7 service_type-details-form">
 						<!-- Left Column -->
-						<div class="col-xs-12 col-sm-12 col-md-6">
+						<div class="col-xs-12 col-md-12 col-lg-6">
 							<div class="btn-toolbar">
 								<!-- Initial Group -->
 								<div class="btn-group">
@@ -300,7 +302,7 @@
 									</button>
 								</div>
 								<div class="btn-group">
-									<button id="service_type-new-service_type" class="btn btn-primary" title="New Service Type">
+									<button id="service_type-new-service_type" class="btn btn-info" title="New Service Type">
 										<i class="fas fa-plus"></i>
 										&nbsp;
 										New Service Type
@@ -322,7 +324,7 @@
 									</button>
 								</div>
 							</div>
-							<h3><?= lang('details') ?></h3>
+							<h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
 							<div class="form-group">
 							    <label class="control-label" for="service_type-id">Service ID</label>
 							    <input id="service_type-id" class="form-control" readonly>
@@ -337,8 +339,8 @@
 							</div>
 						</div>
 						<!-- Right Column -->
-						<div class="col-xs-12 col-sm-12 col-md-6">
-							<h3><?= lang('current_tutors_in_this_service_type') ?></h3>
+						<div class="col-xs-12 col-md-12 col-lg-6">
+							<h3><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;<?= lang('current_tutors_in_this_service_type') ?></h3>
 							<hr />
 							<div class="current_tutors_in_this_service_type"></div>
 						</div>
