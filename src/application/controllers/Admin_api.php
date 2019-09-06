@@ -487,15 +487,13 @@ class Admin_api extends CI_Controller{
             $time_format = json_decode($this->input->post('time_format'), TRUE);
             $school_link = json_decode($this->input->post('school_link'), TRUE);
             $flexible_column_label = json_decode($this->input->post('flexible_column_label'), TRUE);
+            $semester_json = json_decode($this->input->post('semester_json'), TRUE);
 
             // Query
-            $result = $this->admin_model->save_settings($school_name, $school_email, $school_link, $date_format, $time_format, 
-                    $upload_file_max_size, $max_services_checking_ahead_day, $max_appointment_cancel_ahead_day, $flexible_column_label);
-            // Log
+            $result = $this->admin_model->save_settings($school_name, $school_email, $school_link, 
+                                $date_format, $time_format, $upload_file_max_size, $max_services_checking_ahead_day, 
+                                $max_appointment_cancel_ahead_day, $flexible_column_label, $semester_json);
 
-                // TODO
-
-            
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($result), TRUE);
