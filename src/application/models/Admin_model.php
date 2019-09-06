@@ -748,14 +748,26 @@ class Admin_model extends CI_Model{
 
     public function get_settings($key_arr){
         $this->db
-            ->select('ea_settings.value AS value')
+            ->select('
+                ea_settings.name  AS name,
+                ea_settings.value AS value
+            ')
             ->from('ea_settings');
 
         foreach($key_arr AS $key){
             $this->db->or_where('ea_settings.name', $key);
         }
         
-        return $this->db->get()->result_array();
+        $result =  $this->db->get()->result_array();
+        
+        $rtn = array();
+        foreach($result AS $row){
+            
+            $rtn[$row['name']] = $row['value'];
+            
+        }
+
+        return $rtn;
     }
 
     public function get_service_statistic($start_date, $end_date){
