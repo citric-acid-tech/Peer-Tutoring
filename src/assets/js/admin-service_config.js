@@ -343,7 +343,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 							$("select#add_service_tutor option[value='" + tutor_id + "']").prop('selected', true);
 						}
 						//	Show
-						$('.admin-page .popup .curtain').fadeIn();
+						$('.admin-page #service-calendar .popup .curtain').fadeIn();
 						$('.admin-page .popup #cal_add_popup').fadeIn();
 					}
 				},
@@ -532,7 +532,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					$("select#add_service_tutor option[value='" + tutor_id + "']").prop('selected', true);
 				}
 				//	Show
-				$('.admin-page .popup .curtain').fadeIn();
+				$('.admin-page #service-calendar .popup .curtain').fadeIn();
 				$('.admin-page .popup #cal_add_popup').fadeIn();
 			},
 //			unselect: function(jsEvent, view) {	//	callback when a region is unselected
@@ -663,7 +663,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			},
 			eventClick: function(info) {
 				helper.loadEditPopup(info.event);
-				$('.admin-page .popup .curtain').fadeIn();
+				$('.admin-page #service-calendar .popup .curtain').fadeIn();
 				$('.admin-page .popup #cal_edit_popup').fadeIn();
 			},
 			//	Advance: Draggables

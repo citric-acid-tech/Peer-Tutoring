@@ -58,9 +58,31 @@
          * Event: New Tutor Button "Click"
          */
 		$('.admin-page #tutor-new-tutor').click(function() {
-			//	TBC
-			alert("New Tutor");
+			$('.admin-page #tutor_config .popup .curtain').fadeIn();
+			$('.admin-page #tutor_new_tutor_popup').fadeIn();
 		});		
+        /**
+         * Event: New Tutor Popup Save Button "Click"
+         */
+		$('.admin-page #popup_new_tutor_save').click(function() {
+			//	Grab data
+			//	Ajax Opeation
+			//	Re-filter everything
+			instance.resetForm();
+			instance.getAllTutors();
+			//	Hide
+			$('.admin-page #tutor_config .popup .curtain').fadeOut();
+			$('.admin-page #tutor_new_tutor_popup').fadeOut();
+			//	Clear popup with some Timeout
+		});		
+        /**
+         * Event: New Tutor Popup Cancel Button "Click"
+         */
+		$('.admin-page #popup_new_tutor_cancel').click(function() {
+			$('.admin-page #tutor_config .popup .curtain').fadeOut();
+			$('.admin-page #tutor_new_tutor_popup').fadeOut();
+			//	Clear popup with some Timeout
+		});
         /**
          * Event: Save Tutor Button "Click"
          */
@@ -82,7 +104,7 @@
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
-		});
+		});		
 			
 		var t = null;
         /**

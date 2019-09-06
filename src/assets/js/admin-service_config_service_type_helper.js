@@ -55,12 +55,35 @@
 			$('.admin-page #service_type-id').attr('readonly', true);
 		});
         /**
-         * Event: New Tutor Button "Click"
+         * Event: New Service Type Button "Click"
          */
 		$('.admin-page #service_type-new-service_type').click(function() {
-			//	TBC
-			alert("New Service Type");
+			$('.admin-page #service_type_config .popup .curtain').fadeIn();
+			$('.admin-page #service_type_new_service_type_popup').fadeIn();
+		});
+        /**
+         * Event: New Service Type Popup Save Button "Click"
+         */
+		$('.admin-page #popup_new_service_type_save').click(function() {
+			//	Grab data
+			//	Ajax Opeation
+			//	Re-filter everything
+			instance.resetForm();
+			instance.getAllServiceTypes();
+			//	Hide
+			$('.admin-page #service_type_config .popup .curtain').fadeOut();
+			$('.admin-page #service_type_new_service_type_popup').fadeOut();
+			//	Clear popup with some Timeout
 		});		
+        /**
+         * Event: New Service Type Popup Cancel Button "Click"
+         */
+		$('.admin-page #popup_new_service_type_cancel').click(function() {
+			//	Hide
+			$('.admin-page #service_type_config .popup .curtain').fadeOut();
+			$('.admin-page #service_type_new_service_type_popup').fadeOut();
+			//	Clear popup with some Timeout
+		});
         /**
          * Event: Save Tutor Button "Click"
          */

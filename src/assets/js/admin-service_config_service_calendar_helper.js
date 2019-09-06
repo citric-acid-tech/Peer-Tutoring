@@ -39,7 +39,7 @@
    		 * Event: Edit Service Cancel button pressed
    		 */
 		$('.admin-page .popup .popup_buttons#popup_edit_cancel').click(function() {
-			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
 			//	Clear inputs!
 			setTimeout(function() {
@@ -98,7 +98,7 @@
    		 * Event: Add Service Cancel button pressed
    		 */
 		$('.admin-page .popup .popup_buttons#popup_add_cancel').click(function() {
-			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_add_popup').fadeOut();
 			//	Clear inputs!
 			setTimeout(function() {
@@ -407,7 +407,7 @@
 			}
 			
 			//	Hide with TimeOut - See Tutor Appointments Management
-			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
 			
 			//	sync the modified event
@@ -494,7 +494,7 @@
 			}
 			
 			//	Fade
-			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
 			
 			//	Remove event from calendar
@@ -629,7 +629,7 @@
 			}
 			
 			//	Hide with TimeOut - See Tutor Appointments Management
-			$('.admin-page .popup .curtain').fadeOut();
+			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_add_popup').fadeOut();
 			
 			//	sync the modified event

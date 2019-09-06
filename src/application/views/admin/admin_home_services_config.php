@@ -53,7 +53,7 @@
 	</ul>   
 
 	<div class="tab-content">
-		<!-- Check Available Time in Calendar Tab -->
+		<!-- Large Service Calendar -->
 		<div role="tabpanel" class="tab-pane active" id="service-calendar">
 			<!-- toolbar -->
 			<div class="container calendar_upper_header" style="text-align:center;">
@@ -146,7 +146,7 @@
 			</div>
 		</div>
 	
-		<!-- Select by Tutor Tab -->
+		<!-- Tutor Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="tutor_config">
 			<div class="container">
 				<div class="wrapper row">
@@ -246,9 +246,27 @@
 					</div>
 				</div>
 			</div>
+			<div class="popup">
+				<div class="curtain"></div>
+				<div id="tutor_new_tutor_popup">
+					<form>
+						<div class="popup-title"><h2>New Tutor</h2></div>
+						<hr />
+						<div class="popup-container">
+							<textarea id="pp" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
+						</div>
+						<hr />
+						<!-- Buttons -->
+						<div class="popup-container">
+							<button id="popup_new_tutor_save" type="button" class="popup_buttons" value="Confirm" style="width:43%;">Save</button>
+							<button id="popup_new_tutor_cancel" type="button" class="popup_buttons" value="Cancel" style="width:43%;">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 		
-		<!-- Select by Time Tab -->
+		<!-- Service Type Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="service_type_config">
 			<div class="container">
 				<div class="wrapper row">
@@ -325,6 +343,27 @@
 							<div class="current_tutors_in_this_service_type"></div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="popup">
+				<div class="curtain"></div>
+				<div id="service_type_new_service_type_popup">
+					<form>
+						<div class="popup-title"><h2>New Service Type</h2></div>
+						<hr />
+						<div class="popup-container">
+							<input id="new_service_type_name" type="text" placeholder="Name" title="Name" />
+						</div>
+						<div class="popup-container">
+							<textarea id="new_service_type_description" placeholder="Description" rows="3" title="Description" style="resize:none;"></textarea>
+						</div>
+						<hr />
+						<!-- Buttons -->
+						<div class="popup-container">
+							<button id="popup_new_service_type_save" type="button" class="popup_buttons" value="Confirm" style="width:43%;">Save</button>
+							<button id="popup_new_service_type_cancel" type="button" class="popup_buttons" value="Cancel" style="width:43%;">Cancel</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -424,6 +424,40 @@ root {
 	/* Default hide */
 	display: none;
 }
+.admin-page .popup #tutor_new_tutor_popup {
+	border-radius: 10px;
+	position: fixed;
+	width: 666px;
+	height: 520px;
+	
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	
+	box-sizing: border-box;
+	background-color: white;
+	z-index: 1000;
+	
+	/* Default hide */
+	display: none;
+}
+.admin-page .popup #service_type_new_service_type_popup {
+	border-radius: 10px;
+	position: fixed;
+	width: 500px;
+	height: 400px;
+	
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	
+	box-sizing: border-box;
+	background-color: white;
+	z-index: 1000;
+	
+	/* Default hide */
+	display: none;
+}
 .admin-page .popup .popup-title h2 {
 	border-radius: 10px 10px 0 0;
 	user-select: none;
