@@ -470,7 +470,7 @@ class Students_model extends CI_Model{
             $this->db->set('appointments_number', 'appointments_number + 1', FALSE);
             $this->db->where('id', $service_id);
             $this->db->update('ea_services');
-            $result = $insert_id;
+            $result = 'success';
         }else{
             unlink($attachment_url);
             $this->db->trans_rollback();
