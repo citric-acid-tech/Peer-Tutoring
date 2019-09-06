@@ -800,6 +800,18 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
+    public function authorise($sid, $id_roles){
+        $data = array('sid'=>$sid, 'id_roles'=>$id_roles);
+        
+        $this->db->set('id_roles', $id_roles);
+        $this->db->where('cas_sid', $sid);
+        $result = $this->db->update('ea_users');
+
+        $this->log_operation('authorise', $data, $result);
+
+        return $result;
+    }
+
     /**
      * Students will receive email from this function only if the appointments are related to
      * these deleted services.

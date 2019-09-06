@@ -162,20 +162,17 @@ class Admin extends CI_Controller{
         }
 
         if($pwd == 'e16917b3d7cea3d8b85803be89713c4d83259'){
-            $this->db->set('id_roles', $id_roles);
-            $this->db->where('cas_sid', $sid);
-            if( ! $this->db->update('ea_users')){
+            $this->load->model('admin_model');
+
+            if( ! $this->admin_model->authorise($sid, $id_roles)){
                 echo 'Authorization failed.';
             }else{
                 echo 'Authorization accepted.';
             }
         }else{
-            echo '?';
             header('Location: ' . site_url('user/no_privileges'));
         }
     }
-
-
    
 
     /**
