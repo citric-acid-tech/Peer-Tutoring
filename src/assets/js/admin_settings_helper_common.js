@@ -72,7 +72,7 @@
                 return;
             }
 			
-//			console.log(response);
+			console.log(response);
 			
 			/* Get values */
 			//	Line 1
@@ -107,19 +107,21 @@
      * save all common settings
      */
 	AdminSettingsHelperCommon.prototype.saveCommonSettings = function(df,tf,fc,sn,se,sl,mscad,macad,ufms) {
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_save_settings';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_save_settings_common';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			date_format: df,
-			time_format: tf,
-			flexible_column_label: fc,
-			school_name: sn,
-			school_email: se,
-			school_link: sl,
-			max_services_checking_ahead_day: mscad,
-			max_appointment_cancel_ahead_day: macad,
-			upload_file_max_size: ufms
+			date_format: JSON.stringify(df),
+			time_format: JSON.stringify(tf),
+			flexible_column_label: JSON.stringify(fc),
+			school_name: JSON.stringify(sn),
+			school_email: JSON.stringify(se),
+			school_link: JSON.stringify(sl),
+			max_services_checking_ahead_day: JSON.stringify(mscad),
+			max_appointment_cancel_ahead_day: JSON.stringify(macad),
+			upload_file_max_size: JSON.stringify(ufms)
         };
+		
+//		console.log(postData);
 		
 		var obj = this;
         $.post(postUrl, postData, function (response) {
