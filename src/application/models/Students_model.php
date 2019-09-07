@@ -469,8 +469,12 @@ class Students_model extends CI_Model{
 
             $this->db->set('appointments_number', 'appointments_number + 1', FALSE);
             $this->db->where('id', $service_id);
-            $this->db->update('ea_services');
-            $result = 'success';
+            if ($this->db->update('ea_services')){
+                $result = 'success';
+            }else{
+                $result = 'denied';
+            }
+            
         }else{
             unlink($attachment_url);
             $this->db->trans_rollback();
@@ -557,6 +561,42 @@ class Students_model extends CI_Model{
        ];
 
         $this->db->insert('ea_student_log', $data);
+    }
+
+    protected function sendemail($mail_arr, $subject, $body, $attachment_url = 'null'){
+        require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
+        require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
+        require_once("vendor/phpmailer/phpmailer/class.smtp.php");
+
+        $mail = new PHPMailer();
+
+        // $mail->SMTPDebug = 1;
+
+        $mail->isSMTP();
+        $mail->isHTML(true);
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->CharSet = 'UTF-8';
+
+        $mail->Host = Config::SMTP_HOST;
+        $mail->Port = Config::SMTP_PORT;
+        $mail->FromName = Config::SMTP_FROMNAME;
+        $mail->Username = Config::SMTP_SMTPUSER;
+        $mail->Password = Config::SMTP_PASSWORD;
+        $mail->From = Config::SMTP_FROM;
+
+        foreach($mail_arr AS $mail_address){
+            $mail->addAddress($mail_address);
+        }
+
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        if($attachment_url != 'null'){
+            $mail->addAttachment($attachment_url);
+        }
+       
+        $status = $mail->send(); 
     }
 }
 ?>

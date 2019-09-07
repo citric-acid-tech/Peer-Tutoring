@@ -70,6 +70,17 @@ class Config {
     const CAS_CONTEXT = '/cas';
     // Port of your CAS server. Normally for a https server it's 443
     const CAS_PORT = 443;
+
+    // ------------------------------------------------------------------------
+    // SMTP Server SETTINGS
+    // ------------------------------------------------------------------------
+
+    const SMTP_HOST     = 'smtp.163.com';
+    const SMTP_PORT     = 994;
+    const SMTP_FROMNAME = 'mail|Citric-Acid';
+    const SMTP_SMTPUSER = 'XXX@163.com';
+    const SMTP_PASSWORD = 'Authorised password(smtp授权密码)';
+    const SMTP_FROM     = 'XXX@163.com';
 }
 
 /* End of file config.php */
