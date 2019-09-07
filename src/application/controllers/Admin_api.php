@@ -487,11 +487,12 @@ class Admin_api extends CI_Controller{
             $time_format = json_decode($this->input->post('time_format'), TRUE);
             $school_link = json_decode($this->input->post('school_link'), TRUE);
             $flexible_column_label = json_decode($this->input->post('flexible_column_label'), TRUE);
+            $enable_email_notification = json_decode($this->input->post('enable_email_notification'), TRUE);
 
             // Query
             $result = $this->admin_model->save_settings_common($school_name, $school_email, $school_link, 
                                 $date_format, $time_format, $upload_file_max_size, $max_services_checking_ahead_day, 
-                                $max_appointment_cancel_ahead_day, $flexible_column_label);
+                                $max_appointment_cancel_ahead_day, $flexible_column_label, $enable_email_notification);
 
             $this->output
                 ->set_content_type('application/json')
@@ -522,7 +523,8 @@ class Admin_api extends CI_Controller{
                 'upload_file_max_size(KB)',
                 'max_appointment_cancel_ahead_day',
                 'company_link',
-                'flexible_column_label'
+                'flexible_column_label',
+                'enable_email_notification'
             );
 
             // Query

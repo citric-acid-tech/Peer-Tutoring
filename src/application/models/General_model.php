@@ -113,7 +113,7 @@ class General_model extends CI_Model{
         $ec = json_decode($value);
         $subject = $ec['subject'];
         $body = str_replace(array('$SERV_TYPE$', '$DATE$', '$ADDRESS$', '$LEFT$'), 
-                            array($service_type,  $date,    $address,    $left), 
+                            array( $service_type, $date,    $address,    $left), 
                 $ec['body']);
 
         return array('subject'=>$subject, 'body'=>$body);

@@ -677,7 +677,7 @@ class Admin_model extends CI_Model{
             $upload_file_max_size, 
             $max_services_checking_ahead_day, 
             $max_appointment_cancel_ahead_day,
-            $flexible_column_label){
+            $flexible_column_label, $enable_email_notification){
         
         $this->db->trans_begin();
 
@@ -708,14 +708,17 @@ class Admin_model extends CI_Model{
         $this->db->where('name', 'flexible_column_label');
         $bool9 = $this->db->update('ea_settings', ['value' => $flexible_column_label]);
 
+        $this->db->where('name', 'enable_email_notification');
+        $bool10 = $this->db->update('ea_settings', ['value' => $enable_email_notification]);
+
         $input_arr = array($school_name, $school_email, $school_link, 
         $date_format, $time_format, 
         $upload_file_max_size, 
         $max_services_checking_ahead_day, 
         $max_appointment_cancel_ahead_day,
-        $flexible_column_label);
+        $flexible_column_label, $enable_email_notification);
 
-        $result = $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9;
+        $result = $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9 && $bool10;
 
         if( ! $result){
             $this->db->trans_rollback();
