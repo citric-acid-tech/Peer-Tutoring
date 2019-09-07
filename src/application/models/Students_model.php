@@ -471,10 +471,16 @@ class Students_model extends CI_Model{
             $this->db->where('id', $service_id);
             if ($this->db->update('ea_services')){
                 $result = 'success';
+
+                // :: Send Email to the tutor and student
+                // Send Email to the current user
+                $subject = 'Appointment established';
+                $body = 'Come to the address on time.';
+                $this->sendemail(array($this->session->userdata('user_email')), $subject, $body);
+
             }else{
                 $result = 'denied';
             }
-            
         }else{
             unlink($attachment_url);
             $this->db->trans_rollback();
@@ -596,7 +602,7 @@ class Students_model extends CI_Model{
             $mail->addAttachment($attachment_url);
         }
        
-        $status = $mail->send(); 
+        return $mail->send(); 
     }
 }
 ?>
