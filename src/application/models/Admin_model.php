@@ -30,10 +30,11 @@ class Admin_model extends CI_Model{
      * @param sid_text The sid of the student
      * @return boolean success or not
      */
-    public function new_sid_tutor_batch($sid_text){
-        $sid_arr = explode(PHP_EOL, $sid_text);
-        $fail_arr = array();
-        $p = 0;
+    public function new_sid_tutor_batch($in_sid_text){
+        $sid_text = str_replace(array("\r\n", "\r", "\n"), '|', $in_sid_text);
+        $sid_arr = explode('|', $sid_text);
+        $fail_arr = array('');
+        $p = 1;
 
         $data = array();
 
