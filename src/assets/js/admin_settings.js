@@ -76,7 +76,7 @@ window.AdminSettings = window.AdminSettings || {};
 						//	locale
 						lang: lang,
 						//	disable all at first
-//						disabled: true,
+						disabled: true,
 						//	button panel
 						btns: [
 							['viewHTML'],

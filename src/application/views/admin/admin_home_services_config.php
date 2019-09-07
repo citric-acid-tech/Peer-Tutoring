@@ -194,6 +194,13 @@
 								</button>
 							</div>
 							<div class="btn-group">
+								<button id="tutor-delete" class="btn btn-warning" title="<?= lang('delete') ?>">
+									<i class="fas fa-trash-alt"></i>
+									&nbsp;
+									<?= lang('delete') ?>
+								</button>
+							</div>
+							<div class="btn-group">
 								<button id="tutor-cancel" class="btn btn-default" title="<?= lang('cancel') ?>">
 									<i class="fas fa-times"></i>
 									&nbsp;

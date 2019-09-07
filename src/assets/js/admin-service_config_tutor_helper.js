@@ -50,7 +50,7 @@
 			editing = true;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', true);
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').hide();
-			$('.admin-page #tutor-save, .admin-page #tutor-cancel').fadeIn(360);
+			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete').fadeIn(360);
 			$('.tutor-details-form').find('input, textarea').attr('readonly', false);
 			$('.admin-page #tutor-id').attr('readonly', true);
 		});
@@ -102,7 +102,7 @@
 		$('.admin-page #tutor-save').click(function() {
 			instance.saveEdition();
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #tutor-save, .admin-page #tutor-cancel').hide();
+			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete').hide();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
@@ -113,7 +113,7 @@
 		$('.admin-page #tutor-cancel').click(function() {
 			instance.filter($('.admin-page #tutor-id').val());
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #tutor-save, .admin-page #tutor-cancel').hide();
+			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete').hide();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
@@ -199,7 +199,7 @@
         $('.tutor-details-form').find('input, textarea').val('');
 
 		//	Handle the button group
-        $('#tutor-save, #tutor-cancel').hide();
+        $('#tutor-save, #tutor-cancel, #tutor-delete').hide();
         $('#tutor-edit, #tutor-new-tutor').show();
 		
 		//	Erase all selected effects on search results part
