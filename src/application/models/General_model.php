@@ -97,5 +97,26 @@ class General_model extends CI_Model{
         }
         return $rtn;
     }
+
+    // $SERV_TYPE$, $DATE$, $ADDRESS$, $LEFT$
+    public function get_email_content($key, $service_type = 'null', $date = 'null', $address = 'null', $left = 'null'){
+        $value = $this->db
+            ->select('ea_settings.value')
+            -from('ea_settings')
+            ->where('name', $key)
+            ->get()
+            ->row_array()['value'];
+        if(is_null($value)){
+            return FALSE;
+        }
+        
+        $ec = json_decode($value);
+        $subject = $ec['subject'];
+        $body = str_replace(array('$SERV_TYPE$', '$DATE$', '$ADDRESS$', '$LEFT$'), 
+                            array($service_type,  $date,    $address,    $left), 
+                $ec['body']);
+
+        return array('subject'=>$subject, 'body'=>$body);
+    }
 }
 ?>

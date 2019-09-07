@@ -11,7 +11,7 @@ class Migration_Add_buffer_failed_email_table extends CI_Migration {
                 `email` VARCHAR(45) NOT NULL,
                 `subject` VARCHAR(45) NULL,
                 `email_body` TEXT NULL,
-                PRIMARY KEY (`timestamp`, `eamil`));
+                PRIMARY KEY (`timestamp`, `email`));
             ');
         }
     }
