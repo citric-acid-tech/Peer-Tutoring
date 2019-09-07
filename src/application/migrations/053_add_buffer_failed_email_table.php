@@ -8,7 +8,7 @@ class Migration_Add_buffer_failed_email_table extends CI_Migration {
             $this->db->query(
                 'CREATE TABLE `ea_buffer_failed_email` (
                 `timestamp` DATETIME NOT NULL,
-                `eamil` VARCHAR(45) NOT NULL,
+                `email` VARCHAR(45) NOT NULL,
                 `subject` VARCHAR(45) NULL,
                 `email_body` TEXT NULL,
                 PRIMARY KEY (`timestamp`, `eamil`));
