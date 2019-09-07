@@ -753,6 +753,9 @@ class Admin_model extends CI_Model{
             
         }
 
+        $rtn['upload_file_max_size'] = $rtn['upload_file_max_size(KB)'];
+        unset($rtn['upload_file_max_size(KB)']);
+
         return $rtn;
     }
 
