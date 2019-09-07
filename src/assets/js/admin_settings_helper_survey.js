@@ -3,20 +3,20 @@
     'use strict';
 
     /**
-     * AdminServiceConfigServiceTypeHelper Class
+     * AdminSettingsHelperSurvey Class
      *
      * This class contains the methods that are used in the Students My Appointment page.
      *
-     * @class AdminServiceConfigServiceTypeHelper
+     * @class AdminSettingsHelperSurvey
      */
-    function AdminServiceConfigServiceTypeHelper() {
+    function AdminSettingsHelperSurvey() {
         this.filterResults = {};
     }
 
     /**
      * Binds the default event handlers of the Students My Appointment page.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.bindEventHandlers = function () {
+    AdminSettingsHelperSurvey.prototype.bindEventHandlers = function () {
         var instance = this;
 		var editing = false;
 
@@ -134,7 +134,7 @@
     /**
      * Upload
      */
-    AdminServiceConfigServiceTypeHelper.prototype.saveEdition = function () {
+    AdminSettingsHelperSurvey.prototype.saveEdition = function () {
         var service_type_id = $('#service_type-id').val();
 		var service_type_name = $('#service_type-name').val();
 		var service_type_description = $('#service_type-description').val();
@@ -172,7 +172,7 @@
     /**
      * Create a New Service type
      */
-    AdminServiceConfigServiceTypeHelper.prototype.saveNewPopup = function (name, description) {
+    AdminSettingsHelperSurvey.prototype.saveNewPopup = function (name, description) {
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service_type';
         var postData = {
@@ -214,7 +214,7 @@
     /**
      * Bring the tutor form back to its initial state.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.resetForm = function () {
+    AdminSettingsHelperSurvey.prototype.resetForm = function () {
 		//	Clear all inputs
         $('.service_type-details-form').find('input, textarea').val('');
 		
@@ -237,7 +237,7 @@
     /**
      * Clear Popup
      */
-    AdminServiceConfigServiceTypeHelper.prototype.clearNewPopup = function () {
+    AdminSettingsHelperSurvey.prototype.clearNewPopup = function () {
 		$('#service_type_new_service_type_popup').find('textarea, input').val('');
     };
 
@@ -246,7 +246,7 @@
      *
      * @param {Object} tutor Contains the tutor record data.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.display = function (service_type) {
+    AdminSettingsHelperSurvey.prototype.display = function (service_type) {
         $('#service_type-id').val(service_type.info.id);
 		$('#service_type-name').val(service_type.info.name);
 		$('#service_type-description').val(service_type.info.description);
@@ -266,7 +266,7 @@
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.filter = function (id, display) {
+    AdminSettingsHelperSurvey.prototype.filter = function (id, display) {
         display = display || false;
 
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_service_types';
@@ -292,7 +292,7 @@
     /**
      * Get all service categories and wrap them in an html
      */
-   	AdminServiceConfigServiceTypeHelper.prototype.getAllServiceTypes = function() {
+   	AdminSettingsHelperSurvey.prototype.getAllServiceTypes = function() {
         var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
@@ -318,11 +318,11 @@
     /**
      * Get all service categories and wrap them in an html
      */
-    AdminServiceConfigServiceTypeHelper.prototype.filterList = function(filterItem, filterValue) {
+    AdminSettingsHelperSurvey.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
 			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
     };
 	
-    window.AdminServiceConfigServiceTypeHelper = AdminServiceConfigServiceTypeHelper;
+    window.AdminSettingsHelperSurvey = AdminSettingsHelperSurvey;
 })();

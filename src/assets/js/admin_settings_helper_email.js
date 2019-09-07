@@ -3,20 +3,20 @@
     'use strict';
 
     /**
-     * AdminServiceConfigServiceTypeHelper Class
+     * AdminSettingsHelperEmail Class
      *
      * This class contains the methods that are used in the Students My Appointment page.
      *
-     * @class AdminServiceConfigServiceTypeHelper
+     * @class AdminSettingsHelperEmail
      */
-    function AdminServiceConfigServiceTypeHelper() {
+    function AdminSettingsHelperEmail() {
         this.filterResults = {};
     }
 
     /**
      * Binds the default event handlers of the Students My Appointment page.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.bindEventHandlers = function () {
+    AdminSettingsHelperEmail.prototype.bindEventHandlers = function () {
         var instance = this;
 		var editing = false;
 
@@ -134,7 +134,7 @@
     /**
      * Upload
      */
-    AdminServiceConfigServiceTypeHelper.prototype.saveEdition = function () {
+    AdminSettingsHelperEmail.prototype.saveEdition = function () {
         var service_type_id = $('#service_type-id').val();
 		var service_type_name = $('#service_type-name').val();
 		var service_type_description = $('#service_type-description').val();
@@ -172,7 +172,7 @@
     /**
      * Create a New Service type
      */
-    AdminServiceConfigServiceTypeHelper.prototype.saveNewPopup = function (name, description) {
+    AdminSettingsHelperEmail.prototype.saveNewPopup = function (name, description) {
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service_type';
         var postData = {
@@ -214,7 +214,7 @@
     /**
      * Bring the tutor form back to its initial state.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.resetForm = function () {
+    AdminSettingsHelperEmail.prototype.resetForm = function () {
 		//	Clear all inputs
         $('.service_type-details-form').find('input, textarea').val('');
 		
@@ -237,7 +237,7 @@
     /**
      * Clear Popup
      */
-    AdminServiceConfigServiceTypeHelper.prototype.clearNewPopup = function () {
+    AdminSettingsHelperEmail.prototype.clearNewPopup = function () {
 		$('#service_type_new_service_type_popup').find('textarea, input').val('');
     };
 
@@ -246,7 +246,7 @@
      *
      * @param {Object} tutor Contains the tutor record data.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.display = function (service_type) {
+    AdminSettingsHelperEmail.prototype.display = function (service_type) {
         $('#service_type-id').val(service_type.info.id);
 		$('#service_type-name').val(service_type.info.name);
 		$('#service_type-description').val(service_type.info.description);
@@ -266,7 +266,7 @@
      * ID will be selected (but not displayed).
      * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
      */
-    AdminServiceConfigServiceTypeHelper.prototype.filter = function (id, display) {
+    AdminSettingsHelperEmail.prototype.filter = function (id, display) {
         display = display || false;
 
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_service_types';
@@ -292,7 +292,7 @@
     /**
      * Get all service categories and wrap them in an html
      */
-   	AdminServiceConfigServiceTypeHelper.prototype.getAllServiceTypes = function() {
+   	AdminSettingsHelperEmail.prototype.getAllServiceTypes = function() {
         var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
@@ -318,11 +318,11 @@
     /**
      * Get all service categories and wrap them in an html
      */
-    AdminServiceConfigServiceTypeHelper.prototype.filterList = function(filterItem, filterValue) {
+    AdminSettingsHelperEmail.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
 			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
     };
 	
-    window.AdminServiceConfigServiceTypeHelper = AdminServiceConfigServiceTypeHelper;
+    window.AdminSettingsHelperEmail = AdminSettingsHelperEmail;
 })();

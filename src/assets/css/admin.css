@@ -578,6 +578,11 @@ textarea:read-only {
     box-shadow: none;
 }
 
+#common_save, #common_cancel {
+	/* Hide initially */
+	display: none;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
