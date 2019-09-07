@@ -164,6 +164,17 @@ class Students_model extends CI_Model{
 
             if( ! $result){
                 $this->db->trans_rollback();
+            }else{
+                // :: Send Email to the tutor and student
+                //// Get the information of the service
+                $this->load->model('general_model');
+                if($this->general_model->is_enable_email_notification()){
+
+                    $row = $this->general_model->get_appointment_info($appointment_id);
+                    
+                    $this->general_model->send_email('ec_cancel_appoint_tut', array($row['tutor_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
+                    $this->general_model->send_email('ec_cancel_appoint_stu', array($this->session->userdata('user_email')), $row['service_type'], $row['date'], $row['address'], $row['left']);
+                }
             }
 
             $this->db->trans_complete();
@@ -273,7 +284,21 @@ class Students_model extends CI_Model{
         $result = $this->db->update('ea_appointments');
 
         $data = array($appointment_id, $stars, $comment_or_suggestion);
-        $thus->log_operation('rate_and_comment', $data, $result);
+        $this->log_operation('rate_and_comment', $data, $result);
+
+        if($result){
+            // :: Send Email to the tutor and student
+            //// Get the information of the service
+            $this->load->model('general_model');
+            if($this->general_model->is_enable_email_notification()){
+
+                $row = $this->general_model->get_appointment_info($appointment_id);
+                
+                $this->general_model->send_email('ec_survey_comple_tut', array($row['tutor_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
+            }    
+        }
+
+        return $result;
     }
 
 
@@ -470,14 +495,17 @@ class Students_model extends CI_Model{
             $this->db->set('appointments_number', 'appointments_number + 1', FALSE);
             $this->db->where('id', $service_id);
             if ($this->db->update('ea_services')){
+
                 $result = 'success';
+
                 $this->load->library('session');
                 // :: Send Email to the tutor and student
-                // Send Email to the current user
-                $subject = 'Appointment established';
-                $body = 'Come to the address on time.';
-                if( ! $this->sendemail(array($this->session->userdata('user_email')), $subject, $body)) {
-                    $this->buffer_failed_email(array($this->session->userdata('user_email')), $subject, $body);
+                //// Get the information of the service
+                $this->load->model('general_model');
+                if($this->general_model->is_enable_email_notification()){
+                    $row = $this->general_model->get_service_info($service_id);
+                    $this->general_model->send_email('ec_new_appoint_stu', array($this->session->userdata('user_email')), $row['service_type'], $row['date'], $row['address'], $row['left']);
+                    $this->general_model->send_email('ec_new_appoint_tut', array($row['tutor_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
                 }
             }else{
                 $result = 'denied';
@@ -568,56 +596,6 @@ class Students_model extends CI_Model{
        ];
 
         $this->db->insert('ea_student_log', $data);
-    }
-
-    protected function sendemail($mail_arr, $subject, $body, $attachment_url = 'null'){
-        require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
-        require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
-        require_once("vendor/phpmailer/phpmailer/class.smtp.php");
-
-        $mail = new PHPMailer();
-
-        // $mail->SMTPDebug = 1;
-
-        $mail->isSMTP();
-        $mail->isHTML(true);
-        $mail->SMTPAuth = true;
-        $mail->SMTPSecure = 'ssl';
-        $mail->CharSet = 'UTF-8';
-
-        $mail->Host = Config::SMTP_HOST;
-        $mail->Port = Config::SMTP_PORT;
-        $mail->FromName = Config::SMTP_FROMNAME;
-        $mail->Username = Config::SMTP_SMTPUSER;
-        $mail->Password = Config::SMTP_PASSWORD;
-        $mail->From = Config::SMTP_FROM;
-
-        foreach($mail_arr AS $mail_address){
-            $mail->addAddress($mail_address);
-        }
-
-        $mail->Subject = $subject;
-        $mail->Body = $body;
-
-        if($attachment_url != 'null'){
-            $mail->addAttachment($attachment_url);
-        }
-       
-        return $mail->send(); 
-    }
-
-    protected function buffer_failed_email($mail_arr, $subject, $body){
-        $data = array();
-        $now_datetimeObj = new DateTime();
-        $now = $now_datetimeObj->format('Y-m-d H:i:s');
-        $data = [
-            'email' => json_encode($mail_arr),
-            'subject' => $subject,
-            'email_body' => $body,
-            'timestamp' => $now
-       ];
-
-        $this->db->insert('ea_buffer_failed_email', $data);
     }
 }
 ?>

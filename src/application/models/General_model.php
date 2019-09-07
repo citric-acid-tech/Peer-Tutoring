@@ -98,11 +98,66 @@ class General_model extends CI_Model{
         return $rtn;
     }
 
+    public function get_appointment_info($appointment_id){
+        return $this->db->select('
+                        stu.email                       AS student_email,
+                        ea_users.email                  AS tutor_email,
+                        ea_appointments.id_services     AS service_id,
+                        ea_service_categories.name      AS service_type,
+                        ea_services.start_datetime      AS date,
+                        ea_services.address             AS address,
+                        ea_services.appointments_number AS left
+                    ')
+                    ->from('ea_appointments')
+                    ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
+                    ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+                    ->join('ea_users AS stu', 'stu.id = ea_appointments.id_users_customer', 'inner')
+                    ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+                    ->where('ea_appointments.id', $appointment_id)
+                    ->get()
+                    ->row_array();
+    }
+
+    public function is_enable_email_notification(){
+        return $this->db->select('ea_settings.value AS rtn')
+                    ->from('ea_settings')
+                    ->where('name', 'enable_email_notification')
+                    ->get()
+                    ->row_array()['rtn'] == 1;
+    }
+
+    public function get_service_info($service_id){
+        return $this->db
+                ->select('
+                    ea_service_categories.name      AS service_type,
+                    ea_services.start_datetime      AS date,
+                    ea_services.address             AS address,
+                    ea_services.appointments_number AS left,
+                    ea_users.email                  AS tutor_email
+                ')
+                ->from('ea_services')
+                ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
+                ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
+                ->where('ea_services.id', $service_id)
+                ->get()
+                ->row_array();
+    }
+
+    public function send_email($key, $mail_arr, $service_type = '', $date = 'some day', $address = 'some place', $left = '1'){
+        $ec = $this->_get_email_content($key, $service_type, $date, $address, $left);
+        $subject = $ec['subject'];
+        $body    = $ec['body'];
+
+        if( ! $this->_sendemail($mail_arr, $subject, $body)){
+            $this->_buffer_failed_email($mail_arr, $subject, $body);
+        }
+    }
+
     // $SERV_TYPE$, $DATE$, $ADDRESS$, $LEFT$
-    public function get_email_content($key, $service_type = 'null', $date = 'null', $address = 'null', $left = 'null'){
+    protected function _get_email_content($key, $service_type, $date, $address, $left){
         $value = $this->db
             ->select('ea_settings.value')
-            -from('ea_settings')
+            ->from('ea_settings')
             ->where('name', $key)
             ->get()
             ->row_array()['value'];
@@ -110,13 +165,63 @@ class General_model extends CI_Model{
             return FALSE;
         }
         
-        $ec = json_decode($value);
+        $ec = json_decode($value, TRUE);
         $subject = $ec['subject'];
         $body = str_replace(array('$SERV_TYPE$', '$DATE$', '$ADDRESS$', '$LEFT$'), 
                             array( $service_type, $date,    $address,    $left), 
                 $ec['body']);
 
         return array('subject'=>$subject, 'body'=>$body);
+    }
+
+    protected function _sendemail($mail_arr, $subject, $body, $attachment_url = 'null'){
+        require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
+        require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
+        require_once("vendor/phpmailer/phpmailer/class.smtp.php");
+
+        $mail = new PHPMailer();
+
+        // $mail->SMTPDebug = 1;
+
+        $mail->isSMTP();
+        $mail->isHTML(true);
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'ssl';
+        $mail->CharSet = 'UTF-8';
+
+        $mail->Host = Config::SMTP_HOST;
+        $mail->Port = Config::SMTP_PORT;
+        $mail->FromName = Config::SMTP_FROMNAME;
+        $mail->Username = Config::SMTP_SMTPUSER;
+        $mail->Password = Config::SMTP_PASSWORD;
+        $mail->From = Config::SMTP_FROM;
+
+        foreach($mail_arr AS $mail_address){
+            $mail->addAddress($mail_address);
+        }
+
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        if($attachment_url != 'null'){
+            $mail->addAttachment($attachment_url);
+        }
+       
+        return $mail->send(); 
+    }
+
+    protected function _buffer_failed_email($mail_arr, $subject, $body){
+        $data = array();
+        $now_datetimeObj = new DateTime();
+        $now = $now_datetimeObj->format('Y-m-d H:i:s');
+        $data = [
+            'email' => json_encode($mail_arr),
+            'subject' => $subject,
+            'email_body' => $body,
+            'timestamp' => $now
+       ];
+
+        $this->db->insert('ea_buffer_failed_email', $data);
     }
 }
 ?>

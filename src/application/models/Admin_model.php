@@ -38,6 +38,9 @@ class Admin_model extends CI_Model{
 
         $data = array();
 
+        $mail_id_arr = array();
+        $m = 0;
+
         foreach($sid_arr AS $sid){
             $result = FALSE;
 
@@ -59,8 +62,9 @@ class Admin_model extends CI_Model{
                 $this->db->where('cas_sid', $sid);
                 if( ! $this->db->update('ea_users')){
                     $fail_arr[$p++] = $sid;
+                }else{
+                    $mail_id_arr[$m++] = $sid;
                 }
-
             }else{ // This user is not registered yet.
                 $exists = $this->db
                     ->select('COUNT(*) AS cnt')
@@ -77,6 +81,25 @@ class Admin_model extends CI_Model{
                 }
             }
         }// END OF foreach
+        
+        $this->load->model('general_model');
+        if($this->general_model->is_enable_email_notification()){
+            // :: Send email to this tutor
+            //// Get his/her email
+            $email_result = $this->db->select('ea_users.email AS email')
+            ->from('ea_users');
+            foreach($mail_id_arr AS $sid){
+                $this->db->or_where('ea_users.cas_sid', $sid);
+            }
+            $email_result = $this->db->get()->result_array();
+            // send emails
+            $mail_arr = array();
+            $m = 0;
+            foreach($email_result AS $row){
+                $mail_arr[$m++] = $row['email'];
+            }
+            $this->general_model->send_email('ec_add_tutor_tut', $mail_arr);
+        }
 
         $data = array('input_sid_arr' => $sid_arr, 'fail_arr' => $fail_arr);
 
@@ -163,6 +186,16 @@ class Admin_model extends CI_Model{
         $data['service_id'] = $service_id;
         $this->log_operation('edit_service', $data, $result);
 
+        if($result){
+            // :: Send Email to the tutor and student
+            //// Get the information of the service
+            $this->load->model('general_model');
+            if($this->general_model->is_enable_email_notification()){
+                $row = $this->general_model->get_service_info($service_id);
+                $this->general_model->send_email('ec_edit_service_tut', array($row['tutor_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
+            }
+        }
+
         return $result;
     }
 
@@ -173,6 +206,37 @@ class Admin_model extends CI_Model{
      * @return boolean success or not
      */
     public function remove_service($service_id){
+        // :: Send Email to the tutor and student
+        //// Get the information of the service
+        $this->load->model('general_model');
+        if($this->general_model->is_enable_email_notification()){
+            $row = $this->general_model->get_service_info($service_id);
+            // Get affected students' emails.
+            $result = $this->db
+                ->select('ea_users.email AS email')
+                ->from('ea_appointments')
+                ->join('ea_users', 'ea_users.id = ea_appointments.id_users_customer', 'inner')
+                ->join('ea_services', 'ea_services.id = ea_appointments.id_services', 'inner')
+                ->where('ea_services.id', $service_id)
+                ->get()
+                ->result_array();
+            $mail_arr = array();
+            $p = 0;
+            foreach($result AS $result_row){
+                $mail_arr[$p++] = $result_row['email'];
+            }
+            $this->general_model->send_email('ec_del_service_stu', $mail_arr, $row['service_type'], $row['date'], $row['address'], $row['left']);
+        }
+
+        // Delete related appointments
+        $this->db->query('SET SQL_SAFE_UPDATES = 0;');
+
+        $this->db->where('id_services', $service_id);
+        $this->db->delete('ea_appointments');
+        
+        $this->db->query('SET SQL_SAFE_UPDATES = 1;');
+
+        // Delete service
         $this->db->where('ea_services.id', $service_id);
         $result = $this->db->delete('ea_services');
 
@@ -551,24 +615,24 @@ class Admin_model extends CI_Model{
             ->get()
             ->result_array();
 
-        //// Get the email of all the involved students
-        $involved_app_info_arr = array();
+        // //// Get the email of all the involved students
+        // $involved_app_info_arr = array();
         
-        foreach($involved_services_id_arr AS $row){
-            $tmp_app_info_arr = $this->db
-                ->select('ea_users.email AS email')
-                ->from('ea_appointments')
-                ->join('ea_users', 'ea_users.id = ea_appointments.id_users_customer', 'inner')
-                ->where('ea_appointments.id_services', $row['id'])
-                ->get()
-                ->result_array();
-            $involved_app_info_arr = array_merge($involved_app_info_arr, $tmp_app_info_arr);
-        }
+        // foreach($involved_services_id_arr AS $row){
+        //     $tmp_app_info_arr = $this->db
+        //         ->select('ea_users.email AS email')
+        //         ->from('ea_appointments')
+        //         ->join('ea_users', 'ea_users.id = ea_appointments.id_users_customer', 'inner')
+        //         ->where('ea_appointments.id_services', $row['id'])
+        //         ->get()
+        //         ->result_array();
+        //     $involved_app_info_arr = array_merge($involved_app_info_arr, $tmp_app_info_arr);
+        // }
 
-        //// Send emails to these students
-        foreach($involved_app_info_arr AS $row){
-            $this->send_email_service_deletion_inform($row['email']);
-        }
+        // //// Send emails to these students
+        // foreach($involved_app_info_arr AS $row){
+        //     $this->send_email_service_deletion_inform($row['email']);
+        // }
         
         $app_delete_bool = TRUE;
         //// Delete all the involved appointments

@@ -157,6 +157,18 @@ class Tutors_model extends CI_Model{
         $data['appointment_id'] = $appointment_id;
         $this->log_operation('save_feedback_and_suggestion', $data, $result);
 
+        if($result){
+            // :: Send Email to the tutor and student
+            //// Get the information of the service
+            $this->load->model('general_model');
+            if($this->general_model->is_enable_email_notification()){
+
+                $row = $this->general_model->get_appointment_info($appointment_id);
+                
+                $this->general_model->send_email('ec_comsug_comple_stu', array($row['student_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
+            }   
+        }
+
         return $result;
     }
 
