@@ -426,8 +426,8 @@ root {
 .admin-page .popup #tutor_new_tutor_popup {
 	border-radius: 10px;
 	position: fixed;
-	width: 666px;
-	height: 520px;
+	width: 521px;
+	height: 500px;
 	
 	left: 50%;
 	top: 50%;
@@ -485,6 +485,17 @@ root {
 	color:  #76838f;
 	transition: all 0.2s;
 }
+.admin-page .popup #new_tutor_ids {
+	border: 0.5px solid #296d97;
+}
+.admin-page .popup #new_tutor_ids_response {
+	border: 0.5px solid #296d97;
+	background-color: darkgray;
+	cursor: inherit;
+}
+.admin-page .popup #new_tutor_ids:hover, .admin-page .popup #new_tutor_ids:focus {
+	border: 2px solid #296d97;
+}
 .admin-page .popup form input, .admin-page .popup form select {
 	border: 1px solid white;
 	display: inline-block;
@@ -529,6 +540,9 @@ root {
 	background-color: rgba(199,21,133,0.95)!important;
 	color: snow!important;
 	z-index: 500!important;
+}
+.admin-page #popup_new_tutor_confirm {
+	display: none;
 }
 /* popups */
 

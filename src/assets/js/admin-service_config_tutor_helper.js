@@ -66,14 +66,9 @@
          */
 		$('.admin-page #popup_new_tutor_save').click(function() {
 			//	Grab data
+			var sid_text = $('#new_tutor_ids').val();
 			//	Ajax Opeation
-			//	Re-filter everything
-			instance.resetForm();
-			instance.getAllTutors();
-			//	Hide
-			$('.admin-page #tutor_config .popup .curtain').fadeOut();
-			$('.admin-page #tutor_new_tutor_popup').fadeOut();
-			//	Clear popup with some Timeout
+			instance.saveNewPopup(sid_text);
 		});		
         /**
          * Event: New Tutor Popup Cancel Button "Click"
@@ -82,6 +77,24 @@
 			$('.admin-page #tutor_config .popup .curtain').fadeOut();
 			$('.admin-page #tutor_new_tutor_popup').fadeOut();
 			//	Clear popup with some Timeout
+			setTimeout(function() {
+				instance.clearNewPopup();
+			}, 300);
+		});		
+        /**
+         * Event: New Tutor Popup Confirm Button "Click"
+         */
+		$('.admin-page #popup_new_tutor_confirm').click(function() {
+			//	Re-filter everything
+			instance.resetForm();
+			instance.getAllTutors();
+			//	Hide
+			$('.admin-page #tutor_config .popup .curtain').fadeOut();
+			$('.admin-page #tutor_new_tutor_popup').fadeOut();
+			//	Clear popup with some Timeout
+			setTimeout(function() {
+				instance.clearNewPopup();
+			}, 300);
 		});
         /**
          * Event: Save Tutor Button "Click"
@@ -279,6 +292,60 @@
 		$(filterItem).filter(function() {
 			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
 		});
+    };
+	
+    /**
+     * Clear new tutor ids popup
+     */
+    AdminServiceConfigTutorHelper.prototype.clearNewPopup = function() {
+		//	Clear values
+		$('#new_tutor_ids, #new_tutor_ids_response').val('');
+		//	Recover background-colors for response
+		$('#new_tutor_ids_response').css('background-color', 'darkgray');
+		//	Recover contents and color of help block
+		$('#new_tutor_help').html('Note: multiple IDs can be accepted, with a line feed among each other.');
+		$('#new_tutor_help').css('color', '#a6a6a6');
+		//	hide confirm button and show save cancel buttons
+		$('#popup_new_tutor_confirm').hide();
+		$('#popup_new_tutor_save, #popup_new_tutor_cancel').show();
+    };
+	
+    /**
+     * Save new tutor ids popup
+     */
+    AdminServiceConfigTutorHelper.prototype.saveNewPopup = function(sid_text) {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_tutor_batch';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			sid_text: JSON.stringify(sid_text)
+        };
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			console.log(response);
+			
+			if (1 === 1) {	// If all inserted sucessfully
+				//	change help-text to green
+				$('#new_tutor_help').css('color', 'green');
+				$('#new_tutor_help').html('All IDs have been successfully processed. Now these users will become tutors!');
+			} else {	// If some failed
+				//	change help-text to red
+				$('#new_tutor_help').css('color', 'red');
+				$('#new_tutor_help').html('Some IDs fail on the process. Check whether there is anything wrong in the response block.');
+				//	change response block bg-color into white
+				$('#new_tutor_ids_response').css('background-color', 'white');
+				//	put fail ids into response block
+				//	...
+			}
+			
+			//	hide save cancel buttons and show confirm button
+			$('#popup_new_tutor_save, #popup_new_tutor_cancel').hide();
+			$('#popup_new_tutor_confirm').show();
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     window.AdminServiceConfigTutorHelper = AdminServiceConfigTutorHelper;

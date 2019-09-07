@@ -251,16 +251,20 @@
 				<div class="curtain"></div>
 				<div id="tutor_new_tutor_popup">
 					<form>
-						<div class="popup-title"><h2>New Tutor</h2></div>
+						<div class="popup-title"><h2>Add New Tutors</h2></div>
 						<hr />
 						<div class="popup-container">
-							<textarea id="pp" type="text" placeholder="Service Description" rows="3" title="Service Description" style="resize:none;"></textarea>
+							<h4 style="margin:25px auto;">Input IDs</h4>
+							<textarea id="new_tutor_ids" type="text" placeholder="Input Tutor IDs" rows="6" title="Input Tutor IDs" style="resize:none;width:42%;"></textarea>
+							<textarea id="new_tutor_ids_response" type="text" placeholder="Response Output" rows="6" title="Response Output" style="resize:none;width:42%;" readonly></textarea>
+							<div id="new_tutor_help" class="help-block">Note: multiple IDs can be accepted, with a line feed among each other.</div>
 						</div>
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_new_tutor_save" type="button" class="popup_buttons" value="Confirm" style="width:43%;">Save</button>
+							<button id="popup_new_tutor_save" type="button" class="popup_buttons" value="Save" style="width:43%;">Save</button>
 							<button id="popup_new_tutor_cancel" type="button" class="popup_buttons" value="Cancel" style="width:43%;">Cancel</button>
+							<button id="popup_new_tutor_confirm" type="button" class="popup_buttons" value="Confirm" style="width:86%;">Confirm</button>
 						</div>
 					</form>
 				</div>
@@ -270,7 +274,7 @@
 		<!-- Service Type Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="service_type_config">
 			<br />
-			<div class="container" style="width:90%;">
+			<div class="container" style="width:95%;">
 				<div class="wrapper row">
 					<!-- filter service types -->
 					<div class="col-xs-12 col-md-12 col-lg-4">
@@ -340,7 +344,7 @@
 						</div>
 						<!-- Right Column -->
 						<div class="col-xs-12 col-md-12 col-lg-6">
-							<h3><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;<?= lang('current_tutors_in_this_service_type') ?></h3>
+							<h3><?= lang('current_tutors_in_this_service_type') ?></h3>
 							<hr />
 							<div class="current_tutors_in_this_service_type"></div>
 						</div>
