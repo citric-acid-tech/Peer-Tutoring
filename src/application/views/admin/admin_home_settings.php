@@ -23,7 +23,8 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
-        timeFormat         : <?= json_encode($time_format) ?>
+        timeFormat         : <?= json_encode($time_format) ?>,
+		curLanguage        : <?= json_encode($language) ?>
     };
 
     $(document).ready(function() {
@@ -34,7 +35,7 @@
 
 <div id="admin-settings-page" class="container-fluid admin-page">
 
-	<ul class="nav nav-tabs" role="tablist">
+	<ul id="settings_main_navtab" class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active">
 			<a href="#common_settings" aria-controls="common_settings" role="tab" data-toggle="tab">
 				Common Settings
@@ -155,6 +156,15 @@
 								Define a maximal size value for an uploaded file.
 							</span>
 						</div>
+						<br />
+						
+						<div class="form-group">
+							<input id="enable_email_notification" type="checkbox" data-field="enable_email_notification" title="Enable Email Notification" />
+							<label class="control-label" for="enable_email_notification" style="cursor:pointer;">Enable Email Notification <span></span></label>
+							<span class="help-block">
+								Define a maximal size value for an uploaded file.
+							</span>
+						</div>
 					</div>
 				</div>
 				<hr />
@@ -230,21 +240,143 @@
 		<div role="tabpanel" class="tab-pane fade" id="email_configurations">
 			<div class="container" style="width:90%;">			
 				<div class="wrapper row">
-					<div class="col-xs-12 col-sm-5">
+					<div class="col-xs-12">
 						<h3 style="margin-bottom:0;">Email Configurations</h3>
 					</div>
-					<div class="col-xs-12 col-lg-7">
-						<div class="btn-toolbar" style="margin-top:23px;">
-							<!-- Initial Group -->
-							<div class="btn-group">
-								<button id="add_row" class="btn btn-primary" title="Add">
-									<i class="fas fa-plus"></i>
-								</button>
+				</div>
+				<hr />
+				
+				<div class="wrapper row">
+					<div class="col-xs-12">
+						<ul id="settings_email_navtab" class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#email_students" aria-controls="email_students" role="tab" data-toggle="tab">
+									Sudents End
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#email_tutor" aria-controls="email_tutor" role="tab" data-toggle="tab">
+									Tutor End
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#email_admin" aria-controls="email_admin" role="tab" data-toggle="tab">
+									Admin End
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="tab-content">
+					<!-- Students End -->
+					<div role="tabpanel" class="tab-pane active" id="email_students">
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h3>Students End</h3>
 							</div>
-							<div class="btn-group">
-								<button id="delete_row" class="btn btn-default" title="Delete">
-									<i class="fas fa-minus"></i>
-								</button>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_students_na" class="email_title">Make an Appointment</h4>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<h5>Send to Tutor</h5>
+								<div id="email_students_na_t" class="trumbowyg" placeholder="New Appointment - To Tutor"></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<h5>Send to Student</h5>
+								<div id="email_students_na_s" class="trumbowyg" placeholder="New Appointment - To Student"></div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_students_ca" class="email_title">Cancel an Appointment</h4>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<h5>Send to Tutor</h5>
+								<div id="email_students_ca_t" class="trumbowyg" placeholder="Cancel Appointment - To Tutor"></div>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<h5>Send to Student</h5>
+								<div id="email_students_ca_s" class="trumbowyg" placeholder="Cancel Appointment - To Student"></div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_students_rc" class="email_title">Rate & Comment Finished</h4>
+							</div>
+							<div class="col-xs-12">
+								<h5>Send to Tutor</h5>
+								<div id="email_students_rc_t" class="trumbowyg" placeholder="Rate & Comment Finished - To Tutor"></div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Tutor End -->
+					<div role="tabpanel" class="tab-pane fade" id="email_tutor">
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h3>Tutor End</h3>
+							</div>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_tutor_fs" class="email_title">Feedback & Suggestions Finished</h4>
+							</div>
+							<div class="col-xs-12">
+								<h5>Send to Tutor</h5>
+								<div id="email_tutor_fs_s" class="trumbowyg" placeholder="Feedback & Suggestions Finished - To Student"></div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Admin End -->
+					<div role="tabpanel" class="tab-pane fade" id="email_admin">
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h3>Admin End</h3>
+							</div>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_admin_at" class="email_title">Add Tutors</h4>
+							</div>
+							<div class="col-xs-12">
+								<h5>Send to Tutor</h5>
+								<div id="email_admin_at_t" class="trumbowyg" placeholder="Add Tutors - To Tutor"></div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_admin_es" class="email_title">Edit Service</h4>
+							</div>
+							<div class="col-xs-12">
+								<h5>Send to Tutor</h5>
+								<div id="email_admin_es_t" class="trumbowyg" placeholder="Edit Service - To Tutor"></div>
+							</div>
+						</div>
+						<br />
+						
+						<div class="wrapper row">
+							<div class="col-xs-12">
+								<h4 id="email_admin_ds" class="email_title">Delete Service</h4>
+							</div>
+							<div class="col-xs-12">
+								<h5>Send to Student</h5>
+								<div id="email_admin_ds_t" class="trumbowyg" placeholder="Delete Service - To Student"></div>
 							</div>
 						</div>
 					</div>
