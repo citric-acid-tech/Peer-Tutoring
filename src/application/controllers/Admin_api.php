@@ -507,7 +507,7 @@ class Admin_api extends CI_Controller{
         }  
     }
 
-    public function ajax_get_settings(){
+    public function ajax_get_settings_common(){
         //
         try{
             
@@ -523,8 +523,7 @@ class Admin_api extends CI_Controller{
                 'upload_file_max_size(KB)',
                 'max_appointment_cancel_ahead_day',
                 'company_link',
-                'flexible_column_label',
-                'semester_json'
+                'flexible_column_label'
             );
 
             // Query
