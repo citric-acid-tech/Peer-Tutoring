@@ -22,6 +22,8 @@
 		$('#common_edit').click(function() {
 			//	Everything is editable -- But not date format and time format, for now...
 			$('#admin-settings-page .form-group').find('input, textarea').not('#date_format, #time_format').attr('readonly', false);
+			//	Checkbox is editable
+			$('#enable_email_notification').prop('disabled', false);
 			//	Change form groups
 			$('#common_edit, #go_to_school_page').hide();
 			$('#common_save, #common_cancel').fadeIn(360);
@@ -30,6 +32,8 @@
 		$('#common_save').click(function() {
 			//	Close editable inputs
 			$('#admin-settings-page .form-group').find('input, textarea').attr('readonly', true);
+			//	Disable checkbox
+			$('#enable_email_notification').prop('disabled', true);
 			//	Retrieve values
 			var df = $('#date_format').val();
 			var tf = $('#time_format').val();
@@ -40,16 +44,19 @@
 			var mscad = $('#max_services_checking_ahead_day').val();
 			var macad = $('#max_appointment_cancel_ahead_day').val();
 			var ufms = $('#upload_file_max_size').val();
+			var een = $('#enable_email_notification').prop('checked');
 			//	Save Settings
 			instance.saveCommonSettings(df,tf,fc,
 											 sn,se,sl,
-											 mscad,macad,ufms);
+											 mscad,macad,ufms, een);
 			//	switch button groups - will be done in ajax
 		});
 		
 		$('#common_cancel').click(function() {
 			//	Close editable inputs
 			$('#admin-settings-page .form-group').find('input, textarea').attr('readonly', true);
+			//	Disable checkbox
+			$('#enable_email_notification').prop('disabled', true);
 			//	switch button groups
 			$('#common_save, #common_cancel').hide();
 			$('#common_edit, #go_to_school_page').fadeIn(360);
@@ -72,7 +79,7 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response);
 			
 			/* Get values */
 			//	Line 1
@@ -86,10 +93,12 @@
 			//	Line 3
 			$('#max_services_checking_ahead_day').val(response.max_services_checking_ahead_day);
 			$('#max_appointment_cancel_ahead_day').val(response.max_appointment_cancel_ahead_day);
-			$('#upload_file_max_size').val(response.upload_file_max_size);
+			$('#enable_email_notification').prop('checked', (response.enable_email_notification === '1') ? true : false);
 			
 			//	Set all to readonly
 			$('#admin-settings-page .form-group').find('input, textarea').attr('readonly', true);
+			//	Set checkbox
+			$('#enable_email_notification').prop('disabled', true);
 			
 			//	Handle School Page Link Navigation
 			if ($('#school_link').val() === '') {
@@ -106,7 +115,7 @@
     /**
      * save all common settings
      */
-	AdminSettingsHelperCommon.prototype.saveCommonSettings = function(df,tf,fc,sn,se,sl,mscad,macad,ufms) {
+	AdminSettingsHelperCommon.prototype.saveCommonSettings = function(df,tf,fc,sn,se,sl,mscad,macad,ufms,een) {
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_save_settings_common';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
@@ -118,7 +127,8 @@
 			school_link: JSON.stringify(sl),
 			max_services_checking_ahead_day: JSON.stringify(mscad),
 			max_appointment_cancel_ahead_day: JSON.stringify(macad),
-			upload_file_max_size: JSON.stringify(ufms)
+			upload_file_max_size: JSON.stringify(ufms),
+			enable_email_notification: JSON.stringify(een)
         };
 		
 //		console.log(postData);

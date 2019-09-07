@@ -597,6 +597,14 @@ textarea:read-only {
 	display: none;
 }
 
+.email_title {
+	color: #296D97;
+}
+
+
+
+
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

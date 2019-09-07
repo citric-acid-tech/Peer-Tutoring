@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.css', NULL, 'css') ?>" />
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/ui/trumbowyg.min.css', NULL, 'css') ?>" />
 	<!-- Add Font Awesome for icons -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 	<!-- Full Calendar -->
@@ -24,6 +23,8 @@
 	<!-- Full Calendar: Locale has no css -->
 	<!-- Jquery DataTables -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-newdatatables/datatables.min.css', NULL, 'css') ?>" />
+	<!-- Trumbowyg -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/ui/trumbowyg.min.css', NULL, 'css') ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/admin.css', NULL, 'css') ?>" />
@@ -35,7 +36,6 @@
 	<script src="<?= asset_url('assets/ext/moment/moment.min.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/datejs/date.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/jquery-mousewheel/jquery.mousewheel.js', NULL, 'js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/trumbowyg/trumbowyg.min.js', NULL, 'js') ?>"></script>
 	<!-- Add Font Awesome for icons -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
 	<!-- Full Calendar -->
@@ -50,6 +50,10 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fuse/Fuse-3.4.5/dist/fuse.js', NULL, 'js') ?>"></script>
 	<!-- Jquery DataTables -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/jquery-newdatatables/datatables.min.js', NULL, 'js') ?>"></script>
+	<!-- Trumbowyg -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/trumbowyg.min.js', NULL, 'js') ?>"></script>
+	<!-- More Trumbowyg Plugins in the Future -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/langs/zh_cn.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

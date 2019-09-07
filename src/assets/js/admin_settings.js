@@ -25,6 +25,8 @@ window.AdminSettings = window.AdminSettings || {};
 	var adminSettingsHelperEmail = new AdminSettingsHelperEmail();
 	var adminSettingsHelperSurvey = new AdminSettingsHelperSurvey();
 	
+	var firstload_email = true;
+	
     /**
      * This method initializes the Admin Settings page.
      *
@@ -37,7 +39,6 @@ window.AdminSettings = window.AdminSettings || {};
         helper = adminSettingsHelperCommon;
 		//	Other default initializations
 		helper.getCommonSettings();
-		
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -54,7 +55,7 @@ window.AdminSettings = window.AdminSettings || {};
 		 *
 		 * Changes the displayed tab
          */
-		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
+		$("#settings_main_navtab a[data-toggle='tab']").on('shown.bs.tab', function() {
 			if ($(this).attr('href') === '#common_settings') {
 				helper = adminSettingsHelperCommon;
 				//	Maybe there is no need to reload
@@ -62,8 +63,41 @@ window.AdminSettings = window.AdminSettings || {};
 				helper = adminSettingsHelperSemester;
 			} else if ($(this).attr('href') === '#email_configurations') {
 				helper = adminSettingsHelperEmail;
+				if (firstload_email) {
+					//	Guess what, a trumbowyg editor!
+					var lang = 'en';
+					switch(GlobalVariables.curLanguage) {
+						case 'english': lang = 'en'; break;
+						case '简体中文': lang = 'zh_cn'; break;
+						default: lang = 'en';
+					}
+					$('.trumbowyg').trumbowyg({
+						lang: lang
+					});
+					firstload_email = false;
+				}
 			} else if ($(this).attr('href') === '#survey_configurations') {
 				helper = adminSettingsHelperSurvey;
+			} else {
+				alert("What have you pressed, my friend??");
+			}
+			
+			//	Place footer one more time
+			Admin.placeFooterToBottom();
+		});
+		
+        /**
+         * Event: Email subpage Tab Button "Click"
+		 *
+		 * Changes the displayed tab
+         */
+		$("#settings_email_navtab a[data-toggle='tab']").on('shown.bs.tab', function() {
+			if ($(this).attr('href') === '#email_students') {
+				
+			} else if ($(this).attr('href') === '#email_tutor') {
+				
+			} else if ($(this).attr('href') === '#email_admin') {
+				
 			} else {
 				alert("What have you pressed, my friend??");
 			}
