@@ -26,6 +26,7 @@ window.AdminSettings = window.AdminSettings || {};
 	var adminSettingsHelperSurvey = new AdminSettingsHelperSurvey();
 	
 	var firstload_email = true;
+	var trumbowyg;
 	
     /**
      * This method initializes the Admin Settings page.
@@ -71,8 +72,50 @@ window.AdminSettings = window.AdminSettings || {};
 						case '简体中文': lang = 'zh_cn'; break;
 						default: lang = 'en';
 					}
-					$('.trumbowyg').trumbowyg({
-						lang: lang
+					trumbowyg = $('.trumbowyg').trumbowyg({
+						//	locale
+						lang: lang,
+						//	disable all at first
+//						disabled: true,
+						//	button panel
+						btns: [
+							['viewHTML'],
+							['historyUndo', 'historyRedo'],
+							['formatting'],
+							['strong', 'em', 'del'],
+							['superscript', 'subscript'],
+							['link'],
+//							['insertImage'],
+							['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+							['unorderedList', 'orderedList'],
+							['horizontalRule'],
+							['removeformat'],
+							['fullscreen'],
+							//	Plugin - fontfamily & fontsize
+							['fontfamily', 'fontsize'],
+							//	Plugin - lineheight
+							['lineheight'],
+							//	Plugin - colors
+							['foreColor', 'backColor'],
+							//	Plugin - emoji
+							['specialChars', 'emoji'],
+							//	Plugin - table
+							['table']
+						],
+						//	Do not affect the look of the text in the editor
+						resetCss: true,
+						//	Security, filter away these tags
+						tagsToRemove: ['script', 'link'],
+						urlProtocol: true,
+						//	Plugin: colors
+						plugins: {
+							colors: {
+								colorList: [
+									//	'black', 'white', 'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple'
+									'000000', 'ffffff', 'ff0000', 'ff8000', 'ffff00', '00ff00', '00ffff', '0000ff', '8a2be2'
+								]
+							}
+						}
 					});
 					firstload_email = false;
 				}

@@ -25,6 +25,11 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-newdatatables/datatables.min.css', NULL, 'css') ?>" />
 	<!-- Trumbowyg -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/ui/trumbowyg.min.css', NULL, 'css') ?>" />
+	<!-- More Trumbowyg Plugins in the Future -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/colors/ui/trumbowyg.colors.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/emoji/ui/trumbowyg.emoji.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/table/ui/trumbowyg.table.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/specialchars/ui/trumbowyg.specialchars.min.css', NULL, 'css') ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/admin.css', NULL, 'css') ?>" />
@@ -54,6 +59,14 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/trumbowyg.min.js', NULL, 'js') ?>"></script>
 	<!-- More Trumbowyg Plugins in the Future -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/langs/zh_cn.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/colors/trumbowyg.colors.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/emoji/trumbowyg.emoji.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/fontsize/trumbowyg.fontsize.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/history/trumbowyg.history.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/lineheight/trumbowyg.lineheight.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/table/trumbowyg.table.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/specialchars/trumbowyg.specialchars.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.
