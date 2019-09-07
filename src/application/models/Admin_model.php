@@ -671,12 +671,12 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
-    public function save_settings($school_name, $school_email, $school_link, 
+    public function save_settings_common($school_name, $school_email, $school_link, 
             $date_format, $time_format, 
             $upload_file_max_size, 
             $max_services_checking_ahead_day, 
             $max_appointment_cancel_ahead_day,
-            $flexible_column_label, $semester_json){
+            $flexible_column_label){
         
         $this->db->trans_begin();
 
@@ -707,17 +707,14 @@ class Admin_model extends CI_Model{
         $this->db->where('name', 'flexible_column_label');
         $bool9 = $this->db->update('ea_settings', ['value' => $flexible_column_label]);
 
-        $this->db->where('name', 'semester_json');
-        $bool10 = $this->db->update('ea_settings', ['value' => $semester_json]);
-
         $input_arr = array($school_name, $school_email, $school_link, 
         $date_format, $time_format, 
         $upload_file_max_size, 
         $max_services_checking_ahead_day, 
         $max_appointment_cancel_ahead_day,
-        $flexible_column_label, $semester_json);
+        $flexible_column_label);
 
-        $result = $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9 && $bool10;
+        $result = $bool1 && $bool2 && $bool3 && $bool4 && $bool5 && $bool6 && $bool7 && $bool8 && $bool9;
 
         if( ! $result){
             $this->db->trans_rollback();
