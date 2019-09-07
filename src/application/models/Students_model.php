@@ -401,9 +401,9 @@ class Students_model extends CI_Model{
         //:: Check if this appointment can be booked or not.
         $attachment_url = $this->upload_file($user_id, $service_id, $file);
 
-        if($attachment_url === FALSE){
-            return FALSE;
-        }
+        // if($attachment_url === FALSE){
+        //     return FALSE;
+        // }
 
         //:: Check if it is full.
         $number = $this->db
@@ -471,13 +471,14 @@ class Students_model extends CI_Model{
             $this->db->where('id', $service_id);
             if ($this->db->update('ea_services')){
                 $result = 'success';
-
+                $this->load->library('session');
                 // :: Send Email to the tutor and student
                 // Send Email to the current user
                 $subject = 'Appointment established';
                 $body = 'Come to the address on time.';
-                $this->sendemail(array($this->session->userdata('user_email')), $subject, $body);
-
+                if( ! $this->sendemail(array($this->session->userdata('user_email')), $subject, $body)) {
+                    $this->buffer_failed_email(array($this->session->userdata('user_email')), $subject, $body);
+                }
             }else{
                 $result = 'denied';
             }
@@ -603,6 +604,20 @@ class Students_model extends CI_Model{
         }
        
         return $mail->send(); 
+    }
+
+    protected function buffer_failed_email($mail_arr, $subject, $body){
+        $data = array();
+        $now_datetimeObj = new DateTime();
+        $now = $now_datetimeObj->format('Y-m-d H:i:s');
+        $data = [
+            'email' => json_encode($mail_arr),
+            'subject' => $subject,
+            'email_body' => $body,
+            'timestamp' => $now
+       ];
+
+        $this->db->insert('ea_buffer_failed_email', $data);
     }
 }
 ?>
