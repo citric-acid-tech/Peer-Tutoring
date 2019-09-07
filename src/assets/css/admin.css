@@ -561,6 +561,24 @@ root {
 /* Statistics */
 
 
+/* Admin Settings */
+#admin-settings-page #save, #admin-settings-page #cancel {
+	display: none;
+}
+
+#admin-settings-page .form-group input.form-control {
+	font-size: 14px;
+	/* Show ellipsis on long messages, later implementation will make it show fully on click */
+	text-overflow: ellipsis;
+}
+#admin-settings-page input:read-only,
+select:disabled,
+textarea:read-only {
+    opacity: 0.85;
+    box-shadow: none;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

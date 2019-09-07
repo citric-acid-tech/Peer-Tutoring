@@ -161,7 +161,7 @@
 							</span>
 						</div>
 						<!-- results -->
-						<h3><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;<?= lang('tutor') ?></h3>
+						<h3><?= lang('tutor') ?></h3>
 						<div class="results"></div>
 					</div>
 					
@@ -201,7 +201,7 @@
 								</button>
 							</div>
 						</div>
-						<h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
+						<h3><?= lang('details') ?></h3>
 						<!-- Left Column -->
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="form-group">
@@ -282,7 +282,7 @@
 							</span>
 						</div>
 						<!-- results -->
-						<h3><i class="fas fa-school"></i>&nbsp;&nbsp;<?= lang('service_type') ?></h3>
+						<h3><?= lang('service_type') ?></h3>
 						<div class="results"></div>
 					</div>
 					
@@ -324,7 +324,7 @@
 									</button>
 								</div>
 							</div>
-							<h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
+							<h3><?= lang('details') ?></h3>
 							<div class="form-group">
 							    <label class="control-label" for="service_type-id">Service ID</label>
 							    <input id="service_type-id" class="form-control" readonly>

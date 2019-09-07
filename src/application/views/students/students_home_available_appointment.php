@@ -96,7 +96,7 @@
 			            </div>
 					</form>
 
-			        <h3><i class="fas fa-chalkboard-teacher"></i>&nbsp;&nbsp;<?= lang('tutor') ?></h3>
+			        <h3><?= lang('tutor') ?></h3>
 			        
 			        <!-- Here are the results on the left -->
 			        <div class="results"></div>
@@ -108,7 +108,7 @@
 
 					<div class="row">
 					    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
-					        <h3><i class="fas fa-info"></i>&nbsp;&nbsp;<?= lang('details') ?></h3>
+					        <h3><?= lang('details') ?></h3>
 					        
 					        <div class="form-group">
 					            <label class="control-label" for="tutor_name"><?= lang('tutor_name') ?></label>
