@@ -33,7 +33,7 @@ class Admin_model extends CI_Model{
     public function new_sid_tutor_batch($in_sid_text){
         $sid_text = str_replace(array("\r\n", "\r", "\n"), '|', $in_sid_text);
         $sid_arr = explode('|', $sid_text);
-        $fail_arr = array('');
+        $fail_arr = array();
         $p = 1;
 
         $data = array();

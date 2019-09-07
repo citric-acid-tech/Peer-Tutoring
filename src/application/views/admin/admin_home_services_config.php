@@ -257,7 +257,7 @@
 							<h4 style="margin:25px auto;">Input IDs</h4>
 							<textarea id="new_tutor_ids" type="text" placeholder="Input Tutor IDs" rows="6" title="Input Tutor IDs" style="resize:none;width:42%;"></textarea>
 							<textarea id="new_tutor_ids_response" type="text" placeholder="Response Output" rows="6" title="Response Output" style="resize:none;width:42%;" readonly></textarea>
-							<div id="new_tutor_help" class="help-block">Note: multiple IDs can be accepted, with a line feed among each other.</div>
+							<div id="new_tutor_help" class="help-block" style="width:85%;margin:10px auto;">Note: multiple IDs can be accepted, with a line feed among each other.</div>
 						</div>
 						<hr />
 						<!-- Buttons -->
