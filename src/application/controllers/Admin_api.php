@@ -491,7 +491,7 @@ class Admin_api extends CI_Controller{
             // Query
             $result = $this->admin_model->save_settings_common($school_name, $school_email, $school_link, 
                                 $date_format, $time_format, $upload_file_max_size, $max_services_checking_ahead_day, 
-                                $max_appointment_cancel_ahead_day, $flexible_column_labe);
+                                $max_appointment_cancel_ahead_day, $flexible_column_label);
 
             $this->output
                 ->set_content_type('application/json')
@@ -513,8 +513,8 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $key_arr = array('
-                company_name', 
+            $key_arr = array(
+                'company_name', 
                 'company_email',
                 'date_format',
                 'time_format',
