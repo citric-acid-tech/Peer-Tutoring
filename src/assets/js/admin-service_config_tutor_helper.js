@@ -300,8 +300,11 @@
     AdminServiceConfigTutorHelper.prototype.clearNewPopup = function() {
 		//	Clear values
 		$('#new_tutor_ids, #new_tutor_ids_response').val('');
-		//	Recover background-colors for response
-		$('#new_tutor_ids_response').css('background-color', 'darkgray');
+		//	Recover background-colors and border for response
+		$('#new_tutor_ids_response').css({
+			'background-color': 'darkgray',
+			'border': '0.5px solid #296d97'
+		});
 		//	Recover contents and color of help block
 		$('#new_tutor_help').html('Note: multiple IDs can be accepted, with a line feed among each other.');
 		$('#new_tutor_help').css('color', '#a6a6a6');
@@ -327,7 +330,7 @@
 			
 			console.log(response);
 			
-			if (1 === 1) {	// If all inserted sucessfully
+			if (response.length === 0) {	// If all inserted sucessfully
 				//	change help-text to green
 				$('#new_tutor_help').css('color', 'green');
 				$('#new_tutor_help').html('All IDs have been successfully processed. Now these users will become tutors!');
@@ -335,10 +338,20 @@
 				//	change help-text to red
 				$('#new_tutor_help').css('color', 'red');
 				$('#new_tutor_help').html('Some IDs fail on the process. Check whether there is anything wrong in the response block.');
-				//	change response block bg-color into white
-				$('#new_tutor_ids_response').css('background-color', 'white');
+				//	change response block bg-color into white and border color
+				$('#new_tutor_ids_response').css({
+					'background-color': 'white',
+					'border': '0.5px solid red'
+				});
 				//	put fail ids into response block
-				//	...
+				var output = '';
+				for (var i = 0; i < response.length; ++i) {
+					output = output + response[i];
+					if (i !== response.length) {
+						output = output + '\r\n';
+					}
+				}
+				$('#new_tutor_ids_response').val(output);
 			}
 			
 			//	hide save cancel buttons and show confirm button
