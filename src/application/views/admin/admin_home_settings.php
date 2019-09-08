@@ -213,12 +213,17 @@
 		<div role="tabpanel" class="tab-pane fade" id="semester_information">
 			<div class="container" style="width:90%;">			
 				<div class="wrapper row">
-					<div class="col-xs-12 col-sm-5">
+					<div class="col-xs-12">
 						<h3 style="margin-bottom:0;">Semester Information</h3>
 					</div>
-					<div class="col-xs-12 col-lg-7">
-						<div class="btn-toolbar" style="margin-top:23px;">
-							<!-- Initial Group -->
+				</div>
+				<hr />
+					
+<!--
+				<div class="wrapper row">
+					<div class="col-xs-12">
+						<div class="btn-toolbar">
+							 Initial Group 
 							<div class="btn-group">
 								<button id="add_row" class="btn btn-primary" title="Add">
 									<i class="fas fa-plus"></i>
@@ -233,6 +238,8 @@
 					</div>
 				</div>
 				<br />
+-->
+				
 			</div>
 		</div>
 		
@@ -279,12 +286,12 @@
 							<div class="btn-toolbar">
 								<!-- Edit -->
 								<div class="btn-group">
-									<button id="edit_email" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Edit</button>
+									<button id="edit_email" class="btn btn-primary" title="<?= lang('edit') ?>"><i class="fas fa-edit"></i>&nbsp;&nbsp;<?= lang('edit') ?></button>
 								</div>
 								<!-- Save + Cancel -->
 								<div class="btn-group">
-									<button id="save_email" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
-									<button id="cancel_email" class="btn btn-default"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+									<button id="save_email" class="btn btn-primary" title="<?= lang('save') ?>"><i class="fas fa-save"></i>&nbsp;&nbsp;<?= lang('save') ?></button>
+									<button id="cancel_email" class="btn btn-default" title="<?= lang('cancel') ?>"><i class="fas fa-times"></i>&nbsp;&nbsp;<?= lang('cancel') ?></button>
 								</div>
 							</div>
 						</div>
@@ -306,26 +313,15 @@
 		<div role="tabpanel" class="tab-pane fade" id="survey_configurations">
 			<div class="container" style="width:90%;">			
 				<div class="wrapper row">
-					<div class="col-xs-12 col-sm-5">
+					<div class="col-xs-12">
 						<h3 style="margin-bottom:0;">Survey Configurations</h3>
 					</div>
-					<div class="col-xs-12 col-lg-7">
-						<div class="btn-toolbar" style="margin-top:23px;">
-							<!-- Initial Group -->
-							<div class="btn-group">
-								<button id="add_row" class="btn btn-primary" title="Add">
-									<i class="fas fa-plus"></i>
-								</button>
-							</div>
-							<div class="btn-group">
-								<button id="delete_row" class="btn btn-default" title="Delete">
-									<i class="fas fa-minus"></i>
-								</button>
-							</div>
-						</div>
-					</div>
 				</div>
-				<br />
+				<hr />
+				
+				<div class="wrapper row">
+					<iframe src="https://www.wjx.cn/jq/36404176.aspx" width="100%" height="450px" allowfullscreen></iframe>
+				</div>
 			</div>
 		</div>	
 	</div>
