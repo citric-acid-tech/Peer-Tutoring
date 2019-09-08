@@ -96,7 +96,6 @@ CREATE TABLE `ea_users` (
 
 LOCK TABLES `ea_users` WRITE;
 /*!40000 ALTER TABLE `ea_users` DISABLE KEYS */;
-INSERT INTO `ea_users` VALUES (1,'Mike','Wang','11710403@mail.sustc.edu.cn',NULL,'1',NULL,NULL,NULL,NULL,NULL,1,'no_personal_page','null_value',NULL,NULL,NULL),(2,'John','Doe','john@doe.com',NULL,'0123456789',NULL,NULL,NULL,NULL,NULL,2,'no_personal_page','null_value',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `ea_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -474,7 +473,6 @@ CREATE TABLE `ea_user_settings` (
 
 LOCK TABLES `ea_user_settings` WRITE;
 /*!40000 ALTER TABLE `ea_user_settings` DISABLE KEYS */;
-INSERT INTO `ea_user_settings` VALUES (1,'cle','637d67309b4598cdc67f144ee47ae196b5e55f948a35f983f58e6a397768f16f','fc0d151088ea877dff83ab44484bfff5ff89eb00a2942cd9e372e91e388791cd',NULL,0,0,NULL,NULL,5,5,'default'),(2,'johndoe','929f3873ac9d99c61e8459896104539889044c8f8d7b1393e23f55dcb1b1cf9a','7f518a2f12ea1e79aa0b4df7396e5e022692ff86cae5f4da41bf30c440964e8b','{\"monday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"tuesday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"wednesday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"thursday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"friday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"saturday\":null,\"sunday\":null}',0,0,NULL,NULL,5,5,'default');
 /*!40000 ALTER TABLE `ea_user_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
