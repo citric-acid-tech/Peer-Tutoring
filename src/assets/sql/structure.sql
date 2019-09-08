@@ -109,6 +109,36 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 --
+-- Table structure for table `ea_tutor_log`
+--
+
+DROP TABLE IF EXISTS `ea_tutor_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ea_tutor_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_users` int(11) NOT NULL,
+  `operation` varchar(45) DEFAULT NULL,
+  `input_json` text,
+  `output_json` text,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tutor_id_users_id` (`id_users`),
+  CONSTRAINT `fk_tutor_id_users` FOREIGN KEY (`id_users`) REFERENCES `ea_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ea_tutor_log`
+--
+
+LOCK TABLES `ea_tutor_log` WRITE;
+/*!40000 ALTER TABLE `ea_tutor_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ea_tutor_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
 -- Table structure for table `ea_admin_log`
 --
 
@@ -217,57 +247,29 @@ LOCK TABLES `ea_buffer_tutor_assigned` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ea_consents`
+-- Table structure for table `ea_service_categories`
 --
 
-DROP TABLE IF EXISTS `ea_consents`;
+DROP TABLE IF EXISTS `ea_service_categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_consents` (
+CREATE TABLE `ea_service_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created` datetime DEFAULT CURRENT_TIMESTAMP,
-  `modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `first_name` varchar(256) DEFAULT NULL,
-  `last_name` varchar(256) DEFAULT NULL,
-  `email` varchar(512) DEFAULT NULL,
-  `ip` varchar(256) DEFAULT NULL,
-  `type` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `name` varchar(256) DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ea_consents`
+-- Dumping data for table `ea_service_categories`
 --
 
-LOCK TABLES `ea_consents` WRITE;
-/*!40000 ALTER TABLE `ea_consents` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ea_consents` ENABLE KEYS */;
+LOCK TABLES `ea_service_categories` WRITE;
+/*!40000 ALTER TABLE `ea_service_categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ea_service_categories` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `ea_migrations`
---
-
-DROP TABLE IF EXISTS `ea_migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_migrations` (
-  `version` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ea_migrations`
---
-
-LOCK TABLES `ea_migrations` WRITE;
-/*!40000 ALTER TABLE `ea_migrations` DISABLE KEYS */;
-INSERT INTO `ea_migrations` VALUES (55);
-/*!40000 ALTER TABLE `ea_migrations` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 
 --
 -- Table structure for table `ea_secretaries_providers`
@@ -296,29 +298,31 @@ LOCK TABLES `ea_secretaries_providers` WRITE;
 /*!40000 ALTER TABLE `ea_secretaries_providers` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+
 --
--- Table structure for table `ea_service_categories`
+-- Table structure for table `ea_settings`
 --
 
-DROP TABLE IF EXISTS `ea_service_categories`;
+DROP TABLE IF EXISTS `ea_settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_service_categories` (
+CREATE TABLE `ea_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) DEFAULT NULL,
-  `description` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `name` varchar(512) DEFAULT NULL,
+  `value` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ea_service_categories`
+-- Dumping data for table `ea_settings`
 --
 
-LOCK TABLES `ea_service_categories` WRITE;
-/*!40000 ALTER TABLE `ea_service_categories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ea_service_categories` ENABLE KEYS */;
+LOCK TABLES `ea_settings` WRITE;
+/*!40000 ALTER TABLE `ea_settings` DISABLE KEYS */;
+INSERT INTO `ea_settings` VALUES (1,'company_working_plan','{\"sunday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"monday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"tuesday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"wednesday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"thursday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"friday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"saturday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]}}'),(2,'book_advance_timeout','30'),(3,'google_analytics_code',''),(4,'customer_notifications','1'),(5,'date_format','YMD'),(6,'time_format','regular'),(7,'require_captcha','0'),(8,'display_cookie_notice','0'),(9,'cookie_notice_content','Cookie notice content.'),(10,'display_terms_and_conditions','0'),(11,'terms_and_conditions_content','Terms and conditions content.'),(12,'display_privacy_policy','0'),(13,'privacy_policy_content','Privacy policy content.'),(14,'company_name','SUSTech'),(15,'company_email','kingsmanmikey@163.com'),(16,'company_link','cle.sustech.edu.cn'),(17,'upload_file_max_size(KB)','2048'),(18,'max_services_checking_ahead_day','7'),(19,'max_appointment_cancel_ahead_day','1'),(20,'semester_json','{\r\n                \"2019\":{\r\n                    \"Spring\":{\r\n                        \"first_Monday\":\"2019-02-18\",\r\n                        \"last_weeks\":\"15\"\r\n                    },\r\n                    \"Summer\":{\r\n                        \"first_Monday\":\"2019-06-24\",\r\n                        \"last_weeks\":\"6\"\r\n                    },\r\n                    \"Fall\":{\r\n                        \"first_Monday\":\"2019-08-05\",\r\n                        \"last_weeks\":\"17\"\r\n                    }\r\n                }\r\n            }'),(21,'flexible_column_label','flexible col'),(22,'ec_new_appoint_stu','{\"subject\":\"Successful appointment\",\"body\":\"You have booked an appointment $SERV_TYPE$ on $DATE$ at $ADDRESS$. Plz come by on time. And check the details on http:\\/\\/localhost.\"}'),(23,'ec_new_appoint_tut','{\"subject\":\"You have a new appointment.\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has been booked. Plz come by on time. And check the details on http:\\/\\/localhost.\"}'),(24,'ec_cancel_appoint_stu','{\"subject\":\"Sucessful cancellation\",\"body\":\"You have canceled an appointment $SERV_TYPE$ on $DATE$ at $ADDRESS$. \"}'),(25,'ec_cancel_appoint_tut','{\"subject\":\"One of your appointment was canceled\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has been canceled. There are still $LEFT$ in this service.\"}'),(26,'ec_survey_comple_tut','{\"subject\":\"A feedback of your service is received.\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has received a feedback. And check the details on http:\\/\\/localhost.\"}'),(27,'ec_comsug_comple_stu','{\"subject\":\"A feedback of your appointment is received.\",\"body\":\"Your appointment $SERV_TYPE$ on $DATE$ has received a feedback. And check the details on http:\\/\\/localhost.\"}'),(28,'ec_add_tutor_tut','{\"subject\":\"You are officially a tutor now.\",\"body\":\"Hi there! Congrates!! After our consideration. You are officially our tutor now!! And check the details on http:\\/\\/localhost\\/index.php\\/tutor.\"}'),(29,'ec_edit_service_tut','{\"subject\":\"You service has been edited by CLE.\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has been edited. And check the details on http:\\/\\/localhost.\"}'),(30,'ec_del_service_stu','{\"subject\":\"A service was cancelled\",\"body\":\"We are sorry to tell you that your appointment appointment $SERV_TYPE$ on $DATE$ is cancelled. And check the details on http:\\/\\/localhost.\"}'),(31,'enable_email_notification','1');
+/*!40000 ALTER TABLE `ea_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -384,62 +388,6 @@ LOCK TABLES `ea_services_providers` WRITE;
 /*!40000 ALTER TABLE `ea_services_providers` DISABLE KEYS */;
 INSERT INTO `ea_services_providers` VALUES (2,1);
 /*!40000 ALTER TABLE `ea_services_providers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ea_settings`
---
-
-DROP TABLE IF EXISTS `ea_settings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(512) DEFAULT NULL,
-  `value` longtext,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ea_settings`
---
-
-LOCK TABLES `ea_settings` WRITE;
-/*!40000 ALTER TABLE `ea_settings` DISABLE KEYS */;
-INSERT INTO `ea_settings` VALUES (1,'company_working_plan','{\"sunday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"monday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"tuesday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"wednesday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"thursday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"friday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]},\"saturday\":{\"start\":\"09:00\",\"end\":\"18:00\",\"breaks\":[{\"start\":\"11:20\",\"end\":\"11:30\"},{\"start\":\"14:30\",\"end\":\"15:00\"}]}}'),(2,'book_advance_timeout','30'),(3,'google_analytics_code',''),(4,'customer_notifications','1'),(5,'date_format','YMD'),(6,'time_format','regular'),(7,'require_captcha','0'),(8,'display_cookie_notice','0'),(9,'cookie_notice_content','Cookie notice content.'),(10,'display_terms_and_conditions','0'),(11,'terms_and_conditions_content','Terms and conditions content.'),(12,'display_privacy_policy','0'),(13,'privacy_policy_content','Privacy policy content.'),(14,'company_name','SUSTech'),(15,'company_email','kingsmanmikey@163.com'),(16,'company_link','cle.sustech.edu.cn'),(17,'upload_file_max_size(KB)','2048'),(18,'max_services_checking_ahead_day','7'),(19,'max_appointment_cancel_ahead_day','1'),(20,'semester_json','{\r\n                \"2019\":{\r\n                    \"Spring\":{\r\n                        \"first_Monday\":\"2019-02-18\",\r\n                        \"last_weeks\":\"15\"\r\n                    },\r\n                    \"Summer\":{\r\n                        \"first_Monday\":\"2019-06-24\",\r\n                        \"last_weeks\":\"6\"\r\n                    },\r\n                    \"Fall\":{\r\n                        \"first_Monday\":\"2019-08-05\",\r\n                        \"last_weeks\":\"17\"\r\n                    }\r\n                }\r\n            }'),(21,'flexible_column_label','flexible col'),(22,'ec_new_appoint_stu','{\"subject\":\"Successful appointment\",\"body\":\"You have booked an appointment $SERV_TYPE$ on $DATE$ at $ADDRESS$. Plz come by on time. And check the details on http:\\/\\/localhost.\"}'),(23,'ec_new_appoint_tut','{\"subject\":\"You have a new appointment.\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has been booked. Plz come by on time. And check the details on http:\\/\\/localhost.\"}'),(24,'ec_cancel_appoint_stu','{\"subject\":\"Sucessful cancellation\",\"body\":\"You have canceled an appointment $SERV_TYPE$ on $DATE$ at $ADDRESS$. \"}'),(25,'ec_cancel_appoint_tut','{\"subject\":\"One of your appointment was canceled\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has been canceled. There are still $LEFT$ in this service.\"}'),(26,'ec_survey_comple_tut','{\"subject\":\"A feedback of your service is received.\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has received a feedback. And check the details on http:\\/\\/localhost.\"}'),(27,'ec_comsug_comple_stu','{\"subject\":\"A feedback of your appointment is received.\",\"body\":\"Your appointment $SERV_TYPE$ on $DATE$ has received a feedback. And check the details on http:\\/\\/localhost.\"}'),(28,'ec_add_tutor_tut','{\"subject\":\"You are officially a tutor now.\",\"body\":\"Hi there! Congrates!! After our consideration. You are officially our tutor now!! And check the details on http:\\/\\/localhost\\/index.php\\/tutor.\"}'),(29,'ec_edit_service_tut','{\"subject\":\"You service has been edited by CLE.\",\"body\":\"Your service $SERV_TYPE$ on $DATE$ has been edited. And check the details on http:\\/\\/localhost.\"}'),(30,'ec_del_service_stu','{\"subject\":\"A service was cancelled\",\"body\":\"We are sorry to tell you that your appointment appointment $SERV_TYPE$ on $DATE$ is cancelled. And check the details on http:\\/\\/localhost.\"}'),(31,'enable_email_notification','1');
-/*!40000 ALTER TABLE `ea_settings` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-
---
--- Table structure for table `ea_tutor_log`
---
-
-DROP TABLE IF EXISTS `ea_tutor_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_tutor_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_users` int(11) NOT NULL,
-  `operation` varchar(45) DEFAULT NULL,
-  `input_json` text,
-  `output_json` text,
-  `timestamp` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_tutor_id_users_id` (`id_users`),
-  CONSTRAINT `fk_tutor_id_users` FOREIGN KEY (`id_users`) REFERENCES `ea_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ea_tutor_log`
---
-
-LOCK TABLES `ea_tutor_log` WRITE;
-/*!40000 ALTER TABLE `ea_tutor_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ea_tutor_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -515,6 +463,58 @@ CREATE TABLE `ea_appointments` (
 LOCK TABLES `ea_appointments` WRITE;
 /*!40000 ALTER TABLE `ea_appointments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `ea_appointments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ea_migrations`
+--
+
+DROP TABLE IF EXISTS `ea_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ea_migrations` (
+  `version` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ea_migrations`
+--
+
+LOCK TABLES `ea_migrations` WRITE;
+/*!40000 ALTER TABLE `ea_migrations` DISABLE KEYS */;
+INSERT INTO `ea_migrations` VALUES (55);
+/*!40000 ALTER TABLE `ea_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `ea_consents`
+--
+
+DROP TABLE IF EXISTS `ea_consents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ea_consents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `first_name` varchar(256) DEFAULT NULL,
+  `last_name` varchar(256) DEFAULT NULL,
+  `email` varchar(512) DEFAULT NULL,
+  `ip` varchar(256) DEFAULT NULL,
+  `type` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ea_consents`
+--
+
+LOCK TABLES `ea_consents` WRITE;
+/*!40000 ALTER TABLE `ea_consents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ea_consents` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- Dump completed on 2019-09-08 16:18:43
