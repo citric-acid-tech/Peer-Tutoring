@@ -28,6 +28,8 @@ window.AdminSettings = window.AdminSettings || {};
 	var firstload_email = true;
 	var trumbowyg;
 	
+	var firstload_semester = true;
+	
     /**
      * This method initializes the Admin Settings page.
      *
@@ -62,6 +64,11 @@ window.AdminSettings = window.AdminSettings || {};
 				//	Maybe there is no need to reload
 			} else if ($(this).attr('href') === '#semester_information') {
 				helper = adminSettingsHelperSemester;
+				if (firstload_semester) {
+					helper.retrieveInfo();
+					//	Maybe load semester_json first?
+					firstload_semester = false;
+				}
 			} else if ($(this).attr('href') === '#email_configurations') {
 				helper = adminSettingsHelperEmail;
 				if (firstload_email) {
@@ -200,6 +207,7 @@ window.AdminSettings = window.AdminSettings || {};
 				}
 			} else if ($(this).attr('href') === '#survey_configurations') {
 				helper = adminSettingsHelperSurvey;
+				//	IFame, no need yet...
 			} else {
 				alert("What have you pressed, my friend??");
 			}

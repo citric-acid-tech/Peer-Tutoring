@@ -24,6 +24,7 @@
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
+		semester_json      : <?= $semester_json ?>,
 		curLanguage        : <?= json_encode($language) ?>
     };
 
@@ -218,28 +219,39 @@
 					</div>
 				</div>
 				<hr />
-					
-<!--
+			
+				<div class="wrapper row">
+					<ul id="sem_info" class="col-xs-12"></ul>
+				</div>
+				<hr />
+				
 				<div class="wrapper row">
 					<div class="col-xs-12">
 						<div class="btn-toolbar">
-							 Initial Group 
 							<div class="btn-group">
-								<button id="add_row" class="btn btn-primary" title="Add">
-									<i class="fas fa-plus"></i>
+								<button id="sem_upload" class="btn btn-primary" title="Add">
+									<i class="fas fa-upload"></i>
+									&nbsp;
+									<?= lang('update') ?>
 								</button>
 							</div>
 							<div class="btn-group">
-								<button id="delete_row" class="btn btn-default" title="Delete">
-									<i class="fas fa-minus"></i>
+								<button id="sem_new_row" class="btn btn-info" title="New Row">
+									<i class="fas fa-plus"></i>
+									&nbsp;
+									New Row
+								</button>
+							</div>
+							<div class="btn-group">
+								<button id="sem_reset" class="btn btn-default" title="Delete">
+									<i class="fas fa-redo"></i>
+									&nbsp;
+									Reset
 								</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<br />
--->
-				
 			</div>
 		</div>
 		

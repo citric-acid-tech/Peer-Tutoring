@@ -11,6 +11,31 @@
      */
     function AdminSettingsHelperSemester() {
         this.filterResults = {};
+		this.list_item = "<li class='sem_item'>" +
+		 					"<strong>Semester </strong>" +
+		 					"&nbsp;&nbsp;" +
+							"<input class='sem_year' title='Year' placeholder='Year' value='2019' type='number' min='2019' step='1' />" +
+							"&nbsp;" +
+							"<strong>-</strong>&nbsp;" +
+							"<select class='sem_season' title='Season' name='Season'>" +
+								"<option value='Fall' selected>Fall</option>" +
+								"<option value='Spring'>Spring</option>" +
+								"<option value='Summer'>Summer</option>" +
+							"</select>" +
+							"&nbsp;&nbsp;" +
+							"<span> starts on </span>" +
+							"&nbsp;&nbsp;" +
+							"<input class='sem_start_date' type='text' title='Start Date' placeholder='Start Date' value='2019-09-01' readonly />" +
+							"&nbsp;&nbsp;" +
+							"<span> and will last for </span>" +
+							"<input class='sem_last_weeks' title='Last Weeks' placeholder='Last Weeks' value='1' type='number' min='1' step='1' />" +
+							"&nbsp;&nbsp;" +
+							"weeks." +
+							"&nbsp;&nbsp;" +
+							"<button class='sem_delete_row btn btn-danger' title='Delete this row'>" +
+							"<i class='fas fa-times'></i>" +
+							"</button>" +
+						"</li>";
     }
 
     /**
@@ -18,121 +43,53 @@
      */
     AdminSettingsHelperSemester.prototype.bindEventHandlers = function () {
         var instance = this;
-		var editing = false;
 
         /**
-         * Event: Filter Entry "Click"
-         *
-         * Display the Available Appointments Select by Tutor data of the selected row.
+         * Event: Reset
          */
-        $(document).on('click', '.admin-page #service_type_config .results .entry', function () {
-			if (editing) {
-				return false;
-			}
-			
-			//	Get clicked id
-            var serviceTypeID = $(this).attr('data-id');
-			
-			instance.filter(serviceTypeID);
-			
-			//	Enable buttons
-			$('.admin-page #service_type-edit').prop('disabled', false);
-			
-			//	Change selected display
-            $('.admin-page #service_type_config .results .selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
-		
-        /**
-         * Event: Edit Button "Click"
-         */
-		$('.admin-page #service_type-edit').click(function() {
-			editing = true;
-			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', true);
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').hide();
-			$('.admin-page #service_type-save, .admin-page #service_type-cancel').fadeIn(360);
-			$('.service_type-details-form').find('input, textarea').attr('readonly', false);
-			$('.admin-page #service_type-id').attr('readonly', true);
+		$('#sem_reset').click(function() {
+			instance.retrieveInfo();
 		});
+
         /**
-         * Event: New Service Type Button "Click"
+         * Event: Remove a row happens
          */
-		$('.admin-page #service_type-new-service_type').click(function() {
-			$('.admin-page #service_type_config .popup .curtain').fadeIn();
-			$('.admin-page #service_type_new_service_type_popup').fadeIn();
+		$(document).on('click', 'ul#sem_info .sem_item .sem_delete_row', function() {
+			var deleteItem = $(this).parent();
+            var buttons = [
+                {
+                    text: EALang.confirm,
+                    click: function () {
+						$(deleteItem).fadeOut(500);
+						setTimeout(function() {
+							$(deleteItem).remove();
+						}, 500);
+                        $('#message_box').dialog('close');
+                    }
+                },
+                {
+                    text: EALang.cancel,
+                    click: function () {
+                        $('#message_box').dialog('close');
+                    }
+                }
+            ];
+
+            GeneralFunctions.displayMessageBox("Deleting a Semester Row",
+                "Are you sure you want to delete this row?", buttons);
 		});
+
         /**
-         * Event: New Service Type Popup Save Button "Click"
+         * Event: No Parallel Date Choosing
          */
-		$('.admin-page #popup_new_service_type_save').click(function() {
-			//	Grab data
-			var name = $('#new_service_type_name').val();
-			var description = $('#new_service_type_description').val();
-			//	Ajax Opeation
-			instance.saveNewPopup(name, description);
-			//	Below will be done in ajax
-			//	Re-filter everything
-			//	Hide
-			//	Clear popup with some Timeout
-		});		
-        /**
-         * Event: New Service Type Popup Cancel Button "Click"
-         */
-		$('.admin-page #popup_new_service_type_cancel').click(function() {
-			//	Hide
-			$('.admin-page #service_type_config .popup .curtain').fadeOut();
-			$('.admin-page #service_type_new_service_type_popup').fadeOut();
-			//	Clear popup with some Timeout
-			setTimeout(function() {
-				instance.clearNewPopup();
-			}, 300);
-		});
-        /**
-         * Event: Save Tutor Button "Click"
-         */
-		$('.admin-page #service_type-save').click(function() {
-			instance.saveEdition();
-			$('.service_type-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
-			editing = false;
-			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
-		});		
-        /**
-         * Event: Cancel Button "Click"
-         */
-		$('.admin-page #service_type-cancel').click(function() {
-			instance.filter($('.admin-page #service_type-id').val());
-			$('.service_type-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
-			editing = false;
-			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
-		});
-			
-		var t = null;
-        /**
-         * Event: Typing tutor
-         */
-		$('.admin-page #service_type_config #service_type-service_type').on("keyup", function() {
-			if (editing) {
-				return false;
-			}
-			if (t) {
-				clearTimeout(t);
-			}
-			var obj = this;
-			t = setTimeout(function() {
-				instance.resetForm();
-				$('.admin-page #service_type-edit').prop('disabled', true);
-				var val = $(obj).val().toLowerCase();
-				instance.filterList('.admin-page #service_type_config .results .entry', val);
-			}, 200);
+		$(document).on('focus', 'ul#sem_info .sem_item .sem_start_date', function() {
+			$('.sem_start_date').prop('disabled', true);
+			$(this).prop('disabled', false);
 		});
 	};
 
     /**
-     * Upload
+     * Save Semester Json
      */
     AdminSettingsHelperSemester.prototype.saveEdition = function () {
         var service_type_id = $('#service_type-id').val();
@@ -170,158 +127,46 @@
     };
 
     /**
-     * Create a New Service type
+     * Save Semester Json
      */
-    AdminSettingsHelperSemester.prototype.saveNewPopup = function (name, description) {
-		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service_type';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken,
-			name : JSON.stringify(name),
-			description : JSON.stringify(description)
-        };
-		
+    AdminSettingsHelperSemester.prototype.retrieveInfo = function () {
+		//	Pre-clear
+		$('ul#sem_info').html('');
+		var sem_info = GlobalVariables.semester_json;
 		var obj = this;
-
-        $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_new_service_type: Saving Failed", undefined, "failure");
-			} else {
-				Admin.displayNotification("ajax_new_service_type: Unexpected Behavior", undefined, "failure");
-			}
-			
-			//	Re-filter everything
-			obj.resetForm();
-			obj.getAllServiceTypes();
-			//	Hide
-			$('.admin-page #service_type_config .popup .curtain').fadeOut();
-			$('.admin-page #service_type_new_service_type_popup').fadeOut();
-			//	Clear popup with some Timeout
-			setTimeout(function() {
-				obj.clearNewPopup();
-			}, 300);
-			
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };
-	
-    /**
-     * Bring the tutor form back to its initial state.
-     */
-    AdminSettingsHelperSemester.prototype.resetForm = function () {
-		//	Clear all inputs
-        $('.service_type-details-form').find('input, textarea').val('');
-		
-		//	Clear Demonstration Box
-		$('.current_tutors_in_this_service_type').html('');
-
-		//	Handle the button group
-        $('#service_type-save, #service_type-cancel').hide();
-        $('#service_type-edit, #service_type-new-service_type').show();
-		
-		//	Erase all selected effects on search results part
-        $('.admin-page #service_type_config .results .selected').removeClass('selected');
-		
-		//	When editing, background color will be added to indicate that
-		//	selections are disabled. Writing as below removes the color when
-		//	resetting the form
-        $('.admin-page #service_type_config .results').css('color', '');
-    };
-	
-    /**
-     * Clear Popup
-     */
-    AdminSettingsHelperSemester.prototype.clearNewPopup = function () {
-		$('#service_type_new_service_type_popup').find('textarea, input').val('');
-    };
-
-    /**
-     * Display a tutor record into the form.
-     *
-     * @param {Object} tutor Contains the tutor record data.
-     */
-    AdminSettingsHelperSemester.prototype.display = function (service_type) {
-        $('#service_type-id').val(service_type.info.id);
-		$('#service_type-name').val(service_type.info.name);
-		$('#service_type-description').val(service_type.info.description);
-		//	MORE ON THE RIGHT
-		$('.current_tutors_in_this_service_type').html('');
-		$.each(service_type.tutors, function(index, tutor) {
-			var html = "<div title='" + tutor + "' style='text-align:center;'><strong>" + tutor + "</strong></div><hr />";
-			$('.current_tutors_in_this_service_type').append(html);
-		}.bind(this));
-    };
-	
-    /**
-     * Filter turtor records.
-     *
-     * @param {String} key This key string is used to filter the appointment records.
-     * @param {Number} selectId Optional, if set then after the filter operation the record with the given
-     * ID will be selected (but not displayed).
-     * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
-     */
-    AdminSettingsHelperSemester.prototype.filter = function (id, display) {
-        display = display || false;
-
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_service_types';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken,
-			service_type_id : (id === undefined || id === '') ? JSON.stringify('ALL') : id
-        };
-
-        $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			var obj = this;
-			$.each(response, function(index, service_type) {
-				obj.display(service_type);
+		$.each(sem_info, function(year, season_info) {
+			$.each(season_info, function(season, datetime_info) {
+				obj.newSemItem();
+				var newLI = $('ul#sem_info li:last-of-type');
+//				console.log(season + " - " + datetime_info);
+				//	Set values
+				newLI.find('.sem_year').val(year);
+				newLI.find(".sem_season option[value='" + season + "']").prop('selected', true);
+				newLI.find('.sem_start_date').val(datetime_info.first_Monday);
+				newLI.find('.sem_start_date').datepicker({
+					dateFormat: "yy-mm-dd",
+					constrainInput: true,
+					autoSize: true,
+					navigationAsDateFormat: true,
+					firstDay: 1,
+					showOtherMonths: true,
+					showAnim: "fold",
+					onClose: function() {
+						$('.sem_start_date').prop('disabled', false);
+					}
+				});
+				newLI.find('.sem_last_weeks').val(datetime_info.last_weeks);
+				newLI.fadeIn(500);
+//				console.log(newLI);
 			});
-			
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };	
+		});
+    };
 
     /**
-     * Get all service categories and wrap them in an html
+     * Create a new list item to be wrapped in <ul>
      */
-   	AdminSettingsHelperSemester.prototype.getAllServiceTypes = function() {
-        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken
-        };
-        $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			//	Clear all data
-			$('.admin-page #service_type_config .results').html('');
-			
-			//	Iterate through all service_types, generate htmls for them and
-			//	add them to the list
-			$.each(response, function (index, service_type) {
-				var html = "<div class='entry' data-id='" + service_type.id + "' title='" + service_type.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + service_type.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + service_type.name + "</strong></div>";
-				$('.admin-page #service_type_config .results').append(html);
-			}.bind(this));
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };
-	
-    /**
-     * Get all service categories and wrap them in an html
-     */
-    AdminSettingsHelperSemester.prototype.filterList = function(filterItem, filterValue) {
-		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
-		});
+    AdminSettingsHelperSemester.prototype.newSemItem = function () {
+		$('ul#sem_info').append(this.list_item);
     };
 	
     window.AdminSettingsHelperSemester = AdminSettingsHelperSemester;

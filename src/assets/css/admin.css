@@ -641,6 +641,71 @@ textarea:read-only {
 }
 
 
+/* Semester Info */
+ul#sem_info {
+	list-style-position:inside;
+	padding: 26px;
+	width: 100%;
+	height: 350px;
+	overflow-y: scroll;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item strong {
+	font-size:18px;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item .sem_year {
+	text-align: center;
+	font-weight: bold;
+	color: #296d97;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item .sem_season {
+	width: fit-content;
+	padding: 0 50px;
+	font-weight: bold;
+	color: #296d97;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item span {
+	font-size: 16px;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item .sem_start_date {
+	width: 120px;
+	text-align: center;
+	font-weight: bold;
+	color: #296d97;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item .sem_start_date:disabled {
+	pointer-events: none;
+	cursor: not-allowed;
+}
+ul#sem_info .sem_item .sem_last_weeks {
+	text-align: center;
+	font-weight: bold;
+	color: #296d97;
+	transition: all 0.3s;
+}
+ul#sem_info li.sem_item {
+	padding: 6px 0;
+	/* For animation */
+	display: none;
+}
+ul#sem_info .sem_item .sem_year:hover, ul#sem_info .sem_item .sem_season:hover,
+ul#sem_info .sem_item .sem_start_date:hover, ul#sem_info .sem_item .sem_last_weeks:hover,
+ul#sem_info .sem_item .sem_year:focus, ul#sem_info .sem_item .sem_season:focus,
+ul#sem_info .sem_item .sem_start_date:focus, ul#sem_info .sem_item .sem_last_weeks:focus
+ul#sem_info .sem_item .sem_year:active, ul#sem_info .sem_item .sem_season:active,
+ul#sem_info .sem_item .sem_start_date:active, ul#sem_info .sem_item .sem_last_weeks:active {
+	border: 1px solid #296d97;
+}
+ul#sem_info .sem_item .sem_delete_row {
+	width: 40px;
+	font-size: 12px;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
