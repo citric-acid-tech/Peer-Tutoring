@@ -597,12 +597,48 @@ textarea:read-only {
 	display: none;
 }
 
-.email_title {
+.email_titles {
 	color: #296D97;
 }
 
+#email_title {
+	font-size: 26px;
+	font-weight: bold;
+	color: #296D97;
+	height: 50px;
+	padding: 16px;
+	transition: all 0.2s;
+}
+#email_title:read-only {
+	border: none;
+}
+#email_title:hover {
+	border: 2px solid #296D97;
+}
+#email_title:read-only:hover {
+	border: none;
+}
 
 
+/* Fix Nice Select z-index bug */
+.niceselect, .nice-select {
+	z-index: 99999!important;
+}
+.nice-select .option.disabled {
+	color: lightgray;
+	cursor: not-allowed;
+}
+
+/* Hide email elements */
+#save_email, #cancel_email {
+	display: none;
+}
+#email_event .email_tutor, #email_event .email_admin {
+	display: none;
+}
+#email_title_group .btn-toolbar .btn-group button {
+	height: 40px;
+}
 
 
 

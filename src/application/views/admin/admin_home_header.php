@@ -30,6 +30,8 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/emoji/ui/trumbowyg.emoji.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/table/ui/trumbowyg.table.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/dist/plugins/specialchars/ui/trumbowyg.specialchars.min.css', NULL, 'css') ?>" />
+	<!-- Nice Select -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/niceselect/jquery-nice-select-1.1.0/css/nice-select.css', NULL, 'css') ?>" />
 	
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/admin.css', NULL, 'css') ?>" />
@@ -67,6 +69,8 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/lineheight/trumbowyg.lineheight.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/table/trumbowyg.table.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/specialchars/trumbowyg.specialchars.min.js', NULL, 'js') ?>"></script>
+	<!-- Nice Select -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/niceselect/jquery-nice-select-1.1.0/js/jquery.nice-select.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

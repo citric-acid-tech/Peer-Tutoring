@@ -245,143 +245,60 @@
 					</div>
 				</div>
 				<hr />
-				
+					
 				<div class="wrapper row">
-					<div class="col-xs-12">
-						<ul id="settings_email_navtab" class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active">
-								<a href="#email_students" aria-controls="email_students" role="tab" data-toggle="tab">
-									Sudents End
-								</a>
-							</li>
-							<li role="presentation">
-								<a href="#email_tutor" aria-controls="email_tutor" role="tab" data-toggle="tab">
-									Tutor End
-								</a>
-							</li>
-							<li role="presentation">
-								<a href="#email_admin" aria-controls="email_admin" role="tab" data-toggle="tab">
-									Admin End
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				
-				<div class="tab-content">
-					<!-- Students End -->
-					<div role="tabpanel" class="tab-pane active" id="email_students">
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h3>Students End</h3>
-							</div>
+					<div id="email_title_group" class="col-xs-12">
+						<div class="col-xs-12 col-sm-3">
+							<select id="email_end" class="niceselect wide">
+								<option value="stu" selected>Student End</option>
+								<option value="tut">Tutor End</option>
+								<option value="adm">Admin End</option>
+							</select>
 						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_students_na" class="email_title">Make an Appointment</h4>
-							</div>
-							<div class="col-xs-12 col-md-6">
-								<h5>Send to Tutor</h5>
-								<div id="email_students_na_t" class="trumbowyg" placeholder="New Appointment - To Tutor"></div>
-							</div>
-							<div class="col-xs-12 col-md-6">
-								<h5>Send to Student</h5>
-								<div id="email_students_na_s" class="trumbowyg" placeholder="New Appointment - To Student"></div>
-							</div>
+						<div class="col-xs-12 col-sm-3">
+							<select id="email_event" class="niceselect wide">
+								<!-- Student End -->
+								<option class="email_student" value="ma" selected>Make an Appointment</option>
+								<option class="email_student" value="ca">Cancel an Appointment</option>
+								<option class="email_student" value="rc">Rate & Comment Finished</option>
+								<!-- Tutor End -->
+								<option class="email_tutor" value="fs" disabled>Feedback & Suggestion Finished</option>
+								<!-- Admin End -->
+								<option class="email_admin" value="at" disabled>Add a Tutor</option>
+								<option class="email_admin" value="es" disabled>Edit a Service</option>
+								<option class="email_admin" value="ds" disabled>Delete a Service</option>
+							</select>
 						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_students_ca" class="email_title">Cancel an Appointment</h4>
-							</div>
-							<div class="col-xs-12 col-md-6">
-								<h5>Send to Tutor</h5>
-								<div id="email_students_ca_t" class="trumbowyg" placeholder="Cancel Appointment - To Tutor"></div>
-							</div>
-							<div class="col-xs-12 col-md-6">
-								<h5>Send to Student</h5>
-								<div id="email_students_ca_s" class="trumbowyg" placeholder="Cancel Appointment - To Student"></div>
-							</div>
+						<div class="col-xs-12 col-sm-3">
+							<select id="email_receiver" class="niceselect wide">
+								<option value="t" selected>Send to Tutor</option>
+								<option value="s">Send to Student</option>
+							</select>
 						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_students_rc" class="email_title">Rate & Comment Finished</h4>
-							</div>
-							<div class="col-xs-12">
-								<h5>Send to Tutor</h5>
-								<div id="email_students_rc_t" class="trumbowyg" placeholder="Rate & Comment Finished - To Tutor"></div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Tutor End -->
-					<div role="tabpanel" class="tab-pane fade" id="email_tutor">
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h3>Tutor End</h3>
-							</div>
-						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_tutor_fs" class="email_title">Feedback & Suggestions Finished</h4>
-							</div>
-							<div class="col-xs-12">
-								<h5>Send to Tutor</h5>
-								<div id="email_tutor_fs_s" class="trumbowyg" placeholder="Feedback & Suggestions Finished - To Student"></div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- Admin End -->
-					<div role="tabpanel" class="tab-pane fade" id="email_admin">
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h3>Admin End</h3>
-							</div>
-						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_admin_at" class="email_title">Add Tutors</h4>
-							</div>
-							<div class="col-xs-12">
-								<h5>Send to Tutor</h5>
-								<div id="email_admin_at_t" class="trumbowyg" placeholder="Add Tutors - To Tutor"></div>
-							</div>
-						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_admin_es" class="email_title">Edit Service</h4>
-							</div>
-							<div class="col-xs-12">
-								<h5>Send to Tutor</h5>
-								<div id="email_admin_es_t" class="trumbowyg" placeholder="Edit Service - To Tutor"></div>
-							</div>
-						</div>
-						<br />
-						
-						<div class="wrapper row">
-							<div class="col-xs-12">
-								<h4 id="email_admin_ds" class="email_title">Delete Service</h4>
-							</div>
-							<div class="col-xs-12">
-								<h5>Send to Student</h5>
-								<div id="email_admin_ds_t" class="trumbowyg" placeholder="Delete Service - To Student"></div>
+						<div class="col-xs-12 col-sm-3">
+							<div class="btn-toolbar">
+								<!-- Edit -->
+								<div class="btn-group">
+									<button id="edit_email" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;&nbsp;Edit</button>
+								</div>
+								<!-- Save + Cancel -->
+								<div class="btn-group">
+									<button id="save_email" class="btn btn-primary"><i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
+									<button id="cancel_email" class="btn btn-default"><i class="fas fa-times"></i>&nbsp;&nbsp;Cancel</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<br />
+				
+				<div class="wrapper row">
+					<div class="col-xs-12">
+						<input id="email_title" type="text" class="form-control" placeholder="Title" title="Title" readonly />
+						<div id="email_content" class="trumbowyg" placeholder="Content" title="Content"></div>
+						<div class="help-block">Find system parameters you need in the "System Parameters" dropdown.</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		

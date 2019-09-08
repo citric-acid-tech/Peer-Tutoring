@@ -11,6 +11,7 @@
      */
     function AdminSettingsHelperEmail() {
         this.filterResults = {};
+		this.trumbowyg = undefined;
     }
 
     /**
@@ -18,310 +19,330 @@
      */
     AdminSettingsHelperEmail.prototype.bindEventHandlers = function () {
         var instance = this;
-		var editing = false;
-
-        /**
-         * Event: Filter Entry "Click"
-         *
-         * Display the Available Appointments Select by Tutor data of the selected row.
-         */
-        $(document).on('click', '.admin-page #service_type_config .results .entry', function () {
-			if (editing) {
-				return false;
-			}
-			
-			//	Get clicked id
-            var serviceTypeID = $(this).attr('data-id');
-			
-			instance.filter(serviceTypeID);
-			
-			//	Enable buttons
-			$('.admin-page #service_type-edit').prop('disabled', false);
-			
-			//	Change selected display
-            $('.admin-page #service_type_config .results .selected').removeClass('selected');
-            $(this).addClass('selected');
-        });
 		
         /**
          * Event: Edit Button "Click"
          */
-		$('.admin-page #service_type-edit').click(function() {
-			editing = true;
-			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', true);
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').hide();
-			$('.admin-page #service_type-save, .admin-page #service_type-cancel').fadeIn(360);
-			$('.service_type-details-form').find('input, textarea').attr('readonly', false);
-			$('.admin-page #service_type-id').attr('readonly', true);
+		$('#edit_email').click(function() {
+			//	Disable select
+			$('#email_title_group select').prop('disabled', true);
+			$('#email_end, #email_event, #email_receiver').niceSelect('update');
+			//	Enable Editing
+			$('#email_title').prop('readonly', false);
+			$('#email_content').trumbowyg('enable');
+			//	Toggle button group
+			$(this).hide();
+			$('#save_email, #cancel_email').fadeIn(360);
 		});
+		
         /**
-         * Event: New Service Type Button "Click"
+         * Event: Save Button "Click"
          */
-		$('.admin-page #service_type-new-service_type').click(function() {
-			$('.admin-page #service_type_config .popup .curtain').fadeIn();
-			$('.admin-page #service_type_new_service_type_popup').fadeIn();
+		$('#save_email').click(function() {
+			//	Disable Editing
+			$('#email_title').prop('readonly', true);
+			$('#email_content').trumbowyg('disable');
+			//	Retrieve Setting Object Strings
+        	var email_end = $('select#email_end option:selected').val();
+			var email_event = $('select#email_event option:selected').val();
+			var email_receiver = $('select#email_receiver option:selected').val();
+			//	Parse for a Setting Object
+			var key = instance.parseEmailSettings(email_end, email_event, email_receiver);
+			var title = $('#email_title').val();
+			var content = instance.trumbowyg.html();
+			//	Save settings
+			instance.saveEmailSettings(key, title, content);
+			//	Below will be done in saving
+			//	Toggle button group
+			//	Enable select
 		});
-        /**
-         * Event: New Service Type Popup Save Button "Click"
-         */
-		$('.admin-page #popup_new_service_type_save').click(function() {
-			//	Grab data
-			var name = $('#new_service_type_name').val();
-			var description = $('#new_service_type_description').val();
-			//	Ajax Opeation
-			instance.saveNewPopup(name, description);
-			//	Below will be done in ajax
-			//	Re-filter everything
-			//	Hide
-			//	Clear popup with some Timeout
-		});		
-        /**
-         * Event: New Service Type Popup Cancel Button "Click"
-         */
-		$('.admin-page #popup_new_service_type_cancel').click(function() {
-			//	Hide
-			$('.admin-page #service_type_config .popup .curtain').fadeOut();
-			$('.admin-page #service_type_new_service_type_popup').fadeOut();
-			//	Clear popup with some Timeout
-			setTimeout(function() {
-				instance.clearNewPopup();
-			}, 300);
-		});
-        /**
-         * Event: Save Tutor Button "Click"
-         */
-		$('.admin-page #service_type-save').click(function() {
-			instance.saveEdition();
-			$('.service_type-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
-			editing = false;
-			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
-		});		
+		
         /**
          * Event: Cancel Button "Click"
          */
-		$('.admin-page #service_type-cancel').click(function() {
-			instance.filter($('.admin-page #service_type-id').val());
-			$('.service_type-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
-			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
-			editing = false;
-			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
+		$('#cancel_email').click(function() {
+			//	Disable Editing
+			$('#email_title').prop('readonly', true);
+			$('#email_content').trumbowyg('disable');
+			//	Retrieve settings
+			instance.getEmailSettings();
+			//	Toggle button group
+			$('#save_email, #cancel_email').hide();
+			$('#edit_email').fadeIn(360);
+			//	Enable select
+			$('#email_title_group select').prop('disabled', false);
+			$('#email_end, #email_event, #email_receiver').niceSelect('update');
 		});
-			
-		var t = null;
+		
         /**
-         * Event: Typing tutor
+         * Event: End selected
          */
-		$('.admin-page #service_type_config #service_type-service_type').on("keyup", function() {
-			if (editing) {
-				return false;
+		$('select#email_end').change(function() {
+			//	Different States should be considered
+			var cur = $(this).find('option:selected').val();
+			if (cur === 'stu') {
+				//	Student End
+				//	Handle Selectable Options
+				$('.email_student').prop('disabled', false);
+				$('.email_tutor, .email_admin').prop('disabled', true);
+				//	Default option
+				$('#email_event option').prop('selected', false);
+				$("#email_event option.email_student[value='ma']").prop('selected', true);
+				$('#email_receiver option').prop('selected', false);
+				$("#email_receiver option[value='t']").prop('selected', true);
+				//	Update Select list
+				$('#email_event, #email_receiver').niceSelect('update');
+			} else if (cur === 'tut') {
+				//	Tutor End
+				//	Handle Selectable Options
+				$('.email_tutor').prop('disabled', false);
+				$('.email_student, .email_admin').prop('disabled', true);
+				$("#email_receiver option").prop('disabled', false);
+				$("#email_receiver option[value='t']").prop('disabled', true);
+				//	Default option
+				$('#email_event option').prop('selected', false);
+				$("#email_event option.email_student[value='fs']").prop('selected', true);
+				$('#email_receiver option').prop('selected', false);
+				$("#email_receiver option[value='s']").prop('selected', true);
+				//	Update Select list
+				$('#email_event, #email_receiver').niceSelect('update');
+			} else if (cur === 'adm') {
+				//	Admin End
+				//	Handle Selectable Options
+				$('.email_admin').prop('disabled', false);
+				$('.email_tutor, .email_student').prop('disabled', true);
+				$("#email_receiver option").prop('disabled', false);
+				$("#email_receiver option[value='s']").prop('disabled', true);
+				//	Default option
+				$('#email_event option').prop('selected', false);
+				$("#email_event option.email_student[value='at']").prop('selected', true);
+				$('#email_receiver option').prop('selected', false);
+				$("#email_receiver option[value='t']").prop('selected', true);
+				//	Update Select list
+				$('#email_event, #email_receiver').niceSelect('update');
+			} else {
+				alert('Unexpected Behavior: select box in email settings');
 			}
-			if (t) {
-				clearTimeout(t);
-			}
-			var obj = this;
-			t = setTimeout(function() {
-				instance.resetForm();
-				$('.admin-page #service_type-edit').prop('disabled', true);
-				var val = $(obj).val().toLowerCase();
-				instance.filterList('.admin-page #service_type_config .results .entry', val);
-			}, 200);
+			//	And then retrieve
+			instance.getEmailSettings();
 		});
+		
+        /**
+         * Event: Event selected
+         */
+		$('select#email_event').change(function() {
+			//	Different states will be considered
+			var end = $('select#email_end option:selected').val();
+			var cur = $(this).find('option:selected').val();
+			if (end === 'stu') {
+				//	Student End
+				if (cur === 'ma') {
+					//	Handle Selectable Options - both
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='t']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else if (cur === 'ca') {
+					//	Handle Selectable Options - both
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='t']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else if (cur === 'rc') {
+					//	Handle Selectable Options
+					$("#email_receiver option").prop('disabled', false);
+					$("#email_receiver option[value='s']").prop('disabled', true);
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='t']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else {
+					alert('Unexpected Behavior: select box in email settings');
+				}
+			} else if (end === 'tut') {
+				//	Tutor End
+				if (cur === 'fs') {
+					//	Handle Selectable Options
+					$("#email_receiver option").prop('disabled', false);
+					$("#email_receiver option[value='t']").prop('disabled', true);
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='s']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else {
+					alert('Unexpected Behavior: select box in email settings');
+				}
+			} else if (end === 'adm') {
+				//	Admin End
+				if (cur === 'at') {
+					//	Handle Selectable Options
+					$("#email_receiver option").prop('disabled', false);
+					$("#email_receiver option[value='s']").prop('disabled', true);
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='t']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else if (cur === 'es') {
+					//	Handle Selectable Options
+					$("#email_receiver option").prop('disabled', false);
+					$("#email_receiver option[value='s']").prop('disabled', true);
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='t']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else if (cur === 'ds') {
+					//	Handle Selectable Options
+					$("#email_receiver option").prop('disabled', false);
+					$("#email_receiver option[value='t']").prop('disabled', true);
+					//	Default option
+					$('#email_receiver option').prop('selected', false);
+					$("#email_receiver option[value='s']").prop('selected', true);
+					//	Update Select list
+					$('#email_receiver').niceSelect('update');
+				} else {
+					alert('Unexpected Behavior: select box in email settings');
+				}
+			} else {
+				alert('Unexpected Behavior: select box in email settings');
+			}
+			//	And then retrieve
+			instance.getEmailSettings();
+		});
+		
+        /**
+         * Event: Receiver selected
+         */
+		$('select#email_receiver').change(function() {
+			//	The only thing it has to do is retrieve
+			instance.getEmailSettings();
+		});
+		
 	};
 
     /**
-     * Upload
+     * Getting Email Settings
      */
-    AdminSettingsHelperEmail.prototype.saveEdition = function () {
-        var service_type_id = $('#service_type-id').val();
-		var service_type_name = $('#service_type-name').val();
-		var service_type_description = $('#service_type-description').val();
+    AdminSettingsHelperEmail.prototype.getEmailSettings = function () {
+		//	Retrieve Setting Object Strings
+        var email_end = $('select#email_end option:selected').val();
+		var email_event = $('select#email_event option:selected').val();
+		var email_receiver = $('select#email_receiver option:selected').val();
 		
-		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_service_type';
+		//	Parse for a Setting Object
+		var key = this.parseEmailSettings(email_end, email_event, email_receiver);
+		
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_get_settings_email_content';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			service_type_id : service_type_id,
-			name : JSON.stringify(service_type_name),
-			description : JSON.stringify(service_type_description)
+			key: JSON.stringify(key)
         };
 		
-		var obj = this;
-
+		var trumbowyg = this.trumbowyg;
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 			
-			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_edit_service_type: nonono", undefined, "failure");
-			}
+//			console.log(response);
 			
-			var newName = $('#service_type-name').val();
-			$('.admin-page #service_type_config .results .entry.selected')[0].title = newName;
-			$('.admin-page #service_type_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
+			//	Clear pre
+			trumbowyg.empty();
+			//	Load Values
+			$('#email_title').val(response.subject);
+			trumbowyg.html(response.body);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
-
+	
     /**
-     * Create a New Service type
+     * Save Email Settings
      */
-    AdminSettingsHelperEmail.prototype.saveNewPopup = function (name, description) {
-		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service_type';
+    AdminSettingsHelperEmail.prototype.saveEmailSettings = function (key, title, content) {
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_save_settings_email_content';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			name : JSON.stringify(name),
-			description : JSON.stringify(description)
+			key: JSON.stringify(key),
+			title: JSON.stringify(title),
+			content: JSON.stringify(content)
         };
 		
+//		console.log(postData);
+		
 		var obj = this;
-
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 			
+//			console.log(response);
+			
 			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_new_service_type: Saving Failed", undefined, "failure");
+				Admin.displayNotification("Admin Settings Saved.", undefined, "success");
+			} else if (response === 'failed') {
+				Admin.displayNotification("Warning: Something went wrong on saving admin settings.");
 			} else {
-				Admin.displayNotification("ajax_new_service_type: Unexpected Behavior", undefined, "failure");
+				Admin.displayNotification("Error: Something went wrong on saving admin settings.");
+				return false;
 			}
 			
-			//	Re-filter everything
-			obj.resetForm();
-			obj.getAllServiceTypes();
-			//	Hide
-			$('.admin-page #service_type_config .popup .curtain').fadeOut();
-			$('.admin-page #service_type_new_service_type_popup').fadeOut();
-			//	Clear popup with some Timeout
-			setTimeout(function() {
-				obj.clearNewPopup();
-			}, 300);
+			//	Toggle button group
+			$('#save_email, #cancel_email').hide();
+			$('#edit_email').fadeIn(360);
+			//	Enable select
+			$('#email_title_group select').prop('disabled', false);
+			$('#email_end, #email_event, #email_receiver').niceSelect('update');
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     /**
-     * Bring the tutor form back to its initial state.
+     * Parse for a setting state
      */
-    AdminSettingsHelperEmail.prototype.resetForm = function () {
-		//	Clear all inputs
-        $('.service_type-details-form').find('input, textarea').val('');
+    AdminSettingsHelperEmail.prototype.parseEmailSettings = function (email_end, email_event, email_receiver) {
+		var header = 'ec';
+		var event = 'new_appoint';
+		var tut = 'tut', stu = 'stu';
+		var receiver = tut;
 		
-		//	Clear Demonstration Box
-		$('.current_tutors_in_this_service_type').html('');
-
-		//	Handle the button group
-        $('#service_type-save, #service_type-cancel').hide();
-        $('#service_type-edit, #service_type-new-service_type').show();
+		//	switch for an end
+		switch(email_end) {
+			case 'stu': switch(email_event) {
+				case 'ma': event = 'new_appoint'; switch(email_receiver) {
+					case 't': receiver = tut; break;
+					case 's': receiver = stu; break;
+					default: alert('Strange Behavior: Email Settings');
+				} break;
+				case 'ca': event = 'cancel_appoint'; switch(email_receiver) {
+					case 't': receiver = tut; break;
+					case 's': receiver = stu; break;
+					default: alert('Strange Behavior: Email Settings');
+				} break;
+				case 'rc': event = 'survey_comple'; receiver = tut; break;
+				default: alert('Strange Behavior: Email Settings');
+			} break;
+			case 'tut': switch(email_event) {
+				case 'fs': event = 'comsug_comple'; receiver = stu; break;
+				default: alert('Strange Behavior: Email Settings');
+			} break;
+			case 'adm': switch(email_event) {
+				case 'at': event = 'add_tutor'; receiver = tut; break;
+				case 'es': event = 'edit_service'; receiver = tut; break;
+				case 'ds': event = 'del_service'; receiver = stu; break;
+				default: alert('Strange Behavior: Email Settings');
+			} break;
+			default: alert('Strange Behavior: Email Settings');
+		}
 		
-		//	Erase all selected effects on search results part
-        $('.admin-page #service_type_config .results .selected').removeClass('selected');
-		
-		//	When editing, background color will be added to indicate that
-		//	selections are disabled. Writing as below removes the color when
-		//	resetting the form
-        $('.admin-page #service_type_config .results').css('color', '');
-    };
-	
-    /**
-     * Clear Popup
-     */
-    AdminSettingsHelperEmail.prototype.clearNewPopup = function () {
-		$('#service_type_new_service_type_popup').find('textarea, input').val('');
-    };
-
-    /**
-     * Display a tutor record into the form.
-     *
-     * @param {Object} tutor Contains the tutor record data.
-     */
-    AdminSettingsHelperEmail.prototype.display = function (service_type) {
-        $('#service_type-id').val(service_type.info.id);
-		$('#service_type-name').val(service_type.info.name);
-		$('#service_type-description').val(service_type.info.description);
-		//	MORE ON THE RIGHT
-		$('.current_tutors_in_this_service_type').html('');
-		$.each(service_type.tutors, function(index, tutor) {
-			var html = "<div title='" + tutor + "' style='text-align:center;'><strong>" + tutor + "</strong></div><hr />";
-			$('.current_tutors_in_this_service_type').append(html);
-		}.bind(this));
-    };
-	
-    /**
-     * Filter turtor records.
-     *
-     * @param {String} key This key string is used to filter the appointment records.
-     * @param {Number} selectId Optional, if set then after the filter operation the record with the given
-     * ID will be selected (but not displayed).
-     * @param {Boolean} display Optional (false), if true then the selected record will be displayed on the form.
-     */
-    AdminSettingsHelperEmail.prototype.filter = function (id, display) {
-        display = display || false;
-
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_service_types';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken,
-			service_type_id : (id === undefined || id === '') ? JSON.stringify('ALL') : id
-        };
-
-        $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			var obj = this;
-			$.each(response, function(index, service_type) {
-				obj.display(service_type);
-			});
-			
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };	
-
-    /**
-     * Get all service categories and wrap them in an html
-     */
-   	AdminSettingsHelperEmail.prototype.getAllServiceTypes = function() {
-        var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_all_service_types';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken
-        };
-        $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			//	Clear all data
-			$('.admin-page #service_type_config .results').html('');
-			
-			//	Iterate through all service_types, generate htmls for them and
-			//	add them to the list
-			$.each(response, function (index, service_type) {
-				var html = "<div class='entry' data-id='" + service_type.id + "' title='" + service_type.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + service_type.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + service_type.name + "</strong></div>";
-				$('.admin-page #service_type_config .results').append(html);
-			}.bind(this));
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };
-	
-    /**
-     * Get all service categories and wrap them in an html
-     */
-    AdminSettingsHelperEmail.prototype.filterList = function(filterItem, filterValue) {
-		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
-		});
+		var setting = header + '_' + event + '_' + receiver;
+		return setting;
     };
 	
     window.AdminSettingsHelperEmail = AdminSettingsHelperEmail;

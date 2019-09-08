@@ -65,6 +65,8 @@ window.AdminSettings = window.AdminSettings || {};
 			} else if ($(this).attr('href') === '#email_configurations') {
 				helper = adminSettingsHelperEmail;
 				if (firstload_email) {
+					//	Nice Select
+					$('.niceselect').niceSelect();
 					//	Guess what, a trumbowyg editor!
 					var lang = 'en';
 					switch(GlobalVariables.curLanguage) {
@@ -72,11 +74,83 @@ window.AdminSettings = window.AdminSettings || {};
 						case '简体中文': lang = 'zh_cn'; break;
 						default: lang = 'en';
 					}
-					trumbowyg = $('.trumbowyg').trumbowyg({
+					trumbowyg = $('.trumbowyg#email_content').trumbowyg({
 						//	locale
 						lang: lang,
 						//	disable all at first
 						disabled: true,
+						//	Advanced Buttons
+						btnsDef: {
+							date: {
+								fn: function() {
+									//	Restore Range - No need ??? Oh, maybe buttons on that have done this already!!
+//									$('#email_content').trumbowyg('restoreRange');
+									//	Insert at caret
+									$('#email_content').trumbowyg('execCmd', {
+										cmd: 'insertText',
+										param: ' $DATE$ ',
+										foreCss: false
+									});
+									return true;
+								},
+								title: 'Date Parameter',
+								text: 'Date Parameter',
+								hasIcon: false
+							},
+							servType: {
+								fn: function() {
+									//	Restore Range - No need ??? Oh, maybe buttons on that have done this already!!
+//									$('#email_content').trumbowyg('restoreRange');
+									//	Insert at caret
+									$('#email_content').trumbowyg('execCmd', {
+										cmd: 'insertText',
+										param: ' $SERV_TYPE$ ',
+										foreCss: false
+									});
+									return true;
+								},
+								title: 'Service Type Parameter',
+								text: 'Service Type Parameter',
+								hasIcon: false
+							},
+							address: {
+								fn: function() {
+									//	Restore Range - No need ??? Oh, maybe buttons on that have done this already!!
+//									$('#email_content').trumbowyg('restoreRange');
+									//	Insert at caret
+									$('#email_content').trumbowyg('execCmd', {
+										cmd: 'insertText',
+										param: ' $ADDRESS$ ',
+										foreCss: false
+									});
+									return true;
+								},
+								title: 'Address Parameter',
+								text: 'Address Parameter',
+								hasIcon: false
+							},
+							left: {
+								fn: function() {
+									//	Restore Range - No need ??? Oh, maybe buttons on that have done this already!!
+//									$('#email_content').trumbowyg('restoreRange');
+									//	Insert at caret
+									$('#email_content').trumbowyg('execCmd', {
+										cmd: 'insertText',
+										param: ' $LEFT$ ',
+										foreCss: false
+									});
+									return true;
+								},
+								title: '#(Students Applied) Parameter',
+								text: '#(Students Applied) Parameter',
+								hasIcon: false
+							},
+							sysParam: {
+								dropdown: ['date', 'servType', 'address', 'left'],
+								title: 'System Paramters',
+								hasIcon: false
+							}
+						},
 						//	button panel
 						btns: [
 							['viewHTML'],
@@ -100,7 +174,9 @@ window.AdminSettings = window.AdminSettings || {};
 							//	Plugin - emoji
 							['specialChars', 'emoji'],
 							//	Plugin - table
-							['table']
+							['table'],
+							//	Customize
+							['sysParam']
 						],
 						//	Do not affect the look of the text in the editor
 						resetCss: true,
@@ -117,30 +193,13 @@ window.AdminSettings = window.AdminSettings || {};
 							}
 						}
 					});
+					helper.trumbowyg = trumbowyg;
+					//	Pre Get Settings
+					helper.getEmailSettings();
 					firstload_email = false;
 				}
 			} else if ($(this).attr('href') === '#survey_configurations') {
 				helper = adminSettingsHelperSurvey;
-			} else {
-				alert("What have you pressed, my friend??");
-			}
-			
-			//	Place footer one more time
-			Admin.placeFooterToBottom();
-		});
-		
-        /**
-         * Event: Email subpage Tab Button "Click"
-		 *
-		 * Changes the displayed tab
-         */
-		$("#settings_email_navtab a[data-toggle='tab']").on('shown.bs.tab', function() {
-			if ($(this).attr('href') === '#email_students') {
-				
-			} else if ($(this).attr('href') === '#email_tutor') {
-				
-			} else if ($(this).attr('href') === '#email_admin') {
-				
 			} else {
 				alert("What have you pressed, my friend??");
 			}
