@@ -85,6 +85,7 @@
 				//	Handle Selectable Options
 				$('.email_student').prop('disabled', false);
 				$('.email_tutor, .email_admin').prop('disabled', true);
+				$("#email_receiver option").prop('disabled', false);
 				//	Default option
 				$('#email_event option').prop('selected', false);
 				$("#email_event option.email_student[value='ma']").prop('selected', true);
@@ -138,6 +139,7 @@
 				//	Student End
 				if (cur === 'ma') {
 					//	Handle Selectable Options - both
+					$("#email_receiver option").prop('disabled', false);
 					//	Default option
 					$('#email_receiver option').prop('selected', false);
 					$("#email_receiver option[value='t']").prop('selected', true);
@@ -145,6 +147,7 @@
 					$('#email_receiver').niceSelect('update');
 				} else if (cur === 'ca') {
 					//	Handle Selectable Options - both
+					$("#email_receiver option").prop('disabled', false);
 					//	Default option
 					$('#email_receiver option').prop('selected', false);
 					$("#email_receiver option[value='t']").prop('selected', true);
