@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-ui/jquery-ui.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.css', NULL, 'css') ?>" />
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/trumbowyg/ui/trumbowyg.min.css', NULL, 'css') ?>" />
 	<!-- Add Font Awesome for icons -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 	<!-- Full Calendar -->
@@ -33,7 +32,6 @@
 	<script src="<?= asset_url('assets/ext/moment/moment.min.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/datejs/date.js', NULL, 'js') ?>"></script>
 	<script src="<?= asset_url('assets/ext/jquery-mousewheel/jquery.mousewheel.js', NULL, 'js') ?>"></script>
-	<script src="<?= asset_url('assets/ext/trumbowyg/trumbowyg.min.js', NULL, 'js') ?>"></script>
 	<!-- Add Font Awesome for icons -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
 	<!-- Full Calendar -->
