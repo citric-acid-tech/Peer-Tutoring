@@ -45,18 +45,17 @@ class Cas_model extends CI_Model{
                 'id_roles' => $default_registraion_id_role
             );
             
-            $this->db->insert('ea_users', $data);
-
-            $id_users = $this->db->insert_id();
+            if($this->db->insert('ea_users', $data)){
+                $id_users = $this->db->insert_id();
             
-            $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
-            
-            if ( ! $this->db->insert('ea_user_settings', $data) ){
-                $this->db->trans_rollback();
-            }else{
-                $this->db->trans_commit();
+                $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
+                
+                if ( ! $this->db->insert('ea_user_settings', $data) ){
+                    $this->db->trans_rollback();
+                }else{
+                    $this->db->trans_commit();
+                }
             }
-
             $this->db->trans_complete();
         }
 
