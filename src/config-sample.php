@@ -81,6 +81,7 @@ class Config {
     const SMTP_SMTPUSER = 'XXX@163.com';
     const SMTP_PASSWORD = 'Authorised password(smtp授权密码)';
     const SMTP_FROM     = 'XXX@163.com';
+
 }
 
 /* End of file config.php */
