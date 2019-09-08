@@ -564,6 +564,33 @@ class Admin_api extends CI_Controller{
         }  
     }
 
+    public function ajax_save_settings_email_content(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $key = json_decode($this->input->post('key'), TRUE);
+            $subject = json_decode($this->input->post('title'), TRUE);
+            $body = json_decode($this->input->post('content'), TRUE);
+
+            // Query
+            $result = $this->admin_model->save_settings_email_content($key, $subject, $body);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+                //success
+                //failed
+            
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
+    }
+
 /** Ajax interface for statistics */
 
     public function ajax_service_statistic(){

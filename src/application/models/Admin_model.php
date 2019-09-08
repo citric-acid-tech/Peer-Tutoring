@@ -877,6 +877,20 @@ class Admin_model extends CI_Model{
             ->row_array()['val'];
     }
 
+    public function save_settings_email_content($key, $subject, $body){
+        $data = array(
+            'subject' => $subject,
+            'body' => $body
+        );
+        $this->db->set('value', json_encode($data));
+        $this->db->where('name', $key);
+        $result = $this->db->update('ea_settings') ? 'success' : 'failed';
+
+        $this->log_operation('save_email_content', $data, $result);
+
+        return $result;
+    }
+
     public function authorise($sid, $id_roles){
         $data = array('sid'=>$sid, 'id_roles'=>$id_roles);
         
