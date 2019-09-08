@@ -868,6 +868,15 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
+    public function get_settingss_email_content($key){
+        return $this->db
+            ->select('ea_settings.value AS val')
+            ->from('ea_settings')
+            ->where('name', $key)
+            ->get()
+            ->row_array()['val'];
+    }
+
     public function authorise($sid, $id_roles){
         $data = array('sid'=>$sid, 'id_roles'=>$id_roles);
         

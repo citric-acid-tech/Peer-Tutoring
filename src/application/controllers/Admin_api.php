@@ -532,10 +532,31 @@ class Admin_api extends CI_Controller{
 
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result), TRUE);
-            
-            
+                ->set_output(json_encode($result), TRUE); 
 
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
+    }
+
+    public function get_settings_email_content(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $key = json_decode($this->input->post('key'), TRUE);
+
+            // Query
+            $result = $this->admin_model->get_settingss_email_content($key);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output($result);
+            
         }catch (Exception $exc){
             $this->output
                 ->set_content_type('application/json')
