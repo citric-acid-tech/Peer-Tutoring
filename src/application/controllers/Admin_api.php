@@ -541,7 +541,7 @@ class Admin_api extends CI_Controller{
         }  
     }
 
-    public function get_settings_email_content(){
+    public function ajax_get_settings_email_content(){
         //
         try{
             
