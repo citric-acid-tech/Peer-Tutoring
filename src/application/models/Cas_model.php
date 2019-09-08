@@ -47,7 +47,7 @@ class Cas_model extends CI_Model{
             
             if($this->db->insert('ea_users', $data)){
                 $id_users = $this->db->insert_id();
-                
+
                 $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
                 
                 if ( ! $this->db->insert('ea_user_settings', $data) ){
@@ -68,8 +68,6 @@ class Cas_model extends CI_Model{
             ->join('ea_user_settings', 'ea_user_settings.id_users = ea_users.id', 'inner')
             ->where('ea_users.cas_sid', $cas_user_data['sid'])
             ->get()->row_array();
-
-        echo $user_data['user_id'] . '<br />';
 
         return ($user_data) ? $user_data : NULL;
     }

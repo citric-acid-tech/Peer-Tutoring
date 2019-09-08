@@ -22,6 +22,9 @@ class Test extends CI_Controller{
 
     public function test_bug1(){
         $this->load->database();
+
+        $this->db->trans_begin();
+
         $data = array(
             'first_name' => 'Mike',
             'email' => '11710403@mail.sustech.edu.cn',
