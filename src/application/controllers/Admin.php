@@ -78,7 +78,7 @@ class Admin extends CI_Controller{
         $view['base_url'] = $this->config->item('base_url');
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
         
-        $settings = array( 'date_format', 'time_format', 'company_name');
+        $settings = array( 'date_format', 'time_format', 'company_name', 'semester_json');
         $view = array_merge($view, $this->general_model->get_settings_batch($settings));
 
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
