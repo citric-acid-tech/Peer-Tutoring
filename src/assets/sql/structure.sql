@@ -18,6 +18,98 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ea_roles`
+--
+
+DROP TABLE IF EXISTS `ea_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ea_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) DEFAULT NULL,
+  `slug` varchar(256) DEFAULT NULL,
+  `is_admin` tinyint(4) DEFAULT NULL,
+  `appointments` int(11) DEFAULT NULL,
+  `customers` int(11) DEFAULT NULL,
+  `services` int(11) DEFAULT NULL,
+  `users` int(11) DEFAULT NULL,
+  `system_settings` int(11) DEFAULT NULL,
+  `user_settings` int(11) DEFAULT NULL,
+  `my_appointments` int(11) DEFAULT NULL,
+  `available_appointments` int(11) DEFAULT NULL,
+  `appointments_management` int(11) DEFAULT '0',
+  `tutors_settings` int(11) DEFAULT '0',
+  `services_config` int(11) DEFAULT '0',
+  `service_types_config` int(11) DEFAULT '0',
+  `tutors_config` int(11) DEFAULT '0',
+  `admin_settings` int(11) DEFAULT '0',
+  `admin_appointments_management` int(11) DEFAULT '0',
+  `statistics` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ea_roles`
+--
+
+LOCK TABLES `ea_roles` WRITE;
+/*!40000 ALTER TABLE `ea_roles` DISABLE KEYS */;
+INSERT INTO `ea_roles` VALUES (1,'Administrator','admin',1,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15),(2,'Provider','provider',0,15,15,0,0,0,15,15,15,15,15,0,0,0,0,0,0),(3,'Customer','customer',0,0,0,0,0,0,0,15,15,0,0,0,0,0,0,0,0),(4,'Secretary','secretary',0,15,15,0,0,0,15,15,15,0,0,0,0,0,0,0,0);
+/*!40000 ALTER TABLE `ea_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ea_users`
+--
+
+DROP TABLE IF EXISTS `ea_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ea_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(256) DEFAULT NULL,
+  `last_name` varchar(512) DEFAULT NULL,
+  `email` varchar(512) DEFAULT NULL,
+  `mobile_number` varchar(128) DEFAULT NULL,
+  `phone_number` varchar(128) DEFAULT NULL,
+  `address` varchar(256) DEFAULT NULL,
+  `city` varchar(256) DEFAULT NULL,
+  `state` varchar(128) DEFAULT NULL,
+  `zip_code` varchar(64) DEFAULT NULL,
+  `notes` text,
+  `id_roles` int(11) NOT NULL,
+  `personal_page` varchar(256) DEFAULT 'no_personal_page',
+  `flexible_column` varchar(256) DEFAULT 'null_value',
+  `introduction` text,
+  `cas_hash_id` varchar(32) DEFAULT NULL,
+  `cas_sid` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_roles` (`id_roles`),
+  CONSTRAINT `users_roles` FOREIGN KEY (`id_roles`) REFERENCES `ea_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ea_users`
+--
+
+LOCK TABLES `ea_users` WRITE;
+/*!40000 ALTER TABLE `ea_users` DISABLE KEYS */;
+INSERT INTO `ea_users` VALUES (1,'Mike','Wang','11710403@mail.sustc.edu.cn',NULL,'1',NULL,NULL,NULL,NULL,NULL,1,'no_personal_page','null_value',NULL,NULL,NULL),(2,'John','Doe','john@doe.com',NULL,'0123456789',NULL,NULL,NULL,NULL,NULL,2,'no_personal_page','null_value',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `ea_users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+--
 -- Table structure for table `ea_admin_log`
 --
 
@@ -47,45 +139,35 @@ LOCK TABLES `ea_admin_log` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ea_appointments`
+-- Table structure for table `ea_student_log`
 --
 
-DROP TABLE IF EXISTS `ea_appointments`;
+DROP TABLE IF EXISTS `ea_student_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_appointments` (
+CREATE TABLE `ea_student_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `book_datetime` datetime DEFAULT NULL,
-  `notes` text,
-  `hash` text,
-  `is_unavailable` tinyint(4) DEFAULT '0',
-  `id_users_customer` int(11) DEFAULT NULL,
-  `id_services` int(11) DEFAULT NULL,
-  `id_google_calendar` text,
-  `booking_status` int(11) DEFAULT '0',
-  `feedback` text,
-  `suggestion` text,
-  `stars` int(11) DEFAULT '0',
-  `description` text,
-  `remark` varchar(64) DEFAULT NULL,
-  `comment_or_suggestion` text,
-  `attachment_url` varchar(512) DEFAULT NULL,
+  `id_users` int(11) NOT NULL,
+  `operation` varchar(45) DEFAULT NULL,
+  `input_json` text,
+  `output_json` text,
+  `timestamp` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_users_customer` (`id_users_customer`),
-  KEY `id_services` (`id_services`),
-  CONSTRAINT `appointments_services` FOREIGN KEY (`id_services`) REFERENCES `ea_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `appointments_users_customer` FOREIGN KEY (`id_users_customer`) REFERENCES `ea_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_student_id_users_id` (`id_users`),
+  CONSTRAINT `fk_student_id_users` FOREIGN KEY (`id_users`) REFERENCES `ea_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ea_appointments`
+-- Dumping data for table `ea_student_log`
 --
 
-LOCK TABLES `ea_appointments` WRITE;
-/*!40000 ALTER TABLE `ea_appointments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ea_appointments` ENABLE KEYS */;
+LOCK TABLES `ea_student_log` WRITE;
+/*!40000 ALTER TABLE `ea_student_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ea_student_log` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
 
 --
 -- Table structure for table `ea_buffer_failed_email`
@@ -186,47 +268,7 @@ INSERT INTO `ea_migrations` VALUES (55);
 /*!40000 ALTER TABLE `ea_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `ea_roles`
---
 
-DROP TABLE IF EXISTS `ea_roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) DEFAULT NULL,
-  `slug` varchar(256) DEFAULT NULL,
-  `is_admin` tinyint(4) DEFAULT NULL,
-  `appointments` int(11) DEFAULT NULL,
-  `customers` int(11) DEFAULT NULL,
-  `services` int(11) DEFAULT NULL,
-  `users` int(11) DEFAULT NULL,
-  `system_settings` int(11) DEFAULT NULL,
-  `user_settings` int(11) DEFAULT NULL,
-  `my_appointments` int(11) DEFAULT NULL,
-  `available_appointments` int(11) DEFAULT NULL,
-  `appointments_management` int(11) DEFAULT '0',
-  `tutors_settings` int(11) DEFAULT '0',
-  `services_config` int(11) DEFAULT '0',
-  `service_types_config` int(11) DEFAULT '0',
-  `tutors_config` int(11) DEFAULT '0',
-  `admin_settings` int(11) DEFAULT '0',
-  `admin_appointments_management` int(11) DEFAULT '0',
-  `statistics` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ea_roles`
---
-
-LOCK TABLES `ea_roles` WRITE;
-/*!40000 ALTER TABLE `ea_roles` DISABLE KEYS */;
-INSERT INTO `ea_roles` VALUES (1,'Administrator','admin',1,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15),(2,'Provider','provider',0,15,15,0,0,0,15,15,15,15,15,0,0,0,0,0,0),(3,'Customer','customer',0,0,0,0,0,0,0,15,15,0,0,0,0,0,0,0,0),(4,'Secretary','secretary',0,15,15,0,0,0,15,15,15,0,0,0,0,0,0,0,0);
-/*!40000 ALTER TABLE `ea_roles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `ea_secretaries_providers`
@@ -370,34 +412,7 @@ INSERT INTO `ea_settings` VALUES (1,'company_working_plan','{\"sunday\":{\"start
 /*!40000 ALTER TABLE `ea_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `ea_student_log`
---
 
-DROP TABLE IF EXISTS `ea_student_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_student_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_users` int(11) NOT NULL,
-  `operation` varchar(45) DEFAULT NULL,
-  `input_json` text,
-  `output_json` text,
-  `timestamp` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_student_id_users_id` (`id_users`),
-  CONSTRAINT `fk_student_id_users` FOREIGN KEY (`id_users`) REFERENCES `ea_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ea_student_log`
---
-
-LOCK TABLES `ea_student_log` WRITE;
-/*!40000 ALTER TABLE `ea_student_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ea_student_log` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `ea_tutor_log`
@@ -464,53 +479,44 @@ INSERT INTO `ea_user_settings` VALUES (1,'cle','637d67309b4598cdc67f144ee47ae196
 UNLOCK TABLES;
 
 --
--- Table structure for table `ea_users`
+-- Table structure for table `ea_appointments`
 --
 
-DROP TABLE IF EXISTS `ea_users`;
+DROP TABLE IF EXISTS `ea_appointments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ea_users` (
+CREATE TABLE `ea_appointments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(256) DEFAULT NULL,
-  `last_name` varchar(512) DEFAULT NULL,
-  `email` varchar(512) DEFAULT NULL,
-  `mobile_number` varchar(128) DEFAULT NULL,
-  `phone_number` varchar(128) DEFAULT NULL,
-  `address` varchar(256) DEFAULT NULL,
-  `city` varchar(256) DEFAULT NULL,
-  `state` varchar(128) DEFAULT NULL,
-  `zip_code` varchar(64) DEFAULT NULL,
+  `book_datetime` datetime DEFAULT NULL,
   `notes` text,
-  `id_roles` int(11) NOT NULL,
-  `personal_page` varchar(256) DEFAULT 'no_personal_page',
-  `flexible_column` varchar(256) DEFAULT 'null_value',
-  `introduction` text,
-  `cas_hash_id` varchar(32) DEFAULT NULL,
-  `cas_sid` varchar(32) DEFAULT NULL,
+  `hash` text,
+  `is_unavailable` tinyint(4) DEFAULT '0',
+  `id_users_customer` int(11) DEFAULT NULL,
+  `id_services` int(11) DEFAULT NULL,
+  `id_google_calendar` text,
+  `booking_status` int(11) DEFAULT '0',
+  `feedback` text,
+  `suggestion` text,
+  `stars` int(11) DEFAULT '0',
+  `description` text,
+  `remark` varchar(64) DEFAULT NULL,
+  `comment_or_suggestion` text,
+  `attachment_url` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_roles` (`id_roles`),
-  CONSTRAINT `users_roles` FOREIGN KEY (`id_roles`) REFERENCES `ea_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `id_users_customer` (`id_users_customer`),
+  KEY `id_services` (`id_services`),
+  CONSTRAINT `appointments_services` FOREIGN KEY (`id_services`) REFERENCES `ea_services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `appointments_users_customer` FOREIGN KEY (`id_users_customer`) REFERENCES `ea_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ea_users`
+-- Dumping data for table `ea_appointments`
 --
 
-LOCK TABLES `ea_users` WRITE;
-/*!40000 ALTER TABLE `ea_users` DISABLE KEYS */;
-INSERT INTO `ea_users` VALUES (1,'Mike','Wang','11710403@mail.sustc.edu.cn',NULL,'1',NULL,NULL,NULL,NULL,NULL,1,'no_personal_page','null_value',NULL,NULL,NULL),(2,'John','Doe','john@doe.com',NULL,'0123456789',NULL,NULL,NULL,NULL,NULL,2,'no_personal_page','null_value',NULL,NULL,NULL);
-/*!40000 ALTER TABLE `ea_users` ENABLE KEYS */;
+LOCK TABLES `ea_appointments` WRITE;
+/*!40000 ALTER TABLE `ea_appointments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ea_appointments` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2019-09-08 16:18:43
