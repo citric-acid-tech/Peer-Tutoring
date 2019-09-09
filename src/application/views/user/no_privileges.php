@@ -58,7 +58,7 @@
 
         <br>
 
-        <a href="<?= site_url('backend') ?>" class="btn btn-success btn-large">
+        <a href="<?= site_url('') ?>" class="btn btn-success btn-large">
             <i class="icon-calendar icon-white"></i>
             <?= lang('backend_calendar') ?>
         </a>
