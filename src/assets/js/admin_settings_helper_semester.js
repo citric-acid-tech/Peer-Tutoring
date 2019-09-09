@@ -35,6 +35,7 @@
 							"<i class='fas fa-times'></i>" +
 							"</button>" +
 						"</li>";
+		this.sthDeleted = false;
     }
 
     /**
@@ -48,7 +49,7 @@
          */
 		$('#sem_upload').click(function() {
 			//	If nothing modified, no need to update
-			if ($('ul#sem_info .sem_modify').length === 0) {
+			if ($('ul#sem_info .sem_modify').length === 0 && (!instance.sthDeleted)) {
 				Admin.displayNotification("You did not modify anything and thus there is no need to update.");
 				return false;
 			}
@@ -132,7 +133,30 @@
          * Event: Reset
          */
 		$('#sem_reset').click(function() {
-			instance.retrieveInfo();
+			//	If something modified, warn admin
+			if ($('ul#sem_info .sem_modify').length !== 0 || instance.sthDeleted) {
+				var buttons = [
+					{
+						text: EALang.confirm,
+						click: function () {
+							instance.retrieveInfo();
+							$('#message_box').dialog('close');
+						}
+					},
+					{
+						text: EALang.cancel,
+						click: function () {
+							$('#message_box').dialog('close');
+						}
+					}
+				];
+
+				GeneralFunctions.displayMessageBox("Reacquiring Semester Info",
+												   "You have something modified. Do you really want to discard them?", buttons);
+			} else {
+				//	If nothing modified, why do I have to reproduce?
+				Admin.displayNotification("You did not modify anything and thus there is no need to reset.");
+			}
 		});
 
         /**
@@ -148,6 +172,7 @@
 						setTimeout(function() {
 							$(deleteItem).remove();
 						}, 500);
+						instance.sthDeleted = true;
                         $('#message_box').dialog('close');
                     }
                 },
