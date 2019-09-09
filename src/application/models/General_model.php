@@ -22,7 +22,10 @@ class General_model extends CI_Model{
      */
     public function get_all_users(){
         return $this->db
-            ->select('CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name')
+            ->select('
+            ea_users.cas_sid                                       AS cas_sid,
+            CONCAT(ea_users.first_name, \' \', ea_users.last_name) AS name
+            ')
             ->from('ea_users')
             ->get()
             ->result_array();
