@@ -29,7 +29,7 @@
 							"<span> and will last for </span>" +
 							"<input class='sem_last_weeks' title='Last Weeks' placeholder='Last Weeks' value='1' type='number' min='1' step='1' />" +
 							" " + " " +
-							"weeks." +
+							"<span> weeks.</span>" +
 							" " + " " +
 							"<button class='sem_delete_row btn btn-danger' title='Delete this row'>" +
 							"<i class='fas fa-times'></i>" +
@@ -42,6 +42,65 @@
      */
     AdminSettingsHelperSemester.prototype.bindEventHandlers = function () {
         var instance = this;
+
+        /**
+         * Event: Upload JSON
+         */
+		$('#sem_upload').click(function() {
+			//	If nothing modified, no need to update
+			if ($('ul#sem_info .sem_modify').length === 0) {
+				Admin.displayNotification("You did not modify anything and thus there is no need to update.");
+				return false;
+			}
+			
+			var itemSet = $('ul#sem_info .sem_item');
+			var year, season, start_date, last_weeks;
+			var sem_info = {};
+			
+//			//	Test: Replicate JSON: NICE!
+//			console.log(GlobalVariables.semester_json);
+//			console.log('----------------------------------');
+//			console.log('--------- Now Replicate! ---------');
+//			console.log('----------------------------------');
+//			sem_info['2019'] = {};
+//			sem_info['2019']['Fall'] = {
+//				first_Monday: '2019-08-05',
+//				last_weeks: '17'
+//			};
+//			sem_info['2019']['Spring'] = {
+//				first_Monday: '2019-02-18',
+//				last_weeks: '15'
+//			};
+//			sem_info['2019']['Summer'] = {
+//				first_Monday: '2019-06-24',
+//				last_weeks: '6'
+//			};
+//			console.log(sem_info);
+			
+			$.each(itemSet, function(index, item) {
+//				console.log(index);	// index of the array
+//				console.log(item);	// item
+//				console.log('--------------------');
+				year = $(item).find('.sem_year').val();
+				season = $(item).find('.sem_season option:selected').val();
+				start_date = $(item).find('.sem_start_date').val();
+				last_weeks = $(item).find('.sem_last_weeks').val();
+				
+				//	if overlap, then override
+				if (sem_info[year] === undefined) {
+					sem_info[year] = {};
+				}
+				sem_info[year][season] = {
+					first_Monday: start_date,
+					last_weeks: last_weeks
+				};
+			});
+			
+			console.log(sem_info);
+			alert(JSON.stringify(sem_info));
+			
+			//	Fantastic! Now you can update the info
+		});
 
         /**
          * Event: New Row
@@ -124,7 +183,7 @@
     /**
      * Save Semester Json
      */
-    AdminSettingsHelperSemester.prototype.saveEdition = function () {
+    AdminSettingsHelperSemester.prototype.saveInfo = function () {
         var service_type_id = $('#service_type-id').val();
 		var service_type_name = $('#service_type-name').val();
 		var service_type_description = $('#service_type-description').val();
