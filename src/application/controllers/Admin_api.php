@@ -304,6 +304,28 @@ class Admin_api extends CI_Controller{
         }
     }
 
+    public function ajax_dismiss_tutor(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
+            // Query
+            $result = $this->admin_model->dismiss_tutor($tutor_id);
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 /** Ajax interface for service_types_configuration */
 
     /**

@@ -26,6 +26,12 @@ class Admin_model extends CI_Model{
         return $result;
     }
 
+    public function dismiss_tutor($tutor_id){
+        $this->db->set('id_roles', 3);
+        $this->db->where('id', $tutor_id);
+        return $this->db->update('ea_users') ? 'success' : 'failed';
+    }
+
     /**
      * @param sid_text The sid of the student
      * @return boolean success or not
