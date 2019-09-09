@@ -620,7 +620,7 @@ class Admin_api extends CI_Controller{
             $this->load->model('admin_model');
             
             // Get input
-            $semester_json = json_decode($this->input->post('semester_json'), TRUE);
+            $semester_json = $this->input->post('semester_json');
 
             // Query
             $result = $this->admin_model->save_semester_json($semester_json);
