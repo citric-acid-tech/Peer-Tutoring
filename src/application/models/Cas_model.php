@@ -39,6 +39,7 @@ class Cas_model extends CI_Model{
             // Register
             $data = array(
                 'first_name' => $cas_user_data['name'],
+                'last_name' => ' ',
                 'email' => $cas_user_data['email'],
                 'cas_hash_id' => $cas_user_data['id'],
                 'cas_sid' => $cas_user_data['sid'],
