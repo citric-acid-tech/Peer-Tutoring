@@ -24,6 +24,7 @@ class Tutors_model extends CI_Model{
      */
     public function filter_appointments($user_id, $service_type, $student_name, $service_status, $start_date, $end_date){
         $this->db->select('
+            ea_appointments.attachment_url                         AS attachment_url,
             ea_appointments.id                                     AS id,
             ea_appointments.book_datetime                          AS book_datetime,
 

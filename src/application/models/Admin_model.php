@@ -308,6 +308,7 @@ class Admin_model extends CI_Model{
      */
     public function filter_appointments_management($service_type, $tutor_name, $student_name, $start_date, $end_date, $service_status,$appointment_id){
         $this->db->select('
+            ea_appointments.attachment_url                         AS attachment_url,
             ea_appointments.id                                     AS id,
             ea_appointments.book_datetime                          AS book_datetime,
             ea_appointments.booking_status                         AS booking_status,

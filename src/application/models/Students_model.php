@@ -59,6 +59,7 @@ class Students_model extends CI_Model{
 
         $this->db
             ->select('
+            ea_appointments.attachment_url     AS attachment_url,
             ea_appointments.id                 AS appointment_id,
             ea_appointments.book_datetime      AS book_datetime,
             ea_services.start_datetime         AS start_datetime,
