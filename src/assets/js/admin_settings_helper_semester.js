@@ -13,25 +13,24 @@
         this.filterResults = {};
 		this.list_item = "<li class='sem_item'>" +
 		 					"<strong>Semester </strong>" +
-		 					"&nbsp;&nbsp;" +
+		 					" " + " " +
 							"<input class='sem_year' title='Year' placeholder='Year' value='2019' type='number' min='2019' step='1' />" +
-							"&nbsp;" +
-							"<strong>-</strong>&nbsp;" +
+							" " + "<strong>-</strong>" + " " +
 							"<select class='sem_season' title='Season' name='Season'>" +
 								"<option value='Fall' selected>Fall</option>" +
 								"<option value='Spring'>Spring</option>" +
 								"<option value='Summer'>Summer</option>" +
 							"</select>" +
-							"&nbsp;&nbsp;" +
+							" " + " " +
 							"<span> starts on </span>" +
-							"&nbsp;&nbsp;" +
+							" " + " " +
 							"<input class='sem_start_date' type='text' title='Start Date' placeholder='Start Date' value='2019-09-01' readonly />" +
-							"&nbsp;&nbsp;" +
+							" " + " " +
 							"<span> and will last for </span>" +
 							"<input class='sem_last_weeks' title='Last Weeks' placeholder='Last Weeks' value='1' type='number' min='1' step='1' />" +
-							"&nbsp;&nbsp;" +
+							" " + " " +
 							"weeks." +
-							"&nbsp;&nbsp;" +
+							" " + " " +
 							"<button class='sem_delete_row btn btn-danger' title='Delete this row'>" +
 							"<i class='fas fa-times'></i>" +
 							"</button>" +
@@ -43,6 +42,31 @@
      */
     AdminSettingsHelperSemester.prototype.bindEventHandlers = function () {
         var instance = this;
+
+        /**
+         * Event: New Row
+         */
+		$('#sem_new_row').click(function() {
+			instance.newSemItem();
+			var newLI = $('ul#sem_info li:last-of-type');
+//			console.log(season + " - " + datetime_info);
+			//	Set values
+			newLI.find('.sem_year, .sem_season, .sem_start_date, .sem_last_weeks').addClass('sem_modify');
+			newLI.find('.sem_start_date').datepicker({
+				dateFormat: "yy-mm-dd",
+				constrainInput: true,
+				autoSize: true,
+				navigationAsDateFormat: true,
+				firstDay: 1,
+				showOtherMonths: true,
+				showAnim: "fold",
+				onClose: function() {
+					$('.sem_start_date').prop('disabled', false);
+				}
+			});
+			newLI.fadeIn(500);
+//			console.log(newLI);
+		});
 
         /**
          * Event: Reset
@@ -86,6 +110,15 @@
 			$('.sem_start_date').prop('disabled', true);
 			$(this).prop('disabled', false);
 		});
+
+        /**
+         * Event: Modify Hint
+         */
+		$(document).on('change', 'ul#sem_info .sem_item .sem_year, ul#sem_info .sem_item .sem_season, ul#sem_info .sem_item .sem_start_date, ul#sem_info .sem_item .sem_last_weeks', function() {
+			$(this).addClass('sem_modify');
+		});
+		
+		
 	};
 
     /**

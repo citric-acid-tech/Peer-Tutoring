@@ -701,6 +701,12 @@ ul#sem_info .sem_item .sem_year:active, ul#sem_info .sem_item .sem_season:active
 ul#sem_info .sem_item .sem_start_date:active, ul#sem_info .sem_item .sem_last_weeks:active {
 	border: 1px solid #296d97;
 }
+ul#sem_info .sem_item .sem_year.sem_modify, ul#sem_info .sem_item .sem_season.sem_modify,
+ul#sem_info .sem_item .sem_start_date.sem_modify, ul#sem_info .sem_item .sem_last_weeks.sem_modify {
+	background-color: #296d97;
+	color: snow;
+	border-radius: 5px;
+}
 ul#sem_info .sem_item .sem_delete_row {
 	width: 40px;
 	font-size: 12px;
