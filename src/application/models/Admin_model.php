@@ -88,25 +88,25 @@ class Admin_model extends CI_Model{
             }
         }// END OF foreach
         
-        $this->load->model('general_model');
-        if((is_array($mail_id_arr) && len($mail_id_arr) > 0) && $this->general_model->is_enable_email_notification()){
-            // :: Send email to this tutor
-            //// Get his/her email
+        // $this->load->model('general_model');
+        // if((is_array($mail_id_arr) && len($mail_id_arr) > 0) && $this->general_model->is_enable_email_notification()){
+        //     // :: Send email to this tutor
+        //     //// Get his/her email
 
-            $email_result = $this->db->select('ea_users.email AS email')
-            ->from('ea_users');
-            foreach($mail_id_arr AS $sid){
-                $this->db->or_where('ea_users.cas_sid', $sid);
-            }
-            $email_result = $this->db->get()->result_array();
-            // send emails
-            $mail_arr = array();
-            $m = 0;
-            foreach($email_result AS $row){
-                $mail_arr[$m++] = $row['email'];
-            }
-            $this->general_model->send_email('ec_add_tutor_tut', $mail_arr);
-        }
+        //     $email_result = $this->db->select('ea_users.email AS email')
+        //     ->from('ea_users');
+        //     foreach($mail_id_arr AS $sid){
+        //         $this->db->or_where('ea_users.cas_sid', $sid);
+        //     }
+        //     $email_result = $this->db->get()->result_array();
+        //     // send emails
+        //     $mail_arr = array();
+        //     $m = 0;
+        //     foreach($email_result AS $row){
+        //         $mail_arr[$m++] = $row['email'];
+        //     }
+        //     $this->general_model->send_email('ec_add_tutor_tut', $mail_arr);
+        // }
 
         $data = array('input_sid_arr' => $sid_arr, 'fail_arr' => $fail_arr);
 
