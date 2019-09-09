@@ -36,6 +36,7 @@ class General_model extends CI_Model{
     public function get_all_tutors(){
         return $this->db
             ->select('
+            ea_users.cas_sid                                        AS cas_sid,
             ea_users.id                                             AS id,
             CONCAT(ea_users.first_name, \' \', ea_users.last_name)  AS name
             ')
