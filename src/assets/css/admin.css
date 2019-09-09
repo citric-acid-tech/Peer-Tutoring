@@ -347,7 +347,7 @@ root {
 
 
 
-.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete {
+.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss {
 	display: none;
 }
 .admin-page #service_type-save, .admin-page #service_type-cancel {

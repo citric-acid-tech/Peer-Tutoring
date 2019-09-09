@@ -97,7 +97,8 @@
 			});
 			
 			console.log(sem_info);
-			alert(JSON.stringify(sem_info));
+            GeneralFunctions.displayMessageBox("Semester JSON",
+                "Here is what you get\r\n" + JSON.stringify(sem_info));
 			
 			//	Fantastic! Now you can update the info
 		});

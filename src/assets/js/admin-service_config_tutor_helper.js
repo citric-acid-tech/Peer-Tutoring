@@ -50,7 +50,7 @@
 			editing = true;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', true);
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').hide();
-			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete').fadeIn(360);
+			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').fadeIn(360);
 			$('.tutor-details-form').find('input, textarea').attr('readonly', false);
 			$('.admin-page #tutor-id').attr('readonly', true);
 		});
@@ -97,12 +97,41 @@
 			}, 300);
 		});
         /**
+         * Event: Dismiss Tutor Button "Click"
+         */
+		$('.admin-page #tutor-dismiss').click(function() {
+            var buttons = [
+                {
+                    text: EALang.confirm,
+                    click: function () {
+						var id = $('#tutor-id').val();
+						instance.dismissTutor(id);
+						$('.tutor-details-form').find('input, textarea').attr('readonly', true);
+						$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
+						$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
+						editing = false;
+						$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
+                        $('#message_box').dialog('close');
+                    }
+                },
+                {
+                    text: EALang.cancel,
+                    click: function () {
+                        $('#message_box').dialog('close');
+                    }
+                }
+            ];
+
+            GeneralFunctions.displayMessageBox("Dismiss this tutor",
+                "Are you sure you want to dismiss this tutor?", buttons);
+		});
+        /**
          * Event: Save Tutor Button "Click"
          */
 		$('.admin-page #tutor-save').click(function() {
 			instance.saveEdition();
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete').hide();
+			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
@@ -113,7 +142,7 @@
 		$('.admin-page #tutor-cancel').click(function() {
 			instance.filter($('.admin-page #tutor-id').val());
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
-			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-delete').hide();
+			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
@@ -199,7 +228,7 @@
         $('.tutor-details-form').find('input, textarea').val('');
 
 		//	Handle the button group
-        $('#tutor-save, #tutor-cancel, #tutor-delete').hide();
+        $('#tutor-save, #tutor-cancel, #tutor-dismiss').hide();
         $('#tutor-edit, #tutor-new-tutor').show();
 		
 		//	Erase all selected effects on search results part
@@ -328,7 +357,7 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response);
 			
 			if (response.length === 0) {	// If all inserted sucessfully
 				//	change help-text to green
@@ -357,6 +386,40 @@
 			//	hide save cancel buttons and show confirm button
 			$('#popup_new_tutor_save, #popup_new_tutor_cancel').hide();
 			$('#popup_new_tutor_confirm').show();
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+    /**
+     * Dismiss a tutor
+     */
+    AdminServiceConfigTutorHelper.prototype.dismissTutor = function(id) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_dismiss_tutor';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			tutor_id : id
+        };
+		
+		var obj = this;
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				Admin.displayNotification("This tutor has been dismissed", undefined, "success");
+			} else if (response === 'failed') {
+				Admin.displayNotification("ajax_dismiss_tutor: gg", undefined, "failure");
+			} else {
+				Admin.displayNotification("ajax_dismiss_tutor: REALLY GG!!!", undefined, "failure");
+			}
+			
+			//	Re-filter
+			obj.resetForm();
+			obj.getAllTutors();
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };

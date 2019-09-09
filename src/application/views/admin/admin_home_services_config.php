@@ -180,7 +180,7 @@
 							</div>
 							<div class="btn-group">
 								<button id="tutor-new-tutor" class="btn btn-info" title="New Tutor">
-									<i class="fas fa-plus"></i>
+									<i class="fas fa-user-plus"></i>
 									&nbsp;
 									New Tutor
 								</button>
@@ -194,10 +194,10 @@
 								</button>
 							</div>
 							<div class="btn-group">
-								<button id="tutor-delete" class="btn btn-warning" title="<?= lang('delete') ?>">
-									<i class="fas fa-trash-alt"></i>
+								<button id="tutor-dismiss" class="btn btn-warning" title="Dismiss">
+									<i class="fas fa-user-minus"></i>
 									&nbsp;
-									<?= lang('delete') ?>
+									Dismiss
 								</button>
 							</div>
 							<div class="btn-group">
