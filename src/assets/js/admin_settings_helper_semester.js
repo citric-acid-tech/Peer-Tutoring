@@ -97,11 +97,12 @@
 				};
 			});
 			
-			console.log(sem_info);
-            GeneralFunctions.displayMessageBox("Semester JSON",
-                "Here is what you get\r\n" + JSON.stringify(sem_info));
+//			console.log(sem_info);
+//            GeneralFunctions.displayMessageBox("Semester JSON",
+//                "Here is what you get\r\n" + JSON.stringify(sem_info));
 			
 			//	Fantastic! Now you can update the info
+			instance.saveInfo(sem_info);
 		});
 
         /**
@@ -209,22 +210,16 @@
     /**
      * Save Semester Json
      */
-    AdminSettingsHelperSemester.prototype.saveInfo = function () {
-        var service_type_id = $('#service_type-id').val();
-		var service_type_name = $('#service_type-name').val();
-		var service_type_description = $('#service_type-description').val();
-		
+    AdminSettingsHelperSemester.prototype.saveInfo = function (sem_info) {		
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_service_type';
+//		alert(JSON.stringify(sem_info));
+        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_save_semester_json';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			service_type_id : service_type_id,
-			name : JSON.stringify(service_type_name),
-			description : JSON.stringify(service_type_description)
+			semester_json: JSON.stringify(sem_info)
         };
 		
 		var obj = this;
-
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -232,14 +227,17 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_edit_service_type: nonono", undefined, "failure");
+				Admin.displayNotification("Semester Information Updated. Page Reloaded in 5 seconds...", undefined, "success");
+			} else if (response === 'failed') {
+				Admin.displayNotification("ajax_save_semester_json: nonono", undefined, "failure");
+			} else {
+				Admin.displayNotification("ajax_save_semester_json: REALLY GG!", undefined, "failure");
 			}
 			
-			var newName = $('#service_type-name').val();
-			$('.admin-page #service_type_config .results .entry.selected')[0].title = newName;
-			$('.admin-page #service_type_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
+			//	Reload page
+			setTimeout(function() {
+				document.location.reload(true);
+			}, 5000);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
