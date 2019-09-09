@@ -292,7 +292,7 @@
 		//	Load Appointed, Restrict Capacity input's min
 		var appointed = event.extendedProps.appointed;
 		$('#edit_service_appointed').val(appointed);
-		$('#edit_service_capacity').prop('min', appointed);
+		$('#edit_service_capacity').prop('min', (parseInt(appointed) > 0) ? appointed : '1');	// If appointed is above 0, use it; Else min is 1
     };
 	
     /**
