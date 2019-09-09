@@ -613,6 +613,31 @@ class Admin_api extends CI_Controller{
         }  
     }
 
+    public function ajax_save_semester_json(){
+        //
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $semester_json = json_decode($this->input->post('semester_json'), TRUE);
+
+            // Query
+            $result = $this->admin_model->save_semester_json($semester_json);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+                //success
+                //failed
+            
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }  
+    }
+
 /** Ajax interface for statistics */
 
     public function ajax_service_statistic(){

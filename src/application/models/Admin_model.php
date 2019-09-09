@@ -89,9 +89,10 @@ class Admin_model extends CI_Model{
         }// END OF foreach
         
         $this->load->model('general_model');
-        if($this->general_model->is_enable_email_notification()){
+        if((is_array($mail_id_arr) && len($mail_id_arr) > 0) && $this->general_model->is_enable_email_notification()){
             // :: Send email to this tutor
             //// Get his/her email
+
             $email_result = $this->db->select('ea_users.email AS email')
             ->from('ea_users');
             foreach($mail_id_arr AS $sid){
@@ -895,6 +896,12 @@ class Admin_model extends CI_Model{
         $this->log_operation('save_email_content', $data, $result);
 
         return $result;
+    }
+
+    public function save_semester_json($semester_json){
+        $this->db->set('value', $semester_json);
+        $this->db->where('name', 'semester_json');
+        return $this->db->update('ea_settings') ? 'success' : 'failed';
     }
 
     public function authorise($sid, $id_roles){
