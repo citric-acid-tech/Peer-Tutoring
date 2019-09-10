@@ -11,6 +11,7 @@
      */
     function AdminServiceConfigTutorHelper() {
         this.filterResults = {};
+		this.calendar_needs_retrieval = false;
     }
 
     /**
@@ -88,6 +89,8 @@
 			//	Re-filter everything
 			instance.resetForm();
 			instance.getAllTutors();
+			//	If back to calendar, refetch
+			instance.calendar_needs_retrieval = true;
 			//	Hide
 			$('.admin-page #tutor_config .popup .curtain').fadeOut();
 			$('.admin-page #tutor_new_tutor_popup').fadeOut();
@@ -111,6 +114,8 @@
 						$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 						editing = false;
 						$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
+						//	If back to calendar, refetch
+						instance.calendar_needs_retrieval = true;
                         $('#message_box').dialog('close');
                     }
                 },
@@ -215,6 +220,9 @@
 			var newName = $('#first-name').val() + " " + $('#last-name').val();;
 			$('.admin-page #tutor_config .results .entry.selected')[0].title = newName;
 			$('.admin-page #tutor_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
+			
+			//	Save, calendar needs refetching
+			this.calendar_needs_retrieval = true;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };

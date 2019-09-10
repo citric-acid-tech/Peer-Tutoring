@@ -11,6 +11,7 @@
      */
     function AdminServiceConfigServiceTypeHelper() {
         this.filterResults = {};
+		this.calendar_needs_retrieval = false;
     }
 
     /**
@@ -165,6 +166,8 @@
 			var newName = $('#service_type-name').val();
 			$('.admin-page #service_type_config .results .entry.selected')[0].title = newName;
 			$('.admin-page #service_type_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
+			//	Save, if back to calendar, calendar needs to refetch servies
+			this.calendar_needs_retrieval = true;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -203,6 +206,8 @@
 			//	Hide
 			$('.admin-page #service_type_config .popup .curtain').fadeOut();
 			$('.admin-page #service_type_new_service_type_popup').fadeOut();
+			//	New, if back to calendar, refetch services
+			this.calendar_needs_retrieval = true;
 			//	Clear popup with some Timeout
 			setTimeout(function() {
 				obj.clearNewPopup();

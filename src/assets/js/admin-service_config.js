@@ -25,6 +25,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 	var adminServiceConfigServiceTypeHelper = new AdminServiceConfigServiceTypeHelper();
 
 	var calendar;
+	//	Re-init seems more than refetching...
+	var calendar_needs_retrieval = false;
     /**
      * This method initializes the Students My Appointment page.
      *
@@ -294,7 +296,24 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
          */
 		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
 			if ($(this).attr('href') === '#service-calendar') {
+				//	Retrieve boolean value
+				calendar_needs_retrieval = helper.calendar_needs_retrieval;
+				//	Reset boolean value of previous one
+				helper.calendar_needs_retrieval = false;
+				//	For test
+				console.log(calendar_needs_retrieval);
 				helper = adminServiceConfigServiceCalendarHelper;
+				//	Need to refresh the calendar if a tutor is created/dismissed, or if a service_type is created.
+				if (calendar_needs_retrieval) {
+					//	Re-init everything...
+					helper.getAllServiceTypes();
+					helper.getAllTutors();
+					helper.getAllSemesters();
+					//	except that the calendar need not be re-created
+					calendar.refetchEvents();
+					//	Reset the boolean
+					calendar_needs_retrieval = false;
+				}
 			} else if ($(this).attr('href') === '#tutor_config') {
 				helper = adminServiceConfigTutorHelper;
 				helper.getAllTutors();
