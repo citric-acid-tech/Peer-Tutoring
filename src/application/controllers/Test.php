@@ -16,8 +16,37 @@ class Test extends CI_Controller{
      */
     public function index(){
         
-        echo $this->test_bug1() ? 'success':'failed';
-              
+    }
+
+    public function test_download(){
+        $this->load->helper('download');
+        force_download(DOCUMENT_SAVED_PATH . 'test.png', NULL);
+    }
+
+    public function test_save_semester_json(){
+        $this->load->model('admin_model');
+        $json = '{
+            "2019":{
+                "Spring":{
+                    "first_Monday":"2019-02-18",
+                    "last_weeks":"15"
+                },
+                "Summer":{
+                    "first_Monday":"2019-06-24",
+                    "last_weeks":"6"
+                },
+                "Fall":{
+                    "first_Monday":"2019-09-02",
+                    "last_weeks":"17"
+                }
+            }
+        }';
+        echo $this->admin_model->save_semester_json($json);
+    }
+
+    public function test_dismiss_tutor(){
+        $this->load->model('admin_model');
+        echo $this->admin_model->dismiss_tutor(2);
     }
 
     public function test_bug1(){

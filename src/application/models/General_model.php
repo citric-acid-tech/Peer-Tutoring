@@ -183,7 +183,7 @@ class General_model extends CI_Model{
         return array('subject'=>$subject, 'body'=>$body);
     }
 
-    protected function _sendemail($mail_arr, $subject, $body, $attachment_url = 'null'){
+    public function _sendemail($mail_arr, $subject, $body, $attachment_url = 'null'){
         require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
         require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
         require_once("vendor/phpmailer/phpmailer/class.smtp.php");

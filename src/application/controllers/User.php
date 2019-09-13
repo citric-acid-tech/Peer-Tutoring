@@ -66,30 +66,35 @@ class User extends CI_Controller {
         
         if($user){
             $user_data = $this->cas_model->get_user_data($user);
-            $this->session->set_userdata($user_data);
 
-            header('Location: ' . site_url(''));
+            $dest = $this->session->userdata('dest_url');
+            if($dest && $dest == site_url('admin')){
+                $this->admin_login();
+            }else{
+                $this->session->set_userdata($user_data);
+                header('Location: ' . $dest ? $dest : site_url(''));
+            }
         }
     }
 
-    // /**
-    //  * Display the login page.
-    //  */
-    // public function login()
-    // {
-    //     $this->load->model('settings_model');
+    /**
+     * Display the login page.
+     */
+    public function admin_login()
+    {
+        $this->load->model('settings_model');
 
-    //     $view['base_url'] = $this->config->item('base_url');
-    //     $view['dest_url'] = $this->session->userdata('dest_url');
+        $view['base_url'] = $this->config->item('base_url');
+        $view['dest_url'] = $this->session->userdata('dest_url');
 
-    //     if ( ! $view['dest_url'])
-    //     {
-    //         $view['dest_url'] = site_url('backend');
-    //     }
+        if ( ! $view['dest_url'])
+        {
+            $view['dest_url'] = site_url('admin');
+        }
 
-    //     $view['company_name'] = $this->settings_model->get_setting('company_name');
-    //     $this->load->view('user/login', $view);
-    // }
+        $view['company_name'] = $this->settings_model->get_setting('company_name');
+        $this->load->view('user/login', $view);
+    }
 
     /**
      * Display the logout page.
@@ -157,6 +162,7 @@ class User extends CI_Controller {
 
             if ($user_data)
             {
+                $user_data['role_slug'] = 'admin';
                 $this->session->set_userdata($user_data); // Save data on user's session.
                 // user_id, user_email, role sulg, username
                 $this->output
@@ -206,16 +212,25 @@ class User extends CI_Controller {
 
             if ($new_password != FALSE)
             {
-                $this->config->load('email');
-                $email = new \EA\Engine\Notifications\Email($this, $this->config->config);
-                $company_settings = [
-                    'company_name' => $this->settings_model->get_setting('company_name'),
-                    'company_link' => $this->settings_model->get_setting('company_link'),
-                    'company_email' => $this->settings_model->get_setting('company_email')
-                ];
+                // $this->config->load('email');
+                // $email = new \EA\Engine\Notifications\Email($this, $this->config->config);
+                // $company_settings = [
+                //     'company_name' => $this->settings_model->get_setting('company_name'),
+                //     'company_link' => $this->settings_model->get_setting('company_link'),
+                //     'company_email' => $this->settings_model->get_setting('company_email')
+                // ];
 
-                $email->sendPassword(new NonEmptyText($new_password), new Email($this->input->post('email')),
-                    $company_settings);
+                // Send email
+                $this->load->model('general_model');
+                $mail_arr = array($this->input->post('email'));
+                $subject = 'Regenerate New Password';
+                $body = 'Your new password is: ' . $new_password;
+                if( !$this->general_model->_sendemail($mail_arr, $subject, $body) ){
+                    $this->general_model->_buffer_failed_email($mail_arr, $subject, $body);
+                }
+                
+                // $email->sendPassword(new NonEmptyText($new_password), new Email($this->input->post('email')),
+                //     $company_settings);
             }
 
             $this->output
