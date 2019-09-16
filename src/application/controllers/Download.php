@@ -8,7 +8,7 @@ class Download extends CI_Controller{
     }
 
     public function index($url){
-        force_download(DOCUMENT_SAVED_PATH . $url, NULL);
+        force_download("attachment", file_content(DOCUMENT_SAVED_PATH . $url));
     }
 
 }
