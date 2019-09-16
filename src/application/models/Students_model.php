@@ -427,9 +427,9 @@ class Students_model extends CI_Model{
         //:: Check if this appointment can be booked or not.
         $attachment_url = $this->upload_file($user_id, $service_id, $file);
 
-        // if($attachment_url === FALSE){
-        //     return FALSE;
-        // }
+        if($attachment_url === FALSE){
+            return 'no_attachment';
+        }
 
         //:: Check if it is full.
         $number = $this->db
