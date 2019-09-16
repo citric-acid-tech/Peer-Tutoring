@@ -172,7 +172,13 @@
 		var note = $('#appointment_service_note').val();
 		var file = $('#appointment_service_attach').prop('files')[0];
 		if (file === undefined) {
-			file = new File([""], "filename");
+			Students.displayNotification("Please attach a file!", undefined, "failure");
+			$('#appointment_service_attach + label').addClass('gg');
+			setTimeout(function() {
+				$('#appointment_service_attach + label').removeClass('gg');
+			}, 300);
+			return false;
+//			file = new File([""], "filename");
 		}
 		var path = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
 		//	Create a new FormData object
@@ -206,6 +212,8 @@
 					Students.displayNotification("Capacity: No available space now!.", undefined, "failure");
 				} else if (response === 'denied') {
 					Students.displayNotification("Denied: Something went wrong on applying appointments...");
+				} else if (response === 'no_attachment') {
+					Students.displayNotification("No Attachment: check your code");
 				} else {
 					Students.displayNotification("Failure: Something went wrong on applying appointments...");
 				}
