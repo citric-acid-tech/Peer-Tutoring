@@ -102,22 +102,5 @@ class General_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
-
-    public function ajax_get_forced_download(){
-        //
-        try{
-            $this->load->model('general_model');
-        
-            $url = json_decode($this->input->post('url'), TRUE);
-
-            $result = $this->general_model->get_forced_download($url);
-
-
-        }catch (Exception $exc){
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
-    }
 }
 ?>

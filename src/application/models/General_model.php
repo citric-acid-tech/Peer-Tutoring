@@ -102,11 +102,6 @@ class General_model extends CI_Model{
         return $rtn;
     }
 
-    public function get_forced_download($attachment_url){
-        $this->load->helper('download');
-        force_download($attachment_url, NULL);
-    }
-
     public function get_appointment_info($appointment_id){
         return $this->db->select('
                         stu.email                       AS student_email,
