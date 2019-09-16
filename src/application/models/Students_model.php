@@ -554,12 +554,12 @@ class Students_model extends CI_Model{
             ->row_array()['hash'];
         
         
-    
-        $file_target_path = DOCUMENT_SAVED_PATH . $hash_id .'-'. $service_id .'.'. $ext;
+        $file_name = $hash_id .'-'. $service_id .'.'. $ext;
+        $file_target_path = DOCUMENT_SAVED_PATH . $file_name;
 
         move_uploaded_file($file['tmp_name'], $file_target_path);
    
-        return $file_target_path;
+        return $file_name;
     }
     
     protected function get_extension($file){
