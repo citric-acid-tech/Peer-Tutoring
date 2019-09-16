@@ -8,9 +8,9 @@ class Download extends CI_Controller{
     }
 
     public function index($url){
-        force_download("attachment", file_content(DOCUMENT_SAVED_PATH . $url));
+        $tmp_arr = explode('.', $url);
+        $ext = count($tmp_arr) == 2 ? ('.' . $tmp_arr[1]) : '';
+        force_download('attachment'.$ext, file_get_contents(DOCUMENT_SAVED_PATH . $url));
     }
-
 }
-
 ?>
