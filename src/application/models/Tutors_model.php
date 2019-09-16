@@ -132,7 +132,7 @@ class Tutors_model extends CI_Model{
 
         $data['user_id'] = $user_id;
         $data['language'] = $language;
-        $this->log_operation('save_feedback_and_suggestion', $data, $result);
+        $this->log_operation('save_settings', $data, $result);
 
         return $result;
     }
