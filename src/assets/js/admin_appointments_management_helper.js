@@ -226,6 +226,10 @@
 		//	selections are disabled. Writing as below removes the color when
 		//	resetting the form
         $('#filter-appointments_management .results').css('color', '');
+		
+		//	Download
+		$('#download a').addClass('disableEvents');
+		$('#download').prop('disabled', true);
     };
 
     /**
@@ -249,6 +253,11 @@
 		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
 		$('#feedback').val(appointment.feedback_from_tutor);
 		$('#suggestion').val(appointment.suggestion_from_tutor);
+		
+		//	Download
+		$('#download a').prop('href', $('#download a').prop('href') + appointment.attachment_url);
+		$('#download a').removeClass('disableEvents');
+		$('#download').prop('disabled', false);
 		
     };
 

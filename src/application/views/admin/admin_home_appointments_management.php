@@ -155,6 +155,16 @@
 			            <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
 			            <textarea id="suggestion" rows="5" class="form-control" style="resize: none;" readonly></textarea>
 			        </div>
+			        <!-- Download -->
+			        <div class="form-group" style="padding:10px;text-align:center;">
+		            	<button id="download" class="btn btn-primary">
+		            		<a href="<?= Config::BASE_URL ?>/index.php/download/index/" target="_blank" style="text-decoration:none;color:snow;">
+		            			<i class="fas fa-download"></i>
+		            			&nbsp;
+		            			<strong>Download Attachment</strong>
+		            		</a>
+		            	</button>			            
+			        </div>
 			    </div>
 			</div>
     	</div>

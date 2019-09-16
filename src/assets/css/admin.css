@@ -713,6 +713,13 @@ ul#sem_info .sem_item .sem_delete_row {
 }
 
 
+/* Disabled Class */
+.admin-page .disableEvents {
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {
