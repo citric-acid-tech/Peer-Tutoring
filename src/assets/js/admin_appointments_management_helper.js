@@ -228,6 +228,7 @@
         $('#filter-appointments_management .results').css('color', '');
 		
 		//	Download
+		$('#download a').prop('href', 'javascript:void(0);');
 		$('#download a').addClass('disableEvents');
 		$('#download').prop('disabled', true);
     };
@@ -255,7 +256,7 @@
 		$('#suggestion').val(appointment.suggestion_from_tutor);
 		
 		//	Download
-		$('#download a').prop('href', $('#download a').prop('href') + appointment.attachment_url);
+		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url);
 		$('#download a').removeClass('disableEvents');
 		$('#download').prop('disabled', false);
 		
