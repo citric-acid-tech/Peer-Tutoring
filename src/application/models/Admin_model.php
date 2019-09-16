@@ -656,8 +656,9 @@ class Admin_model extends CI_Model{
         $services_delete_bool = $this->db->delete('ea_services');
 
         // :: Insert new services
-        $services_insert_bool =  $this->db->insert_batch('ea_services', $data);
-
+        if($service_id != 'ALL'){
+            $services_insert_bool =  $this->db->insert_batch('ea_services', $data);
+        }
         
         $input_arr = array($tutor_id, $semester_info, $services_id, $week);
         $output_arr = array($app_delete_bool, $services_delete_bool, $services_insert_bool);
