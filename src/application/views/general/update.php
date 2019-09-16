@@ -9,6 +9,8 @@
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url ('assets/ext/jquery-ui/jquery-ui.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css') ?>">
+	<!-- Add Font Awesome for icons -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
     <style>
         html {
@@ -71,10 +73,11 @@
         <?php endif; ?>
 
         <div>
-            <a href="<?= site_url('backend') ?>" class="btn btn-default btn-large">
-                <span class="glyphicon glyphicon-wrench"></span>
-                <?= lang('backend_section') ?>
-            </a>
+        	<a href="<?= site_url('') ?>" class="btn btn-success btn-large">
+        	    <i class="fas fa-home"></i>
+        	    &nbsp;
+        	    <?= lang('d_home') ?>
+        	</a>
         </div>
     </div>
 

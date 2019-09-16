@@ -31,7 +31,7 @@
 <div id="tutor-settings-page" class="container-fluid tutors-page">
 	<div class="container" style="width:90%;">
 		
-		<h3><?= $user_display_name ?></h3>
+		<h3><?= lang('details') ?></h3>
 		
 		<hr />
 		

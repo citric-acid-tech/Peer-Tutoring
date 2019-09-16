@@ -12,6 +12,8 @@
     <script src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.min.js') ?>"></script>
 
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css') ?>">
+	<!-- Add Font Awesome for icons -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
 
@@ -59,8 +61,9 @@
         <br>
 
         <a href="<?= site_url('') ?>" class="btn btn-success btn-large">
-            <i class="icon-calendar icon-white"></i>
-            <?= lang('backend_calendar') ?>
+            <i class="fas fa-home"></i>
+            &nbsp;
+            <?= lang('d_home') ?>
         </a>
     </div>
 </body>
