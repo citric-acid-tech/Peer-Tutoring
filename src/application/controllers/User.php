@@ -72,7 +72,7 @@ class User extends CI_Controller {
                 $this->admin_login();
             }else{
                 $this->session->set_userdata($user_data);
-                header('Location: ' . $dest ? $dest : site_url(''));
+                header('Location: ' . site_url(''));
             }
         }
     }
