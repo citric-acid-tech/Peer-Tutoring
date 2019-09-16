@@ -29,7 +29,13 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 				$('#given-name').val(user.given_name);
 				$('#surname').val(user.surname);
 				$('#personal-page').val(user.personal_page);
+				
+				$('#email').val(user.email);
+				$('#address').val(user.address);
+				$('#phone_number').val(user.phone_number);				
+				
 				$('#intro').val(user.introduction);
+				$('#flexible_column').val(user.flexible_column);
 			});
 			
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', true);
@@ -55,8 +61,14 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			var gn = $('#given-name').val();
 			var sn = $('#surname').val();
 			var pp = $('#personal-page').val();
+			
+			var email = $('#email').val();
+			var address = $('#address').val();
+			var phone_number = $('#phone_number').val();
+			
 			var intro = $('#intro').val();
-			TutorsSettingsHelper.saveSettings(gn, sn, pp, intro);
+			var fc = $('#flexible_column').val();
+			TutorsSettingsHelper.saveSettings(gn, sn, pp, email, address, phone_number, intro, fc);
 			$('#save, #cancel').hide();
 			$('#edit, #go_to_personal_page').fadeIn(360);
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', true);
@@ -70,15 +82,21 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 		});
 	});
 	
-	exports.saveSettings = function(gn, sn, pp, intro) {
+	exports.saveSettings = function(gn, sn, pp, email, address, phone_number, intro, fc) {
         var postUrl = GlobalVariables.baseUrl + '/index.php/tutors_api/ajax_save_settings';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
 			given_name: JSON.stringify(gn),
 			surname: JSON.stringify(sn),
 			introduction: JSON.stringify(intro),
-			personal_page: JSON.stringify(pp)
+			personal_page: JSON.stringify(pp),
+			email: JSON.stringify(email),
+			address: JSON.stringify(address),
+			phone_number: JSON.stringify(phone_number),
+			flexible_column: JSON.stringify(fc)
         };
+		
+//		console.log(postData);
 		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning

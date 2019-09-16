@@ -29,17 +29,14 @@
 </script>
 
 <div id="tutor-settings-page" class="container-fluid tutors-page">
-	<div class="container">
+	<div class="container" style="width:90%;">
 		
-		<h3><?= lang('details') ?></h3>
+		<h3><?= $user_display_name ?></h3>
 		
 		<hr />
 		
 		<div class="wrapper row">
-			<div class="col-xs-12 col-sm-5">
-				<h4><?= $user_display_name ?></h4>
-				<br />
-			
+			<div class="col-xs-12 col-sm-3">			
 				<div class="form-group">
 					<label class="control-label" for="given-name"><?= lang('given_name') ?></label>
 					<input id="given-name"data-field="given-name" class="form-control text-field" title="<?= lang('given_name') ?>" />
@@ -48,6 +45,7 @@
 					</span>
 				</div>
 				<br />
+				
 				<div class="form-group">
 					<label class="control-label" for="surname"><?= lang('surname') ?></label>
 					<input id="surname"data-field="surname" class="form-control text-field" title="<?= lang('surname') ?>" />
@@ -55,11 +53,8 @@
 						Enter your surname here.
 					</span>
 				</div>
-			</div>
-			
-			<div class="col-xs-12 col-sm-1"></div>
-			
-			<div class="col-xs-12 col-sm-6">
+				<br />
+				
 				<div class="form-group">
 					<label class="control-label" for="personal-page"><?= lang('personal_page') ?></label>
 					<input id="personal-page"data-field="personal-page" class="form-control text-field" title="<?= lang('personal_page') ?>" />
@@ -67,8 +62,41 @@
 						Provide your personal page to let others know you better.
 					</span>
 				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-1"></div>
+
+			<div class="col-xs-12 col-sm-3">
+				<div class="form-group">
+					<label class="control-label" for="email">Email</label>
+					<input id="email" data-field="email" class="form-control text-field" title="Email" />
+					<span class="help-block">
+						Put your email here.
+					</span>
+				</div>
 				<br />
 				
+				<div class="form-group">
+					<label class="control-label" for="address">Address</label>
+					<input id="address" data-field="address" class="form-control text-field" title="Address" />
+					<span class="help-block">
+						Put your address here.
+					</span>
+				</div>
+				<br />
+				
+				<div class="form-group">
+					<label class="control-label" for="phone_number">Phone Number</label>
+					<input id="phone_number" data-field="phone_number" class="form-control text-field" title="Phone Number" />
+					<span class="help-block">
+						Provide your phone number for easier communication.
+					</span>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-1"></div>
+			
+			<div class="col-xs-12 col-sm-4">
 				<div class="form-group">
 					<label class="control-label" for="intro"><?= lang('introduction') ?></label>
 					<textarea id="intro" data-field="intro" class="form-control text-field" rows="3" title="<?= lang('introduction') ?>" style="resize: none;"></textarea>
@@ -76,7 +104,16 @@
 						A short self-introduction of what you do will be nice :&rsaquo;
 					</span>
 				</div>
-			</div>
+				<br />
+				<div class="form-group">
+				    <label class="control-label" for="flexible_column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= lang('flexible_column') ?></label>
+				    <input id="flexible_column" class="form-control" readonly>
+					<span class="help-block">
+						Flexible Column specified by admin.
+					</span>
+				</div>
+			</div>			
+			
 		</div>
 		
 		<hr />
