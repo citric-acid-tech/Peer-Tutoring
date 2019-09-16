@@ -93,6 +93,7 @@
 			//	Line 3
 			$('#max_services_checking_ahead_day').val(response.max_services_checking_ahead_day);
 			$('#max_appointment_cancel_ahead_day').val(response.max_appointment_cancel_ahead_day);
+			$('#upload_file_max_size').val(response.upload_file_max_size);
 			$('#enable_email_notification').prop('checked', (response.enable_email_notification === '1') ? true : false);
 			
 			//	Set all to readonly

@@ -379,6 +379,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 									$.each(services, function(index, service) {
 										services_id.push(service.id);
 									});
+									//	Check a bug
+									if (services_id.length === 0) {
+										services_id = "ALL";
+									}
 									var tutor_id = $('select#calendar_tutor option:selected').val();
 									var week = $('select#calendar_week_number option:selected').val();
 									var semester = $('select#calendar_semester option:selected').val();
