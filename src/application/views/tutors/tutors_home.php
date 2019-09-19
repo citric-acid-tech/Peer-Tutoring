@@ -21,7 +21,8 @@
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
-		downloadPrefix     : "<?= Config::BASE_URL ?>/index.php/download/index/"
+		downloadPrefix     : "<?= Config::BASE_URL ?>/index.php/download/index/",
+		student_sid        : <?= json_encode($stu_sid) ?>
     };
 
     $(document).ready(function() {
