@@ -515,7 +515,6 @@ root {
 }
 .admin-page .popup form .popup_buttons {
 	background-color: #296d97;
-	border: none;
 	width: 43%;
 	height: 45px;
 	line-height: 45px;
@@ -525,6 +524,18 @@ root {
 	font-weight: bold;
 	margin: 10px 0;
 	border-radius: 5px;
+	/* future modification */
+	border: 1.5px solid #296d97;
+}
+.admin-page .popup form .popup_buttons#popup_edit_delete {
+	border-color: rgba(255, 0, 0, 0.75);
+	width:6%;
+	background-color: rgba(255, 0, 0, 0.75);
+}
+.admin-page .popup form .popup_buttons#popup_edit_cancel, .admin-page .popup form .popup_buttons#popup_add_cancel,
+.admin-page .popup form .popup_buttons#popup_new_tutor_cancel, .admin-page .popup form .popup_buttons#popup_new_service_type_cancel{
+	background-color: white;
+	color: #296d97;
 }
 .admin-page .popup form .popup_buttons:hover {
 	opacity: 0.7;
