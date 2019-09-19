@@ -544,6 +544,9 @@ class Students_model extends CI_Model{
             }
         }
 
+        // Check size
+        
+
         if( ! $is_ok){
             return FALSE;
         }
