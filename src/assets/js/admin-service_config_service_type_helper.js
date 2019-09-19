@@ -314,7 +314,7 @@
 			//	Iterate through all service_types, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, service_type) {
-				var html = "<div class='entry' data-id='" + service_type.id + "' title='" + service_type.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + service_type.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + service_type.name + "</strong></div>";
+				var html = "<div class='entry' data-id='" + service_type.id + "' title='" + service_type.id + " " + service_type.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + service_type.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + service_type.name + "</strong></div>";
 				$('.admin-page #service_type_config .results').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -325,7 +325,21 @@
      */
     AdminServiceConfigServiceTypeHelper.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
+			if ($(this)[0].title.toLowerCase().indexOf(filterValue) > -1) {
+				//	If match, show
+				if ($(this).css('display') === 'none') {
+					//	If hide before, show it
+					$(this).slideDown(300);
+				}
+				//	If shown already, do nothing
+			} else {
+				//	If not match, hide
+				if ($(this).css('display') !== 'none') {
+					//	If shown, then we hide it
+					$(this).slideUp(300);
+				}
+				//	If hided already, do nothing
+			}
 		});
     };
 	
