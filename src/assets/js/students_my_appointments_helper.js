@@ -97,7 +97,7 @@
             var appointmentId = $('#appointment-id').val();
             var buttons = [
                 {
-                    text: EALang.cancel_appointment,
+                    text: EALang.confirm,
                     click: function () {
                         instance.cancelAppointment(appointmentId);
                         $('#message_box').dialog('close');
