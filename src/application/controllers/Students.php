@@ -64,7 +64,7 @@ class Students extends CI_Controller{
         $view['user_display_name'] = $this->user_model->get_user_display_name($this->session->userdata('user_id'));
 
         
-        $settings = array('max_appointment_cancel_ahead_day', 'book_advance_timeout', 'date_format', 'time_format', 'company_name', 'semester_json');
+        $settings = array('max_services_checking_ahead_day', 'book_advance_timeout', 'date_format', 'time_format', 'company_name', 'semester_json');
         $view = array_merge($view, $this->general_model->get_settings_batch($settings));
 
         $user = $this->user_model->get_settings($this->session->userdata('user_id'));
