@@ -219,7 +219,7 @@ class Admin extends CI_Controller{
         { // User does not have the permission to view the page.
             if ($redirect)
             {
-                header('Location: ' . site_url('user/no_privileges'));
+                header('Location: ' . site_url('user/admin_login'));
             }
             return FALSE;
         }

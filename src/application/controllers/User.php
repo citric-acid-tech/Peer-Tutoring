@@ -66,14 +66,13 @@ class User extends CI_Controller {
         
         if($user){
             $user_data = $this->cas_model->get_user_data($user);
-
-            $dest = $this->session->userdata('dest_url');
-            if($dest && $dest == site_url('admin')){
-                $this->admin_login();
+            
+            $this->session->set_userdata($user_data);
+            if($this->session->userdata('dest_url')){
+                header('Location: ' . $this->session->userdata('dest_url'));
             }else{
-                $this->session->set_userdata($user_data);
                 header('Location: ' . site_url(''));
-            }
+            } 
         }
     }
 
@@ -163,6 +162,8 @@ class User extends CI_Controller {
             if ($user_data)
             {
                 $user_data['role_slug'] = 'admin';
+                $user_data['user_id'] = $this->session->userdata('user_id');
+
                 $this->session->set_userdata($user_data); // Save data on user's session.
                 // user_id, user_email, role sulg, username
                 $this->output
