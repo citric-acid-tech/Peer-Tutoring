@@ -511,3 +511,4 @@ $lang['stu_ma_assess_success'] = '点评完成';
 $lang['stu_ma_cancel_appointment_unknown_error'] = '取消预约时发生未知错误';
 $lang['stu_aa_changeTab_prior_warning'] = '请选择一名导师';
 $lang['genius_unknown_op'] = '辣是真滴牛啤';
+$lang['eariliest_service'] = '最早的可用预约';
