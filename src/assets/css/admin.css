@@ -824,6 +824,25 @@ ul#sem_info .sem_item .sem_delete_row {
 }
 
 
+.admin-page .bs0 {
+	color: #296d97;
+	font-weight: bold;
+}
+.admin-page .bs1 {
+	color: #948c19;
+	font-weight: bold;
+}
+.admin-page .bs2 {
+	color: green;
+	font-weight: bold;
+}
+.admin-page .bs3 {
+	color: red;
+	font-weight: bold;
+}
+
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

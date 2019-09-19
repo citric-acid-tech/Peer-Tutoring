@@ -38,10 +38,10 @@
                    		<!-- Filter Booking Status -->
                   		<select id="appointments_management_booking_status" class="form-control" title="Select a booking status">
                   			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
-                  			<option value="0"><?= lang("bs0") ?></option>
-                  			<option value="1"><?= lang("bs1") ?></option>
-                  			<option value="2"><?= lang("bs2") ?></option>
-                  			<option value="3"><?= lang("bs3") ?></option>
+                  			<option value="0" class="bs0"><?= lang("bs0") ?></option>
+                  			<option value="1" class="bs1"><?= lang("bs1") ?></option>
+                  			<option value="2" class="bs2"><?= lang("bs2") ?></option>
+                  			<option value="3" class="bs3"><?= lang("bs3") ?></option>
                   		</select>
                   		<!-- Filter Service Type -->
                   		<input type="text" class="form-control" id="appointments_management_service_type" placeholder="Type for a service category" title="Select a service category" autocomplete="off" />

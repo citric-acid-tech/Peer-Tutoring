@@ -38,10 +38,10 @@
                    <div class="input-group-selection">
                   		<select id="my_appointments_booking_status" class="form-control" title="Select a booking status">
                   			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
-                  			<option value="0"><?= lang("bs0") ?></option>
-                  			<option value="1"><?= lang("bs1") ?></option>
-                  			<option value="2"><?= lang("bs2") ?></option>
-                  			<option value="3"><?= lang("bs3") ?></option>
+                  			<option value="0" class='bs0'><?= lang("bs0") ?></option>
+                  			<option value="1" class='bs1'><?= lang("bs1") ?></option>
+                  			<option value="2" class='bs2'><?= lang("bs2") ?></option>
+                  			<option value="3" class='bs3'><?= lang("bs3") ?></option>
                   		</select>
                   		<input type="text" class="form-control" id="my_appointments_service_category" placeholder="Type for a service category" title="Select a service category" autocomplete="off" />
                   		<div id="ma_sc_display">

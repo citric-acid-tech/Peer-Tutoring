@@ -36,23 +36,13 @@
     		<form>
                 <div class="input-group">
                    <div class="input-group-selection">
-                   		<!-- A nicer button group from bootstrap -->
-                   		<!-- button class="form-control btn btn-primary dropdown-toggle" type="button" id="tutor-sel_bs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   			Select a booking status
-                   		</button>
-                   		<div class="dropdown-menu" aria-labelledby="tutor-sel_bs" style="position: inherit;width: 100%;text-align: center;">
-                   			<li><a href="#">< ?= lang("bs0") ?></a></li>
-                   			<li><a href="#">< ?= lang("bs1") ?></a></li>
-                   			<li><a href="#">< ?= lang("bs2") ?></a></li>
-                   			<li><a href="#">< ?= lang("bs3") ?></a></li>
-                   		</div -->
                   		<!-- Select Booking Status -->
                   		<select id="tutor-appointment_management_booking_status" class="form-control" title="Select a booking status">
                   			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
-                  			<option value="0"><?= lang("bs0") ?></option>
-                  			<option value="1"><?= lang("bs1") ?></option>
-                  			<option value="2"><?= lang("bs2") ?></option>
-                  			<option value="3"><?= lang("bs3") ?></option>
+                  			<option value="0" class='bs0'><?= lang("bs0") ?></option>
+                  			<option value="1" class='bs1'><?= lang("bs1") ?></option>
+                  			<option value="2" class='bs2'><?= lang("bs2") ?></option>
+                  			<option value="3" class='bs3'><?= lang("bs3") ?></option>
                   		</select>
                   		<!-- Select Service Type -->
                   		<input type="text" class="form-control" id="tutor-appointment_management_service_category" placeholder="Type for a service type" title="Select a service type" autocomplete="off" />

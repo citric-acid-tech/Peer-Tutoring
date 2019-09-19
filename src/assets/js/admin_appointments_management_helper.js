@@ -217,6 +217,10 @@
 		
 		//	Clear all textareas
         $('.record-details').find('input, textarea').val('');
+		$('#booking_status').removeClass('bs0');
+		$('#booking_status').removeClass('bs1');
+		$('#booking_status').removeClass('bs2');
+		$('#booking_status').removeClass('bs3');
 		
 		//	Enable search input buttons
         $('#filter-appointments_management button').prop('disabled', false);
@@ -242,6 +246,11 @@
 		
         $('#appointment-id').val(appointment.id);
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
+		$('#booking_status').removeClass('bs0');
+		$('#booking_status').removeClass('bs1');
+		$('#booking_status').removeClass('bs2');
+		$('#booking_status').removeClass('bs3');
+		$('#booking_status').addClass("bs" + appointment.booking_status);
 		$('#service_type').val(appointment.service_type);
 		
 		var tutor_display = appointment.tutor_name;
@@ -360,7 +369,7 @@
 		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
 		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
 
-		var line1 = "<strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + appointment_id + " " + "</strong>" + "<strong>" + service_type + "</strong>" + " " + "-" + " " + booking_status;
+		var line1 = "<strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + appointment_id + " " + "</strong>" + "<strong>" + service_type + "</strong>" + " " + "-" + " <span class='bs" + appointment.booking_status + "'>" + booking_status + "</span>";
 		var line2 = "Tutor: " + tutor;
 		var line3 = "Student: " + student;
 		var line4 = start_time + " " + "~" + " " + end_time;

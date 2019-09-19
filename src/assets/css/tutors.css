@@ -505,6 +505,24 @@ textarea:read-only {
 /* Popup */
 
 
+.tutors-page .bs0 {
+	color: #296d97;
+	font-weight: bold;
+}
+.tutors-page .bs1 {
+	color: #948c19;
+	font-weight: bold;
+}
+.tutors-page .bs2 {
+	color: green;
+	font-weight: bold;
+}
+.tutors-page .bs3 {
+	color: red;
+	font-weight: bold;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

@@ -332,6 +332,11 @@
 		
 		//	Clear all textareas
         $('.record-details').find('input, textarea').val('');
+		
+		$('#booking_status').removeClass('bs0');
+		$('#booking_status').removeClass('bs1');
+		$('#booking_status').removeClass('bs2');
+		$('#booking_status').removeClass('bs3');
 
         //	Disable all operation buttons when the form is reset
 		$('#modify_service_status, #provide_feedback_and_suggestions').prop('disabled', true);
@@ -364,6 +369,12 @@
         $('#appointment-id').val(appointment.id);		
 
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
+		$('#booking_status').removeClass('bs0');
+		$('#booking_status').removeClass('bs1');
+		$('#booking_status').removeClass('bs2');
+		$('#booking_status').removeClass('bs3');
+		$('#booking_status').addClass("bs" + appointment.booking_status);
+		
 		$('#service_type').val(appointment.service_type);
 //		$('#service_description').val(appointment.service_description);
 		
@@ -479,7 +490,7 @@
 		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
 
 		var line1 = "<strong>" + service_type + "</strong>" + " " + "<sup>" + stars + " stars</sup>";
-		var line2 = student + " " + "-" + " " + booking_status;
+		var line2 = student + " " + "-" + " <span class='bs" + appointment.booking_status + "'>" + booking_status + "</span>";
 		var line3 = start_time + " " + "~" + " " + end_time;
 			
         var html =
