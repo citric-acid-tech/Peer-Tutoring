@@ -494,7 +494,11 @@ root {
 
 
 
-
+/* Disabled Class */
+.tutors-page .disableEvents {
+	pointer-events: none;
+	cursor: not-allowed;
+}
 
 
 

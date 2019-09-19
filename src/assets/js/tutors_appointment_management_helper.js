@@ -341,7 +341,13 @@
 		//	When editing, background color will be added to indicate that
 		//	selections are disabled. Writing as below removes the color when
 		//	resetting the form
-        $('#filter-my_appointments .results').css('color', '');
+        $('#filter-my_appointments .results').css('color', '');		
+		
+		//	Download
+		$('#download a').prop('href', 'javascript:void(0);');
+		$('#download a').addClass('disableEvents');
+		$('#download').prop('disabled', true);
+		
     };
 
     /**
@@ -368,7 +374,13 @@
 		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
 		
 		$('#feedback').val(appointment.feedback_from_tutor);
-		$('#suggestion').val(appointment.suggestion_from_tutor);
+		$('#suggestion').val(appointment.suggestion_from_tutor);		
+		
+		//	Download
+		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url);
+		$('#download a').removeClass('disableEvents');
+		$('#download').prop('disabled', false);
+		
     };
 
     /**

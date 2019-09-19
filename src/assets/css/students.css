@@ -797,7 +797,11 @@ root {
 	width: 72%!important;
 }
 
-
+/* Disabled Class */
+.students-page .disableEvents {
+	pointer-events: none;
+	cursor: not-allowed;
+}
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

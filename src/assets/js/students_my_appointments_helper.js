@@ -306,6 +306,10 @@
 		//	selections are disabled. Writing as below removes the color when
 		//	resetting the form
         $('#filter-my_appointments .results').css('color', '');
+		//	Download
+		$('#download a').prop('href', 'javascript:void(0);');
+		$('#download a').addClass('disableEvents');
+		$('#download').prop('disabled', true);
     };
 
     /**
@@ -333,7 +337,12 @@
 		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
 		
 		$('#feedback').val(appointment.feedback);
-		$('#suggestion').val(appointment.suggestion);
+		$('#suggestion').val(appointment.suggestion);		
+		
+		//	Download
+		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url);
+		$('#download a').removeClass('disableEvents');
+		$('#download').prop('disabled', false);
 		
     };
 
