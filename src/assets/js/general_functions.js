@@ -520,4 +520,13 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		 return moment(firstMonday).add((weekNumber-1)*7, 'days');
 	 };
 	
+    /**
+     * Validate Email
+	 *
+     * @return True if the email is valid
+     */
+	 exports.validateEmail = function (email) {
+		 return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
+	 };
+	
 })(window.GeneralFunctions);

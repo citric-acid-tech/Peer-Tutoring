@@ -63,6 +63,15 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			var pp = $('#personal-page').val();
 			
 			var email = $('#email').val();
+			if (!GeneralFunctions.validateEmail(email)) {
+				Tutors.displayNotification("Invalid Email: Please check!", undefined, "failure");
+				$('#email').addClass('gg');
+				setTimeout(function() {
+					$('#email').removeClass('gg');
+				}, 300);
+				return false;
+			}
+			
 			var address = $('#address').val();
 			var phone_number = $('#phone_number').val();
 			
