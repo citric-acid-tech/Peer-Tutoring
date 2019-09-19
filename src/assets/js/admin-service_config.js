@@ -55,6 +55,11 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		mql.addListener(mediaQueryResponse);
 		helper.calendar = calendar;
 		calendar.render();
+		if (mql.matches) {
+			setTimeout(function() {
+				calendar.changeView('listWeek');
+			}, 50);
+		}
 		$(".fc-scheduleToAllWeeks-button").prop('disabled', true);	//	Default: All tutors, so no this button
 		//	remedy week number
 		var weekNumAndSem = GeneralFunctions.getSemAndWeeks(moment().toDate());		
