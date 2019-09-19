@@ -720,7 +720,7 @@ body::-webkit-scrollbar-thumb {
 	color: snow!important;
 }
 .students-page .service_hover, .students-page .service_hover td {
-	background-color: rgba(199,21,133,0.95)!important;
+	background-color: #245F83!important;
 	color: snow!important;
 	z-index: 500!important;
 }
