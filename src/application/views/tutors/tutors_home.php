@@ -194,20 +194,20 @@
            </div>
     	</div>
     </div>
-    <div id="popup_tutor_feedback">
+    <div id="popup_tutor_feedback" class="popup">
     	<div class="curtain"></div>
     	<div id="tutor_feedback_popup_window">
     		<form>
-    			<div class="feedback-title"><h2>Provide Students With Feedback & Suggestions!</h2></div>
+    			<div class="feedback-title popup-title"><h2>Provide Students With Feedback & Suggestions!</h2></div>
     			<hr />
-				<div class="feedback-container feedback">
+				<div class="feedback-container popup-container feedback">
 					<textarea id="popup_feedback_input" placeholder="Feedback *: How the student performed during the service. Did he/she arrive on time? Was he/she fully concentrated? Was there any problem of communication during the service?" rows="6" style="resize: none;" title="Feedback *"></textarea>
 					<textarea id="popup_suggestion_input" placeholder="Suggestion:What do you think the student needs to do after this service?" rows="6" style="resize: none;" title="Suggestion"></textarea>
 				</div>
 				<hr />
-				<div class="feedback-container">
-					<input id="feedback_save" class="feedback_popup_buttons" type="button" value="Submit">
-					<input id="feedback_cancel" class="feedback_popup_buttons" type="button" value="Cancel">
+				<div class="feedback-container popup-container">
+					<input id="feedback_save" class="feedback_popup_buttons popup_buttons" type="button" value="Submit">
+					<input id="feedback_cancel" class="feedback_popup_buttons popup_buttons" type="button" value="Cancel">
 				</div>
     		</form>
     	</div>

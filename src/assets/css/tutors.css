@@ -309,162 +309,6 @@ root {
     box-shadow: none;
 }
 
-
-
-
-/* popups */
-.tutors-page .curtain {
-	background-color: black;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	opacity: 0.5;
-	z-index: 999;
-	
-	/* Default hide */
-	display: none;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window {
-	position: absolute;
-	width: 1150px;
-	height: 630px;
-	
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	
-	box-sizing: border-box;
-	background-color: #e6e6e6;
-	z-index: 1000;
-	
-	/* Default hide */
-	display: none;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window .feedback-title h2 {
-	user-select: none;
-	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
-	letter-spacing: 1px;
-	text-align: center;
-	color: #296d97;
-	margin: 26px 0;
-}
-
-/* Rating stars */
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .stars {
-	/* Prevent whitespace issues */
-	display: inline-flex;
-}
-.rating__icon {
-	/* Make hover effect work properly in IE */
-	pointer-events: none;
-}
-.rating__input {
-	/* Hide radio inputs */
-	position: absolute !important;
-	left: -9999px !important;
-}
-.rating__label {
-	/* Set icon padding and size */
-	cursor: pointer;
-	padding: 0 0.1em;
-	font-size: 2rem;
-}
-.rating__icon--star {
-	/* Set default star color */
-	color: orange;
-}
-.rating__icon--none {
-	/* Set color of none icon when unchecked */
-	color: #ddd;
-}
-
-.rating__input--none:checked + .rating__label .rating__icon--none {
-	/* If none icon is checked, make it red */
-	color: red;
-}
-
-.rating__input:checked ~ .rating__label .rating__icon--star {
-	/* If any input is checked, make its following siblings grey */
-	color: #ddd;
-}
-
-.stars:hover .rating__label .rating__icon--star {
-	/* Make all stars orange on rating group hover */
-	color: orange;
-}
-
-.rating__input:hover ~ .rating__label .rating__icon--star {
-	/* Make hovered input's following siblings grey on hover */
-	color: #ddd;
-}
-
-.stars:hover .rating__input--none:not(:hover) + .rating__label .rating__icon--none {
-	/* Make none icon grey on rating group hover */
-	color: #ddd;
-}
-
-.rating__input--none:hover + .rating__label .rating__icon--none {
-	/* Make none icon red on hover */
-	color: red;
-}
-/* Rating stars */
-
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window .feedback-container {
-	width: 100%;
-	box-sizing: border-box;
-	margin: 5px 0 0;
-	text-align: center;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form textarea {
-	display: inline-block;
-	box-sizing: border-box;
-	width: 86%;
-	padding: 16px;
-	margin: 0 auto;
-	font-size: 14px;
-	outline: none;
-	color:  #76838f;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form input {
-	border: 1px solid white;
-	display: inline-block;
-	box-sizing: border-box;
-	width: 86%;
-	height: 46px;
-	padding-left: 10px;
-	margin: 0 auto;
-	font-size: 14px;
-	outline: none;
-	color:  #76838f;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form input:hover {
-	outline: none;
-	border: 1px solid #62a8ea;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .feedback_popup_buttons {
-	background-color: #62a8ea;
-	border: none;
-	width: 43%;
-	height: 45px;
-	line-height: 45px;
-	color: white;
-	cursor: pointer;
-	font-size: 16px;
-	font-weight: bold;
-	margin: 10px 0;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form .feedback_popup_buttons:hover {
-	opacity: 0.7;
-}
-.tutors-page .rate {
-	font-size: 26px;
-}
-.tutors-page #popup_tutor_feedback #tutor_feedback_popup_window form hr {
-	margin: 16px;
-}
-
 /* My-Appointments: COMPONENTS */
 
 
@@ -544,9 +388,94 @@ textarea:read-only {
 
 
 
-
-
-
+/* Popup */
+.tutors-page .popup .curtain {
+	background-color: black;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	opacity: 0.5;
+	z-index: 999;
+	
+	/* Default hide */
+	display: none;
+}
+.tutors-page .popup #tutor_feedback_popup_window {
+	border-radius: 10px;
+	position: fixed;
+	width: 1150px;
+	height: 630px;
+	
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	
+	box-sizing: border-box;
+	background-color: white;
+	z-index: 1000;
+	
+	/* Default hide */
+	display: none;
+}
+.tutors-page .popup .popup-title h2 {
+	border-radius: 10px 10px 0 0;
+	user-select: none;
+	letter-spacing: 1px;
+	text-align: left;
+	background-color: #296d97;
+	color: snow;
+	margin: 0;
+	padding: 20px 25px;
+	font-size: 30px;
+}
+.tutors-page .popup .popup-container {
+	width: 100%;
+	box-sizing: border-box;
+	margin: 5px 0 0;
+	text-align: center;
+}
+.tutors-page .popup form textarea {
+	width: 86%;
+	padding: 10px;
+	font-size: 16px;
+	color:  #76838f;
+	transition: all 0.2s;
+	border: 1px solid rgb(41, 109, 151, 0.7);
+}
+.tutors-page .popup textarea:hover, .tutors-page .popup textarea:focus {
+	border: 3px solid rgb(41, 109, 151, 0.7)!important;
+}
+.tutors-page .popup form .popup_buttons {
+	background-color: #296d97;
+	width: 43%;
+	height: 45px;
+	line-height: 45px;
+	color: white;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 10px 0;
+	border-radius: 5px;
+	/* future modification */
+	border: 1.5px solid #296d97;
+}
+.tutors-page .popup form .popup_buttons#feedback_cancel {
+	background-color: white;
+	color: #296d97;
+}
+.tutors-page .popup form .popup_buttons:hover {
+	opacity: 0.7;
+}
+.tutors-page .popup form hr {
+	margin: 16px;
+}
+.tutors-page .gg {
+	background-color: rgba(173,46,48,0.8)!important;
+	color: snow!important;
+}
+/* Popup */
 
 
 /* Responsive Styles */

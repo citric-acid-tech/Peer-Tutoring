@@ -153,6 +153,10 @@
 			var feedback = $('#popup_feedback_input').val();
 			if (feedback === '') {
 				Tutors.displayNotification("Feedback is required!", undefined, "failure");
+				$('#popup_feedback_input').addClass('gg');
+				setTimeout(function() {
+					$('#popup_feedback_input').removeClass('gg');
+				}, 300);
 				return false;
 			}
 			

@@ -307,46 +307,6 @@ root {
 
 
 
-
-/* popups */
-.students-page .curtain {
-	background-color: black;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	opacity: 0.5;
-	z-index: 999;
-	
-	/* Default hide */
-	display: none;
-}
-.students-page #popup_assess #assess_popup {
-	position: absolute;
-	width: 666px;
-	height: 480px;
-	
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	
-	box-sizing: border-box;
-	background-color: #e6e6e6;
-	z-index: 1000;
-	
-	/* Default hide */
-	display: none;
-}
-.students-page #popup_assess #assess_popup .assess-title h2 {
-	user-select: none;
-	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
-	letter-spacing: 1px;
-	text-align: center;
-	color: #296d97;
-	margin: 26px 0;
-}
-
 /* Rating stars */
 .students-page #popup_assess #assess_popup form .stars {
 	/* Prevent whitespace issues */
@@ -406,60 +366,6 @@ root {
 	color: red;
 }
 /* Rating stars */
-
-.students-page #popup_assess #assess_popup .assess-container {
-	width: 100%;
-	box-sizing: border-box;
-	margin: 5px 0 0;
-	text-align: center;
-}
-.students-page #popup_assess #assess_popup form textarea {
-	display: inline-block;
-	box-sizing: border-box;
-	width: 86%;
-	padding: 16px;
-	margin: 0 auto;
-	font-size: 14px;
-	outline: none;
-	color:  #76838f;
-}
-.students-page #popup_assess #assess_popup form input {
-	border: 1px solid white;
-	display: inline-block;
-	box-sizing: border-box;
-	width: 86%;
-	height: 46px;
-	padding-left: 10px;
-	margin: 0 auto;
-	font-size: 14px;
-	outline: none;
-	color:  #76838f;
-}
-.students-page #popup_assess #assess_popup form input:hover {
-	outline: none;
-	border: 1px solid #62a8ea;
-}
-.students-page #popup_assess #assess_popup form .assess_buttons {
-	background-color: #62a8ea;
-	border: none;
-	width: 43%;
-	height: 45px;
-	line-height: 45px;
-	color: white;
-	cursor: pointer;
-	font-size: 16px;
-	font-weight: bold;
-	margin: 10px 0;
-}
-.students-page #popup_assess #assess_popup form .assess_buttons:hover {
-	opacity: 0.7;
-}
-.students-page .rate {
-	font-size: 26px;
-}
-.students-page #popup_assess #assess_popup form hr {
-	margin: 16px;
-}
 
 /* My-Appointments: COMPONENTS */
 
@@ -645,6 +551,23 @@ root {
 	/* Default hide */
 	display: none;
 }
+.students-page .popup #assess_popup {
+	border-radius: 10px;
+	position: fixed;
+	width: 666px;
+	height: 480px;
+	
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	
+	box-sizing: border-box;
+	background-color: white;
+	z-index: 1000;
+	
+	/* Default hide */
+	display: none;
+}
 .students-page .popup #cal_appointment_popup {
 	border-radius: 10px;
 	position: fixed;
@@ -665,7 +588,6 @@ root {
 .students-page .popup .popup-title h2 {
 	border-radius: 10px 10px 0 0;
 	user-select: none;
-	font-weight: bolder;
 	letter-spacing: 1px;
 	text-align: left;
 	background-color: #296d97;
@@ -713,11 +635,10 @@ root {
 	text-align: center;
 }
 .students-page .popup textarea:hover, .students-page .popup textarea:focus {
-	border: 3px solid rgb(41, 109, 151, 0.7);
+	border: 3px solid rgb(41, 109, 151, 0.7)!important;
 }
 .students-page .popup .popup_buttons {
 	background-color: #296d97;
-	border: none;
 	width: 42%;
 	height: 45px;
 	line-height: 45px;
@@ -727,12 +648,21 @@ root {
 	font-weight: bold;
 	margin: 10px 10px;
 	border-radius: 5px;
+	/* future modification */
+	border: 1.5px solid #296d97;
 }
 .students-page .popup .popup_buttons:hover {
 	opacity: 0.7;
 }
+.students-page .popup .popup_buttons#assess_cancel, .students-page .popup .popup_buttons#popup_appointment_cancel {
+	background-color: white;
+	color: #296d97;
+}
 .students-page .popup hr {
 	margin: 16px;
+}
+.students-page .rate {
+	font-size: 26px;
 }
 .students-page .gg {
 	background-color: rgba(173,46,48,0.8)!important;

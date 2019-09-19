@@ -180,13 +180,13 @@
            </div>
     	</div>
     </div>
-    <div id="popup_assess">
+    <div id="popup_assess" class="popup">
     	<div class="curtain"></div>
     	<div id="assess_popup">
     		<form>
-    			<div class="assess-title"><h2>Assess the Service!</h2></div>
+    			<div class="assess-title popup-title"><h2>Assess the Service!</h2></div>
     			<hr />
-				<div class="assess-container rate">
+				<div class="assess-container popup-container rate">
 					<label class="control-label" style="user-select:none;">Rate: </label>
 					<span class="stars">
 						<!-- No Star -->
@@ -221,13 +221,13 @@
 						<input class="rating__input" name="rating" id="rating-5" value="5" type="radio" />
 					</span>
 				</div>
-				<div class="assess-container feedback">
-					<textarea id="assess_feedback" placeholder="Please write down your comments/suggestions!" rows="6" style="resize: none;"></textarea>
+				<div class="assess-container popup-container feedback">
+					<textarea id="assess_feedback" placeholder="Please write down your comments/suggestions!" rows="6" style="resize: none;width:90%;border: 1px solid rgb(41, 109, 151, 0.7);"></textarea>
 				</div>
 				<hr />
-				<div class="assess-container">
-					<input id="assess_save" class="assess_buttons" type="button" value="Submit">
-					<input id="assess_cancel" class="assess_buttons" type="button" value="Cancel">
+				<div class="assess-container popup-container">
+					<input id="assess_save" class="assess_buttons popup_buttons" type="button" value="Submit">
+					<input id="assess_cancel" class="assess_buttons popup_buttons" type="button" value="Cancel">
 				</div>
     		</form>
     	</div>
