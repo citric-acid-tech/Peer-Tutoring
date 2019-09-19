@@ -288,7 +288,7 @@ root {
 }
 .admin-page#services-page #service_type_config .results {
 	max-height: 250px;
-	overflow-y: scroll;
+/*	overflow-y: scroll;*/
 }
 /* Watch this, not yet adjusted */
 
@@ -717,6 +717,13 @@ ul#sem_info .sem_item .sem_delete_row {
 .admin-page .disableEvents {
 	pointer-events: none;
 	cursor: not-allowed;
+}
+
+
+/* No Edition */
+.admin-page .no-edit {
+	border: none!important;
+	font-weight: bold;
 }
 
 

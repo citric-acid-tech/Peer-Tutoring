@@ -148,8 +148,8 @@
 	
 		<!-- Tutor Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="tutor_config">
-			<br />
-			<div class="container">
+			
+			<div class="container" style="width: 90%;margin-top: 30px;">
 				<div class="wrapper row">
 					<!-- filter tutors -->
 					<div class="col-xs-12 col-sm-4">
@@ -213,7 +213,7 @@
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="form-group">
 							    <label class="control-label" for="tutor-id">Tutor ID</label>
-							    <input id="tutor-id" class="form-control" readonly>
+							    <input id="tutor-id" class="form-control no-edit" readonly>
 							</div>
 							<div class="form-group">
 							    <label class="control-label" for="first-name"><?= lang('first_name') ?></label>
@@ -235,6 +235,10 @@
 						<!-- Right Column -->
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="form-group">
+							    <label class="control-label" for="tutor-sid">Tutor SID</label>
+							    <input id="tutor-sid" class="form-control no-edit" readonly>
+							</div>
+							<div class="form-group">
 							    <label class="control-label" for="email"><?= lang('email') ?></label>
 							    <input id="email" class="form-control" readonly>
 							</div>
@@ -244,7 +248,7 @@
 							</div>
 							<div class="form-group">
 							    <label class="control-label" for="introduction"><?= lang('introduction') ?></label>
-							    <textarea id="introduction" class="form-control" rows="5" style="resize:none;" readonly></textarea>
+							    <textarea id="introduction" class="form-control" rows="2" style="resize:none;" readonly></textarea>
 							</div>
 							<div class="form-group">
 							    <label class="control-label" for="flexible-column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= lang('flexible_column') ?></label>
