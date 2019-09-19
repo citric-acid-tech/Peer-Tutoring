@@ -138,6 +138,16 @@
          * Event: Save Tutor Button "Click"
          */
 		$('.admin-page #tutor-save').click(function() {
+			//	Validate Email
+			var email = $('#email').val();
+			if (!GeneralFunctions.validateEmail(email)) {
+				Admin.displayNotification("Invalid Email: Please check!", undefined, "failure");
+				$('#email').addClass('gg');
+				setTimeout(function() {
+					$('#email').removeClass('gg');
+				}, 300);
+				return false;
+			}
 			instance.saveEdition();
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
@@ -146,7 +156,7 @@
 			//	Enable Nav Tabs
 			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
-		});		
+		});
         /**
          * Event: Cancel Button "Click"
          */
@@ -272,7 +282,7 @@
 		$('#email').val(tutor.email);
 		$('#personal-page').val(tutor.personal_page);
 		$('#introduction').val(tutor.introduction);
-		$('#flexible-column').val(tutor.flexible_coulmn);
+		$('#flexible-column').val(tutor.flexible_column);
     };
 
     /**

@@ -250,10 +250,10 @@
 						<h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
 						<hr style="width:60%;margin: 20px auto;" />
 						<div style="width:43%;display:inline-block;">
-							<textarea id="appointment_service_remark" type="text" placeholder="Remark" rows="2" title="Remark" style="resize:none;width:100%;"></textarea>
+							<textarea id="appointment_service_remark" type="text" placeholder="Remark: Customized Label for this appointment" rows="2" title="Remark: Customized Label for this appointment" style="resize:none;width:100%;"></textarea>
 						</div>
 						<div style="width:43%;display:inline-block;">
-							<textarea id="appointment_service_note" type="text" placeholder="Note" rows="2" title="Note" style="resize:none;width:100%;"></textarea>
+							<textarea id="appointment_service_note" type="text" placeholder="Note: What you want to say to the tutor" rows="2" title="Note: What you want to say to the tutor" style="resize:none;width:100%;"></textarea>
 						</div>
 						<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
 					</div>

@@ -32,6 +32,15 @@
 		});
 		
 		$('#common_save').click(function() {
+			var se = $('#school_email').val();
+			if (!GeneralFunctions.validateEmail(se)) {
+				Admin.displayNotification("Invalid Email: Please check!", undefined, "failure");
+				$('#school_email').addClass('gg');
+				setTimeout(function() {
+					$('#school_email').removeClass('gg');
+				}, 300);
+				return false;
+			}
 			//	Enable Nav Tabs
 			$('ul.nav-tabs li').removeClass('disabled');
 			//	Close editable inputs
@@ -43,7 +52,6 @@
 			var tf = $('#time_format').val();
 			var fc = $('#flexible_column').val();
 			var sn = $('#school_name').val();
-			var se = $('#school_email').val();
 			var sl = $('#school_link').val();
 			var mscad = $('#max_services_checking_ahead_day').val();
 			var macad = $('#max_appointment_cancel_ahead_day').val();

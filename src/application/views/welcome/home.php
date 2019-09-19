@@ -60,7 +60,7 @@
 	<!-- CONTENTS -->
 	<div id="branching_home" class="container">
 		<div class="row">
-			<div class="col-sm-4 platform">
+			<div class="col-sm-4 platform" style="display: none;">
 				<a href= <?= site_url('admin') ?> >
 					<div class="platform_icons">
 						<i class="fas fa-user-cog fa-2x"></i>
@@ -70,7 +70,7 @@
 					</div>
 				</a>
 			</div>
-			<div class="col-sm-4 platform">
+			<div class="col-sm-6 platform">
 				<a href= <?= site_url('students') ?> >
 					<div class="platform_icons">
 						<i class="fas fa-user-edit fa-2x"></i>
@@ -80,7 +80,7 @@
 					</div>
 				</a>
 			</div>
-			<div class="col-sm-4 platform">
+			<div class="col-sm-6 platform">
 				<a href= <?= site_url('tutors') ?> >
 					<div class="platform_icons">
 						<i class="fas fa-chalkboard-teacher fa-2x"></i>
@@ -101,6 +101,11 @@
 	<!-- Home Footer -->
 	<div id="footer">
 		<div id="footer-content" class="col-xs-12 col-sm-12">
+			<a href= <?= site_url('admin') ?> >
+				<i class="fas fa-user-cog"></i>
+				<?= lang('home_selection_admin') ?>
+			</a>
+			&nbsp;|&nbsp;
 			<a href="https://cle.sustech.edu.cn/" target="_blank">
 				CENTER FOR LANGUAGE EDUCATION
 			</a>
