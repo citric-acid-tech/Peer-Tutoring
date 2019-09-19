@@ -257,8 +257,11 @@
 					<div class="popup-container">
 						<!-- size: KB -->
 						<!-- i class="fas fa-upload"></i -->
-						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" size="3MB" />
+						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" accept=".doc,.docx,.md,.pdf,.png,.zip,.jar,.7z" />
 						<label for="appointment_service_attach"><strong>Attach a File</strong></label>
+						<div class="help-block">
+							Restricted Formats: <?php echo str_replace('|', ', ', DOCUMENT_FORMAT); ?>
+						</div>
 					</div>
 					
 					<hr />

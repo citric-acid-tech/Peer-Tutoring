@@ -185,7 +185,7 @@
 								<button id="go_to_school_page" class="btn btn-default" title="Go to personal page">
 									<i class="fas fa-home"></i>
 									&nbsp;
-									Go to personal page
+									Go to School page
 								</button>
 							</div>
 							

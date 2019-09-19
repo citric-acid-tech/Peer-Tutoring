@@ -144,7 +144,7 @@
 			$('#appointment_service_attach + label').addClass('disabled');
 			$('#popup_appointment_confirm').hide();
 			$('#popup_appointment_cancel').css('width', '90%');
-			$('#popup_appointment_cancel').html('Nice');
+			$('#popup_appointment_cancel').html('Close');
 		}
 		//	Date
 		var start = moment(event.start);
@@ -159,6 +159,9 @@
      * Validate inputs of appointment popup
      */
    	StudentsAvailableAppointmentsCalendarHelper.prototype.validateAppointmentPopup = function() {
+		//	Check file size
+//		var file = $('#appointment_service_attach').prop('files')[0];
+//		alert(file.size);
 		return true;
     };
 	
