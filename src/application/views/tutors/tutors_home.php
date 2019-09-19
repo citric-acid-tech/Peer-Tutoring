@@ -22,7 +22,7 @@
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
 		downloadPrefix     : "<?= Config::BASE_URL ?>/index.php/download/index/",
-		student_sid        : <?= json_encode($stu_sid) ?>
+		tutor_sid          : <?= json_encode($user_sid) ?>
     };
 
     $(document).ready(function() {
