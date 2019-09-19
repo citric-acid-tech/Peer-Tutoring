@@ -510,3 +510,7 @@ $lang['tut_aa_modstatus_unknown_error'] = 'Something went wrong on the output of
 $lang['bs_404'] = 'no match booking status';
 $lang['date_reverse_error'] = 'Ending Date is before Starting Date!';
 $lang['invalid_date_input'] = 'Invalid Date Input!';
+$lang['stu_ma_assess_success'] = 'Assessment Completed!';
+$lang['stu_ma_cancel_appointment_unknown_error'] = 'Something went wrong on the output of the cancellation';
+$lang['stu_aa_changeTab_prior_warning'] = 'Please select a tutor in the first two tabs';
+$lang['genius_unknown_op'] = 'What have you pressed, my friend??';
