@@ -7,10 +7,10 @@ class Download extends CI_Controller{
         $this->load->helper('download');
     }
 
-    public function index($url){
+    public function index($url, $service_type, $stu_sid, $tut_sid, $start_date){
         $tmp_arr = explode('.', $url);
         $ext = count($tmp_arr) == 2 ? ('.' . $tmp_arr[1]) : '';
-        force_download('attachment'.$ext, file_get_contents(DOCUMENT_SAVED_PATH . $url));
+        force_download($service_type . '-' . $stu_sid . '-' . $tut_sid . $start_date .$ext, file_get_contents(DOCUMENT_SAVED_PATH . $url));
     }
 }
 ?>
