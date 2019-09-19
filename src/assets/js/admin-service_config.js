@@ -681,7 +681,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					}
 				} else {
 					// For Mirror select, give it orange
-					el.css('background-color', '#1e506f');
+					el.css('background-color', '#245F83');
 				}
 			},
 			eventClick: function(info) {

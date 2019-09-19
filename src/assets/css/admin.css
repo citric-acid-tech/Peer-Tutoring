@@ -537,7 +537,7 @@ root {
 	color: snow!important;
 }
 .admin-page .service_hover, .admin-page .service_hover td {
-	background-color: rgba(199,21,133,0.95)!important;
+	background-color: #245F83!important;
 	color: snow!important;
 	z-index: 500!important;
 }
@@ -549,13 +549,17 @@ root {
 
 /* Calendar Buttons */
 .fc-scheduleToAllWeeks-button, .fc-scheduleToAllWeeks-button:active {
-	background-color: mediumpurple!important;
-	border-color: mediumpurple!important;
+	background-color: snow!important;
+	color: red!important;
+	font-weight: bold;
+	border-color: red!important;
 	transition: all 0.2s!important;
 }
 .fc-scheduleToAllWeeks-button:hover, .fc-scheduleToAllWeeks-button:focus {
-	background-color: purple!important;
-	border-color: purple!important;
+	background-color: red!important;
+	color: snow!important;
+	border-color: red!important;
+	opacity: 0.7;
 }
 .fc-addService-button, .fc-addService-button:active {
 	background-color: rgb(41, 109, 151)!important;
