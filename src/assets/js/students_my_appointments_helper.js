@@ -339,7 +339,8 @@
 		$('#suggestion').val(appointment.suggestion);		
 		
 		//	Download
-		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url);
+		var date = moment(appointment.start_datetime).format('YYYY-MM-DD');
+		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url + "/" + appointment.service_type.replace(' ', '') + "/" + (appointment.student_sid === null ? "0" : appointment.student_sid) + "/" + (GlobalVariables.tutor_sid === null ? "0" : GlobalVariables.tutor_sid) + "/" + date);
 		$('#download a').removeClass('disableEvents');
 		$('#download').prop('disabled', false);
 		
