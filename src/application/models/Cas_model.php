@@ -62,7 +62,7 @@ class Cas_model extends CI_Model{
 
         // Get user data
         $user_data = $this->db
-            ->select('ea_users.id AS user_id, ea_users.email AS user_email, '
+            ->select('ea_users.cas_sid AS user_sid, ea_users.id AS user_id, ea_users.email AS user_email, '
                 . 'ea_roles.slug AS role_slug, ea_user_settings.username')
             ->from('ea_users')
             ->join('ea_roles', 'ea_roles.id = ea_users.id_roles', 'inner')

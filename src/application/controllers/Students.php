@@ -96,6 +96,7 @@ class Students extends CI_Controller{
 
         // Get privileges
         $view['user_id'] = $this->session->userdata('user_id');
+        $view['user_sid'] = $this->session->userdata('user_sid');
         $view['user_email'] = $this->session->userdata('user_email');
         $view['role_slug'] = $this->session->userdata('role_slug');
         $view['privileges'] = $this->roles_model->get_privileges($this->session->userdata('role_slug'));

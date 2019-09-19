@@ -107,6 +107,7 @@ class User extends CI_Controller {
         $this->session->unset_userdata('role_slug');
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('dest_url');
+        $this->session->unset_userdata('user_sid');
 
         $view['base_url'] = $this->config->item('base_url');
         $view['company_name'] = $this->settings_model->get_setting('company_name');
@@ -163,6 +164,7 @@ class User extends CI_Controller {
             {
                 $user_data['role_slug'] = 'admin';
                 $user_data['user_id'] = $this->session->userdata('user_id');
+                $user_data['user_sid'] = $this->session->userdata('user_sid');
 
                 $this->session->set_userdata($user_data); // Save data on user's session.
                 // user_id, user_email, role sulg, username
