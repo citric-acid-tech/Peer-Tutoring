@@ -77,6 +77,26 @@ class General_api extends CI_Controller{
         }
     }
 
+    public function ajax_get_flexible_col_name(){
+        //
+        try{
+            
+            $this->load->model('general_model');
+
+            // Query
+            $result = $this->general_model->get_settings_batch(array('flexible_column_label'))['flexible_column_label'];
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
     public function ajax_get_all_students(){
         //
         try{
