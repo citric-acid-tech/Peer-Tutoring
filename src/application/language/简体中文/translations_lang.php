@@ -479,3 +479,4 @@ $lang['go_to_personal_page'] = '跳转到个人主页';
 $lang['tut_appm_popup_feedback_hint'] = '学生的表现如何? 学生是否准时赴约? 学生是否注意力集中? 在交流过程中有哪些问题?';
 $lang['tut_appm_popup_suggestion_hint'] = '填写您的建议';
 $lang['provide_students_with_feedback_and_suggestions'] = '填写本次交流的反馈及给学生的建议';
+$lang['submit'] = '提交';
