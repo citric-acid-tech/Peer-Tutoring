@@ -427,11 +427,13 @@ class Students_model extends CI_Model{
     public function new_appointment($user_id, $service_id, $note, $remark, $file){
 
         //:: Check if this appointment can be booked or not.
-        $attachment_url = $this->upload_file($user_id, $service_id, $file);
+        $result = $this->upload_file($user_id, $service_id, $file);
 
-        if($attachment_url === FALSE){
-            return 'no_attachment';
+        if($result['result'] === FALSE){
+            return $result['msg'];
         }
+
+        $attachment_url = $result['msg'];
 
         //:: Check if it is full.
         $number = $this->db
@@ -529,7 +531,7 @@ class Students_model extends CI_Model{
     public function upload_file($user_id, $service_id, $file){
         // Check empty
         if(is_null($file)){
-            return FALSE;
+            return array('result'=> FALSE, 'msg'=> 'no_file');
         }
 
         $ext = $this->get_extension($file['name']);
@@ -548,7 +550,7 @@ class Students_model extends CI_Model{
         
 
         if( ! $is_ok){
-            return FALSE;
+            return array('result'=> FALSE, 'msg'=> 'invaild_type');
         }
 
         $hash_id = $this->db
@@ -564,7 +566,7 @@ class Students_model extends CI_Model{
 
         move_uploaded_file($file['tmp_name'], $file_target_path);
    
-        return $file_name;
+        return array('result'=> TRUE, 'msg'=> $file_name);
     }
     
     protected function get_extension($file){
