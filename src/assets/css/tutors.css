@@ -6,6 +6,21 @@ root {
     display: block;
 }
 
+body::-webkit-scrollbar {
+    width: 1.2em;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+	border-radius: 20px;
+}
+
 /* BACKEND GENERAL ELEMENTS
    -------------------------------------------------------------------- */
 
@@ -261,6 +276,18 @@ root {
     overflow-y: auto;
     max-height: 520px;
     outline: none;
+}
+.tutors-page .filter-records .results::-webkit-scrollbar {
+    width: 1.2em;
+}
+.tutors-page .filter-records .results::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.tutors-page .filter-records .results::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+	border-radius: 20px;
 }
 
 .tutors-page .filter-records .results .entry {
