@@ -160,8 +160,29 @@
      */
    	StudentsAvailableAppointmentsCalendarHelper.prototype.validateAppointmentPopup = function() {
 		//	Check file size
-//		var file = $('#appointment_service_attach').prop('files')[0];
-//		alert(file.size);
+		var file = $('#appointment_service_attach').prop('files')[0];
+		var allowedExtensions = /(\.doc|\.docx|\.md|\.pdf|\.png|\.zip|\.jar|\.7z)$/i;
+//		alert(allowedExtensions.exec(file.name));
+		
+		if (file === undefined) {
+			Students.displayNotification("Please attach a file!", undefined, "failure");
+			$('#appointment_service_attach + label').addClass('gg');
+			setTimeout(function() {
+				$('#appointment_service_attach + label').removeClass('gg');
+			}, 300);
+			return false;
+//			file = new File([""], "filename");
+		}
+		
+		if (allowedExtensions.exec(file.name) === null) {
+			Students.displayNotification("You should upload a file in the specified formats!", undefined, "failure");
+			$('#appointment_service_attach + label').addClass('gg');
+			setTimeout(function() {
+				$('#appointment_service_attach + label').removeClass('gg');
+			}, 300);
+			return false;
+		}
+//		console.log(file);
 		return true;
     };
 	
@@ -174,15 +195,7 @@
 		var remark = $('#appointment_service_remark').val();
 		var note = $('#appointment_service_note').val();
 		var file = $('#appointment_service_attach').prop('files')[0];
-		if (file === undefined) {
-			Students.displayNotification("Please attach a file!", undefined, "failure");
-			$('#appointment_service_attach + label').addClass('gg');
-			setTimeout(function() {
-				$('#appointment_service_attach + label').removeClass('gg');
-			}, 300);
-			return false;
-//			file = new File([""], "filename");
-		}
+
 		var path = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
 		//	Create a new FormData object
 		var formData = new FormData();
@@ -215,8 +228,10 @@
 					Students.displayNotification("Capacity: No available space now!.", undefined, "failure");
 				} else if (response === 'denied') {
 					Students.displayNotification("Denied: Something went wrong on applying appointments...");
-				} else if (response === 'no_attachment') {
-					Students.displayNotification("No Attachment: check your code");
+				} else if (response === 'invalid_type') {
+					Students.displayNotification("Invalid Type: Uploaded file should be in the list of file formats(check your code)");
+				} else if (response === 'no_file') {
+					Students.displayNotification("No File: No file uploaded...(Check your code)");
 				} else {
 					Students.displayNotification("Failure: Something went wrong on applying appointments...");
 				}

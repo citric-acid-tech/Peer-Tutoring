@@ -106,7 +106,7 @@
 				</div>
 				<br />
 				<div class="form-group">
-				    <label class="control-label" for="flexible_column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= lang('flexible_column') ?></label>
+				    <label class="control-label" for="flexible_column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= $flexible_column_label ?></label>
 				    <input id="flexible_column" class="form-control" readonly>
 					<span class="help-block">
 						Flexible Column specified by admin.

@@ -669,9 +669,13 @@ body::-webkit-scrollbar-thumb {
 .students-page .popup textarea {
 	width: 100%;
 	padding: 10px;
-	font-size: 16px;
+	font-size: 14px;
 	color:  #76838f;
 	transition: all 0.2s;
+	border: 1.5px solid rgb(41, 109, 151, 0.7);
+}
+.students-page .popup textarea::-webkit-input-placeholder {
+	text-align: left;
 }
 ::-webkit-input-placeholder {
 	text-align: center;

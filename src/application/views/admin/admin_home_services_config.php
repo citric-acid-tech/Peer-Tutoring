@@ -251,7 +251,7 @@
 							    <textarea id="introduction" class="form-control" rows="2" style="resize:none;" readonly></textarea>
 							</div>
 							<div class="form-group">
-							    <label class="control-label" for="flexible-column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= lang('flexible_column') ?></label>
+							    <label class="control-label" for="flexible-column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= $flexible_column_label ?></label>
 							    <input id="flexible-column" class="form-control" readonly>
 							</div>
 						</div>

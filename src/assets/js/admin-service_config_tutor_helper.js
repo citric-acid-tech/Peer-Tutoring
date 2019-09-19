@@ -272,7 +272,7 @@
 		$('#email').val(tutor.email);
 		$('#personal-page').val(tutor.personal_page);
 		$('#introduction').val(tutor.introduction);
-		$('#flexible-column').val(tutor.flexible_coulmn);
+		$('#flexible-column').val(tutor.flexible_column);
     };
 
     /**
