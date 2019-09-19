@@ -803,6 +803,12 @@ root {
 	cursor: not-allowed;
 }
 
+/* No Edition */
+.students-page .no-edit {
+	border: none!important;
+	font-weight: bold;
+}
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

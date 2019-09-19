@@ -329,7 +329,7 @@
 		$('#description').val(appointment.appointment_description);
 		$('#service_type').val(appointment.service_type);
 		
-		$('#tutor').val(appointment.first_name + " " + appointment.last_name);
+		$('#tutor').val(appointment.tutor_sid + " " + appointment.first_name + " " + appointment.last_name);
 		$('#notes').val(appointment.notes);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
@@ -522,8 +522,13 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var display_tutor = (tutor.name !== null && tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
+				//	Fix an admin account bug
+				var cas_sid = tutor.cas_sid;
+				if (cas_sid === null) {
+					cas_sid = '';
+				}
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + " " + tutor.name.substring(0,20) + "...") : cas_sid + " " + tutor.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + " " + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-my_appointments #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
