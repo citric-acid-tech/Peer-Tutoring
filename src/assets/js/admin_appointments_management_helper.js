@@ -114,7 +114,7 @@
          * Event: click the input bar, show filter details of service types
          */
 		$('.admin-page #appointments_management_service_type').focus(function() {
-			$('#filter-appointments_management #am_st_display').fadeIn();
+			$('#filter-appointments_management #am_st_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
@@ -128,7 +128,7 @@
          */
 		$('.admin-page #appointments_management_tutor').focus(function() {
 //			$('#filter-appointments_management .curtain').fadeIn();
-			$('#filter-appointments_management #am_tn_display').fadeIn();
+			$('#filter-appointments_management #am_tn_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
@@ -157,7 +157,7 @@
          */
 		$(document).on('click', '.admin-page #am_st_display .filter-item--close, .admin-page #am_st_display .filter-item--find', function() {
 			$('.admin-page #appointments_management_service_type').val($(this).attr("title"));
-			$('#filter-appointments_management #am_st_display').fadeOut();
+			$('#filter-appointments_management #am_st_display').slideUp(360);
 			instance.filterList('.admin-page #filter-service-type span li', $('.admin-page #appointments_management_service_type').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
@@ -172,7 +172,7 @@
          */
 		$(document).on('click', '.admin-page #am_tn_display .filter-item--close, .admin-page #am_tn_display .filter-item--find', function() {
 			$('.admin-page #appointments_management_tutor').val($(this).attr("title"));
-			$('#filter-appointments_management #am_tn_display').fadeOut();
+			$('#filter-appointments_management #am_tn_display').slideUp(360);
 			instance.filterList('.admin-page #filter-tutor-name span li', $('.admin-page #appointments_management_tutor').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', false);

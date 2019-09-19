@@ -100,7 +100,7 @@
          * Event: click the input bar, show filter details of service categories
          */
 		$('.students-page #available_appointments_service_category').focus(function() {
-			$('#filter-aa_tutors #aa_sc_display').fadeIn();
+			$('#filter-aa_tutors #aa_sc_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', true);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', true);
@@ -113,7 +113,7 @@
          * Event: click the input bar, show filter details of tutor name
          */
 		$('.students-page #available_appointments_tutor').focus(function() {
-			$('#filter-aa_tutors #aa_tn_display').fadeIn();
+			$('#filter-aa_tutors #aa_tn_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', true);
 			$('#filter-aa_tutors #clear-filter').prop('disabled', true);
@@ -136,7 +136,7 @@
          */
 		$(document).on('click', '.students-page #aa_sc_display .filter-item--close, .students-page #aa_sc_display .filter-item--find', function() {
 			$('.students-page #available_appointments_service_category').val($(this).attr("title"));
-			$('#filter-aa_tutors #aa_sc_display').fadeOut();
+			$('#filter-aa_tutors #aa_sc_display').slideUp(360);
 			instance.filterList('.students-page #filter-service-category span li', $('.students-page #available_appointments_service_category').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', false);
@@ -151,7 +151,7 @@
          */
 		$(document).on('click', '.students-page #aa_tn_display .filter-item--close, .students-page #aa_tn_display .filter-item--find', function() {
 			$('.students-page #available_appointments_tutor').val($(this).attr("title"));
-			$('#filter-aa_tutors #aa_tn_display').fadeOut();
+			$('#filter-aa_tutors #aa_tn_display').slideUp(360);
 			instance.filterList('.students-page #filter-tutor-name span li', $('.students-page #available_appointments_tutor').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-aa_tutors #search-filter').prop('disabled', false);

@@ -191,7 +191,7 @@
          * Event: click the input bar, show filter details of service categories
          */
 		$('.students-page #my_appointments_service_category').focus(function() {
-			$('#filter-my_appointments #ma_sc_display').fadeIn();
+			$('#filter-my_appointments #ma_sc_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
@@ -204,8 +204,7 @@
          * Event: click the input bar, show filter details of tutor name
          */
 		$('.students-page #my_appointments_tutor').focus(function() {
-//			$('#filter-my_appointments .curtain').fadeIn();
-			$('#filter-my_appointments #ma_tn_display').fadeIn();
+			$('#filter-my_appointments #ma_tn_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', true);
 			$('#filter-my_appointments #clear-filter').prop('disabled', true);
@@ -228,7 +227,7 @@
          */
 		$(document).on('click', '.students-page #ma_sc_display .filter-item--close, .students-page #ma_sc_display .filter-item--find', function() {
 			$('.students-page #my_appointments_service_category').val($(this).attr("title"));
-			$('#filter-my_appointments #ma_sc_display').fadeOut();
+			$('#filter-my_appointments #ma_sc_display').slideUp(360);
 			instance.filterList('.students-page #filter-service-category span li', $('.students-page #my_appointments_service_category').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
@@ -243,7 +242,7 @@
          */
 		$(document).on('click', '.students-page #ma_tn_display .filter-item--close, .students-page #ma_tn_display .filter-item--find', function() {
 			$('.students-page #my_appointments_tutor').val($(this).attr("title"));
-			$('#filter-my_appointments #ma_tn_display').fadeOut();
+			$('#filter-my_appointments #ma_tn_display').slideUp(360);
 			instance.filterList('.students-page #filter-tutor-name span li', $('.students-page #my_appointments_tutor').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-my_appointments #search-filter').prop('disabled', false);
