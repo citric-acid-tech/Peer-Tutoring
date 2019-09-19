@@ -300,8 +300,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				calendar_needs_retrieval = helper.calendar_needs_retrieval;
 				//	Reset boolean value of previous one
 				helper.calendar_needs_retrieval = false;
-				//	For test
-				console.log(calendar_needs_retrieval);
+//				//	For test
+//				console.log(calendar_needs_retrieval);
 				helper = adminServiceConfigServiceCalendarHelper;
 				//	Need to refresh the calendar if a tutor is created/dismissed, or if a service_type is created.
 				if (calendar_needs_retrieval) {

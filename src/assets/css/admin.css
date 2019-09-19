@@ -727,6 +727,11 @@ ul#sem_info .sem_item .sem_delete_row {
 }
 
 
+.admin-page li.disabled {
+	pointer-events: none;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {

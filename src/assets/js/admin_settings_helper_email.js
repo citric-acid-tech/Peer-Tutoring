@@ -24,6 +24,8 @@
          * Event: Edit Button "Click"
          */
 		$('#edit_email').click(function() {
+			//	Disable Nav Tabs
+			$('ul.nav-tabs li').not('.active').addClass('disabled');
 			//	Disable select
 			$('#email_title_group select').prop('disabled', true);
 			$('#email_end, #email_event, #email_receiver').niceSelect('update');
@@ -39,6 +41,8 @@
          * Event: Save Button "Click"
          */
 		$('#save_email').click(function() {
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			//	Disable Editing
 			$('#email_title').prop('readonly', true);
 			$('#email_content').trumbowyg('disable');
@@ -61,6 +65,8 @@
          * Event: Cancel Button "Click"
          */
 		$('#cancel_email').click(function() {
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			//	Disable Editing
 			$('#email_title').prop('readonly', true);
 			$('#email_content').trumbowyg('disable');

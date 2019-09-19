@@ -49,6 +49,8 @@
          */
 		$('.admin-page #tutor-edit').click(function() {
 			editing = true;
+			//	Disable Nav Tabs
+			$('ul.nav-tabs li').not('.active').addClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', true);
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').hide();
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').fadeIn(360);
@@ -113,6 +115,8 @@
 						$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
 						$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 						editing = false;
+						//	Enable Nav Tabs
+						$('ul.nav-tabs li').removeClass('disabled');
 						$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
 						//	If back to calendar, refetch
 						instance.calendar_needs_retrieval = true;
@@ -139,6 +143,8 @@
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
 		});		
         /**
@@ -150,6 +156,8 @@
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').fadeIn(360);
 			editing = false;
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
 		});		
 			
@@ -172,6 +180,7 @@
 				instance.filterList('.admin-page #tutor_config .results .entry', val);
 			}, 200);
 		});
+
 	};
 
     /**

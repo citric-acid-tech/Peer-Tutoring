@@ -49,6 +49,8 @@
          */
 		$('.admin-page #service_type-edit').click(function() {
 			editing = true;
+			//	Disable Nav Tabs
+			$('ul.nav-tabs li').not('.active').addClass('disabled');
 			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', true);
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').hide();
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').fadeIn(360);
@@ -97,6 +99,8 @@
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
 			editing = false;
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
 		});		
         /**
@@ -108,6 +112,8 @@
 			$('.admin-page #service_type-save, .admin-page #service_type-cancel').hide();
 			$('.admin-page #service_type-edit, .admin-page #service_type-new-service_type').fadeIn(360);
 			editing = false;
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #service_type_config #service_type-service_type').attr('readonly', false);
 		});
 			

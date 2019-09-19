@@ -20,6 +20,8 @@
         var instance = this;
 		
 		$('#common_edit').click(function() {
+			//	Disable Nav Tabs
+			$('ul.nav-tabs li').not('.active').addClass('disabled');
 			//	Everything is editable -- But not date format and time format, for now...
 			$('#admin-settings-page .form-group').find('input, textarea').not('#date_format, #time_format').attr('readonly', false);
 			//	Checkbox is editable
@@ -30,6 +32,8 @@
 		});
 		
 		$('#common_save').click(function() {
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			//	Close editable inputs
 			$('#admin-settings-page .form-group').find('input, textarea').attr('readonly', true);
 			//	Disable checkbox
@@ -53,6 +57,8 @@
 		});
 		
 		$('#common_cancel').click(function() {
+			//	Enable Nav Tabs
+			$('ul.nav-tabs li').removeClass('disabled');
 			//	Close editable inputs
 			$('#admin-settings-page .form-group').find('input, textarea').attr('readonly', true);
 			//	Disable checkbox
