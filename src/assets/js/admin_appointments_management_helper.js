@@ -243,8 +243,17 @@
         $('#appointment-id').val(appointment.id);
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
 		$('#service_type').val(appointment.service_type);
-		$('#tutor').val(appointment.tutor_sid + " " + appointment.tutor_name);
-		$('#student').val(appointment.student_sid + " " + appointment.student_name);
+		
+		var tutor_display = appointment.tutor_name;
+		var student_display = appointment.student_name;
+		if (appointment.tutor_sid !== null) {
+			tutor_display = appointment.tutor_sid + ' ' + tutor_display;
+		}
+		if (appointment.student_sid !== null) {
+			student_display = appointment.student_sid + ' ' + student_display;
+		}
+		$('#tutor').val(tutor_display);
+		$('#student').val(student_display);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
 		$('#start_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true));
@@ -443,11 +452,15 @@
 			$.each(response, function (index, tutor) {
 				//	Fix admin account bug
 				var cas_sid = tutor.cas_sid;
+				var space_or_not = '';
 				if (cas_sid === null) {
 					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
 				}
-				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + " " + tutor.name.substring(0,20) + "...") : cas_sid + " " + tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + " " + tutor.name + "'>" + display_tutor + "</li>";
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + space_or_not + tutor.name.substring(0,20) + "...") : cas_sid + space_or_not + tutor.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-appointments_management #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -475,11 +488,15 @@
 			$.each(response, function (index, student) {
 				//	Fix an admin account bug
 				var cas_sid = student.cas_sid;
+				var space_or_not = '';
 				if (cas_sid === null) {
 					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
 				}
-				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + " " + student.name.substring(0,20) + "...") : cas_sid + " " + student.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + " " + student.name + "'>" + display_student + "</li>";
+				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + space_or_not + student.name.substring(0,20) + "...") : cas_sid + space_or_not + student.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
 				$('#filter-appointments_management #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

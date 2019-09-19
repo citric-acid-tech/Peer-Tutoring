@@ -363,7 +363,14 @@
 		$('#service_type').val(appointment.service_type);
 //		$('#service_description').val(appointment.service_description);
 		
-		$('#student_name').val(appointment.student_sid + " " + appointment.student_name);
+		var cas_sid = appointment.student_sid;
+		var student_display;
+		if (cas_sid === null) {
+			student_display = appointment.student_name;
+		} else {
+			student_display = cas_sid + ' ' + appointment.student_name;
+		}
+		$('#student_name').val(student_display);
 		$('#notes').val(appointment.notes);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
@@ -565,11 +572,15 @@
 			$.each(response, function (index, student) {
 				//	Fix an admin account bug
 				var cas_sid = student.cas_sid;
+				var space_or_not = '';
 				if (cas_sid === null) {
 					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
 				}
-				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + " " + student.name.substring(0,20) + "...") : cas_sid + " " + student.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + " " + student.name + "'>" + display_student + "</li>";
+				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + space_or_not + student.name.substring(0,20) + "...") : cas_sid + space_or_not + student.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
 				$('#filter-my_appointments #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

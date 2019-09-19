@@ -319,10 +319,14 @@
 			$.each(response, function (index, tutor) {
 				//	Fix an admin account bug
 				var cas_sid = tutor.cas_sid;
+				var space_or_not = '';
 				if (cas_sid === null) {
 					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
 				}
-				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.id + " " + cas_sid + " " + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + cas_sid + " " + tutor.name + "</strong></div>";
+				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.id + " " + cas_sid + space_or_not + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + cas_sid + space_or_not + tutor.name + "</strong></div>";
 				$('.admin-page #tutor_config .results').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

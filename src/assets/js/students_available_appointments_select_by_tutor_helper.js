@@ -196,7 +196,15 @@
     StudentsAvailableAppointmentsTutorHelper.prototype.display = function (tutor) {
         $('#tutor-id').val(tutor.tutor_id);
 		
-		$('#tutor_name').val(tutor.tutor_name);
+		//	Fix admin account bug
+		var cas_sid = tutor.tutor_sid;
+		var tutor_display;
+		if (cas_sid === null) {
+			tutor_display = tutor.tutor_name; 
+		} else {
+			tutor_display = cas_sid + " " + tutor.tutor_name;
+		}
+		$('#tutor_name').val(tutor_display);
 		$('#tutor_page').val(tutor.personal_page);
 		$('#earliest_start_datetime').val(GeneralFunctions.formatDate(Date.parse(tutor.earliest_start_datetime), GlobalVariables.dateFormat, true));
     };
@@ -337,8 +345,17 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var display_tutor = (tutor.name !== null && tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
+				//	Fix an admin account bug
+				var cas_sid = tutor.cas_sid;
+				var space_or_not = ' ';
+				if (cas_sid === null) {
+					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
+				}
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + space_or_not + tutor.name.substring(0,20) + "...") : (cas_sid + space_or_not + tutor.name);
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-aa_tutors #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

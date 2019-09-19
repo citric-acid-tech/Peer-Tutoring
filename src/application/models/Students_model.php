@@ -341,6 +341,7 @@ class Students_model extends CI_Model{
         $this->db
             ->select('
             ea_users.id                                             AS tutor_id,
+			ea_users.cas_sid                                        AS tutor_sid,
             CONCAT(ea_users.first_name, \' \', ea_users.last_name ) AS tutor_name,
             ea_users.personal_page                                  AS personal_page,
             MIN(ea_services.start_datetime)                         AS earliest_start_datetime,
