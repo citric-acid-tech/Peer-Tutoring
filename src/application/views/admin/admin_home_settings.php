@@ -74,7 +74,7 @@
 					<div class="col-xs-12 col-lg-3">
 						<div class="form-group">
 							<label class="control-label" for="date_format">Date Format</label>
-							<input id="date_format" data-field="date_format" class="form-control text-field" title="Date Format" readonly />
+							<input id="date_format" data-field="date_format" class="form-control text-field no-edit" title="Date Format" readonly />
 							<span class="help-block">
 								You can see which date format the system is currently using.
 							</span>
@@ -83,7 +83,7 @@
 						
 						<div class="form-group">
 							<label class="control-label" for="time_format">Time Format</label>
-							<input id="time_format" data-field="time_format" class="form-control text-field" title="Time Format" readonly />
+							<input id="time_format" data-field="time_format" class="form-control text-field no-edit" title="Time Format" readonly />
 							<span class="help-block">
 								You can see which time format the system is currently using.
 							</span>
@@ -208,6 +208,7 @@
 					</div>
 				</div>
 			</div>
+			<br />
 		</div>
 		
 		<!-- Semester Information -->
@@ -253,6 +254,7 @@
 					</div>
 				</div>
 			</div>
+			<br />
 		</div>
 		
 		<!-- Email Configurations -->
@@ -319,6 +321,7 @@
 					</div>
 				</div>
 			</div>
+			<br />
 		</div>
 		
 		<!-- Survey Configurations -->
@@ -335,6 +338,7 @@
 					<iframe src="https://www.wjx.cn/jq/36404176.aspx" width="100%" height="450px" allowfullscreen></iframe>
 				</div>
 			</div>
+			<br />
 		</div>	
 	</div>
 </div>

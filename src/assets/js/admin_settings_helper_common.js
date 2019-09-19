@@ -150,7 +150,7 @@
 //			console.log(response);
 			
 			if (response) {
-				Admin.displayNotification("Admin Settings Saved.", undefined, "success");
+				Admin.displayNotification("Admin Settings Saved. Page Reloaded in 3 seconds...", undefined, "success");
 			} else {
 				Admin.displayNotification("Something went wrong on saving admin settings.");
 				return false;
@@ -163,6 +163,10 @@
 				//	re-scan
 				obj.getCommonSettings();
 			}, 200);
+			
+			setTimeout(function() {
+				document.location.reload(true);
+			}, 3000);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	};

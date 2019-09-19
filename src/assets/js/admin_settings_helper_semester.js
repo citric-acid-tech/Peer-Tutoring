@@ -227,7 +227,7 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Semester Information Updated. Page Reloaded in 5 seconds...", undefined, "success");
+				Admin.displayNotification("Semester Information Updated. Page Reloaded in 3 seconds...", undefined, "success");
 			} else if (response === 'failed') {
 				Admin.displayNotification("ajax_save_semester_json: nonono", undefined, "failure");
 			} else {
@@ -237,7 +237,7 @@
 			//	Reload page
 			setTimeout(function() {
 				document.location.reload(true);
-			}, 5000);
+			}, 3000);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
