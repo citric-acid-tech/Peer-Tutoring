@@ -797,7 +797,17 @@ root {
 	width: 72%!important;
 }
 
+/* Disabled Class */
+.students-page .disableEvents {
+	pointer-events: none;
+	cursor: not-allowed;
+}
 
+/* No Edition */
+.students-page .no-edit {
+	border: none!important;
+	font-weight: bold;
+}
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

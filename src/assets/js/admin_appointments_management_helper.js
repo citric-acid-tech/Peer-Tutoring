@@ -114,7 +114,7 @@
          * Event: click the input bar, show filter details of service types
          */
 		$('.admin-page #appointments_management_service_type').focus(function() {
-			$('#filter-appointments_management #am_st_display').fadeIn();
+			$('#filter-appointments_management #am_st_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
@@ -128,7 +128,7 @@
          */
 		$('.admin-page #appointments_management_tutor').focus(function() {
 //			$('#filter-appointments_management .curtain').fadeIn();
-			$('#filter-appointments_management #am_tn_display').fadeIn();
+			$('#filter-appointments_management #am_tn_display').slideDown(360);
 			//	disable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', true);
 			$('#filter-appointments_management #clear-filter').prop('disabled', true);
@@ -157,7 +157,7 @@
          */
 		$(document).on('click', '.admin-page #am_st_display .filter-item--close, .admin-page #am_st_display .filter-item--find', function() {
 			$('.admin-page #appointments_management_service_type').val($(this).attr("title"));
-			$('#filter-appointments_management #am_st_display').fadeOut();
+			$('#filter-appointments_management #am_st_display').slideUp(360);
 			instance.filterList('.admin-page #filter-service-type span li', $('.admin-page #appointments_management_service_type').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
@@ -172,7 +172,7 @@
          */
 		$(document).on('click', '.admin-page #am_tn_display .filter-item--close, .admin-page #am_tn_display .filter-item--find', function() {
 			$('.admin-page #appointments_management_tutor').val($(this).attr("title"));
-			$('#filter-appointments_management #am_tn_display').fadeOut();
+			$('#filter-appointments_management #am_tn_display').slideUp(360);
 			instance.filterList('.admin-page #filter-tutor-name span li', $('.admin-page #appointments_management_tutor').val().toLowerCase());
 			//	enable two buttons
 			$('#filter-appointments_management #search-filter').prop('disabled', false);
@@ -243,8 +243,17 @@
         $('#appointment-id').val(appointment.id);
 		$('#booking_status').val(this.decodeBookingStatus(appointment.booking_status));
 		$('#service_type').val(appointment.service_type);
-		$('#tutor').val(appointment.tutor_name);
-		$('#student').val(appointment.student_name);
+		
+		var tutor_display = appointment.tutor_name;
+		var student_display = appointment.student_name;
+		if (appointment.tutor_sid !== null) {
+			tutor_display = appointment.tutor_sid + ' ' + tutor_display;
+		}
+		if (appointment.student_sid !== null) {
+			student_display = appointment.student_sid + ' ' + student_display;
+		}
+		$('#tutor').val(tutor_display);
+		$('#student').val(student_display);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
 		$('#start_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true));
@@ -441,8 +450,17 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var display_tutor = (tutor.name !== null && tutor.name.length >= 35) ? "Too Long!!!!!!!!!" : tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + tutor.name + "'>" + display_tutor + "</li>";
+				//	Fix admin account bug
+				var cas_sid = tutor.cas_sid;
+				var space_or_not = '';
+				if (cas_sid === null) {
+					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
+				}
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + space_or_not + tutor.name.substring(0,20) + "...") : cas_sid + space_or_not + tutor.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-appointments_management #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -468,8 +486,17 @@
 			//	Iterate through all students, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, student) {
-				var display_student = (student.name.length >= 35) ? "Too Long!!!!!!!!!" : student.name;
-				var html = "<li class='filter-item filter-item--find' title='" + student.name + "'>" + display_student + "</li>";
+				//	Fix an admin account bug
+				var cas_sid = student.cas_sid;
+				var space_or_not = '';
+				if (cas_sid === null) {
+					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
+				}
+				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + space_or_not + student.name.substring(0,20) + "...") : cas_sid + space_or_not + student.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
 				$('#filter-appointments_management #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -507,7 +534,21 @@
      */
     AdminAppointmentsManagementHelper.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
+			if ($(this)[0].title.toLowerCase().indexOf(filterValue) > -1) {
+				//	If match, show
+				if ($(this).css('display') === 'none') {
+					//	If hide before, show it
+					$(this).slideDown(300);
+				}
+				//	If shown already, do nothing
+			} else {
+				//	If not match, hide
+				if ($(this).css('display') !== 'none') {
+					//	If shown, then we hide it
+					$(this).slideUp(300);
+				}
+				//	If hided already, do nothing
+			}
 		});
     };
 	

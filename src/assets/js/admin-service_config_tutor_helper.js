@@ -53,7 +53,7 @@
 			$('.admin-page #tutor-edit, .admin-page #tutor-new-tutor').hide();
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').fadeIn(360);
 			$('.tutor-details-form').find('input, textarea').attr('readonly', false);
-			$('.admin-page #tutor-id').attr('readonly', true);
+			$('.admin-page .no-edit').attr('readonly', true);
 		});
         /**
          * Event: New Tutor Button "Click"
@@ -255,6 +255,7 @@
      */
     AdminServiceConfigTutorHelper.prototype.display = function (tutor) {
         $('#tutor-id').val(tutor.id);
+        $('#tutor-sid').val(tutor.sid);
 		$('#first-name').val(tutor.first_name);
 		$('#last-name').val(tutor.last_name);
 		$('#phone-number').val(tutor.phone_number);
@@ -316,7 +317,16 @@
 			//	Iterate through all tutors, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, tutor) {
-				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + tutor.name + "</strong></div>";
+				//	Fix an admin account bug
+				var cas_sid = tutor.cas_sid;
+				var space_or_not = '';
+				if (cas_sid === null) {
+					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
+				}
+				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.id + " " + cas_sid + space_or_not + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + cas_sid + space_or_not + tutor.name + "</strong></div>";
 				$('.admin-page #tutor_config .results').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -327,7 +337,21 @@
      */
     AdminServiceConfigTutorHelper.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
+			if ($(this)[0].title.toLowerCase().indexOf(filterValue) > -1) {
+				//	If match, show
+				if ($(this).css('display') === 'none') {
+					//	If hide before, show it
+					$(this).slideDown(300);
+				}
+				//	If shown already, do nothing
+			} else {
+				//	If not match, hide
+				if ($(this).css('display') !== 'none') {
+					//	If shown, then we hide it
+					$(this).slideUp(300);
+				}
+				//	If hided already, do nothing
+			}
 		});
     };
 	

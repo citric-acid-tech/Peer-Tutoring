@@ -330,8 +330,11 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         // Select Language
         var html = '<ul id="language-list">';
         $.each(availableLanguages, function () {
-            html += '<li class="language" data-language="' + this + '">'
-                + GeneralFunctions.ucaseFirstLetter(this) + '</li>';
+			//	Filter out some languages
+			if (this === '简体中文' || this === 'english') {
+            	html += '<li class="language" data-language="' + this + '">'
+                	+ GeneralFunctions.ucaseFirstLetter(this) + '</li>';
+			}
         });
         html += '</ul>';
 

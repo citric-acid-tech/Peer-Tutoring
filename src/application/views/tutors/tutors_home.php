@@ -20,7 +20,8 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
-        timeFormat         : <?= json_encode($time_format) ?>
+        timeFormat         : <?= json_encode($time_format) ?>,
+		downloadPrefix     : "<?= Config::BASE_URL ?>/index.php/download/index/"
     };
 
     $(document).ready(function() {
@@ -172,12 +173,22 @@
                    <!-- Feedback from Tutor -->
                    <div class="form-group">
                        <label class="control-label" for="feedback"><?= lang('feedback') ?></label>
-                       <textarea id="feedback" rows="5" class="form-control" style="resize: none;" readonly></textarea>
+                       <textarea id="feedback" rows="3" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
                    <div class="form-group">
                        <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
                        <textarea id="suggestion" rows="5" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
+			        <!-- Download -->
+			        <div class="form-group" style="padding:10px;text-align:center;">
+		            	<button id="download" class="btn btn-primary">
+		            		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
+		            			<i class="fas fa-download"></i>
+		            			&nbsp;
+		            			<strong>Download Attachment</strong>
+		            		</a>
+		            	</button>			            
+			        </div>
                </div>
            </div>
     	</div>

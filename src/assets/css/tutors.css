@@ -494,7 +494,11 @@ root {
 
 
 
-
+/* Disabled Class */
+.tutors-page .disableEvents {
+	pointer-events: none;
+	cursor: not-allowed;
+}
 
 
 
@@ -532,7 +536,11 @@ textarea:read-only {
 
 
 
-
+/* No Edition */
+.tutors-page .no-edit {
+	border: none!important;
+	font-weight: bold;
+}
 
 
 

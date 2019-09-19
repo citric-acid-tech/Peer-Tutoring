@@ -341,7 +341,13 @@
 		//	When editing, background color will be added to indicate that
 		//	selections are disabled. Writing as below removes the color when
 		//	resetting the form
-        $('#filter-my_appointments .results').css('color', '');
+        $('#filter-my_appointments .results').css('color', '');		
+		
+		//	Download
+		$('#download a').prop('href', 'javascript:void(0);');
+		$('#download a').addClass('disableEvents');
+		$('#download').prop('disabled', true);
+		
     };
 
     /**
@@ -357,7 +363,14 @@
 		$('#service_type').val(appointment.service_type);
 //		$('#service_description').val(appointment.service_description);
 		
-		$('#student_name').val(appointment.student_name);
+		var cas_sid = appointment.student_sid;
+		var student_display;
+		if (cas_sid === null) {
+			student_display = appointment.student_name;
+		} else {
+			student_display = cas_sid + ' ' + appointment.student_name;
+		}
+		$('#student_name').val(student_display);
 		$('#notes').val(appointment.notes);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
@@ -368,7 +381,13 @@
 		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
 		
 		$('#feedback').val(appointment.feedback_from_tutor);
-		$('#suggestion').val(appointment.suggestion_from_tutor);
+		$('#suggestion').val(appointment.suggestion_from_tutor);		
+		
+		//	Download
+		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url);
+		$('#download a').removeClass('disableEvents');
+		$('#download').prop('disabled', false);
+		
     };
 
     /**
@@ -551,8 +570,17 @@
 			//	Iterate through all students, generate htmls for them and
 			//	add them to the list
 			$.each(response, function (index, student) {
-				var display_student = (student.name.length >= 35) ? "Too Long!!!!!!!!!" : student.name;
-				var html = "<li class='filter-item filter-item--find' title='" + student.name + "'>" + display_student + "</li>";
+				//	Fix an admin account bug
+				var cas_sid = student.cas_sid;
+				var space_or_not = '';
+				if (cas_sid === null) {
+					cas_sid = '';
+					space_or_not = '';
+				} else {
+					space_or_not = ' ';
+				}
+				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + space_or_not + student.name.substring(0,20) + "...") : cas_sid + space_or_not + student.name;
+				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
 				$('#filter-my_appointments #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -590,7 +618,21 @@
      */
     TutorsAppointmentManagementHelper.prototype.filterList = function(filterItem, filterValue) {
 		$(filterItem).filter(function() {
-			$(this).toggle($(this)[0].title.toLowerCase().indexOf(filterValue) > -1);
+			if ($(this)[0].title.toLowerCase().indexOf(filterValue) > -1) {
+				//	If match, show
+				if ($(this).css('display') === 'none') {
+					//	If hide before, show it
+					$(this).slideDown(300);
+				}
+				//	If shown already, do nothing
+			} else {
+				//	If not match, hide
+				if ($(this).css('display') !== 'none') {
+					//	If shown, then we hide it
+					$(this).slideUp(300);
+				}
+				//	If hided already, do nothing
+			}
 		});
     };
 	
