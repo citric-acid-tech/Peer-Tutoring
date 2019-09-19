@@ -536,7 +536,11 @@ textarea:read-only {
 
 
 
-
+/* No Edition */
+.tutors-page .no-edit {
+	border: none!important;
+	font-weight: bold;
+}
 
 
 
