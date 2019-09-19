@@ -478,3 +478,6 @@ $lang['tut_set_phone_number_hint'] = 'Provide your phone number for easier commu
 $lang['tut_set_intro_hint'] = 'A short self-introduction of what you do will be nice :)';
 $lang['tut_set_fc_hint'] = 'Flexible Column specified by admin.';
 $lang['go_to_personal_page'] = 'Go to Personal Page';
+$lang['tut_appm_popup_feedback_hint'] = 'How the student performed during the service. Did he/she arrive on time? Was he/she fully concentrated? Was there any problem of communication during the service?';
+$lang['tut_appm_popup_suggestion_hint'] = 'What do you think the student needs to do after this service?';
+$lang['provide_students_with_feedback_and_suggestions'] = 'Provide Students With Feedback & Suggestions!';
