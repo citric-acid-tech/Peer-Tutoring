@@ -113,7 +113,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					showOtherMonths: true,
 					hideIfNoPrevNext: true,
 					minDate: "0",
-					maxDate: "1w",
+					maxDate: GlobalVariables.max_check_ahead_day + "d",
 //					showWeek: true,
 					onSelect: function() {
 						helper.filter($('#date-title').val());
@@ -142,6 +142,12 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					}
 					helper.calendar = calendar;
 					calendar.render();
+					var mql = window.matchMedia("screen and (max-width: 1100px)");
+					if (mql.matches) {
+						setTimeout(function() {
+							calendar.changeView('listWeek');
+						}, 50);
+					}
 					firstLoad = true;
 				} else {
 					calendar.refetchEvents();
@@ -227,7 +233,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			validRange: function(nowDate) {
 				return {
 					start:	nowDate,
-					end:	moment(nowDate).add(7, 'days').toDate()
+					end:	moment(nowDate).add(parseInt(GlobalVariables.max_check_ahead_day), 'days').toDate()
 				};
 			},
 			//	Locale

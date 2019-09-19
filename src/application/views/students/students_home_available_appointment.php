@@ -24,7 +24,8 @@
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
 		curLanguage        : <?= json_encode($language) ?>,
-		semester_json      : <?= $semester_json ?>
+		semester_json      : <?= $semester_json ?>,
+		max_check_ahead_day: <?= json_encode($max_services_checking_ahead_day) ?>
     };
 
     $(document).ready(function() {
@@ -137,6 +138,7 @@
 					</div>    	
 				</div>	
 			</div>
+			<br />
 		</div>
 		
 		<!-- Select by Time Tab -->
@@ -182,6 +184,7 @@
 					</div>
 				</div>
 			</div>
+			<br />
 		</div>
 		
 		<!-- Check Available Time in Calendar Tab -->
@@ -272,6 +275,7 @@
 					</div>
 				</div>
 			</div>
+			<br />
 		</div>
 	</div>
 	

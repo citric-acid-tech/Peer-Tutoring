@@ -144,11 +144,11 @@
 					</form>
 				</div>
 			</div>
+			<br />
 		</div>
 	
 		<!-- Tutor Tab -->
 		<div role="tabpanel" class="tab-pane fade" id="tutor_config">
-			
 			<div class="container" style="width: 90%;margin-top: 30px;">
 				<div class="wrapper row">
 					<!-- filter tutors -->
@@ -280,6 +280,7 @@
 					</form>
 				</div>
 			</div>
+			<br />
 		</div>
 		
 		<!-- Service Type Tab -->
@@ -383,6 +384,7 @@
 					</form>
 				</div>
 			</div>
+			<br />
 		</div>
 	</div>
 	
