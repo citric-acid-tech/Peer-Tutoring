@@ -550,7 +550,7 @@ class Students_model extends CI_Model{
         
 
         if( ! $is_ok){
-            return array('result'=> FALSE, 'msg'=> 'invaild_type');
+            return array('result'=> FALSE, 'msg'=> 'invalid_type');
         }
 
         $hash_id = $this->db
