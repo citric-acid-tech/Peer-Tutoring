@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css') ?>">
 
     <link rel="icon" type="image/x-icon" href="<?= asset_url('assets/img/favicon.ico') ?>">
+	<!-- Add Font Awesome for icons -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
 
     <script>
         var EALang = <?= json_encode($this->lang->language) ?>;
@@ -70,7 +72,7 @@
         <br>
 
         <a href="<?= site_url() ?>" class="btn btn-primary btn-large">
-            <span class="glyphicon glyphicon-calendar"></span>
+            <i class="fas fa-home"></i>
             <?= lang('d_home') ?>
         </a>
         
