@@ -299,12 +299,14 @@
             csrfToken: GlobalVariables.csrfToken,
 			appointment_id: (id === undefined || id === '') ? JSON.stringify('ALL') : id,
 			booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
-			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn),
-			student_name: JSON.stringify((sn === undefined || sn === '' || sn === '- Search all Students -') ? 'ALL' : sn),
+			service_type: JSON.stringify((st === undefined || st === '' || st === '- ' + EALang.search_all_service_categories + ' -') ? 'ALL' : st),
+			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- ' + EALang.search_all_tutors + ' -') ? 'ALL' : tn),
+			student_name: JSON.stringify((sn === undefined || sn === '' || sn === '- ' + EALang.search_all_students + ' -') ? 'ALL' : sn),
 			start_date: JSON.stringify((sd === undefined || sd === '') ? 'ALL' : sd),
 			end_date: JSON.stringify((ed === undefined || ed === '') ? 'ALL' : ed)
         };
+		
+		alert(JSON.stringify(postData));
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
@@ -400,7 +402,7 @@
 			case "1": translation_mark = EALang.bs1;	break;
 			case "2": translation_mark = EALang.bs2;	break;
 			case "3": translation_mark = EALang.bs3;	break;
-			default: translation_mark = "no match booking status";
+			default: translation_mark = EALang.bs_404;
 		}
 		
         return translation_mark;
@@ -578,14 +580,14 @@
 		if (start_valid && end_valid) {
 			//	If end_date is before start_date, gg
 			if (start_date > end_date) {
-				Admin.displayNotification("Ending Date is before Starting Date!", undefined, "failure");
+				Admin.displayNotification(EALang.date_reverse_error, undefined, "failure");
 				return false;
 			} else {
 				return true;
 			}
 		} else {
 			//	If Any of them is invalid, gg
-			Admin.displayNotification("Invalid Date Input!", undefined, "failure");
+			Admin.displayNotification(EALang.invalid_date_input, undefined, "failure");
 			return false;
 		}
     };
