@@ -226,9 +226,9 @@ class General_model extends CI_Model{
         $now = $now_datetimeObj->format('Y-m-d H:i:s');
         $data = [
             'email' => json_encode($mail_arr),
-            'subject' => $subject,
-            'email_body' => $body,
-            'timestamp' => $now
+            'subject' => json_encode($subject),
+            'email_body' => json_encode($body),
+            'timestamp' => json_encode($now)
        ];
 
         $this->db->insert('ea_buffer_failed_email', $data);
