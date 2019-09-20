@@ -111,7 +111,7 @@
 				service_status_to = '2';
 				service_status_lang = EALang.bs2;
 			} else {
-				Tutors.displayNotification("ERROR ON Tutor - Modify Service Status: No such logical Service Status!", undefined, "failure");
+				Tutors.displayNotification(EALang.tut_aa_modstatus_404, undefined, "failure");
 				return false;
 			}
 
@@ -131,8 +131,8 @@
                 }
             ];
 			
-            GeneralFunctions.displayMessageBox("Next Service Status: " + service_status_lang,
-											   "Are you sure you want to push the service to the next status?", buttons);
+            GeneralFunctions.displayMessageBox(EALang.next_service_status + ": " + service_status_lang,
+											   EALang.tut_aa_modstatus_prompt, buttons);
         });
     
 		
@@ -152,7 +152,7 @@
 			//	Feedback is required, check
 			var feedback = $('#popup_feedback_input').val();
 			if (feedback === '') {
-				Tutors.displayNotification("Feedback is required!", undefined, "failure");
+				Tutors.displayNotification(EALang.tut_aa_save_empty_feedback, undefined, "failure");
 				$('#popup_feedback_input').addClass('gg');
 				setTimeout(function() {
 					$('#popup_feedback_input').removeClass('gg');
@@ -179,7 +179,7 @@
         	    }
 				
 				if (response === 'SUCCESS') {
-					Tutors.displayNotification("Feedback Process Completed!", undefined, "success");
+					Tutors.displayNotification(EALang.tut_aa_save_feedback_success, undefined, "success");
 				}
         	}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 			
@@ -312,9 +312,9 @@
             }
 			
 			if (response === 'SUCCESS') {
-				Tutors.displayNotification("Service Status Modified.", undefined, "success");
+				Tutors.displayNotification(EALang.tut_aa_modstatus_success, undefined, "success");
 			} else {
-				Tutors.displayNotification("Something went wrong on the output of the Modification");
+				Tutors.displayNotification(EALang.tut_aa_modstatus_unknown_error);
 			}
             
 			var ins = this;
@@ -422,8 +422,8 @@
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
             service_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
-			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			student_name: JSON.stringify((sn === undefined || sn === '' || sn === '- Search all Students -') ? 'ALL' : sn),
+			service_type: JSON.stringify((st === undefined || st === '' || st === '- ' + EALang.search_all_service_categories + ' -') ? 'ALL' : st),
+			student_name: JSON.stringify((sn === undefined || sn === '' || sn === '- ' + EALang.search_all_students + ' -') ? 'ALL' : sn),
 			start_date: JSON.stringify((sd === undefined || sd === '') ? 'ALL' : sd),
 			end_date: JSON.stringify((ed === undefined || ed === '') ? 'ALL' : ed)
         };
@@ -476,7 +476,7 @@
 		
 		//	The service_type will be used in the first line
 		var service_type = (appointment.service_type !== '' && appointment.service_type !== null) ?
-			appointment.service_type : ("Appointment " + (index+1));
+			appointment.service_type : (EALang.appointment + " " + (index+1));
 		//	Stars in first line
 		var stars = appointment.stars;
 		
@@ -518,7 +518,7 @@
 			case "1": translation_mark = EALang.bs1;	break;
 			case "2": translation_mark = EALang.bs2;	break;
 			case "3": translation_mark = EALang.bs3;	break;
-			default: translation_mark = "no match booking status";
+			default: translation_mark = EALang.bs_404;
 		}
 		
         return translation_mark;
@@ -667,14 +667,14 @@
 		if (start_valid && end_valid) {
 			//	If end_date is before start_date, gg
 			if (start_date > end_date) {
-				Tutors.displayNotification("Ending Date is before Starting Date!", undefined, "failure");
+				Tutors.displayNotification(EALang.date_reverse_error, undefined, "failure");
 				return false;
 			} else {
 				return true;
 			}
 		} else {
 			//	If Any of them is invalid, gg
-			Tutors.displayNotification("Invalid Date Input!", undefined, "failure");
+			Tutors.displayNotification(EALang.invalid_date_input, undefined, "failure");
 			return false;
 		}
     };

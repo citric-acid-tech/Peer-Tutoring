@@ -209,7 +209,7 @@ window.AdminSettings = window.AdminSettings || {};
 				helper = adminSettingsHelperSurvey;
 				//	IFame, no need yet...
 			} else {
-				alert("What have you pressed, my friend??");
+				alert(EALang.genius_unknown_op);
 			}
 			
 			//	Place footer one more time

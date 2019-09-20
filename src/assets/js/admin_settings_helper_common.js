@@ -34,7 +34,7 @@
 		$('#common_save').click(function() {
 			var se = $('#school_email').val();
 			if (!GeneralFunctions.validateEmail(se)) {
-				Admin.displayNotification("Invalid Email: Please check!", undefined, "failure");
+				Admin.displayNotification(EALang.invalid_email, undefined, "failure");
 				$('#school_email').addClass('gg');
 				setTimeout(function() {
 					$('#school_email').removeClass('gg');
@@ -158,9 +158,9 @@
 //			console.log(response);
 			
 			if (response) {
-				Admin.displayNotification("Admin Settings Saved. Page Reloaded in 3 seconds...", undefined, "success");
+				Admin.displayNotification(EALang.save_common_settings_success, undefined, "success");
 			} else {
-				Admin.displayNotification("Something went wrong on saving admin settings.");
+				Admin.displayNotification(EALang.save_common_settings_failed);
 				return false;
 			}
 			

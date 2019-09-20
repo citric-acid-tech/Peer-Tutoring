@@ -100,7 +100,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			onSelect: function() {
 				var val = $(this).val();
 				calendar.gotoDate(new Date(val));
-				$(this).attr('value', 'Go to Date');
+				$(this).attr('value', EALang.go_to_date);
 			}
 		});
 		
@@ -328,7 +328,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				helper.getAllServiceTypes();
 				$('.admin-page #service_type-edit').prop('disabled', true);
 			} else {
-				alert("What have you pressed, my friend??");
+				alert(EALang.genius_unknown_op);
 			}
 			
 			//	Place footer one more time
@@ -358,7 +358,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			//	Some Customized Buttons
 			customButtons: {
 				addService: {
-					text: 'Add a Service',
+					text: EALang.add_service,
 					click: function() {
 						//	Before showing, grab the date and time for loading
 						//	Load Tutor
@@ -372,7 +372,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					}
 				},
 				scheduleToAllWeeks: {
-					text: 'Schedule to All Weeks',
+					text: EALang.schedule_to_all_weeks,
 					click: function() {
 						//	Prompt: you really want to do this???
             			var buttons = [
@@ -402,8 +402,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
             			        }
             			    }
             			];
-            			GeneralFunctions.displayMessageBox("Schedule Current Schema to All Weeks",
-														   "Are you sure you want to do this?", buttons);
+            			GeneralFunctions.displayMessageBox(EALang.schedule_to_all_title,
+														   EALang.schedule_to_all_prompt, buttons);
 					}
 				}
 			},

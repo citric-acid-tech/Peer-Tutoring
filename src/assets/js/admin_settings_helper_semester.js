@@ -50,7 +50,7 @@
 		$('#sem_upload').click(function() {
 			//	If nothing modified, no need to update
 			if ($('ul#sem_info .sem_modify').length === 0 && (!instance.sthDeleted)) {
-				Admin.displayNotification("You did not modify anything and thus there is no need to update.");
+				Admin.displayNotification(EALang.no_mod_no_upd);
 				return false;
 			}
 			
@@ -152,11 +152,11 @@
 					}
 				];
 
-				GeneralFunctions.displayMessageBox("Reacquiring Semester Info",
-												   "You have something modified. Do you really want to discard them?", buttons);
+				GeneralFunctions.displayMessageBox(EALang.reset_sem_info_title,
+												   EALang.reset_sem_info_prompt, buttons);
 			} else {
 				//	If nothing modified, why do I have to reproduce?
-				Admin.displayNotification("You did not modify anything and thus there is no need to reset.");
+				Admin.displayNotification(EALang.no_mod_no_reset);
 			}
 		});
 
@@ -185,8 +185,8 @@
                 }
             ];
 
-            GeneralFunctions.displayMessageBox("Deleting a Semester Row",
-                "Are you sure you want to delete this row?", buttons);
+            GeneralFunctions.displayMessageBox(EALang.del_sem_row_title,
+                EALang.del_sem_row_prompt, buttons);
 		});
 
         /**
@@ -227,11 +227,11 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Semester Information Updated. Page Reloaded in 3 seconds...", undefined, "success");
+				Admin.displayNotification(EALang.save_sem_info_success, undefined, "success");
 			} else if (response === 'failed') {
-				Admin.displayNotification("ajax_save_semester_json: nonono", undefined, "failure");
+				Admin.displayNotification(EALang.save_sem_info_failed, undefined, "failure");
 			} else {
-				Admin.displayNotification("ajax_save_semester_json: REALLY GG!", undefined, "failure");
+				Admin.displayNotification(EALang.save_sem_info_unknown_error, undefined, "failure");
 			}
 			
 			//	Reload page

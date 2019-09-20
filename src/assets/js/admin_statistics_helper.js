@@ -35,8 +35,8 @@
          * Event: Clear dates
          */
 		$('#clear_dates').click(function() {
-			$('#start_date').val('Start Date');
-			$('#end_date').val('End Date');
+			$('#start_date').val(EALang.start_date);
+			$('#end_date').val(EALang.end_date);
 			instance.datatable.ajax.reload();
 		});
 		
@@ -56,7 +56,7 @@
 			case "1": translation_mark = EALang.bs1;	break;
 			case "2": translation_mark = EALang.bs2;	break;
 			case "3": translation_mark = EALang.bs3;	break;
-			default: translation_mark = "no match booking status";
+			default: translation_mark = EALang.bs_404;
 		}
 		
         return translation_mark;
@@ -70,20 +70,20 @@
 		var start_date = moment(sd, 'YYYY-MM-DD');
 		var end_date = moment(ed, 'YYYY-MM-DD');
 		//	Check if dates separately are valid
-		var start_valid = (sd === '') || (sd === 'Start Date') || start_date.isValid();
-		var end_valid = (ed === '') || (ed === 'End Date') || end_date.isValid();
+		var start_valid = (sd === '') || (sd === EALang.start_date) || start_date.isValid();
+		var end_valid = (ed === '') || (ed === EALang.end_date) || end_date.isValid();
 		//	Check Validity
 		if (start_valid && end_valid) {
 			//	If end_date is before start_date, gg
 			if (start_date > end_date) {
-				Admin.displayNotification("Ending Date is before Starting Date!", undefined, "failure");
+				Admin.displayNotification(EALang.date_reverse_error, undefined, "failure");
 				return false;
 			} else {
 				return true;
 			}
 		} else {
 			//	If Any of them is invalid, gg
-			Admin.displayNotification("Invalid Date Input!", undefined, "failure");
+			Admin.displayNotification(EALang.invalid_date_input, undefined, "failure");
 			return false;
 		}
     };

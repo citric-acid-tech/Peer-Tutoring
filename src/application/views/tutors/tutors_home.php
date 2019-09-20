@@ -37,33 +37,33 @@
                 <div class="input-group">
                    <div class="input-group-selection">
                   		<!-- Select Booking Status -->
-                  		<select id="tutor-appointment_management_booking_status" class="form-control" title="Select a booking status">
-                  			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
+                  		<select id="tutor-appointment_management_booking_status" class="form-control" title="<?= lang('select_a_booking_status') ?>">
+                  			<option class="default_bs" value="ALL" selected>- <?= lang('select_a_booking_status') ?> -</option>
                   			<option value="0" class='bs0'><?= lang("bs0") ?></option>
                   			<option value="1" class='bs1'><?= lang("bs1") ?></option>
                   			<option value="2" class='bs2'><?= lang("bs2") ?></option>
                   			<option value="3" class='bs3'><?= lang("bs3") ?></option>
                   		</select>
                   		<!-- Select Service Type -->
-                  		<input type="text" class="form-control" id="tutor-appointment_management_service_category" placeholder="Type for a service type" title="Select a service type" autocomplete="off" />
+                  		<input type="text" class="form-control" id="tutor-appointment_management_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
                   		<div id="am_sc_display">
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-category" class="filter-list">
-                 				<li class="filter-item filter-item--close" title="- Search all Service Categories -"><strong>Search all Service Categories</strong></li>
+                 				<li class="filter-item filter-item--close" title="- <?= lang('search_all_service_categories') ?> -"><strong><?= lang('search_all_service_categories') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
  						<!-- Select Student Name -->
-                   		<input type="text" class="key form-control" id="tutor-appointment_management_students" placeholder="Type for a Student" title="Select a Student" autocomplete="off" />
+                   		<input type="text" class="key form-control" id="tutor-appointment_management_students" placeholder="<?= lang('type_for_a_student') ?>" title="<?= lang('type_for_a_student') ?>" autocomplete="off" />
                   		<div id="am_tn_display">
                   			<ul id="filter-student-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- Search all Students -"><strong>Search all Students</strong></li>
+                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_students') ?> -"><strong><?= lang('search_all_students') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
                   		<!-- Select Date -->
-                  		<input type="text" class="form-control" id="tutor-appointment_management_start_date" placeholder="Select a Minimum Starting Date" title="Select a Minimum Starting Date" autocomplete="off" readonly />
-                  		<input type="text" class="form-control" id="tutor-appointment_management_end_date" placeholder="Select a Maximum Ending Date" title="Select a Maximum Ending Date" autocomplete="off" readonly />
+                  		<input type="text" class="form-control" id="tutor-appointment_management_start_date" placeholder="<?= lang('select_a_minimum_starting_date') ?>" title="<?= lang('select_a_minimum_starting_date') ?>" autocomplete="off" readonly />
+                  		<input type="text" class="form-control" id="tutor-appointment_management_end_date" placeholder="<?= lang('select_a_maximum_ending_date') ?>" title="<?= lang('select_a_maximum_ending_date') ?>" autocomplete="off" readonly />
                    </div>
                    
                    <div class="input-group-addon">
@@ -176,7 +176,7 @@
 		            		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
 		            			<i class="fas fa-download"></i>
 		            			&nbsp;
-		            			<strong>Download Attachment</strong>
+		            			<strong><?= lang('download_attachment') ?></strong>
 		            		</a>
 		            	</button>			            
 			        </div>
@@ -188,16 +188,16 @@
     	<div class="curtain"></div>
     	<div id="tutor_feedback_popup_window">
     		<form>
-    			<div class="feedback-title popup-title"><h2>Provide Students With Feedback & Suggestions!</h2></div>
+    			<div class="feedback-title popup-title"><h2><?= lang('provide_students_with_feedback_and_suggestions') ?></h2></div>
     			<hr />
 				<div class="feedback-container popup-container feedback">
-					<textarea id="popup_feedback_input" placeholder="Feedback *: How the student performed during the service. Did he/she arrive on time? Was he/she fully concentrated? Was there any problem of communication during the service?" rows="6" style="resize: none;" title="Feedback *"></textarea>
-					<textarea id="popup_suggestion_input" placeholder="Suggestion:What do you think the student needs to do after this service?" rows="6" style="resize: none;" title="Suggestion"></textarea>
+					<textarea id="popup_feedback_input" placeholder="<?= lang('feedback') ?> *: <?= lang('tut_appm_popup_feedback_hint') ?>" rows="6" style="resize: none;" title="<?= lang('feedback') ?> *"></textarea>
+					<textarea id="popup_suggestion_input" placeholder="<?= lang('suggestion') ?>: <?= lang('tut_appm_popup_suggestion_hint') ?>" rows="6" style="resize: none;" title="<?= lang('suggestion') ?>"></textarea>
 				</div>
 				<hr />
 				<div class="feedback-container popup-container">
-					<input id="feedback_save" class="feedback_popup_buttons popup_buttons" type="button" value="Submit">
-					<input id="feedback_cancel" class="feedback_popup_buttons popup_buttons" type="button" value="Cancel">
+					<input id="feedback_save" class="feedback_popup_buttons popup_buttons" type="button" value="<?= lang('submit') ?>">
+					<input id="feedback_cancel" class="feedback_popup_buttons popup_buttons" type="button" value="<?= lang('cancel') ?>">
 				</div>
     		</form>
     	</div>

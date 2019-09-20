@@ -32,9 +32,9 @@
     <div class="row" style="margin:auto;">
     	<div class="container">
     		<div style="text-align:center;">
-    			<input id="start_date" class="btn btn-primary" value="Start Date" type="button" title="Start Date" style="margin:10px;width:100px;height:50px;" readonly />
-    			<button id="clear_dates" class="btn btn-default" type="button" title="Clear Dates" style="margin:10px;width:50px;height:50px;"><i class="fas fa-minus fa-lg"></i></button>
-    			<input id="end_date" class="btn btn-primary" value="End Date" type="button" title="End Date" style="margin:10px;width:100px;height:50px;" readonly />
+    			<input id="start_date" class="btn btn-primary" value="<?= lang('start_date') ?>" type="button" title="<?= lang('start_date') ?>" style="margin:10px;width:100px;height:50px;" readonly />
+    			<button id="clear_dates" class="btn btn-default" type="button" title="<?= lang('clear_dates') ?>" style="margin:10px;width:50px;height:50px;"><i class="fas fa-minus fa-lg"></i></button>
+    			<input id="end_date" class="btn btn-primary" value="<?= lang('end_date') ?>" type="button" title="<?= lang('end_date') ?>" style="margin:10px;width:100px;height:50px;" readonly />
     		</div>
     	</div>
 		<table id="service_statistics" class="table">
@@ -49,7 +49,7 @@
 				</tr>
 			</thead>
 			<tfoot>
-				<tr><td colspan="6"><strong>If you want to retrieve more statistics, <a href="mailto:11710116@mail.sustech.edu.cn">contact us!</a></strong></td></tr>
+				<tr><td colspan="6"><strong><?= lang('ad_set_stat_former_half_hint') ?><a href="mailto:11710116@mail.sustech.edu.cn"><?= lang('contact_us') ?></a></strong></td></tr>
 			</tfoot>
 			<tbody></tbody>
 		</table>

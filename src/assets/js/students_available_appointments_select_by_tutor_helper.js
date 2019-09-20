@@ -223,8 +223,8 @@
         var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_get_available_tutors';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn)
+			service_type: JSON.stringify((st === undefined || st === '' || st === '- ' + EALang.search_all_service_categories + ' -') ? 'ALL' : st),
+			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- ' + EALang.search_all_tutors + ' -') ? 'ALL' : tn)
         };
 
         $.post(postUrl, postData, function (response) {
@@ -280,7 +280,7 @@
 		var earliest_start_datetime = GeneralFunctions.formatDate(Date.parse(tutor.earliest_start_datetime), GlobalVariables.dateFormat, true);
 
 		var line1 = "<strong>" + tutor_name + "</strong>";
-		var line2 = "Earliest Service: " + earliest_start_datetime;
+		var line2 = EALang.earliest_service + ": " + earliest_start_datetime;
 			
         var html =
             '<div class="entry" data-id="' + tutor.tutor_id + '">' +	//	Starting <div> block

@@ -36,26 +36,26 @@
     		<form>
                 <div class="input-group">
                    <div class="input-group-selection">
-                  		<select id="my_appointments_booking_status" class="form-control" title="Select a booking status">
-                  			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
+                  		<select id="my_appointments_booking_status" class="form-control" title="<?= lang('select_a_booking_status') ?>">
+                  			<option class="default_bs" value="ALL" selected>- <?= lang('select_a_booking_status') ?> -</option>
                   			<option value="0" class='bs0'><?= lang("bs0") ?></option>
                   			<option value="1" class='bs1'><?= lang("bs1") ?></option>
                   			<option value="2" class='bs2'><?= lang("bs2") ?></option>
                   			<option value="3" class='bs3'><?= lang("bs3") ?></option>
                   		</select>
-                  		<input type="text" class="form-control" id="my_appointments_service_category" placeholder="Type for a service category" title="Select a service category" autocomplete="off" />
+                  		<input type="text" class="form-control" id="my_appointments_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
                   		<div id="ma_sc_display">
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-category" class="filter-list">
-                 				<li class="filter-item filter-item--close" title="- Search all Service Categories -"><strong>Search all Service Categories</strong></li>
+                 				<li class="filter-item filter-item--close" title="- <?= lang('search_all_service_categories') ?> -"><strong><?= lang('search_all_service_categories') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
  
-                   		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" autocomplete="off" />
+                   		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
                   		<div id="ma_tn_display">
                   			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- Search all Tutors -"><strong>Search all Tutors</strong></li>
+                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_tutors') ?> -"><strong><?= lang('search_all_tutors') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
@@ -107,7 +107,6 @@
 
            <div class="row">
                <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
-                   
                    <div class="form-group">
                        <label class="control-label" for="remark"><?= lang('remark') ?></label>
                        <input id="remark" class="form-control" readonly>
@@ -172,7 +171,7 @@
 		            		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
 		            			<i class="fas fa-download"></i>
 		            			&nbsp;
-		            			<strong>Download Attachment</strong>
+		            			<strong><?= lang('download_attachment') ?></strong>
 		            		</a>
 		            	</button>			            
 			        </div>
@@ -184,10 +183,10 @@
     	<div class="curtain"></div>
     	<div id="assess_popup">
     		<form>
-    			<div class="assess-title popup-title"><h2>Assess the Service!</h2></div>
+    			<div class="assess-title popup-title"><h2><?= lang('assess_the_service') ?></h2></div>
     			<hr />
 				<div class="assess-container popup-container rate">
-					<label class="control-label" style="user-select:none;">Rate: </label>
+					<label class="control-label" style="user-select:none;"><?= lang('rate') ?>: </label>
 					<span class="stars">
 						<!-- No Star -->
 						<input class="rating__input rating__input--none" name="rating" id="rating-none" value="0" type="radio" />
@@ -222,12 +221,12 @@
 					</span>
 				</div>
 				<div class="assess-container popup-container feedback">
-					<textarea id="assess_feedback" placeholder="Please write down your comments/suggestions!" rows="6" style="resize: none;width:90%;border: 1px solid rgb(41, 109, 151, 0.7);"></textarea>
+					<textarea id="assess_feedback" placeholder="<?= lang('stu_ma_popup_assess_hint') ?>" rows="6" style="resize: none;width:90%;border: 1px solid rgb(41, 109, 151, 0.7);"></textarea>
 				</div>
 				<hr />
 				<div class="assess-container popup-container">
-					<input id="assess_save" class="assess_buttons popup_buttons" type="button" value="Submit">
-					<input id="assess_cancel" class="assess_buttons popup_buttons" type="button" value="Cancel">
+					<input id="assess_save" class="assess_buttons popup_buttons" type="button" value="<?= lang('submit') ?>">
+					<input id="assess_cancel" class="assess_buttons popup_buttons" type="button" value="<?= lang('cancel') ?>">
 				</div>
     		</form>
     	</div>

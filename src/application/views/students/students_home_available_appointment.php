@@ -61,19 +61,19 @@
 					<form>
 			            <div class="input-group">
 			               <div class="input-group-selection">
-			              		<input type="text" class="form-control" id="available_appointments_service_category" placeholder="Type for a service category" title="Select a service category" autocomplete="off" />
+			              		<input type="text" class="form-control" id="available_appointments_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
 			              		<div id="aa_sc_display">
 			              			<!-- Notice: If category is longer than 35 characters, scale it -->
 			              			<ul id="filter-service-category" class="filter-list">
-			             				<li class="filter-item filter-item--close" title="- Search all Service Categories -"><strong>Search all Service Categories</strong></li>
+			             				<li class="filter-item filter-item--close" title="- <?= lang('search_all_service_categories') ?> -"><strong><?= lang('search_all_service_categories') ?></strong></li>
 			              				<span></span>
 			              			</ul>
 			              		</div>
 			
-			               		<input type="text" class="key form-control" id="available_appointments_tutor" placeholder="Type for a Tutor" title="Select a Tutor" autocomplete="off" />
+			               		<input type="text" class="key form-control" id="available_appointments_tutor" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
 			              		<div id="aa_tn_display">
 			              			<ul id="filter-tutor-name" class="filter-list">
-			              				<li class="filter-item filter-item--close" title="- Search all Tutors -"><strong>Search all Tutors</strong></li>
+			              				<li class="filter-item filter-item--close" title="- <?= lang('search_all_tutors') ?> -"><strong><?= lang('search_all_tutors') ?></strong></li>
 			              				<span></span>
 			              			</ul>
 			              		</div>
@@ -152,15 +152,15 @@
 						<div id="sel_calendar"></div>
 						<div class="row hints">
 							<div class="col-xs-6">
-								<span class="hints-today">15</span> - Today
+								<span class="hints-today">15</span> - <?= lang('today') ?>
 							</div>
 							<div class="col-xs-6">
-								<span class="hints-selected">25</span> - Selected
+								<span class="hints-selected">25</span> - <?= lang('selected') ?>
 							</div>
 						</div>
 						<hr />
 						<span class="help-block">
-							Select a date to check on the tutors available for some services.
+							<?= lang('stu_aa_sbtime_hint') ?>
 						</span>
 					</div>
 					
@@ -177,7 +177,7 @@
 						     </div>
 						</div>
 						<h4>
-							Available Tutors on &nbsp;<input id="date-title" readonly />
+							<?= lang('available_tutors_on') ?> &nbsp;<input id="date-title" readonly />
 						</h4>
 						<hr />
 						<div class="available-tutors-at-time"></div>
@@ -201,12 +201,12 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button id="sel_tutor_by_name" class="btn btn-primary">
 						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
-						    Select Tutor by Name
+						    <?= lang('select_by_tutor_tab') ?>
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button id="sel_tutor_by_time" class="btn btn-primary">
 						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
-						    Select Tutor by Time
+						    <?= lang('select_by_time_tab') ?>
 						</button>
 					</h4>
 				</div>
@@ -216,29 +216,29 @@
 			<div class="popup">
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
-					<div class="popup-title"><h2>Make an Appointment</h2></div>
+					<div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div>
 					<hr />
 					<ul class="appoint_list">
 						<li>
-							<strong>Service</strong>: <span id="appointment_service_service_type"></span>
+							<strong><?= lang('service') ?></strong>: <span id="appointment_service_service_type"></span>
 						</li>
 						<li>
-							<strong>Service Type Description</strong>: <span id="appointment_service_type_description"></span>
+							<strong><?= lang('service_type_description') ?></strong>: <span id="appointment_service_type_description"></span>
 						</li>
 						<li>
-							<strong>Service Description</strong>: <span id="appointment_service_description"></span>
+							<strong><?= lang('service_description') ?></strong>: <span id="appointment_service_description"></span>
 						</li>
 						<li>
-							<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong>Tutor</strong>: <span id="appointment_service_tutor"></span></a>
+							<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong><?= lang('tutor') ?></strong>: <span id="appointment_service_tutor"></span></a>
 						</li>
 						<li id="capacity_check">
-							<strong>Capacity</strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
+							<strong><?= lang('capacity') ?></strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
 						</li>
 						<li>
-							<strong>Time</strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
+							<strong><?= lang('time') ?></strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
 						</li>
 						<li>
-							<strong>Address</strong>: <span id="appointment_service_address"></span>
+							<strong><?= lang('address') ?></strong>: <span id="appointment_service_address"></span>
 						</li>
 					</ul>
 					
@@ -247,31 +247,31 @@
 					<hr />
 					<!-- Remark & Note -->
 					<div class="popup-container">
-						<h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong>Apply Now!</strong></h4>
+						<h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong><?= lang('apply_now') ?></strong></h4>
 						<hr style="width:60%;margin: 20px auto;" />
 						<div style="width:43%;display:inline-block;">
-							<textarea id="appointment_service_remark" type="text" placeholder="Remark: Customized Label for this appointment" rows="2" title="Remark: Customized Label for this appointment" style="resize:none;width:100%;"></textarea>
+							<textarea id="appointment_service_remark" type="text" placeholder="<?= lang('stu_aa_cal_remark_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_remark_hint') ?>" style="resize:none;width:100%;"></textarea>
 						</div>
 						<div style="width:43%;display:inline-block;">
-							<textarea id="appointment_service_note" type="text" placeholder="Note: What you want to say to the tutor" rows="2" title="Note: What you want to say to the tutor" style="resize:none;width:100%;"></textarea>
+							<textarea id="appointment_service_note" type="text" placeholder="<?= lang('stu_aa_cal_note_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_note_hint') ?>" style="resize:none;width:100%;"></textarea>
 						</div>
-						<div style="width:90%;margin:5px auto;" class="help-block">Write down your remark and leave a note for the appointment.</div>
+						<div style="width:90%;margin:5px auto;" class="help-block"><?= lang('stu_aa_cal_gen_hint') ?></div>
 					</div>
 					<div class="popup-container">
 						<!-- size: KB -->
 						<!-- i class="fas fa-upload"></i -->
 						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" accept=".doc,.docx,.md,.pdf,.png,.zip,.jar,.7z" />
-						<label for="appointment_service_attach"><strong>Attach a File</strong></label>
+						<label for="appointment_service_attach"><strong><?= lang('attach_a_file') ?></strong></label>
 						<div class="help-block">
-							Restricted Formats: <?php echo str_replace('|', ', ', DOCUMENT_FORMAT); ?>
+							<?= lang('restricted_formats') ?>: <?php echo str_replace('|', ', ', DOCUMENT_FORMAT); ?>
 						</div>
 					</div>
 					
 					<hr />
 					<!-- Buttons -->
 					<div class="popup-container">
-						<button id="popup_appointment_confirm" type="button" class="popup_buttons">Confirm</button>
-						<button id="popup_appointment_cancel" type="button" class="popup_buttons">Cancel</button>
+						<button id="popup_appointment_confirm" type="button" class="popup_buttons" title="<?= lang('confirm') ?>"><?= lang('confirm') ?></button>
+						<button id="popup_appointment_cancel" type="button" class="popup_buttons" title="<?= lang('cancel') ?>"><?= lang('cancel') ?></button>
 					</div>
 				</div>
 			</div>

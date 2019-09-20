@@ -294,11 +294,11 @@
 //			console.log(response);
 			
 			if (response === 'success') {
-				Admin.displayNotification("Admin Settings Saved.", undefined, "success");
+				Admin.displayNotification(EALang.save_email_settings_success, undefined, "success");
 			} else if (response === 'failed') {
-				Admin.displayNotification("Warning: Something went wrong on saving admin settings.");
+				Admin.displayNotification(EALang.save_email_settings_failed);
 			} else {
-				Admin.displayNotification("Error: Something went wrong on saving admin settings.");
+				Admin.displayNotification(EALang.save_email_settings_unknown_error);
 				return false;
 			}
 			

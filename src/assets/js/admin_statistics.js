@@ -81,8 +81,8 @@ window.AdminStatistics = window.AdminStatistics || {};
 				var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_service_statistic';
 				var postData = {
 					csrfToken: GlobalVariables.csrfToken,
-					start_date: JSON.stringify((sd === undefined || sd === '' || sd === 'Start Date') ? 'ALL' : sd),
-					end_date: JSON.stringify((ed === undefined || ed === '' || ed === 'End Date') ? 'ALL' : ed)
+					start_date: JSON.stringify((sd === undefined || sd === '' || sd === EALang.start_date) ? 'ALL' : sd),
+					end_date: JSON.stringify((ed === undefined || ed === '' || ed === EALang.end_date) ? 'ALL' : ed)
 				};
 
 				$.post(postUrl, postData, function (response) {

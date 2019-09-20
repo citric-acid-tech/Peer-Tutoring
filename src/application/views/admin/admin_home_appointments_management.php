@@ -36,41 +36,41 @@
                 <div class="input-group">
                    <div class="input-group-selection">
                    		<!-- Filter Booking Status -->
-                  		<select id="appointments_management_booking_status" class="form-control" title="Select a booking status">
-                  			<option class="default_bs" value="ALL" selected>- Select a booking status -</option>
+                  		<select id="appointments_management_booking_status" class="form-control" title="<?= lang('select_a_booking_status') ?>">
+                  			<option class="default_bs" value="ALL" selected>- <?= lang('select_a_booking_status') ?> -</option>
                   			<option value="0" class="bs0"><?= lang("bs0") ?></option>
                   			<option value="1" class="bs1"><?= lang("bs1") ?></option>
                   			<option value="2" class="bs2"><?= lang("bs2") ?></option>
                   			<option value="3" class="bs3"><?= lang("bs3") ?></option>
                   		</select>
                   		<!-- Filter Service Type -->
-                  		<input type="text" class="form-control" id="appointments_management_service_type" placeholder="Type for a service category" title="Select a service category" autocomplete="off" />
+                  		<input type="text" class="form-control" id="appointments_management_service_type" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
                   		<div id="am_st_display">
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-type" class="filter-list">
-                 				<li class="filter-item filter-item--close" title="- Search all Service Categories -"><strong>Search all Service Categories</strong></li>
+                 				<li class="filter-item filter-item--close" title="- <?= lang('search_all_service_categories') ?> -"><strong><?= lang('search_all_service_categories') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
  						<!-- Filter Tutor Name -->
-                   		<input type="text" class="key form-control" id="appointments_management_tutor" placeholder="Type for a Tutor" title="Select a Tutor" autocomplete="off" />
+                   		<input type="text" class="key form-control" id="appointments_management_tutor" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
                   		<div id="am_tn_display">
                   			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- Search all Tutors -"><strong>Search all Tutors</strong></li>
+                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_tutors') ?> -"><strong><?= lang('search_all_tutors') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
  						<!-- Filter Student Name -->
-                   		<input type="text" class="form-control" id="appointments_management_students" placeholder="Type for a Student" title="Select a Student" autocomplete="off" />
+                   		<input type="text" class="form-control" id="appointments_management_students" placeholder="<?= lang('type_for_a_student') ?>" title="<?= lang('type_for_a_student') ?>" autocomplete="off" />
                   		<div id="am_sn_display">
                   			<ul id="filter-student-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- Search all Students -"><strong>Search all Students</strong></li>
+                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_students') ?> -"><strong><?= lang('search_all_students') ?></strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
                   		<!-- Select Date -->
-                  		<input type="text" class="form-control" id="appointments_management_start_date" placeholder="Select a Minimum Starting Date" title="Select a Minimum Starting Date" autocomplete="off" readonly />
-                  		<input type="text" class="form-control" id="appointments_management_end_date" placeholder="Select a Maximum Ending Date" title="Select a Maximum Ending Date" autocomplete="off" readonly />
+                  		<input type="text" class="form-control" id="appointments_management_start_date" placeholder="<?= lang('select_a_minimum_starting_date') ?>" title="<?= lang('select_a_minimum_starting_date') ?>" autocomplete="off" readonly />
+                  		<input type="text" class="form-control" id="appointments_management_end_date" placeholder="<?= lang('select_a_maximum_ending_date') ?>" title="<?= lang('select_a_maximum_ending_date') ?>" autocomplete="off" readonly />
                    </div>
                    
                    <div class="input-group-addon">
@@ -104,7 +104,7 @@
 			    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
 		        	<!-- Service Basic -->
 			        <div class="form-group">
-			            <label class="control-label" for="appointment-id">Appointment ID</label>
+			            <label class="control-label" for="appointment-id"><?= lang('appointment_id') ?></label>
 			            <input id="appointment-id" class="form-control" readonly>
 			        </div>
 			        <div class="form-group">
@@ -162,7 +162,7 @@
 		            		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
 		            			<i class="fas fa-download"></i>
 		            			&nbsp;
-		            			<strong>Download Attachment</strong>
+		            			<strong><?= lang('download_attachment') ?></strong>
 		            		</a>
 		            	</button>			            
 			        </div>

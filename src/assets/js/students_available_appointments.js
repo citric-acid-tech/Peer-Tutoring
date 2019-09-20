@@ -76,7 +76,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 		
 		//	Prevent Calendar from being clicked in the main page
 		$('.students-page .disabled').click(function(e) {
-			Students.displayNotification("Please select a tutor in the first two tabs~", undefined, "failure");
+			Students.displayNotification(EALang.stu_aa_changeTab_prior_warning, undefined, "failure");
 			e.preventDefault();
 			return false;
 		});
@@ -153,7 +153,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					calendar.refetchEvents();
 				}
 			} else {
-				alert("What have you pressed, my friend??");
+				alert(EALang.genius_unknown_op);
 			}
 			
 			//	Place footer one more time

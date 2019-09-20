@@ -148,7 +148,7 @@
         	    }
 				
 				if (response === 'SUCCESS') {
-					Students.displayNotification("Assessment Completed!", undefined, "success");
+					Students.displayNotification(EALang.stu_ma_assess_success, undefined, "success");
 				}
         	}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 			
@@ -276,7 +276,7 @@
 			} else if (response.cancellation_result === 'cancellation_refused') {
 				Students.displayNotification(EALang.hint_fail_to_cancel_timesake, undefined, "failure");
 			} else {
-				Students.displayNotification("Something went wrong on the output of the cancellation");
+				Students.displayNotification(EALang.stu_ma_cancel_appointment_unknown_error);
 			}
             
             this.resetForm();
@@ -372,8 +372,8 @@
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
             booking_status: JSON.stringify((bs === undefined || bs === '') ? 'ALL' : bs),
-			service_type: JSON.stringify((st === undefined || st === '' || st === '- Search all Service Categories -') ? 'ALL' : st),
-			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- Search all Tutors -') ? 'ALL' : tn)
+			service_type: JSON.stringify((st === undefined || st === '' || st === '- ' + EALang.search_all_service_categories + ' -') ? 'ALL' : st),
+			tutor_name: JSON.stringify((tn === undefined || tn === '' || tn === '- ' + EALang.search_all_tutors + ' -') ? 'ALL' : tn)
         };
 
         $.post(postUrl, postData, function (response) {
@@ -424,7 +424,7 @@
 		
 		//	The remark will be used in the first line
 		var remark = (appointment.remark !== '' && appointment.remark !== null) ?
-			appointment.remark : ("Appointment " + (index+1));
+			appointment.remark : (EALang.appointment + " " + (index+1));
 		//	The booking_status will shown as a label in the first line
 		var booking_status = this.decodeBookingStatus(appointment.booking_status);
 		
@@ -463,7 +463,7 @@
 			case "1": translation_mark = EALang.bs1;	break;
 			case "2": translation_mark = EALang.bs2;	break;
 			case "3": translation_mark = EALang.bs3;	break;
-			default: translation_mark = "no match booking status";
+			default: translation_mark = EALang.bs_404;
 		}
 		
         return translation_mark;

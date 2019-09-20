@@ -41,7 +41,7 @@
 					<label class="control-label" for="given-name"><?= lang('given_name') ?></label>
 					<input id="given-name"data-field="given-name" class="form-control text-field" title="<?= lang('given_name') ?>" />
 					<span class="help-block">
-						Enter your given name here.
+						<?= lang('tut_set_given_name_hint') ?>
 					</span>
 				</div>
 				<br />
@@ -50,7 +50,7 @@
 					<label class="control-label" for="surname"><?= lang('surname') ?></label>
 					<input id="surname"data-field="surname" class="form-control text-field" title="<?= lang('surname') ?>" />
 					<span class="help-block">
-						Enter your surname here.
+						<?= lang('tut_set_surname_hint') ?>
 					</span>
 				</div>
 				<br />
@@ -59,7 +59,7 @@
 					<label class="control-label" for="personal-page"><?= lang('personal_page') ?></label>
 					<input id="personal-page"data-field="personal-page" class="form-control text-field" title="<?= lang('personal_page') ?>" />
 					<span class="help-block">
-						Provide your personal page to let others know you better.
+						<?= lang('tut_set_personal_page_hint') ?>
 					</span>
 				</div>
 			</div>
@@ -68,28 +68,28 @@
 
 			<div class="col-xs-12 col-sm-3">
 				<div class="form-group">
-					<label class="control-label" for="email">Email</label>
-					<input id="email" data-field="email" class="form-control text-field" title="Email" />
+					<label class="control-label" for="email"><?= lang('email') ?></label>
+					<input id="email" data-field="email" class="form-control text-field" title="<?= lang('email') ?>" />
 					<span class="help-block">
-						Put your email here.
+						<?= lang('tut_set_email_hint') ?>
 					</span>
 				</div>
 				<br />
 				
 				<div class="form-group">
-					<label class="control-label" for="address">Address</label>
-					<input id="address" data-field="address" class="form-control text-field" title="Address" />
+					<label class="control-label" for="address"><?= lang('address') ?></label>
+					<input id="address" data-field="address" class="form-control text-field" title="<?= lang('address') ?>" />
 					<span class="help-block">
-						Put your address here.
+						<?= lang('tut_set_address_hint') ?>
 					</span>
 				</div>
 				<br />
 				
 				<div class="form-group">
-					<label class="control-label" for="phone_number">Phone Number</label>
-					<input id="phone_number" data-field="phone_number" class="form-control text-field" title="Phone Number" />
+					<label class="control-label" for="phone_number"><?= lang('phone_number') ?></label>
+					<input id="phone_number" data-field="phone_number" class="form-control text-field" title="<?= lang('phone_number') ?>" />
 					<span class="help-block">
-						Provide your phone number for easier communication.
+						<?= lang('tut_set_phone_number_hint') ?>
 					</span>
 				</div>
 			</div>
@@ -101,7 +101,7 @@
 					<label class="control-label" for="intro"><?= lang('introduction') ?></label>
 					<textarea id="intro" data-field="intro" class="form-control text-field" rows="3" title="<?= lang('introduction') ?>" style="resize: none;"></textarea>
 					<span class="help-block">
-						A short self-introduction of what you do will be nice :&rsaquo;
+						<?= lang('tut_set_intro_hint') ?>
 					</span>
 				</div>
 				<br />
@@ -109,7 +109,7 @@
 				    <label class="control-label" for="flexible_column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= $flexible_column_label ?></label>
 				    <input id="flexible_column" class="form-control" readonly>
 					<span class="help-block">
-						Flexible Column specified by admin.
+						<?= lang('tut_set_fc_hint') ?>
 					</span>
 				</div>
 			</div>			
@@ -128,10 +128,10 @@
 				</button>
 			</div>
 			<div class="btn-group">
-				<button id="go_to_personal_page" class="btn btn-default" title="Go to personal page">
+				<button id="go_to_personal_page" class="btn btn-default" title="<?= lang('go_to_personal_page') ?>">
 					<i class="fas fa-home"></i>
 					&nbsp;
-					Go to personal page
+					<?= lang('go_to_personal_page') ?>
 				</button>
 			</div>
 			

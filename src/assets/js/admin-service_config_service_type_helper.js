@@ -164,9 +164,9 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
+				Admin.displayNotification(EALang.edit_service_type_success, undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_edit_service_type: nonono", undefined, "failure");
+				Admin.displayNotification(EALang.edit_service_type_fail, undefined, "failure");
 			}
 			
 			var newName = $('#service_type-name').val();
@@ -199,11 +199,11 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
+				Admin.displayNotification(EALang.new_service_type_success, undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_new_service_type: Saving Failed", undefined, "failure");
+				Admin.displayNotification(EALang.new_service_type_failed, undefined, "failure");
 			} else {
-				Admin.displayNotification("ajax_new_service_type: Unexpected Behavior", undefined, "failure");
+				Admin.displayNotification(EALang.new_service_type_unknown_error, undefined, "failure");
 			}
 			
 			//	Re-filter everything

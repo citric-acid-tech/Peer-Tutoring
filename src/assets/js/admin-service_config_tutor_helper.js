@@ -131,8 +131,8 @@
                 }
             ];
 
-            GeneralFunctions.displayMessageBox("Dismiss this tutor",
-                "Are you sure you want to dismiss this tutor?", buttons);
+            GeneralFunctions.displayMessageBox(EALang.dismiss_tutor_title,
+                EALang.dismiss_tutor_prompt, buttons);
 		});
         /**
          * Event: Save Tutor Button "Click"
@@ -141,7 +141,7 @@
 			//	Validate Email
 			var email = $('#email').val();
 			if (!GeneralFunctions.validateEmail(email)) {
-				Admin.displayNotification("Invalid Email: Please check!", undefined, "failure");
+				Admin.displayNotification(EALang.invalid_email, undefined, "failure");
 				$('#email').addClass('gg');
 				setTimeout(function() {
 					$('#email').removeClass('gg');
@@ -231,9 +231,9 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Uploaded successfully.", undefined, "success");
+				Admin.displayNotification(EALang.edit_tutor_success, undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("ajax_edit_tutor: nonono", undefined, "failure");
+				Admin.displayNotification(EALang.edit_tutor_fail, undefined, "failure");
 			}
 			
 			var newName = $('#first-name').val() + " " + $('#last-name').val();;
@@ -345,7 +345,7 @@
 				} else {
 					space_or_not = ' ';
 				}
-				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.id + " " + cas_sid + space_or_not + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " " + "<strong class='nameTags'>" + cas_sid + space_or_not + tutor.name + "</strong></div>";
+				var html = "<div class='entry' data-id='" + tutor.id + "' title='" + tutor.id + " " + cas_sid + space_or_not + tutor.name + "'><strong style='font-size:20px; color:rgba(41,109,151,0.75);'>" + tutor.id + "</strong>" + " " + "-" + " <strong>" + cas_sid + "</strong>" + space_or_not + "<strong class='nameTags'>" + tutor.name + "</strong></div>";
 				$('.admin-page #tutor_config .results').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -386,7 +386,7 @@
 			'border': '0.5px solid #296d97'
 		});
 		//	Recover contents and color of help block
-		$('#new_tutor_help').html('Note: multiple IDs can be accepted, with a line feed among each other.');
+		$('#new_tutor_help').html(EALang.ad_sc_tut_new_hint);
 		$('#new_tutor_help').css('color', '#a6a6a6');
 		//	hide confirm button and show save cancel buttons
 		$('#popup_new_tutor_confirm').hide();
@@ -413,11 +413,11 @@
 			if (response.length === 0) {	// If all inserted sucessfully
 				//	change help-text to green
 				$('#new_tutor_help').css('color', 'green');
-				$('#new_tutor_help').html('All IDs have been successfully processed. Now these users will become tutors!');
+				$('#new_tutor_help').html(EALang.new_tutors_ak);
 			} else {	// If some failed
 				//	change help-text to red
 				$('#new_tutor_help').css('color', 'red');
-				$('#new_tutor_help').html('Some IDs fail on the process. Check whether there is anything wrong in the response block.');
+				$('#new_tutor_help').html(EALang.new_tutors_some_fail);
 				//	change response block bg-color into white and border color
 				$('#new_tutor_ids_response').css({
 					'background-color': 'white',
@@ -461,11 +461,11 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("This tutor has been dismissed", undefined, "success");
+				Admin.displayNotification(EALang.dismiss_tutor_success, undefined, "success");
 			} else if (response === 'failed') {
-				Admin.displayNotification("ajax_dismiss_tutor: gg", undefined, "failure");
+				Admin.displayNotification(EALang.dismiss_tutor_fail, undefined, "failure");
 			} else {
-				Admin.displayNotification("ajax_dismiss_tutor: REALLY GG!!!", undefined, "failure");
+				Admin.displayNotification(EALang.dismiss_tutor_unknown_error, undefined, "failure");
 			}
 			
 			//	Re-filter

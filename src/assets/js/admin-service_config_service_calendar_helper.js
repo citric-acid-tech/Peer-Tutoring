@@ -69,8 +69,8 @@
                 }
             ];
 			
-            GeneralFunctions.displayMessageBox("Deleting a Service",
-											   "Are you sure you want to delete this service?", buttons);
+            GeneralFunctions.displayMessageBox(EALang.del_service_title,
+											   EALang.del_service_prompt, buttons);
 			
 			//	Below will be implemented in deleteService(id)
 			//	Delete: Successful in DB
@@ -302,7 +302,7 @@
 		//	Validate Date
 		var date = $('#edit_service_date').val();
 		if (date === '') {	//	empty, gg
-			Admin.displayNotification("Please Choose a date!", undefined, "failure");
+			Admin.displayNotification(EALang.empty_date_warning, undefined, "failure");
 			$('#edit_service_date').toggleClass('gg');
 			setTimeout(function() {
 				$('#edit_service_date').toggleClass('gg');
@@ -313,7 +313,7 @@
 		//	Validate Capacity
 		var cap = $('#edit_service_capacity').val();
 		if(!(/^\+?[1-9]\d*$/.test(cap))) {	//	If not a positive integer, gg
-			Admin.displayNotification("Capacity should be a positive integer...", undefined, "failure");
+			Admin.displayNotification(EALang.neg_cap_warning, undefined, "failure");
 			$('#edit_service_capacity').toggleClass('gg');
 			setTimeout(function() {
 				$('#edit_service_capacity').toggleClass('gg');
@@ -324,7 +324,7 @@
 		//	Validate address
 		var address = $('#edit_service_address').val();
 		if (address === '') {	//	empty, gg
-			Admin.displayNotification("Please offer the address for the service!", undefined, "failure");
+			Admin.displayNotification(EALang.address_needed_warning, undefined, "failure");
 			$('#edit_service_address').toggleClass('gg');
 			setTimeout(function() {
 				$('#edit_service_address').toggleClass('gg');
@@ -336,7 +336,7 @@
 		var start = moment($('#edit_service_st').val(), 'HH:mm');
 		var end = moment($('#edit_service_et').val(), 'HH:mm');
 		if (!start.isValid()) {
-			Admin.displayNotification("Please finish Start Time", undefined, "failure");
+			Admin.displayNotification(EALang.no_start_time_warning, undefined, "failure");
 			$('#edit_service_st').toggleClass('gg');
 			setTimeout(function() {
 				$('#edit_service_st').toggleClass('gg');
@@ -344,7 +344,7 @@
 			return false;
 		}
 		if (!end.isValid()) {
-			Admin.displayNotification("Please finish End Time", undefined, "failure");
+			Admin.displayNotification(EALang.no_end_time_warning, undefined, "failure");
 			$('#edit_service_et').toggleClass('gg');
 			setTimeout(function() {
 				$('#edit_service_et').toggleClass('gg');
@@ -352,7 +352,7 @@
 			return false;
 		}
 		if (start.isSameOrAfter(end)) {	//	If start >= end, gg
-			Admin.displayNotification("Supposed: Start time < End time", undefined, "failure");
+			Admin.displayNotification(EALang.date_reverse_error, undefined, "failure");
 			$('#edit_service_st, #edit_service_et').toggleClass('gg');
 			setTimeout(function() {
 				$('#edit_service_st, #edit_service_et').toggleClass('gg');
@@ -399,11 +399,11 @@
             }
 			
 			if (response === 'success') {
-				Admin.displayNotification("Service Saved.", undefined, "success");
+				Admin.displayNotification(EALang.save_edit_service_success, undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("Failure: Service could not be saved.", undefined, "failure");
+				Admin.displayNotification(EALang.save_edit_service_fail, undefined, "failure");
 			} else {
-				Admin.displayNotification("Something went wrong on editing services");
+				Admin.displayNotification(EALang.save_edit_service_unknown_error);
 			}
 			
 			//	Hide with TimeOut - See Tutor Appointments Management
@@ -486,11 +486,11 @@
 			
 			//	Delete: Successful in DB
 			if (response === 'success') {
-				Admin.displayNotification("Service Deleted.", undefined, "success");
+				Admin.displayNotification(EALang.del_service_success, undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("Failure: Service could not be deleted.", undefined, "failure");
+				Admin.displayNotification(EALang.del_service_fail, undefined, "failure");
 			} else {
-				Admin.displayNotification("Something went wrong on deleting services");
+				Admin.displayNotification(EALang.del_service_unknown_error);
 			}
 			
 			//	Fade
@@ -527,7 +527,7 @@
 		//	Validate Date
 		var date = $('#add_service_date').val();
 		if (date === '') {	//	empty, gg
-			Admin.displayNotification("Please Choose a date!", undefined, "failure");
+			Admin.displayNotification(EALang.empty_date_warning, undefined, "failure");
 			$('#add_service_date').toggleClass('gg');
 			setTimeout(function() {
 				$('#add_service_date').toggleClass('gg');
@@ -538,7 +538,7 @@
 		//	Validate Capacity
 		var cap = $('#add_service_capacity').val();
 		if(!(/^\+?[1-9]\d*$/.test(cap))) {	//	If not a positive integer, gg
-			Admin.displayNotification("Capacity should be a positive integer...", undefined, "failure");
+			Admin.displayNotification(EALang.neg_cap_warning, undefined, "failure");
 			$('#add_service_capacity').toggleClass('gg');
 			setTimeout(function() {
 				$('#add_service_capacity').toggleClass('gg');
@@ -549,7 +549,7 @@
 		//	Validate address
 		var address = $('#add_service_address').val();
 		if (address === '') {	//	empty, gg
-			Admin.displayNotification("Please offer the address for the service!", undefined, "failure");
+			Admin.displayNotification(EALang.address_needed_warning, undefined, "failure");
 			$('#add_service_address').toggleClass('gg');
 			setTimeout(function() {
 				$('#add_service_address').toggleClass('gg');
@@ -561,7 +561,7 @@
 		var start = moment($('#add_service_st').val(), 'HH:mm');
 		var end = moment($('#add_service_et').val(), 'HH:mm');
 		if (!start.isValid()) {
-			Admin.displayNotification("Please finish Start Time", undefined, "failure");
+			Admin.displayNotification(EALang.no_start_time_warning, undefined, "failure");
 			$('#add_service_st').toggleClass('gg');
 			setTimeout(function() {
 				$('#add_service_st').toggleClass('gg');
@@ -569,7 +569,7 @@
 			return false;
 		}
 		if (!end.isValid()) {
-			Admin.displayNotification("Please finish End Time", undefined, "failure");
+			Admin.displayNotification(EALang.no_end_time_warning, undefined, "failure");
 			$('#add_service_et').toggleClass('gg');
 			setTimeout(function() {
 				$('#add_service_et').toggleClass('gg');
@@ -577,7 +577,7 @@
 			return false;
 		}
 		if (start.isSameOrAfter(end)) {	//	If start >= end, gg
-			Admin.displayNotification("Supposed: Start time < End time", undefined, "failure");
+			Admin.displayNotification(EALang.date_reverse_error, undefined, "failure");
 			$('#add_service_st, #add_service_et').toggleClass('gg');
 			setTimeout(function() {
 				$('#add_service_st, #add_service_et').toggleClass('gg');
@@ -622,10 +622,10 @@
             }
 			
 			if (response === '-1') {
-				Admin.displayNotification("Failure: Service could not be saved.", undefined, "failure");
+				Admin.displayNotification(EALang.save_add_service_fail, undefined, "failure");
 				return false;
 			} else {
-				Admin.displayNotification("Service Saved.", undefined, "success");
+				Admin.displayNotification(EALang.save_add_service_success, undefined, "success");
 			}
 			
 			//	Hide with TimeOut - See Tutor Appointments Management
@@ -672,11 +672,11 @@
 			
 			//	Delete: Successful in DB
 			if (response === 'success') {
-				Admin.displayNotification("Successfully scheduled to all semester weeks", undefined, "success");
+				Admin.displayNotification(EALang.schedule_all_success, undefined, "success");
 			} else if (response === 'fail') {
-				Admin.displayNotification("Failure: Services could not be scheduled along.", undefined, "failure");
+				Admin.displayNotification(EALang.schedule_all_fail, undefined, "failure");
 			} else {
-				Admin.displayNotification("Something went wrong on batch scheduling");
+				Admin.displayNotification(EALang.schedule_all_unknown_error);
 			}
 
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

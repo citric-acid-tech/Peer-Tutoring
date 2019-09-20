@@ -64,7 +64,7 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			
 			var email = $('#email').val();
 			if (!GeneralFunctions.validateEmail(email)) {
-				Tutors.displayNotification("Invalid Email: Please check!", undefined, "failure");
+				Tutors.displayNotification(EALang.tut_set_save_invalid_email_error, undefined, "failure");
 				$('#email').addClass('gg');
 				setTimeout(function() {
 					$('#email').removeClass('gg');
@@ -114,9 +114,9 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
             }
 			
 			if (response === 'SUCCESS') {
-				Tutors.displayNotification("Tutor Settings Saved.", undefined, "success");
+				Tutors.displayNotification(EALang.tut_set_save_success, undefined, "success");
 			} else {
-				Tutors.displayNotification("Something went wrong on saving tutor settings.");
+				Tutors.displayNotification(EALang.tut_set_save_unknown_error);
 			}
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

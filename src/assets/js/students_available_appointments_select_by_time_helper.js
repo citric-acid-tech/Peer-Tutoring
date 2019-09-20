@@ -107,8 +107,8 @@
 		var earliest_start_datetime = GeneralFunctions.formatDate(Date.parse(tutor.earliest_start_datetime), GlobalVariables.dateFormat, true);
 
 		var line1 = "<strong>" + tutor_name + "</strong>";
-		var line2 = "Personal Page - " + personal_page;
-		var line3 = "Earliest service starts on " + earliest_start_datetime;
+		var line2 = EALang.personal_page + " - " + personal_page;
+		var line3 = EALang.earliest_service_starts_on + " " + earliest_start_datetime;
 			
         var html =
             '<div class="entry" data-id="' + tutor.tutor_id + '">' +	//	Starting <div> block

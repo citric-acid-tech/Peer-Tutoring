@@ -72,13 +72,13 @@
 		//	Clearing a file input
 		$('#appointment_service_attach').wrap('<form>').closest('form').get(0).reset();
 		$('#appointment_service_attach').unwrap();
-		$("label[for='appointment_service_attach']").html('<strong>Attach a File</strong>');
+		$("label[for='appointment_service_attach']").html('<strong>' + EALang.attach_a_file + '</strong>');
 		$('.inputfile + label').css({
 			"background-color": "#296d97",
 			"color": "snow"
 		});
 		//	Any behaviors cancelled on full capacity
-		$('#popup_apply_title_change strong').html('Apply Now!');
+		$('#popup_apply_title_change strong').html(EALang.apply_now);
 		$('#popup_apply_title_change + hr').removeClass('stretch');
 		$('#capacity_check, #popup_apply_title_change').css('color', '#296d97');
 		$('#appointment_service_remark, #appointment_service_note').prop('readonly', false);
@@ -87,7 +87,7 @@
 		$('#appointment_service_attach + label').removeClass('disabled');
 		$('#popup_appointment_confirm').show();
 		$('#popup_appointment_cancel').css('width', '42%');
-		$('#popup_appointment_cancel').html('Cancel');
+		$('#popup_appointment_cancel').html(EALang.cancel);
     };
 	
     /**
@@ -114,7 +114,7 @@
 			$('#appointment_service_capacity').html(capacity);
 		} else if (parseInt(appointed) === parseInt(capacity)) {
 			//	Styles
-			$('#popup_apply_title_change strong').html('Full Capacity... Join us Next Time!');
+			$('#popup_apply_title_change strong').html(EALang.ma_full_capacity_warning);
 			$('#popup_apply_title_change + hr').addClass('stretch');
 			$('#capacity_check, #popup_apply_title_change').css('color', 'red');
 			$('#appointment_service_remark, #appointment_service_note').prop('readonly', true);
@@ -123,7 +123,7 @@
 			$('#appointment_service_attach + label').addClass('disabled');
 			$('#popup_appointment_confirm').hide();
 			$('#popup_appointment_cancel').css('width', '90%');
-			$('#popup_appointment_cancel').html('Alright');
+			$('#popup_appointment_cancel').html(EALang.alright);
 			//	Load
 			$('#appointment_service_appointed').html(appointed);
 			$('#appointment_service_capacity').html(capacity);
@@ -135,8 +135,7 @@
 		//	Booked?
 		if (event.extendedProps.is_booked === '1') {
 			//	Styles
-			$('#popup_apply_title_change strong').html('Appointment Applied~');
-//			$('#popup_apply_title_change + hr').addClass('stretch');
+			$('#popup_apply_title_change strong').html(EALang.ma_success);
 			$('#capacity_check, #popup_apply_title_change').css('color', 'green');
 			$('#appointment_service_remark, #appointment_service_note').prop('readonly', true);
 			$('#appointment_service_remark, #appointment_service_note').css('background-color', 'lightgray');
@@ -144,7 +143,7 @@
 			$('#appointment_service_attach + label').addClass('disabled');
 			$('#popup_appointment_confirm').hide();
 			$('#popup_appointment_cancel').css('width', '90%');
-			$('#popup_appointment_cancel').html('Close');
+			$('#popup_appointment_cancel').html(EALang.close);
 		}
 		//	Date
 		var start = moment(event.start);
@@ -165,7 +164,7 @@
 //		alert(allowedExtensions.exec(file.name));
 		
 		if (file === undefined) {
-			Students.displayNotification("Please attach a file!", undefined, "failure");
+			Students.displayNotification(EALang.empty_file_warning, undefined, "failure");
 			$('#appointment_service_attach + label').addClass('gg');
 			setTimeout(function() {
 				$('#appointment_service_attach + label').removeClass('gg');
@@ -175,7 +174,7 @@
 		}
 		
 		if (allowedExtensions.exec(file.name) === null) {
-			Students.displayNotification("You should upload a file in the specified formats!", undefined, "failure");
+			Students.displayNotification(EALang.file_format_warning, undefined, "failure");
 			$('#appointment_service_attach + label').addClass('gg');
 			setTimeout(function() {
 				$('#appointment_service_attach + label').removeClass('gg');
@@ -221,19 +220,19 @@
 				}
 				
 				if (response === 'success') {
-					Students.displayNotification("Appointment Submitted.", undefined, "success");
+					Students.displayNotification(EALang.ap_resp_success, undefined, "success");
 				} else if (response === 'booked') {
-					Students.displayNotification("Booked: You've already booked this appointment!", undefined, "failure");
+					Students.displayNotification(EALang.ap_resp_booked, undefined, "failure");
 				} else if (response === 'cap_full') {
-					Students.displayNotification("Capacity: No available space now!.", undefined, "failure");
+					Students.displayNotification(EALang.ap_resp_cap_full, undefined, "failure");
 				} else if (response === 'denied') {
-					Students.displayNotification("Denied: Something went wrong on applying appointments...");
+					Students.displayNotification(EALang.ap_resp_denied);
 				} else if (response === 'invalid_type') {
-					Students.displayNotification("Invalid Type: Uploaded file should be in the list of file formats(check your code)");
+					Students.displayNotification(EALang.ap_resp_invalid_type);
 				} else if (response === 'no_file') {
-					Students.displayNotification("No File: No file uploaded...(Check your code)");
+					Students.displayNotification(EALang.ap_resp_no_file);
 				} else {
-					Students.displayNotification("Failure: Something went wrong on applying appointments...");
+					Students.displayNotification(EALang.ap_resp_unknown_error);
 				}
 				
 				//	Hide with TimeOut - See Tutor Appointments Management
@@ -252,7 +251,7 @@
 			},
 			error: function(e) {
 				console.log("error: " + JSON.stringify(e));
-				Students.displayNotification("Error: Something went wrong on applying appointments");
+				Students.displayNotification(EALang.ap_resp_fatal_error);
 			}
 		});
     };
