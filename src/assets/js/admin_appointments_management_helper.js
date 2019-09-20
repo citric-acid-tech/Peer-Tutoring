@@ -24,7 +24,7 @@
          */
         $('#filter-appointments_management form').submit(function () {
 			var id = $('#appointment-id').val();
-			var bs = $("#my_appointments_booking_status option:selected").val();
+			var bs = $("#appointments_management_booking_status option:selected").val();
 			var st = $('#filter-appointments_management #appointments_management_service_type').val();
 			var tn = $('#filter-appointments_management #appointments_management_tutor').val();
 			var sn = $('#filter-appointments_management #appointments_management_students').val();
