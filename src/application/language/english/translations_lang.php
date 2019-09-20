@@ -575,3 +575,6 @@ $lang['edit_tutor_success'] = 'Uploaded successfully.';
 $lang['edit_tutor_fail'] = 'ajax_edit_tutor: nonono';
 $lang['new_tutors_ak'] = 'All IDs have been successfully processed. Now these users will become tutors!';
 $lang['new_tutors_some_fail'] = 'Some IDs fail on the process. Check whether there is anything wrong in the response block.';
+$lang['dismiss_tutor_success'] = 'This tutor has been dismissed';
+$lang['dismiss_tutor_fail'] = 'ajax_dismiss_tutor: gg';
+$lang['dismiss_tutor_unknown_error:'] = 'ajax_dismiss_tutor: REALLY GG!!!';
