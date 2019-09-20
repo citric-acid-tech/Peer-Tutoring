@@ -216,6 +216,11 @@ class General_model extends CI_Model{
     }
 
     protected function _buffer_failed_email($mail_arr, $subject, $body){
+
+        if(is_null($mail_arr)){
+            return;
+        }
+
         $data = array();
         $now_datetimeObj = new DateTime();
         $now = $now_datetimeObj->format('Y-m-d H:i:s');
