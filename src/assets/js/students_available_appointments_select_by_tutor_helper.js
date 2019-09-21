@@ -76,6 +76,12 @@
 			
 			//	Enable check_available_time button
 			$('#check-available-time-tutor').prop('disabled', false);
+			$('#go-to-tutor-personal-page').prop('disabled', false);
+			//	wrap an html element
+			if ($('#go-to-tutor-personal-page').parent().is("a")) {
+				$('#go-to-tutor-personal-page').unwrap();
+			}
+			$('#go-to-tutor-personal-page').wrap("<a target='_blank' href='" + $('#tutor_page').val() + "'></a>");
         });
 		
         /**
@@ -172,9 +178,12 @@
         $('.record-details').find('input').val('');
 
         //	Disable all operation buttons when the form is reset
-		$('#check-available-time-tutor').prop('disabled', true);
+		$('#go-to-tutor-personal-page, #check-available-time-tutor').prop('disabled', true);
 		//	Show the button group
-        $('#check-available-time-group-tutor').show();
+        $('#go-to-tutor-personal-page, #check-available-time-group-tutor').show();
+		if ($('#go-to-tutor-personal-page').parent().is("a")) {
+			$('#go-to-tutor-personal-page').unwrap();
+		}
 		
 		//	Enable search input buttons
         $('#filter-aa_tutors button').prop('disabled', false);

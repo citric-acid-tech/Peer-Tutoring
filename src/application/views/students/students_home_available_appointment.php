@@ -116,6 +116,10 @@
 					            <input id="tutor_name" class="form-control" readonly>
 					        </div>
 					        <div class="form-group">
+				            	<button id="go-to-tutor-personal-page" class="btn btn-info" style="font-size:12px;">
+				            		<i class="fas fa-home"></i>
+				            	</button>
+				            	&nbsp;
 					            <label class="control-label" for="tutor_page"><?= lang('tutor_page') ?></label>
 					            <input id="tutor_page" class="form-control" readonly>
 					        </div>
