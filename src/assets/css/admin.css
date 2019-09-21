@@ -326,7 +326,7 @@ iframe::-webkit-scrollbar-thumb {
 
 .admin-page#services-page .tutor_config .results {
 	max-height: 333px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 .admin-page#services-page .tutor_config .results::-webkit-scrollbar {
     width: 1.2em;
@@ -470,6 +470,8 @@ iframe::-webkit-scrollbar-thumb {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
 }
 .admin-page .popup #cal_add_popup {
 	border-radius: 10px;
@@ -487,6 +489,8 @@ iframe::-webkit-scrollbar-thumb {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
 }
 .admin-page .popup #tutor_new_tutor_popup {
 	border-radius: 10px;
@@ -504,6 +508,8 @@ iframe::-webkit-scrollbar-thumb {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
 }
 .admin-page .popup #service_type_new_service_type_popup {
 	border-radius: 10px;
@@ -521,6 +527,23 @@ iframe::-webkit-scrollbar-thumb {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
+}
+.admin-page .popup #cal_add_popup::-webkit-scrollbar, .admin-page .popup #cal_edit_popup::-webkit-scrollbar,
+.admin-page .popup #tutor_new_tutor_popup::-webkit-scrollbar, .admin-page .popup #service_type_new_service_type_popup::-webkit-scrollbar {
+    width: 0.2em;
+}
+.admin-page .popup #cal_add_popup::-webkit-scrollbar-track, .admin-page .popup #cal_edit_popup::-webkit-scrollbar-track,
+.admin-page .popup #tutor_new_tutor_popup::-webkit-scrollbar-track, .admin-page .popup #service_type_new_service_type_popup::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.admin-page .popup #cal_add_popup::-webkit-scrollbar-thumb, .admin-page .popup #cal_edit_popup::-webkit-scrollbar-thumb,
+.admin-page .popup #tutor_new_tutor_popup::-webkit-scrollbar-thumb, .admin-page .popup #service_type_new_service_type_popup::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+	border-radius: 20px;
 }
 .admin-page .popup .popup-title h2 {
 	border-radius: 10px 10px 0 0;
@@ -727,7 +750,7 @@ ul#sem_info {
 	padding: 26px;
 	width: 100%;
 	height: 350px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	transition: all 0.3s;
 }
 ul#sem_info::-webkit-scrollbar {
@@ -975,11 +998,15 @@ ul#sem_info .sem_item .sem_delete_row {
 /* STATISTICS */
 
 /* HEIGHT */
-@media (max-height: 750px) {
+@media (max-height: 600px) {
 	.admin-page .popup #cal_add_popup, .admin-page .popup #cal_edit_popup,
-	.admin-page .popup #tutor_new_tutor_popup, .admin-page .popup #service_type_new_service_type_popup {
+	.admin-page .popup #tutor_new_tutor_popup {
 		height: 85%;
-		overflow-y: scroll;
+	}
+}
+@media (max-height: 450px) {
+	.admin-page .popup #service_type_new_service_type_popup {
+		height: 85%;
 	}
 }
 /* HEIGHT */

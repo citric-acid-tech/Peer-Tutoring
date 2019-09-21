@@ -445,6 +445,20 @@ textarea:read-only {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
+}
+.tutors-page .popup #tutor_feedback_popup_window::-webkit-scrollbar {
+    width: 0.2em;
+}
+.tutors-page .popup #tutor_feedback_popup_window::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.tutors-page .popup #tutor_feedback_popup_window::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+	border-radius: 20px;
 }
 .tutors-page .popup .popup-title h2 {
 	border-radius: 10px 10px 0 0;
@@ -532,6 +546,10 @@ textarea:read-only {
     #calendar-page #calendar-actions {
         text-align: left;
     }
+	
+	.tutors-page .popup #tutor_feedback_popup_window {
+		width: 90%;
+	}
 }
 
 @media (max-width: 860px) {
@@ -592,4 +610,13 @@ textarea:read-only {
         width: 48%;
     }
 }
+
+/* HEIGHT */
+@media (max-height: 680px) {
+	.tutors-page .popup #tutor_feedback_popup_window {
+		height: 85%;
+	}
+}
+/* HEIGHT */
+
 /* Responsive Styles */

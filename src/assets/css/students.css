@@ -542,7 +542,7 @@ body::-webkit-scrollbar-thumb {
 }
 .students-page .sel-tutor-by-time .available-tutors-at-time {
 	height: 285px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 .students-page .sel-tutor-by-time .available-tutors-at-time::-webkit-scrollbar {
     width: 1.2em;
@@ -606,6 +606,8 @@ body::-webkit-scrollbar-thumb {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
 }
 .students-page .popup #cal_appointment_popup {
 	border-radius: 10px;
@@ -623,6 +625,20 @@ body::-webkit-scrollbar-thumb {
 	
 	/* Default hide */
 	display: none;
+	
+	overflow: auto;
+}
+.students-page .popup #assess_popup::-webkit-scrollbar, .students-page .popup #cal_appointment_popup::-webkit-scrollbar {
+    width: 0.2em;
+}
+.students-page .popup #assess_popup::-webkit-scrollbar-track, .students-page .popup #cal_appointment_popup::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+.students-page .popup #assess_popup::-webkit-scrollbar-thumb, .students-page .popup #cal_appointment_popup::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+	border-radius: 20px;
 }
 .students-page .popup .popup-title h2 {
 	border-radius: 10px 10px 0 0;
@@ -647,10 +663,10 @@ body::-webkit-scrollbar-thumb {
 	margin: 5px 26px;
 	font-size: 18px;
 	height: 265px;
-	overflow-y: scroll;
+	overflow: auto;
 }
 .students-page .popup .appoint_list::-webkit-scrollbar {
-    width: 1.2em;
+    width: 0.2em;
 }
 .students-page .popup .appoint_list::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -868,11 +884,11 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
-/* CALENDAR: HEADER */
 @media (max-width: 750px) {
-	
+	.students-page .popup #assess_popup, .students-page .popup #cal_appointment_popup {
+		width: 90%;
+	}
 }
-/* CALENDAR: HEADER */
 
 @media (max-width: 468px) {
     #calendar-page .fc-header td {
@@ -924,5 +940,18 @@ body::-webkit-scrollbar-thumb {
 	}
 }
 /* CALENDAR: HEADER */
+
+/* HEIGHT */
+@media (max-height: 790px) {
+	.students-page .popup #cal_appointment_popup {
+		height: 85%;
+	}
+}
+@media (max-height: 490px) {
+	.students-page .popup #assess_popup {
+		height: 85%;
+	}
+}
+/* HEIGHT */
 
 /* Responsive Styles */
