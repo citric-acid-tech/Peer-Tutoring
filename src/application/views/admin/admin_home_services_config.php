@@ -29,8 +29,6 @@
 
     $(document).ready(function() {
 		AdminServiceConfig.initialize(true);
-		// Test
-//		$('#cal_add_popup').resizable();
     });
 </script>
 
