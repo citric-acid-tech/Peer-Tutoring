@@ -386,12 +386,12 @@
 		padding: 0;
 		top: 55%;
 	}
-	.col-sm-4.platform {
+	.col-sm-6.platform {
 		float: left;
 		display: block;
 		width: 29.33%;
-		margin-left: 2%;
-		margin-right: 2%;
+		margin-left: 10%;
+		margin-right: 10%;
 	}
 	.platform .platform_icons {
 		display: block;
@@ -421,7 +421,7 @@
 	}
 }
 @media screen and (max-width: 768px) and (max-height: 160px) {
-	.col-sm-4.platform {
+	.col-sm-6.platform {
 		display: none;
 	}
 	.warning-txt {
@@ -439,7 +439,7 @@
 /* <= 500px */
 @media screen and (max-width: 500px) {
 	.platform a {
-		font-size: 18px;
+		font-size: 15px;
 	}
 }
 /* Responsive Styles */
