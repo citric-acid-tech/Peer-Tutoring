@@ -29,6 +29,8 @@
 
     $(document).ready(function() {
 		AdminServiceConfig.initialize(true);
+		// Test
+//		$('#cal_add_popup').resizable();
     });
 </script>
 
@@ -105,7 +107,7 @@
 						<hr />
 						<!-- Buttons -->
 						<div class="popup-container">
-							<button id="popup_edit_delete" type="button" class="popup_buttons" value="<?= lang('delete_this_service_hint') ?>"><i class="fas fa-trash-alt"></i></button>
+							<button id="popup_edit_delete" type="button" class="popup_buttons" value="<?= lang('delete_this_service_hint') ?>"><i class="fas fa-trash-alt" style="width:90%"></i></button>
 							<button id="popup_edit_confirm" type="button" class="popup_buttons" value="<?= lang('confirm') ?>" style="width:40%;"><?= lang('confirm') ?></button>
 							<button id="popup_edit_cancel" type="button" class="popup_buttons" value="<?= lang('cancel') ?>" style="width:40%;"><?= lang('cancel') ?></button>
 						</div>
