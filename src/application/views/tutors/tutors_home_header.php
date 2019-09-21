@@ -44,6 +44,7 @@
 					</a>
 				</div>
 
+				<button class="navbar-toggle header-home" style="color: snow;" onClick="window.location.href = '<?= site_url() ?>';"><i class="fas fa-home fa-2x"></i></button>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-menu" aria-expanded="false" aria-controls="navbar" onClick="Tutors.naviconGo(this);">
                 	<span class="sr-only">Toggle navigation</span>
                 	<span class="icon-bar bar1"></span>

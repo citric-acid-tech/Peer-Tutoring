@@ -1013,4 +1013,61 @@ ul#sem_info .sem_item .sem_delete_row {
 	}
 }
 /* HEIGHT */
+
+/* Let's see what will happen with this navbar breakpoints handling! */
+/* Thanks to the answer here: https://stackoverflow.com/questions/28659556/change-navbar-breakpoint-in-bootstrap-3-3-2/28659861#28659861,
+	The problem is now solved! */
+@media (max-width: 1300px) {
+    .navbar-header {
+        float: none;
+    }
+	.navbar-header .navbar-brand {
+		display: none;
+	}
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+		float: none;
+		margin: 12px auto;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+   .navbar-nav .open .dropdown-menu {
+       position: static;
+       float: none;
+       width: auto;
+       margin-top: 0;
+       background-color: transparent;
+       border: 0;
+       -webkit-box-shadow: none;
+       box-shadow: none;
+    }
+}
+/* Let's see what will happen with this navbar breakpoints handling! */
+
 /* Responsive Styles */
