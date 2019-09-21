@@ -974,4 +974,13 @@ ul#sem_info .sem_item .sem_delete_row {
 }
 /* STATISTICS */
 
+/* HEIGHT */
+@media (max-height: 750px) {
+	.admin-page .popup #cal_add_popup, .admin-page .popup #cal_edit_popup,
+	.admin-page .popup #tutor_new_tutor_popup, .admin-page .popup #service_type_new_service_type_popup {
+		height: 85%;
+		overflow-y: scroll;
+	}
+}
+/* HEIGHT */
 /* Responsive Styles */
