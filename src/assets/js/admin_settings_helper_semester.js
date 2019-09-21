@@ -124,6 +124,14 @@
 				showAnim: "fold",
 				onClose: function() {
 					$('.sem_start_date').prop('disabled', false);
+				},
+				beforeShowDay: function(date) {
+					var day = moment(date).format('dddd');
+					if (day === 'Monday') {
+						return [true, ''];
+					} else {
+						return [false, ''];
+					}
 				}
 			});
 			newLI.fadeIn(500);
@@ -269,6 +277,14 @@
 					showAnim: "fold",
 					onClose: function() {
 						$('.sem_start_date').prop('disabled', false);
+					},
+					beforeShowDay: function(date) {
+						var day = moment(date).format('dddd');
+						if (day === 'Monday') {
+							return [true, ''];
+						} else {
+							return [false, ''];
+						}
 					}
 				});
 				newLI.find('.sem_last_weeks').val(datetime_info.last_weeks);
