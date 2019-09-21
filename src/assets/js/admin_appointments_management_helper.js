@@ -306,7 +306,7 @@
 			end_date: JSON.stringify((ed === undefined || ed === '') ? 'ALL' : ed)
         };
 		
-		alert(JSON.stringify(postData));
+//		alert(JSON.stringify(postData));
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
