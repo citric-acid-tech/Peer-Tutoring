@@ -60,14 +60,24 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 		$('#save').click(function() {
 			var gn = GeneralFunctions.superEscapeHTML($('#given-name').val());
 			var sn = GeneralFunctions.superEscapeHTML($('#surname').val());
-			var pp = $('#personal-page').val();
 			
+			//	Validate Email
 			var email = $('#email').val();
 			if (!GeneralFunctions.validateEmail(email)) {
 				Tutors.displayNotification(EALang.tut_set_save_invalid_email_error, undefined, "failure");
 				$('#email').addClass('gg');
 				setTimeout(function() {
 					$('#email').removeClass('gg');
+				}, 300);
+				return false;
+			}
+			//	Validate Personal Page
+			var pp = $('#personal-page').val();
+			if (validate({website: pp}, {website: {url: true}}) !== undefined) {
+				Tutors.displayNotification(EALang.invalid_url, undefined, "failure");
+				$('#personal-page').addClass('gg');
+				setTimeout(function() {
+					$('#personal-page').removeClass('gg');
 				}, 300);
 				return false;
 			}

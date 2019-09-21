@@ -32,12 +32,23 @@
 		});
 		
 		$('#common_save').click(function() {
+			//	Validate Email
 			var se = $('#school_email').val();
 			if (!GeneralFunctions.validateEmail(se)) {
 				Admin.displayNotification(EALang.invalid_email, undefined, "failure");
 				$('#school_email').addClass('gg');
 				setTimeout(function() {
 					$('#school_email').removeClass('gg');
+				}, 300);
+				return false;
+			}
+			//	Validate School Link
+			var sl = $('#school_link').val();
+			if (validate({website: sl}, {website: {url: true}}) !== undefined) {
+				Admin.displayNotification(EALang.invalid_url, undefined, "failure");
+				$('#school_link').addClass('gg');
+				setTimeout(function() {
+					$('#school_link').removeClass('gg');
 				}, 300);
 				return false;
 			}
@@ -52,7 +63,6 @@
 			var tf = $('#time_format').val();
 			var fc = GeneralFunctions.superEscapeHTML($('#flexible_column').val());
 			var sn = GeneralFunctions.superEscapeHTML($('#school_name').val());
-			var sl = $('#school_link').val();
 			var mscad = $('#max_services_checking_ahead_day').val();
 			var macad = $('#max_appointment_cancel_ahead_day').val();
 			var ufms = $('#upload_file_max_size').val();

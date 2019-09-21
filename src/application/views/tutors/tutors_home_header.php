@@ -26,6 +26,8 @@
 	<script src="<?= asset_url('assets/ext/jquery-mousewheel/jquery.mousewheel.js', NULL, 'js') ?>"></script>
 	<!-- Add Font Awesome for icons -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
+	<!-- Validate -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/validate/validate.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

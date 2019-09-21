@@ -71,6 +71,8 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/trumbowyg/dist/plugins/specialchars/trumbowyg.specialchars.min.js', NULL, 'js') ?>"></script>
 	<!-- Nice Select -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/niceselect/jquery-nice-select-1.1.0/js/jquery.nice-select.min.js', NULL, 'js') ?>"></script>
+	<!-- Validate -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/validate/validate.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

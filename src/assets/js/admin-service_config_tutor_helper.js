@@ -148,6 +148,16 @@
 				}, 300);
 				return false;
 			}
+			//	Validate Personal Page
+			var personal_page = $('#personal-page').val();
+			if (validate({website: personal_page}, {website: {url: true}}) !== undefined) {
+				Admin.displayNotification(EALang.invalid_url, undefined, "failure");
+				$('#personal-page').addClass('gg');
+				setTimeout(function() {
+					$('#personal-page').removeClass('gg');
+				}, 300);
+				return false;
+			}
 			instance.saveEdition();
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
@@ -203,7 +213,7 @@
 		var phone_number = GeneralFunctions.superEscapeHTML($('#phone-number').val());
 		var address = GeneralFunctions.superEscapeHTML($('#address').val());
 		var email = GeneralFunctions.superEscapeHTML($('#email').val());
-		var personal_page = GeneralFunctions.superEscapeHTML($('#personal-page').val());
+		var personal_page = $('#personal-page').val();
 		var introduction = GeneralFunctions.superEscapeHTML($('#introduction').val());
 		var flexible_column = GeneralFunctions.superEscapeHTML($('#flexible-column').val());
 		

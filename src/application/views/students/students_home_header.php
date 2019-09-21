@@ -42,6 +42,8 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/interaction/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/rrule/main.min.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fullcalendar/packages/core/locales-all.min.js', NULL, 'js') ?>"></script>
+	<!-- Validate -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/validate/validate.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.
