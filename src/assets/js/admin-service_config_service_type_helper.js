@@ -69,8 +69,8 @@
          */
 		$('.admin-page #popup_new_service_type_save').click(function() {
 			//	Grab data
-			var name = $('#new_service_type_name').val();
-			var description = $('#new_service_type_description').val();
+			var name = GeneralFunctions.superEscapeHTML($('#new_service_type_name').val());
+			var description = GeneralFunctions.superEscapeHTML($('#new_service_type_description').val());
 			//	Ajax Opeation
 			instance.saveNewPopup(name, description);
 			//	Below will be done in ajax
@@ -143,8 +143,8 @@
      */
     AdminServiceConfigServiceTypeHelper.prototype.saveEdition = function () {
         var service_type_id = $('#service_type-id').val();
-		var service_type_name = $('#service_type-name').val();
-		var service_type_description = $('#service_type-description').val();
+		var service_type_name = GeneralFunctions.superEscapeHTML($('#service_type-name').val());
+		var service_type_description = GeneralFunctions.superEscapeHTML($('#service_type-description').val());
 		
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_service_type';

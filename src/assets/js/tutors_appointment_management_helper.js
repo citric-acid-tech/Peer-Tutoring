@@ -150,7 +150,7 @@
          */
 		$('.tutors-page #feedback_save').click(function() {
 			//	Feedback is required, check
-			var feedback = $('#popup_feedback_input').val();
+			var feedback = GeneralFunctions.superEscapeHTML($('#popup_feedback_input').val());
 			if (feedback === '') {
 				Tutors.displayNotification(EALang.tut_aa_save_empty_feedback, undefined, "failure");
 				$('#popup_feedback_input').addClass('gg');
@@ -169,7 +169,7 @@
         	    csrfToken: GlobalVariables.csrfToken,
         	    appointment_id: appointmentId,
 				feedback: JSON.stringify(feedback),
-				suggestion: JSON.stringify($('#popup_suggestion_input').val())
+				suggestion: JSON.stringify(GeneralFunctions.superEscapeHTML($('#popup_suggestion_input').val()))
         	};
 			
         	$.post(postUrl, postData, function (response) {

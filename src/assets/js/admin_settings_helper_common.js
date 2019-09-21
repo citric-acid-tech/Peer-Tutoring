@@ -50,8 +50,8 @@
 			//	Retrieve values
 			var df = $('#date_format').val();
 			var tf = $('#time_format').val();
-			var fc = $('#flexible_column').val();
-			var sn = $('#school_name').val();
+			var fc = GeneralFunctions.superEscapeHTML($('#flexible_column').val());
+			var sn = GeneralFunctions.superEscapeHTML($('#school_name').val());
 			var sl = $('#school_link').val();
 			var mscad = $('#max_services_checking_ahead_day').val();
 			var macad = $('#max_appointment_cancel_ahead_day').val();

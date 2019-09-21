@@ -529,4 +529,56 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		 return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
 	 };
 	
+    /**
+     * Super Escape HTML: https://www.npmjs.com/package/escape-html
+	 *
+     * @return True if the email is valid
+     */
+	 exports.superEscapeHTML = function (string) {
+//		console.log(string);
+		var matchHtmlRegExp = /["'&<>]/;
+  		var str = '' + string;
+  		var match = matchHtmlRegExp.exec(str);
+		
+  		if (!match) {
+  		  return str;
+  		}
+		
+  		var escape;
+  		var html = '';
+  		var index = 0;
+  		var lastIndex = 0;
+		
+  		for (index = match.index; index < str.length; index++) {
+  		  switch (str.charCodeAt(index)) {
+  		    case 34: // "
+  		      escape = '"';
+  		      break;
+  		    case 38: // &
+  		      escape = '&';
+  		      break;
+  		    case 39: // '
+  		      escape = "'";
+  		      break;
+  		    case 60: // <
+  		      escape = '<';
+  		      break;
+  		    case 62: // >
+  		      escape = '>';
+  		      break;
+  		    default:
+  		      continue;
+  		  }
+		
+  		  if (lastIndex !== index) {
+  		    html += str.substring(lastIndex, index);
+  		  }
+		
+  		  lastIndex = index + 1;
+  		  html += escape;
+  		}
+//		console.log(lastIndex !== index ? html + str.substring(lastIndex, index) : html);
+  		return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
+	 };
+	
 })(window.GeneralFunctions);

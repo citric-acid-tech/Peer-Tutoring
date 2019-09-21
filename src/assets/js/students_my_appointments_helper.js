@@ -138,7 +138,7 @@
         	    csrfToken: GlobalVariables.csrfToken,
         	    appointment_id: appointmentId,
 				stars: $("#popup_assess input[name='rating']:checked").val(),
-				comment_or_suggestion: JSON.stringify($('#assess_feedback').val())
+				comment_or_suggestion: JSON.stringify(GeneralFunctions.superEscapeHTML($('#assess_feedback').val()))
         	};
 			
         	$.post(postUrl, postData, function (response) {

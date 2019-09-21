@@ -58,8 +58,8 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 		});
 		
 		$('#save').click(function() {
-			var gn = $('#given-name').val();
-			var sn = $('#surname').val();
+			var gn = GeneralFunctions.superEscapeHTML($('#given-name').val());
+			var sn = GeneralFunctions.superEscapeHTML($('#surname').val());
 			var pp = $('#personal-page').val();
 			
 			var email = $('#email').val();
@@ -72,11 +72,11 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 				return false;
 			}
 			
-			var address = $('#address').val();
+			var address = GeneralFunctions.superEscapeHTML($('#address').val());
 			var phone_number = $('#phone_number').val();
 			
-			var intro = $('#intro').val();
-			var fc = $('#flexible_column').val();
+			var intro = GeneralFunctions.superEscapeHTML($('#intro').val());
+			var fc = GeneralFunctions.superEscapeHTML($('#flexible_column').val());
 			TutorsSettingsHelper.saveSettings(gn, sn, pp, email, address, phone_number, intro, fc);
 			$('#save, #cancel').hide();
 			$('#edit, #go_to_personal_page').fadeIn(360);

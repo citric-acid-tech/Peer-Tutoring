@@ -87,7 +87,7 @@
 				
 				<div class="form-group">
 					<label class="control-label" for="phone_number"><?= lang('phone_number') ?></label>
-					<input id="phone_number" data-field="phone_number" class="form-control text-field" title="<?= lang('phone_number') ?>" />
+					<input id="phone_number" type="number" data-field="phone_number" class="form-control text-field" title="<?= lang('phone_number') ?>" />
 					<span class="help-block">
 						<?= lang('tut_set_phone_number_hint') ?>
 					</span>

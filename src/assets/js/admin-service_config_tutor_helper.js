@@ -198,14 +198,14 @@
      */
     AdminServiceConfigTutorHelper.prototype.saveEdition = function () {
         var tutor_id = $('#tutor-id').val();
-		var first_name = $('#first-name').val();
-		var last_name = $('#last-name').val();
-		var phone_number = $('#phone-number').val();
-		var address = $('#address').val();
-		var email = $('#email').val();
-		var personal_page = $('#personal-page').val();
-		var introduction = $('#introduction').val();
-		var flexible_column = $('#flexible-column').val();
+		var first_name = GeneralFunctions.superEscapeHTML($('#first-name').val());
+		var last_name = GeneralFunctions.superEscapeHTML($('#last-name').val());
+		var phone_number = GeneralFunctions.superEscapeHTML($('#phone-number').val());
+		var address = GeneralFunctions.superEscapeHTML($('#address').val());
+		var email = GeneralFunctions.superEscapeHTML($('#email').val());
+		var personal_page = GeneralFunctions.superEscapeHTML($('#personal-page').val());
+		var introduction = GeneralFunctions.superEscapeHTML($('#introduction').val());
+		var flexible_column = GeneralFunctions.superEscapeHTML($('#flexible-column').val());
 		
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_tutor';
@@ -236,7 +236,7 @@
 				Admin.displayNotification(EALang.edit_tutor_fail, undefined, "failure");
 			}
 			
-			var newName = $('#first-name').val() + " " + $('#last-name').val();;
+			var newName = first_name + " " + last_name;
 			$('.admin-page #tutor_config .results .entry.selected')[0].title = newName;
 			$('.admin-page #tutor_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
 			

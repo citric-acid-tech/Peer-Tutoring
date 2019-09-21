@@ -191,8 +191,8 @@
    	StudentsAvailableAppointmentsCalendarHelper.prototype.saveAppointmentPopup = function() {
 		//	fetch data
 		var id = $('#appointment_service_id').val();
-		var remark = $('#appointment_service_remark').val();
-		var note = $('#appointment_service_note').val();
+		var remark = GeneralFunctions.superEscapeHTML($('#appointment_service_remark').val());
+		var note = GeneralFunctions.superEscapeHTML($('#appointment_service_note').val());
 		var file = $('#appointment_service_attach').prop('files')[0];
 
 		var path = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';

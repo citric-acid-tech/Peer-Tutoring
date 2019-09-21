@@ -374,9 +374,9 @@
 		var end_time = $('#edit_service_et').val();
 		var service_type_id = $('select#edit_service_service_type option:selected').val();
 		var tutor_id = $('select#edit_service_tutor option:selected').val();
-		var address = $('#edit_service_address').val();
+		var address = GeneralFunctions.superEscapeHTML($('#edit_service_address').val());
 		var capacity = $('#edit_service_capacity').val();
-		var description = $('#edit_service_description').val();
+		var description = GeneralFunctions.superEscapeHTML($('#edit_service_description').val());
 		
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_service';
         var postData = {
@@ -597,9 +597,9 @@
 		var start_time = $('#add_service_st').val();
 		var end_time = $('#add_service_et').val();
 		var service_type_id = $('select#add_service_service_type option:selected').val();
-		var address = $('#add_service_address').val();
+		var address = GeneralFunctions.superEscapeHTML($('#add_service_address').val());
 		var capacity = $('#add_service_capacity').val();
-		var description = $('#add_service_description').val();
+		var description = GeneralFunctions.superEscapeHTML($('#add_service_description').val());
 		var tutor_id = $('select#add_service_tutor option:selected').val();
 		
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_new_service';
