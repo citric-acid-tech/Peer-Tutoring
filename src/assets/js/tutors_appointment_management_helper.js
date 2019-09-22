@@ -275,7 +275,7 @@
          * Event: Press list items for student name
          */
 		$(document).on('click', '.tutors-page #am_tn_display .filter-item--close, .tutors-page #am_tn_display .filter-item--find', function() {
-			$('.tutors-page #tutor-appointment_management_students').val($(this).attr("title"));
+			$('.tutors-page #tutor-appointment_management_students').val($(this).attr("data-stu_name"));
 			$('#filter-my_appointments #am_tn_display').slideUp(360);
 			instance.filterList('.tutors-page #filter-student-name span li', $('.tutors-page #tutor-appointment_management_students').val().toLowerCase());
 			//	enable two buttons
@@ -612,7 +612,7 @@
 					space_or_not = ' ';
 				}
 				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + space_or_not + student.name.substring(0,20) + "...") : cas_sid + space_or_not + student.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
+				var html = "<li class='filter-item filter-item--find' data-stu_name='" + student.name + "' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
 				$('#filter-my_appointments #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
