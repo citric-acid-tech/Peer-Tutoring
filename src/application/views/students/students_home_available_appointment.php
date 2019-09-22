@@ -89,7 +89,7 @@
 			                   		<br />
 									<div>
 			                        	<button id="clear-filter" class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
-			                        	    <span class="glyphicon glyphicon-repeat"></span>
+			                        	    <i class="fas fa-times"></i>
 			                        	</button>
 									</div>
 			                   </div>
