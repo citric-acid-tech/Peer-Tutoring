@@ -7,10 +7,12 @@ class Migration_Add_avatar_url_in_ea_users extends CI_Migration {
             $field = [
                 'avatar_url' => [
                     'type' => 'VARCHAR',
-                    'constraint' => '128'
+                    'constraint' => '128',
+                    'default' => 'default.png'
                 ]
             ];
             $this->dbforge->add_column('ea_users', $field);
+            $this->db->update('ea_users', ['avatar_url' => 'default.png']);
         }
     }
 
