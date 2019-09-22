@@ -241,7 +241,7 @@
          * Event: Press list items for tutor name
          */
 		$(document).on('click', '.students-page #ma_tn_display .filter-item--close, .students-page #ma_tn_display .filter-item--find', function() {
-			$('.students-page #my_appointments_tutor').val($(this).attr("title"));
+			$('.students-page #my_appointments_tutor').val($(this).attr("data-tut_name"));
 			$('#filter-my_appointments #ma_tn_display').slideUp(360);
 			instance.filterList('.students-page #filter-tutor-name span li', $('.students-page #my_appointments_tutor').val().toLowerCase());
 			//	enable two buttons
@@ -539,7 +539,7 @@
 					cas_sid = '';
 				}
 				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + " " + tutor.name.substring(0,20) + "...") : cas_sid + " " + tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + " " + tutor.name + "'>" + display_tutor + "</li>";
+				var html = "<li class='filter-item filter-item--find' data-tut_name='" + tutor.name + "' title='" + cas_sid + " " + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-my_appointments #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);

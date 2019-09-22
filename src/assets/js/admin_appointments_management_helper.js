@@ -171,7 +171,7 @@
          * Event: Press list items for tutor name
          */
 		$(document).on('click', '.admin-page #am_tn_display .filter-item--close, .admin-page #am_tn_display .filter-item--find', function() {
-			$('.admin-page #appointments_management_tutor').val($(this).attr("title"));
+			$('.admin-page #appointments_management_tutor').val($(this).attr("data-tut_name"));
 			$('#filter-appointments_management #am_tn_display').slideUp(360);
 			instance.filterList('.admin-page #filter-tutor-name span li', $('.admin-page #appointments_management_tutor').val().toLowerCase());
 			//	enable two buttons
@@ -186,7 +186,7 @@
          * Event: Press list items for student name
          */
 		$(document).on('click', '.admin-page #am_sn_display .filter-item--close, .admin-page #am_sn_display .filter-item--find', function() {
-			$('.admin-page #appointments_management_students').val($(this).attr("title"));
+			$('.admin-page #appointments_management_students').val($(this).attr("data-stu_name"));
 			$('#filter-appointments_management #am_sn_display').slideUp(360);
 			instance.filterList('.admin-page #filter-student-name span li', $('.admin-page #appointments_management_students').val().toLowerCase());
 			//	enable two buttons
@@ -474,7 +474,7 @@
 					space_or_not = ' ';
 				}
 				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + space_or_not + tutor.name.substring(0,20) + "...") : cas_sid + space_or_not + tutor.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + tutor.name + "'>" + display_tutor + "</li>";
+				var html = "<li class='filter-item filter-item--find' data-tut_name='" + tutor.name + "' title='" + cas_sid + space_or_not + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-appointments_management #filter-tutor-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -510,7 +510,7 @@
 					space_or_not = ' ';
 				}
 				var display_student = (student.name !== null && student.name.length >= 25) ? (cas_sid + space_or_not + student.name.substring(0,20) + "...") : cas_sid + space_or_not + student.name;
-				var html = "<li class='filter-item filter-item--find' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
+				var html = "<li class='filter-item filter-item--find' data-stu_name='" + student.name + "' title='" + cas_sid + space_or_not + student.name + "'>" + display_student + "</li>";
 				$('#filter-appointments_management #filter-student-name span').append(html);
 			}.bind(this));
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
