@@ -142,6 +142,9 @@
          * Event: Tutor Feedback Button "Click"
          */
 		$('.tutors-page #provide_feedback_and_suggestions').click(function() {
+			//	Load first
+			$('#popup_feedback_input').val($('#feedback').val());
+			$('#popup_suggestion_input').val($('#suggestion').val());
 			$('#popup_tutor_feedback .curtain').fadeIn(360);
 			$('#tutor_feedback_popup_window').fadeIn(360);
 		});

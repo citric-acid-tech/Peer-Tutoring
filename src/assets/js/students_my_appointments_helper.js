@@ -120,6 +120,10 @@
          * Event: Assess Service Button "Click"
          */
 		$('.students-page #assess-appointment').click(function() {
+			//	Load first
+			$("#assess_popup .stars input[type='radio']").prop('checked', false);
+			$("#assess_popup .stars input[value='" + $('#stars').val() + "']").prop('checked', true);
+			$('#assess_feedback').val($('#com_or_sug').val());
 			$('#popup_assess .curtain').fadeIn();
 			$('#assess_popup').fadeIn();
 		});
@@ -361,7 +365,6 @@
 		$('#download a').prop('href', GlobalVariables.downloadPrefix + appointment.attachment_url + "/" + appointment.service_type.replace(' ', '') + "/" + (GlobalVariables.student_sid === null ? "0" : GlobalVariables.student_sid) + "/" + (appointment.tutor_sid === null ? "0" : appointment.tutor_sid) + "/" + date);
 		$('#download a').removeClass('disableEvents');
 		$('#download').prop('disabled', false);
-		
     };
 
     /**
@@ -517,7 +520,7 @@
     StudentsMyAppointmentHelper.prototype.clearAssess = function() {
 		$('#assess_feedback').val('');
 		$("#popup_assess input[name='rating']:checked")[0].checked = false;
-		$('.rating__input#rating-3').prop('checked', true);
+		$('#popup_assess .rating__input#rating-3').prop('checked', true);
     };	
 	
     /**
