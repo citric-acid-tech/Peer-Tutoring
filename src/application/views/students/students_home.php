@@ -118,6 +118,38 @@
                    <div class="form-group">
                        <label class="control-label" for="stars"><?= lang('stars') ?></label>
                        <input id="stars" class="form-control" readonly>
+						<span class="stars" id="stars-displays">
+							<!-- No Star -->
+							<input class="rating_input rating_input--none" id="rating--0" type="radio" />
+							<label aria-label="No rating" class="rating_label">
+								<i class="rating_icon rating_icon--none fas fa-heart-broken"></i>
+							</label>
+							<!-- 1 Star -->
+							<label aria-label="1 star" class="rating_label">
+								<i class="rating_icon rating_icon--star fas fa-star"></i>
+							</label>
+							<input class="rating_input" id="rating--1" type="radio" />
+							<!-- 2 Stars -->
+							<label aria-label="2 stars" class="rating_label">
+								<i class="rating_icon rating_icon--star fas fa-star"></i>
+							</label>
+							<input class="rating_input" id="rating--2" type="radio" />
+							<!-- Default: 3 Stars -->
+							<label aria-label="3 stars" class="rating_label">
+								<i class="rating_icon rating_icon--star fas fa-star"></i>
+							</label>
+							<input class="rating_input" id="rating--3" type="radio" />
+							<!-- 4 Stars -->
+							<label aria-label="4 stars" class="rating_label">
+								<i class="rating_icon rating_icon--star fas fa-star"></i>
+							</label>
+							<input class="rating_input" id="rating--4" type="radio" />
+							<!-- 5 Stars -->
+							<label aria-label="5 stars" class="rating_label">
+								<i class="rating_icon rating_icon--star fas fa-star"></i>
+							</label>
+							<input class="rating_input" id="rating--5" type="radio" />
+						</span>
                    </div>
                    <div class="form-group">
                        <label class="control-label" for="com_or_sug"><?= lang('comment_or_suggestion') ?></label>

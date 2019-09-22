@@ -360,6 +360,10 @@ body::-webkit-scrollbar-thumb {
 	/* Set default star color */
 	color: orange;
 }
+.rating__icon--star.reset {
+	/* When reset, dark */
+	color: #ddd!important;
+}
 .rating__icon--none {
 	/* Set color of none icon when unchecked */
 	color: #ddd;
@@ -369,6 +373,7 @@ body::-webkit-scrollbar-thumb {
 	/* If none icon is checked, make it red */
 	color: red;
 }
+
 .rating__input:checked ~ .rating__label .rating__icon--star {
 	/* If any input is checked, make its following siblings grey */
 	color: #ddd;

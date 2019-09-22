@@ -398,7 +398,44 @@ body::-webkit-scrollbar-thumb {
 
 
 
+/* Rating stars */
+.stars#stars-displays {
+	/* Prevent whitespace issues */
+	display: inline-flex;
+}
+#stars-displays .rating_input {
+	/* Hide radio inputs */
+	position: absolute !important;
+	left: -9999px !important;
+}
+#stars-displays .rating_label {
+	/* Set icon padding and size */
+	padding: 0 0.1em;
+	font-size: 2rem;
+}
+#stars-displays .rating_icon--star {
+	/* Set default star color */
+	color: orange;
+}
+#stars-displays .rating_icon--star.reset {
+	/* When reset, dark */
+	color: #ddd!important;
+}
+#stars-displays .rating_icon--none {
+	/* Set color of none icon when unchecked */
+	color: #ddd;
+}
 
+#stars-displays .rating_input--none:checked + .rating_label .rating_icon--none {
+	/* If none icon is checked, make it red */
+	color: red;
+}
+
+#stars-displays .rating_input:checked ~ .rating_label .rating_icon--star {
+	/* If any input is checked, make its following siblings grey */
+	color: #ddd;
+}
+/* Rating stars */
 
 
 

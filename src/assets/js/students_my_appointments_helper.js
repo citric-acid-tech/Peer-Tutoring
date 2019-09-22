@@ -296,6 +296,9 @@
 		$('#booking_status').removeClass('bs1');
 		$('#booking_status').removeClass('bs2');
 		$('#booking_status').removeClass('bs3');
+		
+		$(".stars#stars-displays input[type='radio']:checked").prop('checked', false);
+		$(".stars#stars-displays .rating_icon--star").addClass('reset');
 
         //	Disable all operation buttons when the form is reset
 		$('#cancel-appointment, #assess-appointment').prop('disabled', true);
@@ -334,6 +337,10 @@
 		$('#booking_status').addClass("bs" + appointment.booking_status);
 		
 		$('#stars').val(appointment.stars);
+		$(".stars#stars-displays .rating_icon--star").removeClass('reset');
+		$(".stars#stars-displays input[type='radio']:checked").prop('checked', false);
+		$(".stars#stars-displays #rating--" + appointment.stars).prop('checked', true);
+		
 		$('#com_or_sug').val(appointment.com_or_sug);
 		
 		$('#description').val(appointment.appointment_description);

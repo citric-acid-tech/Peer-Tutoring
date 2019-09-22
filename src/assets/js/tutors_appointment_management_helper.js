@@ -340,7 +340,8 @@
 		$('#booking_status').removeClass('bs2');
 		$('#booking_status').removeClass('bs3');
 		
-		$("#stars-displays input[type='radio']:checked").prop('checked', false);
+		$(".stars input[type='radio']:checked").prop('checked', false);
+		$(".stars .rating__icon--star").addClass('reset');
 
         //	Disable all operation buttons when the form is reset
 		$('#modify_service_status, #provide_feedback_and_suggestions').prop('disabled', true);
@@ -397,6 +398,7 @@
 		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
 		
 		$('#stars').val(appointment.stars);
+		$(".stars .rating__icon--star").removeClass('reset');
 		$(".stars input[type='radio']:checked").prop('checked', false);
 		$(".stars #rating--" + appointment.stars).prop('checked', true);
 		
