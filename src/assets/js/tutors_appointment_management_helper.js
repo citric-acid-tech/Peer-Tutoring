@@ -11,6 +11,8 @@
      */
     function TutorsAppointmentManagementHelper() {
         this.filterResults = {};
+		this.nostarHTML = '<i class="fas fa-heart-broken" style="color:red;"></i>';
+		this.starHTML = '<i class="fas fa-star" style="color:orange;"></i>';
     }
 
     /**
@@ -337,6 +339,8 @@
 		$('#booking_status').removeClass('bs1');
 		$('#booking_status').removeClass('bs2');
 		$('#booking_status').removeClass('bs3');
+		
+		$("#stars-displays input[type='radio']:checked").prop('checked', false);
 
         //	Disable all operation buttons when the form is reset
 		$('#modify_service_status, #provide_feedback_and_suggestions').prop('disabled', true);
@@ -393,6 +397,9 @@
 		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
 		
 		$('#stars').val(appointment.stars);
+		$(".stars input[type='radio']:checked").prop('checked', false);
+		$(".stars #rating--" + appointment.stars).prop('checked', true);
+		
 		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
 		
 		$('#feedback').val(appointment.feedback_from_tutor);
@@ -479,6 +486,14 @@
 			appointment.service_type : (EALang.appointment + " " + (index+1));
 		//	Stars in first line
 		var stars = appointment.stars;
+		if (appointment.stars === "0") {
+			stars = this.nostarHTML;
+		} else {
+			stars = '';
+			for (var i = 0; i < appointment.stars; ++i) {
+				stars += this.starHTML;
+			}
+		}
 		
 		//	The student's name will be used in the second line
         var student = appointment.student_name;
@@ -488,8 +503,8 @@
 		//	The starting and ending time will be used in the third line
 		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
 		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
-
-		var line1 = "<strong>" + service_type + "</strong>" + " " + "<sup>" + stars + " stars</sup>";
+		
+		var line1 = "<strong>" + service_type + "</strong>" + " " + "<sup>" + stars + "</sup>";
 		var line2 = student + " " + "-" + " <span class='bs" + appointment.booking_status + "'>" + booking_status + "</span>";
 		var line3 = start_time + " " + "~" + " " + end_time;
 			
