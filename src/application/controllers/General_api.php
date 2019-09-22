@@ -122,5 +122,61 @@ class General_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function ajax_get_tutor_avatar_url(){
+        //
+        try{
+            
+            $this->load->model('general_model');
+            
+            // Get input
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
+
+            // Query
+            $result = $this->general_model->get_tutor_avatar_url($tutor_id);
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+                // simple url string
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_update_tutor_avatar(){
+        //
+        try{
+            
+            $this->load->model('general_model');
+            
+            // Get input
+            $file = $_FILES['avatar_file'];
+            $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
+
+            // Query
+            $result = $this->general_model->update_tutor_avatar($file, $tutor_id);
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+                // result -> TRUE or FALSE
+                // msg    -> size_too_large
+                //           invalid_type
+                //           no_file
+                //           unknown_error
+                //           consistency_error
+                //           <the name of the file> (only when result is true. front-end can simply ignore it.)
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 }
 ?>

@@ -83,6 +83,69 @@ class General_model extends CI_Model{
             ->result_array();
     }
 
+    public function get_tutor_avatar_url($tutor_id){
+        return $this->db->select('
+                ea_users.avatar_url AS url
+            ')
+            ->from('ea_users')
+            ->where('id', $tutor_id)
+            ->get()
+            ->row_array()['url'];
+    }
+
+    public function update_tutor_avatar($file, $tutor_id){
+        // Check empty
+        if(is_null($file)){
+            return array('result'=> FALSE, 'msg'=> 'no_file');
+        }
+
+        $ext = $this->get_extension($file['name']);
+
+        // Check type
+        $ext_arr = explode('|', AVATAR_FORMAT);
+        $is_ok = FALSE;
+        foreach($ext_arr AS $val){
+            if($ext == $val){
+                $is_ok = TRUE;
+                break;
+            }
+        }
+        if( ! $is_ok){
+            return array('result'=> FALSE, 'msg'=> 'invalid_type');
+        }
+
+        // Check size
+        if($file['size'] >= 2 * 1024){ // bytes
+            return array('result' => FALSE, 'msg'=>'size_too_large');
+        }
+
+        $hash_id = $this->db
+            ->select('ea_users.cas_hash_id AS hash')
+            ->from('ea_users')
+            ->where('ea_users.id', $tutor_id)
+            ->get()
+            ->row_array()['hash'];
+        
+        $file_name = 'avatar' - $hash_id .'.'. $ext;
+        $file_target_path = AVATAR_SAVED_PATH . $file_name;
+
+        if(move_uploaded_file($file['tmp_name'], $file_target_path)){
+
+            $this->db->set('avatar_url', $file_name);
+            $this->db->where('ea_users.id', $tutor_id);
+            if( ! $this->db->update('ea_users')){
+                return array('result'=> FALSE, 'msg'=> 'consistency_error');
+            }
+
+            return array('result'=> TRUE, 'msg'=> $file_name);
+
+        }else{
+            return array('result'=> FALSE, 'msg'=> 'unknown_error');
+        }
+    
+        
+    }
+
     /**
      * A list of names of the setting in ea_settings table
      * 

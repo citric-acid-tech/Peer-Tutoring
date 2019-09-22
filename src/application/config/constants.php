@@ -106,6 +106,7 @@ define('AVAILABILITIES_TYPE_FIXED', 'fixed');
 
 /* This is some regular setting about appointments */
 define('DOCUMENT_FORMAT', 'doc|docx|md|pdf|png|zip|jar|7z'); 
+define('AVATAR_FORMAT', 'png|jpg|bmp|gif|jpeg');
 define('DOCUMENT_SAVED_PATH', APPPATH . '..' . DIRECTORY_SEPARATOR .'upload' . DIRECTORY_SEPARATOR);
 define('AVATAR_SAVED_PATH', APPPATH . '..' . DIRECTORY_SEPARATOR .'assets' . DIRECTORY_SEPARATOR .'img' . DIRECTORY_SEPARATOR);
 define('MAX_DOCUMENT_SIZE',6000); // KB
