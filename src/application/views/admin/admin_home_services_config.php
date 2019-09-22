@@ -152,7 +152,7 @@
 			<div class="container" style="width: 90%;margin-top: 30px;">
 				<div class="wrapper row">
 					<!-- filter tutors -->
-					<div class="col-xs-12 col-sm-4">
+					<div class="col-xs-12 col-md-3">
 						<div class="form-group filter-box">
 							<label class="control-label" for="tutor-name"><?= lang('type_for_a_tutor') ?></label>
 							<input type="text" class="form-control" id="tutor-name" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
@@ -165,10 +165,10 @@
 						<div class="results"></div>
 					</div>
 					
-					<div class="col-xs-12 col-sm-1"><hr class="split-column-content"></div>
+					<div class="col-xs-12 col-md-1"><hr class="split-column-content"></div>
 					
 					<!-- Check and Edit tutors -->
-					<div class="col-xs-12 col-sm-7 tutor-details-form">
+					<div class="col-xs-12 col-md-8 tutor-details-form">
 						<div class="btn-toolbar">
 							<!-- Initial Group -->
 							<div class="btn-group">
@@ -210,7 +210,7 @@
 						</div>
 						<h3><?= lang('details') ?></h3>
 						<!-- Left Column -->
-						<div class="col-xs-12 col-sm-12 col-md-6">
+						<div class="col-xs-12 col-sm-12 col-lg-4">
 							<div class="form-group">
 							    <label class="control-label" for="tutor-id"><?= lang('tutor_id') ?></label>
 							    <input id="tutor-id" class="form-control no-edit" readonly>
@@ -233,7 +233,7 @@
 							</div>
 						</div>
 						<!-- Right Column -->
-						<div class="col-xs-12 col-sm-12 col-md-6">
+						<div class="col-xs-12 col-sm-12 col-lg-4">
 							<div class="form-group">
 							    <label class="control-label" for="tutor-sid"><?= lang('tutor_sid') ?></label>
 							    <input id="tutor-sid" class="form-control no-edit" readonly>
@@ -253,6 +253,12 @@
 							<div class="form-group">
 							    <label class="control-label" for="flexible-column" style="color:rgba(41,109,151,1.0);font-size:16px;"><?= $flexible_column_label ?></label>
 							    <input id="flexible-column" class="form-control" readonly>
+							</div>
+						</div>
+						<!-- Extra Column: Avatar...  -->
+						<div class="col-xs-12 col-sm-12 col-lg-4">
+							<div id="avatar_setting">
+								<img id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" style="width:100%;" />
 							</div>
 						</div>
 					</div>

@@ -56,7 +56,7 @@
 	<div class="tab-content">
 		<!-- Select by Tutor Tab -->
 		<div role="tabpanel" class="tab-pane active" id="select-by-tutor-tab">
-			<div class="row">
+			<div class="container" style="width:90%;">
 				<div id="filter-aa_tutors" class="filter-records column col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-2">
 					<form>
 			            <div class="input-group">
@@ -103,18 +103,22 @@
 			        <div class="results"></div>
 				</div>	
 
-				<div class="record-details col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-10">
+				<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+			
+				<div class="record-details col-xs-12 col-sm-5 col-md-6 col-lg-7 col-xl-9">
 					<!-- hide appointment id for data transfer -->
 					<input id="tutor-id" type="hidden">
 
 					<div class="row">
-					    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
-					        <h3><?= lang('details') ?></h3>
-					        
+				    	<h3><?= lang('details') ?></h3>
+				    
+					    <div class="col-xs-12 col-md-12 col-lg-6" style="margin-left: 0;">
 					        <div class="form-group">
 					            <label class="control-label" for="tutor_name"><?= lang('tutor_name') ?></label>
 					            <input id="tutor_name" class="form-control" readonly>
 					        </div>
+					        <br />
+					        
 					        <div class="form-group">
 				            	<button id="go-to-tutor-personal-page" class="btn btn-info" style="font-size:12px;">
 				            		<i class="fas fa-home"></i>
@@ -123,23 +127,33 @@
 					            <label class="control-label" for="tutor_page"><?= lang('tutor_page') ?></label>
 					            <input id="tutor_page" class="form-control" readonly>
 					        </div>
+					        <br />
+					        
 					        <div class="form-group">
 					            <label class="control-label" for="earliest_start_datetime"><?= lang('earliest_start_datetime') ?></label>
 					            <input id="earliest_start_datetime" class="form-control" readonly>
 					        </div>
+					        <br />
+					        
+							<div class="btn-toolbar">
+							     <div id="check-available-time-group-tutor" class="btn-group">
+							         <button id="check-available-time-tutor" class="btn btn-primary">
+							             <i class="fas fa-calendar-alt"></i>&nbsp;
+							             <?= lang('check_available_time') ?>
+							         </button>
+							     </div>
+							</div>
+				    		<br />
+					    </div>
+					    
+					    <div class="col-xs-12 col-md-12 col-lg-6" style="margin-left: 0;">
+							<div id="avatar_setting">
+								<img id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" style="width:100%;" />
+							</div>
 					    </div>
 					</div>
 
-					<br />
-				
-					<div class="btn-toolbar">
-					     <div id="check-available-time-group-tutor" class="btn-group">
-					         <button id="check-available-time-tutor" class="btn btn-primary">
-					             <i class="fas fa-calendar-alt"></i>&nbsp;
-					             <?= lang('check_available_time') ?>
-					         </button>
-					     </div>
-					</div>    	
+					<br />   	
 				</div>	
 			</div>
 			<br />

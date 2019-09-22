@@ -13,6 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jquery-qtip/jquery.qtip.min.css', NULL, 'css') ?>" />
 	<!-- Add Font Awesome for icons -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
+	<!-- Cropper -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/cropper/cropper.min.css', NULL, 'css') ?>" />
 
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/tutors.css', NULL, 'css') ?>" />
@@ -28,6 +30,8 @@
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
 	<!-- Validate -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/validate/validate.min.js', NULL, 'js') ?>"></script>
+	<!-- Cropper -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/cropper/cropper.min.js', NULL, 'js') ?>"></script>
 
 	<script>
 		// Global JavaScript Variables - Used in all backend pages.

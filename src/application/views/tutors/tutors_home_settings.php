@@ -36,7 +36,7 @@
 		<hr />
 		
 		<div class="wrapper row">
-			<div class="col-xs-12 col-sm-3">			
+			<div class="col-xs-12 col-md-3">			
 				<div class="form-group">
 					<label class="control-label" for="given-name"><?= lang('given_name') ?></label>
 					<input id="given-name"data-field="given-name" class="form-control text-field" title="<?= lang('given_name') ?>" />
@@ -63,10 +63,8 @@
 					</span>
 				</div>
 			</div>
-			
-			<div class="col-xs-12 col-sm-1"></div>
 
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-12 col-md-3">
 				<div class="form-group">
 					<label class="control-label" for="email"><?= lang('email') ?></label>
 					<input id="email" data-field="email" class="form-control text-field" title="<?= lang('email') ?>" />
@@ -94,9 +92,7 @@
 				</div>
 			</div>
 			
-			<div class="col-xs-12 col-sm-1"></div>
-			
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-xs-12 col-md-3">
 				<div class="form-group">
 					<label class="control-label" for="intro"><?= lang('introduction') ?></label>
 					<textarea id="intro" data-field="intro" class="form-control text-field" rows="3" title="<?= lang('introduction') ?>" style="resize: none;"></textarea>
@@ -111,6 +107,13 @@
 					<span class="help-block">
 						<?= lang('tut_set_fc_hint') ?>
 					</span>
+				</div>
+			</div>	
+			
+			<!-- Avatar -->
+			<div class="col-xs-12 col-md-3">
+				<div id="avatar_setting">
+					<img id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" style="width:100%;" />
 				</div>
 			</div>			
 			

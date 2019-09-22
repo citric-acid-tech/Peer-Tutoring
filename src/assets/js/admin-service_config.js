@@ -27,6 +27,9 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 	var calendar;
 	//	Re-init seems more than refetching...
 	var calendar_needs_retrieval = false;
+	
+	var cropper;
+	
     /**
      * This method initializes the Students My Appointment page.
      *
@@ -322,6 +325,18 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			} else if ($(this).attr('href') === '#tutor_config') {
 				helper = adminServiceConfigTutorHelper;
 				helper.getAllTutors();
+				
+				//	Cropper
+				var avatar = $('#avatar')[0];
+				cropper = new Cropper(avatar, {
+					viewMode: 3,
+					autoCrop: false,
+					dragMode: 'none',
+					ready() {
+						cropper.disable();
+					}
+				});
+				
 				$('.admin-page #tutor-edit').prop('disabled', true);
 			} else if ($(this).attr('href') === '#service_type_config') {
 				helper = adminServiceConfigServiceTypeHelper;

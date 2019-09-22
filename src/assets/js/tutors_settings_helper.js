@@ -10,6 +10,8 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 (function (exports) {
 
     'use strict';
+	
+	var cropper;
 
 	//	Retrieve info about the page
 	exports.scan = function() {
@@ -51,6 +53,18 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 	};
 	
 	$(document).ready(function() {
+		
+		//	Handle Avatar Image
+		var avatar = $('#avatar')[0];
+		cropper = new Cropper(avatar, {
+			viewMode: 3,
+			autoCrop: false,
+			dragMode: 'none',
+			ready() {
+				cropper.disable();
+			}
+		});
+		
 		$('#edit').click(function() {
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', false);
 			$('#edit, #go_to_personal_page').hide();
