@@ -222,6 +222,9 @@
 		$('#booking_status').removeClass('bs2');
 		$('#booking_status').removeClass('bs3');
 		
+		$(".stars input[type='radio']:checked").prop('checked', false);
+		$(".stars .rating__icon--star").addClass('reset');
+		
 		//	Enable search input buttons
         $('#filter-appointments_management button').prop('disabled', false);
 		//	Erase all selected effects on search results part
@@ -269,6 +272,10 @@
 		$('#end_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true));
 		
 		$('#stars').val(appointment.stars);
+		$(".stars .rating__icon--star").removeClass('reset');
+		$(".stars input[type='radio']:checked").prop('checked', false);
+		$(".stars #rating--" + appointment.stars).prop('checked', true);
+		
 		$('#com_or_sug').val(appointment.comment_or_suggestion_from_student);
 		$('#feedback').val(appointment.feedback_from_tutor);
 		$('#suggestion').val(appointment.suggestion_from_tutor);

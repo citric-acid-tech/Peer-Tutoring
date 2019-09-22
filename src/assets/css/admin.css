@@ -224,7 +224,44 @@ iframe::-webkit-scrollbar-thumb {
 /* Loading */
 
 
+/* Rating stars */
+.stars {
+	/* Prevent whitespace issues */
+	display: inline-flex;
+}
+.rating__input {
+	/* Hide radio inputs */
+	position: absolute !important;
+	left: -9999px !important;
+}
+.rating__label {
+	/* Set icon padding and size */
+	padding: 0 0.1em;
+	font-size: 2rem;
+}
+.rating__icon--star {
+	/* Set default star color */
+	color: orange;
+}
+.rating__icon--star.reset {
+	/* When reset, dark */
+	color: #ddd!important;
+}
+.rating__icon--none {
+	/* Set color of none icon when unchecked */
+	color: #ddd;
+}
 
+.rating__input--none:checked + .rating__label .rating__icon--none {
+	/* If none icon is checked, make it red */
+	color: red;
+}
+
+.rating__input:checked ~ .rating__label .rating__icon--star {
+	/* If any input is checked, make its following siblings grey */
+	color: #ddd;
+}
+/* Rating stars */
 
 
 /* My-Appointments: COMPONENTS */
