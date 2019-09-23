@@ -234,7 +234,7 @@
 			<div class="popup">
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
-					<div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div>
+					<a href="#popup_apply_title_change"><div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div></a>
 					<hr />
 					<ul class="appoint_list">
 						<li>
@@ -280,7 +280,7 @@
 						<!-- i class="fas fa-upload"></i -->
 						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" accept=".doc,.docx,.md,.pdf,.png,.zip,.jar,.7z" />
 						<label for="appointment_service_attach"><strong><?= lang('attach_a_file') ?></strong></label>
-						<div class="help-block">
+						<div style="width:90%;margin:5px auto;" class="help-block">
 							<?= lang('restricted_formats') ?>: <?php echo str_replace('|', ', ', DOCUMENT_FORMAT); ?>
 						</div>
 					</div>

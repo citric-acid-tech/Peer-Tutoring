@@ -124,6 +124,7 @@
 			$("#assess_popup .stars input[type='radio']").prop('checked', false);
 			$("#assess_popup .stars input[value='" + $('#stars').val() + "']").prop('checked', true);
 			$('#assess_feedback').val($('#com_or_sug').val());
+			//	Show popups
 			$('#popup_assess .curtain').fadeIn();
 			$('#assess_popup').fadeIn();
 		});
