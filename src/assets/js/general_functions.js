@@ -384,7 +384,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     exports.ajaxFailureHandler = function (jqxhr, textStatus, errorThrown) {
         var exceptions = [
             {
-                message: 'AJAX Error: ' + errorThrown + $(jqxhr.responseText).text()
+                message: 'Outdated Session (No Internet): ' + errorThrown + $(jqxhr.responseText).text()
             }
         ];
         GeneralFunctions.displayMessageBox(GeneralFunctions.EXCEPTIONS_TITLE, GeneralFunctions.EXCEPTIONS_MESSAGE);
