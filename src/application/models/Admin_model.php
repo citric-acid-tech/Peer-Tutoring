@@ -72,6 +72,7 @@ class Admin_model extends CI_Model{
                     $mail_id_arr[$m++] = $sid;
                 }
             }else{ // This user is not registered yet.
+
                 $exists = $this->db
                     ->select('COUNT(*) AS cnt')
                     ->from('ea_buffer_tutor_assigned')
@@ -85,6 +86,34 @@ class Admin_model extends CI_Model{
                         $fail_arr[$p++] = $sid;
                     }
                 }
+
+                $this->db->trans_begin();
+
+                // Register
+                $data = array(
+                    'first_name' => $sid,
+                    'last_name' => ' ',
+                    'email' => 'not_register_yet',
+                    'cas_hash_id' => 'not_register_yet',
+                    'cas_sid' => $sid,
+                    'id_roles' => '2'
+                );
+                
+                if($this->db->insert('ea_users', $data)){
+                    $id_users = $this->db->insert_id();
+
+                    $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
+                    
+                    if ( ! $this->db->insert('ea_user_settings', $data) ){
+                        $this->db->trans_rollback();
+                    }else{
+                        $this->db->trans_commit();
+                    }
+                }
+                $this->db->trans_complete();
+
+
+                
             }
         }// END OF foreach
         

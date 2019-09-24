@@ -14,50 +14,62 @@ class Cas_model extends CI_Model{
         $registration = 
             $this->db->select('COUNT(*)')
                 ->from('ea_users')
-                ->where('ea_users.cas_sid', $cas_user_data['sid'])
+                ->where('ea_users.cas_hash_id', $cas_user_data['id'])
                 ->get()
                 ->row_array()['COUNT(*)'];
 
         // User has not registered yet ?
         if($registration == 0){
 
-            $this->db->trans_begin();
-
             // Examine if this user is assigned to be a tutor already.
             $is_tutor = $this->db
                 ->select('COUNT(*) AS cnt')
-                ->from('ea_buffer_tutor_assigned')
-                ->where('sid', $cas_user_data['sid'])
+                ->from('ea_users')
+                ->where('cas_sid', $cas_user_data['sid'])
+                ->where('id_roles', '2')
                 ->get()
                 ->row_array()['cnt'];
+
             if($is_tutor == 1){
-                $default_registraion_id_role = 2;
-                $this->db->where('sid', $cas_user_data['sid']);
-                $this->db->delete('ea_buffer_tutor_assigned');
-            }
 
-            // Register
-            $data = array(
-                'first_name' => $cas_user_data['name'],
-                'last_name' => ' ',
-                'email' => $cas_user_data['email'],
-                'cas_hash_id' => $cas_user_data['id'],
-                'cas_sid' => $cas_user_data['sid'],
-                'id_roles' => $default_registraion_id_role
-            );
-            
-            if($this->db->insert('ea_users', $data)){
-                $id_users = $this->db->insert_id();
+                $data = array(
+                    'first_name' => $cas_user_data['name'],
+                    'last_name' => ' ',
+                    'email' => $cas_user_data['email'],
+                    'cas_hash_id' => $cas_user_data['id'],
+                );
+                $this->db->set($data);
+                $this->db->where('cas_sid', $cas_user_data['sid']);
+                $this->db->update('ea_users');
 
-                $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
+            }else{ //He/She is not a tutor
+                // Register
+
+                $this->db->trans_begin();
+
+                $data = array(
+                    'first_name' => $cas_user_data['name'],
+                    'last_name' => ' ',
+                    'email' => $cas_user_data['email'],
+                    'cas_hash_id' => $cas_user_data['id'],
+                    'cas_sid' => $cas_user_data['sid'],
+                    'id_roles' => $default_registraion_id_role
+                );
                 
-                if ( ! $this->db->insert('ea_user_settings', $data) ){
-                    $this->db->trans_rollback();
-                }else{
-                    $this->db->trans_commit();
+                if($this->db->insert('ea_users', $data)){
+                    $id_users = $this->db->insert_id();
+
+                    $data = array('id_users' => $id_users, 'username' => $cas_user_data['sid']);
+                    
+                    if ( ! $this->db->insert('ea_user_settings', $data) ){
+                        $this->db->trans_rollback();
+                    }else{
+                        $this->db->trans_commit();
+                    }
                 }
+
+                $this->db->trans_complete();
             }
-            $this->db->trans_complete();
         }
 
         // Get user data
