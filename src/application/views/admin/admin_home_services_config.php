@@ -75,7 +75,7 @@
 				<div class="curtain"></div>
 				<div id="cal_edit_popup">
 					<form>
-						<a href="#popup_edit_cancel"><div class="popup-title"><h2><?= lang('edit_service') ?></h2></div></a>
+						<a href="#popup_edit_cancel" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('edit_service') ?></h2></div></a>
 						<hr />
 						<input id="edit_service_id" type="hidden" />
 						<div class="popup-container">
@@ -113,7 +113,7 @@
 				</div>
 				<div id="cal_add_popup">
 					<form>
-						<a href="#popup_add_cancel"><div class="popup-title"><h2><?= lang('add_service') ?></h2></div></a>
+						<a href="#popup_add_cancel" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('add_service') ?></h2></div></a>
 						<hr />
 						<div class="popup-container">
 							<select id="add_service_service_type" title="<?= lang('service_type') ?> *" style="height:28px;width:27%;"></select>
@@ -268,7 +268,7 @@
 				<div class="curtain"></div>
 				<div id="tutor_new_tutor_popup">
 					<form>
-						<a href="#popup_new_tutor_cancel"><div class="popup-title"><h2><?= lang('add_new_tutors') ?></h2></div></a>
+						<a href="#popup_new_tutor_cancel" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('add_new_tutors') ?></h2></div></a>
 						<hr />
 						<div class="popup-container">
 							<h4 style="margin:25px auto;"><?= lang('input_ids') ?></h4>
@@ -373,7 +373,7 @@
 				<div class="curtain"></div>
 				<div id="service_type_new_service_type_popup">
 					<form>
-						<a href="#popup_new_service_type_cancel"><div class="popup-title"><h2><?= lang('new_service_type') ?></h2></div></a>
+						<a href="#popup_new_service_type_cancel" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('new_service_type') ?></h2></div></a>
 						<hr />
 						<div class="popup-container">
 							<input id="new_service_type_name" type="text" placeholder="<?= lang('name') ?>" title="<?= lang('name') ?>" />

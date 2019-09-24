@@ -55,15 +55,15 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 	$(document).ready(function() {
 		
 		//	Handle Avatar Image
-		var avatar = $('#avatar')[0];
-		cropper = new Cropper(avatar, {
-			viewMode: 3,
-			autoCrop: false,
-			dragMode: 'none',
-			ready() {
-				cropper.disable();
-			}
-		});
+//		var avatar = $('#avatar')[0];
+//		cropper = new Cropper(avatar, {
+//			viewMode: 3,
+//			autoCrop: false,
+//			dragMode: 'none',
+//			ready() {
+//				cropper.disable();
+//			}
+//		});
 		
 		$('#edit').click(function() {
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', false);

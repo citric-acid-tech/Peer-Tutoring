@@ -113,7 +113,13 @@
 			<!-- Avatar -->
 			<div class="col-xs-12 col-md-3">
 				<div id="avatar_setting">
-					<img id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" style="width:100%;" />
+					<!-- Visible Set -->
+					<label class="avatar_label" data-toggle="tooltip" title="" data-original-title="Change your avatar" style="cursor:pointer;">
+						<img class="rounded" id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" alt="avatar" style="width:100%;" />
+						<input type="file" class="sr-only" id="avatar_file_input" name="image" accept="image/*" />
+					</label>
+					
+					
 				</div>
 			</div>			
 			

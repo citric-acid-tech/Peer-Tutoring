@@ -220,7 +220,7 @@
     	<div class="curtain"></div>
     	<div id="tutor_feedback_popup_window">
     		<form>
-    			<a href="#popup_suggestion_input"><div class="feedback-title popup-title"><h2><?= lang('provide_students_with_feedback_and_suggestions') ?></h2></div></a>
+    			<a href="#popup_suggestion_input" style="text-decoration:none;"><div class="feedback-title popup-title"><h2><?= lang('provide_students_with_feedback_and_suggestions') ?></h2></div></a>
     			<hr />
 				<div class="feedback-container popup-container feedback">
 					<textarea id="popup_feedback_input" placeholder="<?= lang('feedback') ?> *: <?= lang('tut_appm_popup_feedback_hint') ?>" rows="6" style="resize: none;" title="<?= lang('feedback') ?> *"></textarea>

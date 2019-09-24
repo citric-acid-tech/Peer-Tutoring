@@ -234,7 +234,7 @@
 			<div class="popup">
 				<div class="curtain"></div>
 				<div id="cal_appointment_popup">
-					<a href="#popup_apply_title_change"><div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div></a>
+					<a href="#popup_apply_title_change" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div></a>
 					<hr />
 					<ul class="appoint_list">
 						<li>
@@ -265,7 +265,7 @@
 					<hr />
 					<!-- Remark & Note -->
 					<div class="popup-container">
-						<h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong><?= lang('apply_now') ?></strong></h4>
+						<a href="#popup_appointment_cancel" style="text-decoration:none;"><h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong><?= lang('apply_now') ?></strong></h4></a>
 						<hr style="width:60%;margin: 20px auto;" />
 						<div style="width:43%;display:inline-block;">
 							<textarea id="appointment_service_remark" type="text" placeholder="<?= lang('stu_aa_cal_remark_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_remark_hint') ?>" style="resize:none;width:100%;"></textarea>
