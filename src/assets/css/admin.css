@@ -477,7 +477,7 @@ iframe::-webkit-scrollbar-thumb {
 	margin-bottom: 10px;
 }
 .admin-page#services-page select, .admin-page#services-page input[type='time'], select.sem_season {
-	background-color: snow;
+	background-color: white;
 }
 
 /* popups */
