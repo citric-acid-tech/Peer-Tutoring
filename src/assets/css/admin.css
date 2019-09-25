@@ -477,7 +477,7 @@ iframe::-webkit-scrollbar-thumb {
 	margin-bottom: 10px;
 }
 .admin-page#services-page select, .admin-page#services-page input[type='time'], select.sem_season {
-	background-color: snow;
+	background-color: white;
 }
 
 /* popups */
@@ -572,7 +572,7 @@ iframe::-webkit-scrollbar-thumb {
 }
 .admin-page .popup #cal_add_popup::-webkit-scrollbar, .admin-page .popup #cal_edit_popup::-webkit-scrollbar,
 .admin-page .popup #tutor_new_tutor_popup::-webkit-scrollbar, .admin-page .popup #service_type_new_service_type_popup::-webkit-scrollbar {
-    width: 0.2em;
+    width: 0;
 }
 .admin-page .popup #cal_add_popup::-webkit-scrollbar-track, .admin-page .popup #cal_edit_popup::-webkit-scrollbar-track,
 .admin-page .popup #tutor_new_tutor_popup::-webkit-scrollbar-track, .admin-page .popup #service_type_new_service_type_popup::-webkit-scrollbar-track {

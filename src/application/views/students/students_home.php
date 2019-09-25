@@ -215,7 +215,7 @@
     	<div class="curtain"></div>
     	<div id="assess_popup">
     		<form>
-    			<a href="#assess_feedback"><div class="assess-title popup-title"><h2><?= lang('assess_the_service') ?></h2></div></a>
+    			<a href="#assess_feedback" style="text-decoration:none;"><div class="assess-title popup-title"><h2><?= lang('assess_the_service') ?></h2></div></a>
     			<hr />
 				<div class="assess-container popup-container rate">
 					<label class="control-label" style="user-select:none;"><?= lang('rate') ?>: </label>
