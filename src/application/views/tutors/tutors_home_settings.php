@@ -19,7 +19,8 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
-        timeFormat         : <?= json_encode($time_format) ?>
+        timeFormat         : <?= json_encode($time_format) ?>,
+		tutor_id           : <?= $user_id ?>
     };
 	
 	$(document).ready(function() {
@@ -119,7 +120,39 @@
 						<input type="file" class="sr-only" id="avatar_file_input" name="image" accept="image/*" />
 					</label>
 					
+					<!-- Help Block -->
+					<div class="help-block"><?= lang('update_avatar_help') ?></div>
 					
+					<!-- Progress Bar -->
+					<div class="progress" style="display:none;margin-bottom:1rem;">
+						<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;">100%</div>
+					</div>
+					
+					<!-- Alert box -->
+					<div class="alert alert-warning" role="alert" style="display:none;">Upload Error</div>
+					
+					<!-- A cropping modal -->
+					<div class="modal fade" id="avatar_modal" tabindex="-1" role="dialog" aria-labelledby="avatar_modalLabel" aria-hidden="true" style="display:none;">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="avatar_modalLabel">Crop the image</h5>
+									<button type="button" class="close" data-dismiss="avatar_modal" aria-label="Close">
+										<span aria-hidden="true">x</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="avatar-container">
+										<img id="avatar_modal_image" src="<?= base_url('assets/img/avatar.jpg') ?>" style="max-width:100%;" />
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="avatar_modal"><?= lang('cancel') ?></button>
+									<button type="button" class="btn btn-primary" id="crop-avatar">Crop</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>			
 			
