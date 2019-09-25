@@ -185,6 +185,8 @@
 			$('#go-to-tutor-personal-page').unwrap();
 		}
 		
+		$('#avatar').prop('src', GlobalVariables.avatarPrefix + 'default.png');
+		
 		//	Enable search input buttons
         $('#filter-aa_tutors button').prop('disabled', false);
 		
@@ -216,6 +218,8 @@
 		$('#tutor_name').val(tutor_display);
 		$('#tutor_page').val(tutor.personal_page);
 		$('#earliest_start_datetime').val(GeneralFunctions.formatDate(Date.parse(tutor.earliest_start_datetime), GlobalVariables.dateFormat, true));
+		
+		$('#avatar').prop('src', GlobalVariables.avatarPrefix + tutor.avatar_url);
     };
 
     /**

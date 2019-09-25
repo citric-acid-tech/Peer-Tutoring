@@ -24,7 +24,8 @@
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
 		semester_json      : <?= $semester_json ?>,
-		curLanguage        : <?= json_encode($language) ?>
+		curLanguage        : <?= json_encode($language) ?>,
+		avatarPrefix       : "<?= Config::BASE_URL ?>/assets/img/"
     };
 
     $(document).ready(function() {

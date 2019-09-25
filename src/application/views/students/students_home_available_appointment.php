@@ -25,7 +25,8 @@
         timeFormat         : <?= json_encode($time_format) ?>,
 		curLanguage        : <?= json_encode($language) ?>,
 		semester_json      : <?= $semester_json ?>,
-		max_check_ahead_day: <?= json_encode($max_services_checking_ahead_day) ?>
+		max_check_ahead_day: <?= json_encode($max_services_checking_ahead_day) ?>,
+		avatarPrefix       : "<?= Config::BASE_URL ?>/assets/img/"
     };
 
     $(document).ready(function() {
@@ -148,7 +149,7 @@
 					    
 					    <div class="col-xs-12 col-md-12 col-lg-6" style="margin-left: 0;">
 							<div id="avatar_setting">
-								<img id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" style="width:100%;" />
+								<img id="avatar" src="<?= base_url('assets/img/default.png') ?>" style="width:100%;" />
 							</div>
 					    </div>
 					</div>

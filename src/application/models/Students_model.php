@@ -345,7 +345,8 @@ class Students_model extends CI_Model{
             CONCAT(ea_users.first_name, \' \', ea_users.last_name ) AS tutor_name,
             ea_users.personal_page                                  AS personal_page,
             MIN(ea_services.start_datetime)                         AS earliest_start_datetime,
-            ea_users.flexible_column                                AS flexible_column
+            ea_users.flexible_column                                AS flexible_column,
+			ea_users.avatar_url                                     AS avatar_url
             ')
             ->from('ea_services')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
