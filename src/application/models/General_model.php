@@ -93,29 +93,34 @@ class General_model extends CI_Model{
             ->row_array()['url'];
     }
 
+    protected function get_extension($file){
+        $info = pathinfo($file);
+        return $info['extension'];
+    }
+
     public function update_tutor_avatar($file, $tutor_id){
         // Check empty
         if(is_null($file)){
             return array('result'=> FALSE, 'msg'=> 'no_file');
         }
 
-        $ext = $this->get_extension($file['name']);
+        //$ext = $this->get_extension($file['name']);
 
         // Check type
-        $ext_arr = explode('|', AVATAR_FORMAT);
-        $is_ok = FALSE;
-        foreach($ext_arr AS $val){
-            if($ext == $val){
-                $is_ok = TRUE;
-                break;
-            }
-        }
-        if( ! $is_ok){
-            return array('result'=> FALSE, 'msg'=> 'invalid_type');
-        }
+        // $ext_arr = explode('|', AVATAR_FORMAT);
+        // $is_ok = FALSE;
+        // foreach($ext_arr AS $val){
+        //     if($ext == $val){
+        //         $is_ok = TRUE;
+        //         break;
+        //     }
+        // }
+        // if( ! $is_ok){
+        //     return array('result'=> FALSE, 'msg'=> 'invalid_type' . $ext);
+        // }
 
         // Check size
-        if($file['size'] >= 2 * 1024){ // bytes
+        if($file['size'] >= 3 * 1024 * 1024){ // bytes
             return array('result' => FALSE, 'msg'=>'size_too_large');
         }
 
@@ -126,7 +131,7 @@ class General_model extends CI_Model{
             ->get()
             ->row_array()['hash'];
         
-        $file_name = 'avatar' - $hash_id .'.'. $ext;
+        $file_name = 'avatar' . '-' .  $hash_id;
         $file_target_path = AVATAR_SAVED_PATH . $file_name;
 
         if(move_uploaded_file($file['tmp_name'], $file_target_path)){

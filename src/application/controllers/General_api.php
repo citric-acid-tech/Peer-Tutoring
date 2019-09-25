@@ -154,7 +154,7 @@ class General_api extends CI_Controller{
             $this->load->model('general_model');
             
             // Get input
-            $file = $_FILES['avatar_file'];
+            $file = $_FILES['avatar'];
             $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
 
             // Query
