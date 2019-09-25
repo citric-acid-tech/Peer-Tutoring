@@ -259,7 +259,45 @@
 						<!-- Extra Column: Avatar...  -->
 						<div class="col-xs-12 col-sm-12 col-lg-4">
 							<div id="avatar_setting">
-								<img id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" style="width:100%;" />
+								<!-- Visible Set -->
+								<label class="avatar_label" data-toggle="tooltip" title="" data-original-title="Change your avatar" style="cursor:pointer;">
+									<img class="rounded" id="avatar" src="<?= base_url('assets/img/default.png') ?>" alt="avatar" style="width:100%;" />
+									<input type="file" class="sr-only" id="avatar_file_input" name="image" accept="image/*" />
+								</label>
+								
+								<!-- Help Block -->
+								<div class="help-block"><?= lang('update_avatar_help') ?></div>
+								
+								<!-- Progress Bar -->
+								<div class="progress" style="display:none;margin-bottom:1rem;">
+									<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;">100%</div>
+								</div>
+								
+								<!-- Alert box -->
+								<div class="alert alert-warning" role="alert" style="display:none;">Upload Error</div>
+								
+								<!-- A cropping modal -->
+								<div class="modal fade" id="avatar_modal" tabindex="-1" role="dialog" aria-labelledby="avatar_modalLabel" aria-hidden="true" style="display:none;">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="avatar_modalLabel">Crop the image</h5>
+												<button type="button" class="close" data-dismiss="avatar_modal" aria-label="Close">
+													<span aria-hidden="true">x</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="avatar-container">
+													<img id="avatar_modal_image" src="<?= base_url('assets/img/default.png') ?>" style="max-width:100%;" />
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="avatar_modal"><?= lang('cancel') ?></button>
+												<button type="button" class="btn btn-primary" id="crop-avatar">Crop</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

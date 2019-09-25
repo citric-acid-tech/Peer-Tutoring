@@ -324,19 +324,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				}
 			} else if ($(this).attr('href') === '#tutor_config') {
 				helper = adminServiceConfigTutorHelper;
-				helper.getAllTutors();
-				
-				//	Cropper
-				var avatar = $('#avatar')[0];
-				cropper = new Cropper(avatar, {
-					viewMode: 3,
-					autoCrop: false,
-					dragMode: 'none',
-					ready() {
-						cropper.disable();
-					}
-				});
-				
+				helper.getAllTutors();				
 				$('.admin-page #tutor-edit').prop('disabled', true);
 			} else if ($(this).attr('href') === '#service_type_config') {
 				helper = adminServiceConfigServiceTypeHelper;

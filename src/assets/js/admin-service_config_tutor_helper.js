@@ -21,6 +21,130 @@
         var instance = this;
 		var editing = false;
 
+		var avatar = $('#avatar')[0];
+		var image = $('#avatar_modal_image')[0];
+		var file_input = $('#avatar_file_input')[0];
+		
+		var $progress = $('.progress');
+		var $progressBar = $('.progress-bar');
+		
+		var $alert = $('.alert');
+		var $modal = $('#avatar_modal');
+		
+		var cropper;
+		$('[data-toggle="tooltip"]').tooltip();
+		
+		file_input.addEventListener('change', function(e) {
+			var files = e.target.files;
+			var done = function(url) {
+				file_input.value = '';
+				image.src = url;
+				$alert.fadeOut();
+				$modal.modal('show');
+			}
+			
+			var reader;
+			var file;
+			var url;
+			
+			if (files && files.length > 0) {
+				file = files[0];
+				
+				if (URL) {
+					done(URL.createObjectURL(file));
+				} else if (FileReader) {
+					reader = new FileReader();
+					reader.onload = function(e) {
+						done(reader.result);
+					};
+					reader.readAsDataURL(file);
+				}
+			}
+		});
+		
+		$modal.on('shown.bs.modal', function() {
+			cropper = new Cropper(image, {
+				aspectRatio: 1,
+				viewMode: 3
+			});
+		}).on('hidden.bs.modal', function() {
+			cropper.destroy();
+			cropper = null;
+		});
+		
+		$('#crop-avatar')[0].addEventListener('click', function() {
+			var initialAvatarURL;
+			var canvas;
+			
+			$modal.modal('hide');
+			
+			if (cropper) {
+				canvas = cropper.getCroppedCanvas({
+					width: 300,
+					height: 300,
+					aspectRatio: 1 / 1
+				});
+				initialAvatarURL = avatar.src;
+				avatar.src = canvas.toDataURL();
+				$progress.fadeIn();
+				$alert.removeClass('alert-success alert-warning');
+				canvas.toBlob(function(blob) {
+					var formData = new FormData();
+					var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_update_tutor_avatar';
+					formData.append('csrfToken', GlobalVariables.csrfToken);
+					formData.append('avatar', blob);
+					formData.append('tutor_id', JSON.stringify($('#tutor-id').val()));
+					$.ajax(postUrl, {
+						method: 'POST',
+						data: formData,
+						processData: false,
+						contentType: false,
+						
+						xhr: function() {
+							var xhr = new XMLHttpRequest();
+							
+							xhr.upload.onprogress = function(e) {
+								var percent = '0';
+								var percentage = '0%';
+								
+								if (e.lengthComputable) {
+									percent = Math.round((e.loaded / e.total) * 100);
+									percentage = percent + '%';
+									$progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+								}
+							};
+							
+							return xhr;
+						},
+						
+						success: function(response) {
+							if (!GeneralFunctions.handleAjaxExceptions(response)) {
+								return;
+							}
+							
+							if (response.result == true) {
+								//	Do nothing is okay
+							} else {
+								avatar.src = initialAvatarURL;
+								$alert.fadeIn().addClass('alert-warning').text(response.msg);
+							}
+							
+							$alert.fadeIn().addClass('alert-success').text('Upload success');
+						},
+						
+						error: function() {
+							avatar.src = initialAvatarURL;
+							$alert.fadeIn().addClass('alert-warning').text('Upload error');
+						},
+						
+						complete: function() {
+							$progress.fadeOut();
+						}
+					});
+				});
+			}
+		});
+		
         /**
          * Event: Filter Entry "Click"
          *
@@ -56,6 +180,8 @@
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').fadeIn(360);
 			$('.tutor-details-form').find('input, textarea').attr('readonly', false);
 			$('.admin-page .no-edit').attr('readonly', true);
+			$('#avatar_file_input').prop('disabled', false);
+			$('#avatar_setting .avatar_label').css('cursor', 'pointer');
 		});
         /**
          * Event: New Tutor Button "Click"
@@ -166,6 +292,8 @@
 			//	Enable Nav Tabs
 			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
+			$('#avatar_file_input').prop('disabled', true);
+			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
 		});
         /**
          * Event: Cancel Button "Click"
@@ -179,6 +307,8 @@
 			//	Enable Nav Tabs
 			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
+			$('#avatar_file_input').prop('disabled', true);
+			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
 		});		
 			
 		var t = null;
@@ -264,6 +394,11 @@
 		//	Clear all inputs
         $('.tutor-details-form').find('input, textarea').val('');
 
+		$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + "default.png");
+		$('.alert').fadeOut();
+		$('#avatar_file_input').prop('disabled', true);
+		$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+		
 		//	Handle the button group
         $('#tutor-save, #tutor-cancel, #tutor-dismiss').hide();
         $('#tutor-edit, #tutor-new-tutor').show();
@@ -293,6 +428,10 @@
 		$('#personal-page').val(tutor.personal_page);
 		$('#introduction').val(tutor.introduction);
 		$('#flexible-column').val(tutor.flexible_column);
+		$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + tutor.avatar_url);
+		$('#avatar_file_input').prop('disabled', true);
+		$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+		$('.alert').fadeOut();
     };
 
     /**
