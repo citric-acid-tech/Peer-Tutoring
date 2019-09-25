@@ -578,3 +578,4 @@ $lang['new_tutors_some_fail'] = 'Some IDs fail on the process. Check whether the
 $lang['dismiss_tutor_success'] = 'This tutor has been dismissed';
 $lang['dismiss_tutor_fail'] = 'ajax_dismiss_tutor: gg';
 $lang['dismiss_tutor_unknown_error:'] = 'ajax_dismiss_tutor: REALLY GG!!!';
+$lang['update_avatar_help'] = 'Update your avatar image by clicking the image box';

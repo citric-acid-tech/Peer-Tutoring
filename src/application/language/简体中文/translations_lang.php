@@ -575,3 +575,4 @@ $lang['edit_tutor_fail'] = 'ajax_edit_tutor: nonono';
 $lang['new_tutors_ak'] = '成功授权所有职务';
 $lang['new_tutors_some_fail'] = '某些ID插入失败';
 $lang['dismiss_tutor_success'] = '这个用户已被解除导师职务';
+$lang['update_avatar_help'] = '点击图片修改头像';
