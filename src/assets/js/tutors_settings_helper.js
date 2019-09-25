@@ -50,6 +50,23 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			}
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+		
+        postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_tutor_avatar_url';
+        postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			tutor_id:  GlobalVariables.tutor_id
+        };
+		
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + response);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+		
 	};
 	
 	$(document).ready(function() {
@@ -113,8 +130,9 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			
 			if (cropper) {
 				canvas = cropper.getCroppedCanvas({
-					width: 160,
-					height: 160
+					width: 300,
+					height: 300,
+					aspectRatio: 1 / 1
 				});
 				initialAvatarURL = avatar.src;
 				avatar.src = canvas.toDataURL();
@@ -149,7 +167,18 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 							return xhr;
 						},
 						
-						success: function() {
+						success: function(response) {
+							if (!GeneralFunctions.handleAjaxExceptions(response)) {
+								return;
+							}
+							
+							if (response.result == true) {
+								//	Do nothing is okay
+							} else {
+								avatar.src = initialAvatarURL;
+								$alert.fadeIn().addClass('alert-warning').text(response.msg);
+							}
+							
 							$alert.fadeIn().addClass('alert-success').text('Upload success');
 						},
 						
@@ -165,11 +194,6 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 				});
 			}
 		});
-		
-		
-		
-		
-		
 		
 		$('#edit').click(function() {
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', false);

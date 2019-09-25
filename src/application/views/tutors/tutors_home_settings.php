@@ -20,7 +20,8 @@
 		baseUrl            : <?= json_encode($base_url) ?>,
         dateFormat         : <?= json_encode($date_format) ?>,
         timeFormat         : <?= json_encode($time_format) ?>,
-		tutor_id           : <?= $user_id ?>
+		tutor_id           : <?= $user_id ?>,
+		avatarPrefix       : "<?= Config::BASE_URL ?>/assets/img/"
     };
 	
 	$(document).ready(function() {
@@ -116,7 +117,7 @@
 				<div id="avatar_setting">
 					<!-- Visible Set -->
 					<label class="avatar_label" data-toggle="tooltip" title="" data-original-title="Change your avatar" style="cursor:pointer;">
-						<img class="rounded" id="avatar" src="<?= base_url('assets/img/avatar.jpg') ?>" alt="avatar" style="width:100%;" />
+						<img class="rounded" id="avatar" src="<?= base_url('assets/img/default.png') ?>" alt="avatar" style="width:100%;" />
 						<input type="file" class="sr-only" id="avatar_file_input" name="image" accept="image/*" />
 					</label>
 					
@@ -143,7 +144,7 @@
 								</div>
 								<div class="modal-body">
 									<div class="avatar-container">
-										<img id="avatar_modal_image" src="<?= base_url('assets/img/avatar.jpg') ?>" style="max-width:100%;" />
+										<img id="avatar_modal_image" src="<?= base_url('assets/img/default.png') ?>" style="max-width:100%;" />
 									</div>
 								</div>
 								<div class="modal-footer">
