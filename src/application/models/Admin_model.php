@@ -93,7 +93,7 @@ class Admin_model extends CI_Model{
                 $data = array(
                     'first_name' => $sid,
                     'last_name' => ' ',
-                    'email' => 'not_register_yet',
+                    'email' => $sid . '@mail.sustech.edu.cn',
                     'cas_hash_id' => 'not_register_yet',
                     'cas_sid' => $sid,
                     'id_roles' => '2'
