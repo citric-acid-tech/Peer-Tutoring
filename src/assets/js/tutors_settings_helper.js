@@ -220,15 +220,28 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 				}, 300);
 				return false;
 			}
+			
 			//	Validate Personal Page
 			var pp = $('#personal-page').val();
-			if (validate({website: pp}, {website: {url: true}}) !== undefined) {
-				Tutors.displayNotification(EALang.invalid_url, undefined, "failure");
-				$('#personal-page').addClass('gg');
-				setTimeout(function() {
-					$('#personal-page').removeClass('gg');
-				}, 300);
-				return false;
+			//	If personal page is empty, just pass; Else check validity
+			if (pp !== '' && validate({website: pp}, {website: {url: true}}) !== undefined) {
+				if (validate({website: "https://" + pp}, {website: {url: true}}) == undefined) {	//	Try adding "https://" before
+					//	If okay now, automatically prepend "https://"
+					pp = "https://" + pp;
+					$('#personal-page').val(pp);
+				} else if (validate({website: "http://" + pp}, {website: {url: true}}) == undefined) {	//	Try adding "http://" before
+					//	If okay now, automatically prepend "http://"
+					pp = "http://" + pp;
+					$('#personal-page').val(pp);
+				} else {
+					//	Nothing works, gg
+					Admin.displayNotification(EALang.invalid_url, undefined, "failure");
+					$('#personal-page').addClass('gg');
+					setTimeout(function() {
+						$('#personal-page').removeClass('gg');
+					}, 300);
+					return false;
+				}
 			}
 			
 			var address = GeneralFunctions.superEscapeHTML($('#address').val());

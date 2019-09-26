@@ -274,16 +274,30 @@
 				}, 300);
 				return false;
 			}
+			
 			//	Validate Personal Page
 			var personal_page = $('#personal-page').val();
-			if (validate({website: personal_page}, {website: {url: true}}) !== undefined) {
-				Admin.displayNotification(EALang.invalid_url, undefined, "failure");
-				$('#personal-page').addClass('gg');
-				setTimeout(function() {
-					$('#personal-page').removeClass('gg');
-				}, 300);
-				return false;
+			//	If personal page is empty, just pass; Else check validity
+			if (personal_page !== '' && validate({website: personal_page}, {website: {url: true}}) !== undefined) {
+				if (validate({website: "https://" + personal_page}, {website: {url: true}}) == undefined) {	//	Try adding "https://" before
+					//	If okay now, automatically prepend "https://"
+					personal_page = "https://" + personal_page;
+					$('#personal-page').val(personal_page);
+				} else if (validate({website: "http://" + personal_page}, {website: {url: true}}) == undefined) {	//	Try adding "http://" before
+					//	If okay now, automatically prepend "http://"
+					personal_page = "http://" + personal_page;
+					$('#personal-page').val(personal_page);
+				} else {
+					//	Nothing works, gg
+					Admin.displayNotification(EALang.invalid_url, undefined, "failure");
+					$('#personal-page').addClass('gg');
+					setTimeout(function() {
+						$('#personal-page').removeClass('gg');
+					}, 300);
+					return false;
+				}
 			}
+			
 			instance.saveEdition();
 			$('.tutor-details-form').find('input, textarea').attr('readonly', true);
 			$('.admin-page #tutor-save, .admin-page #tutor-cancel, .admin-page #tutor-dismiss').hide();
