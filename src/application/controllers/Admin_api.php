@@ -279,9 +279,9 @@ class Admin_api extends CI_Controller{
             $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
             $week = json_decode($this->input->post('week'), TRUE);
             $semester = json_decode($this->input->post('semester'), TRUE); //Sample = 2019-Fall, See also config/semesters.php
-
+            $plan_weeks = json_decode($this->input->post('plan_weeks'), TRUE);
             // Query
-            $result = $this->admin_model->schedule_current_schema_to_all_weeks($tutor_id, $semester, $services_id, $week);
+            $result = $this->admin_model->schedule_current_schema_to_all_weeks($tutor_id, $semester, $services_id, $week, $plan_weeks);
             
             // Log
 

@@ -572,7 +572,7 @@ class Admin_model extends CI_Model{
      * 
      * @return boolean      success or not
      */
-    public function schedule_current_schema_to_all_weeks($tutor_id, $semester_info, $services_id, $week){
+    public function schedule_current_schema_to_all_weeks($tutor_id, $semester_info, $services_id, $week, $plan_weeks){
         
         $this->db->trans_begin();
 
@@ -630,13 +630,17 @@ class Admin_model extends CI_Model{
             $tmp_Datetime_pointer = new Datetime($first_day);
             $tmp_Datetime_pointer->add(new DateInterval('P'.$diff_days.'D'));
             
+            $cur_week_pointer = 0;
             for($j = 0; $j < $last_weeks; $j++){    
+                if($j == ($plan_weeks[$cur_week_pointer] - 1)){
 
-                $row_data['start_datetime'] = $tmp_Datetime_pointer->format('Y-m-d') . ' ' . $start_time;
-                $row_data['end_datetime'] = $tmp_Datetime_pointer->format('Y-m-d') . ' ' . $end_time;
+                    $row_data['start_datetime'] = $tmp_Datetime_pointer->format('Y-m-d') . ' ' . $start_time;
+                    $row_data['end_datetime'] = $tmp_Datetime_pointer->format('Y-m-d') . ' ' . $end_time;
 
-                $data[$i.' '.$j] = $row_data;
+                    $data[$i.' '.$j] = $row_data;
 
+                    $cur_week_pointer++;
+                }
                 $tmp_Datetime_pointer->add( new DateInterval('P7D') );
             }
         }
@@ -646,12 +650,41 @@ class Admin_model extends CI_Model{
         //// Deal with students who have already made appointment with these services.
 
         //// Get the id of all the involved services
-        $involved_services_id_arr = $this->db->select('ea_services.id')->from('ea_services')
-            ->where('start_datetime >', $first_datetime)
-            ->where('start_datetime <', $last_datetime)
-            ->where('id_users_provider', $tutor_id)
-            ->get()
-            ->result_array();
+
+        $involved_services_id_arr = array();
+        $involved_week = array();
+        $involved_week_pointer = 0;
+
+        $cur_datetime_monday = new Datetime($first_day);
+        $next_datetime_monday = new Datetime($first_day);
+        $next_datetime_monday->add(new DateInterval('P7D'));
+
+        $cur_week_pointer = 0;
+        for($j = 0; $j < $last_weeks; $j++){  
+            if($j == ($plan_weeks[$cur_week_pointer] - 1)){
+
+                $involved_week[$involved_week_pointer]['start'] = $cur_datetime_monday->format('Y-m-d') . ' 00:00';
+                $involved_week[$involved_week_pointer++]['end'] = $next_datetime_monday->format('Y-m-d') . ' 00:00';
+
+                $result = $this->db->select('ea_services.id')->from('ea_services')
+                    ->where('start_datetime >', $cur_datetime_monday->format('Y-m-d') . ' 00:00')
+                    ->where('start_datetime <', $next_datetime_monday->format('Y-m-d') . ' 00:00')
+                    ->where('id_users_provider', $tutor_id)
+                    ->get()
+                    ->result_array();
+                $involved_services_id_arr = array_merge($involved_services_id_arr, $result);
+                $cur_week_pointer++;
+            }
+
+            $cur_datetime_monday->add(new DateInterval('P7D'));
+            $next_datetime_monday->add(new DateInterval('P7D'));
+        }
+        // $involved_services_id_arr = $this->db->select('ea_services.id')->from('ea_services')
+        //     ->where('start_datetime >', $first_datetime)
+        //     ->where('start_datetime <', $last_datetime)
+        //     ->where('id_users_provider', $tutor_id)
+        //     ->get()
+        //     ->result_array();
 
         // //// Get the email of all the involved students
         // $involved_app_info_arr = array();
@@ -680,10 +713,16 @@ class Admin_model extends CI_Model{
         }
 
         //// Delete all the involved services
-        $this->db->where('start_datetime >', $first_datetime);
-        $this->db->where('start_datetime <', $last_datetime);
-        $this->db->where('id_users_provider', $tutor_id);
-        $services_delete_bool = $this->db->delete('ea_services');
+        // $this->db->where('start_datetime >', $first_datetime);
+        // $this->db->where('start_datetime <', $last_datetime);
+        // $this->db->where('id_users_provider', $tutor_id);
+        $services_delete_bool = TRUE;
+        for($i = 0; $i < sizeof($involved_week); $i++){
+            $this->db->where('start_datetime >', $involved_week[$i]['start']);
+            $this->db->where('start_datetime <', $involved_week[$i]['end']);
+            $this->db->where('id_users_provider', $tutor_id);
+            $services_delete_bool &= $this->db->delete('ea_services');
+        }
 
         // :: Insert new services
         if($service_id != 'ALL'){
@@ -691,7 +730,7 @@ class Admin_model extends CI_Model{
         }
         
         $input_arr = array($tutor_id, $semester_info, $services_id, $week);
-        $output_arr = array($app_delete_bool, $services_delete_bool, $services_insert_bool);
+        $output_arr = array($app_delete_bool, $services_delete_bool, $services_insert_bool, $involved_week);
         $this->log_operation('schedule_current_schema_to_all_weeks', $input_arr, $output_arr);
 
 
