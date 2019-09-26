@@ -130,14 +130,14 @@
 					</div>
 					
 					<!-- Alert box -->
-					<div class="alert alert-warning" role="alert" style="display:none;">Upload Error</div>
+					<div class="alert alert-warning" role="alert" style="display:none;"><?= lang('upload_error') ?></div>
 					
 					<!-- A cropping modal -->
 					<div class="modal fade" id="avatar_modal" tabindex="-1" role="dialog" aria-labelledby="avatar_modalLabel" aria-hidden="true" style="display:none;">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="avatar_modalLabel" style="display:inline-block;">Crop the image</h5>
+									<h5 class="modal-title" id="avatar_modalLabel" style="display:inline-block;"><?= lang('crop_the_image') ?></h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:inline-block;padding:8px 0 0 0;">
 										<span aria-hidden="true">&times;</span>
 									</button>
@@ -149,7 +149,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal"><?= lang('cancel') ?></button>
-									<button type="button" class="btn btn-primary" id="crop-avatar">Crop</button>
+									<button type="button" class="btn btn-primary" id="crop-avatar"><?= lang('crop') ?></button>
 								</div>
 							</div>
 						</div>

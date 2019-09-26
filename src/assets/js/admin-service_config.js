@@ -30,6 +30,9 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 	
 	var cropper;
 	
+	var cbfpre = "<div class='col-xs-12 col-md-3'>";
+	var cbfpost = "</div>";
+	
     /**
      * This method initializes the Students My Appointment page.
      *
@@ -384,37 +387,21 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				scheduleToAllWeeks: {
 					text: EALang.schedule_to_all_weeks,
 					click: function() {
-						$('#scheduleToSome').modal('show');
-//						//	Prompt: you really want to do this???
-//            			var buttons = [
-//            			    {
-//            			        text: EALang.confirm,
-//            			        click: function () {
-//									var services = calendar.getEvents();
-//									var services_id = [];
-//									$.each(services, function(index, service) {
-//										services_id.push(service.id);
-//									});
-//									//	Check a bug
-//									if (services_id.length === 0) {
-//										services_id = "ALL";
-//									}
-//									var tutor_id = $('select#calendar_tutor option:selected').val();
-//									var week = $('select#calendar_week_number option:selected').val();
-//									var semester = $('select#calendar_semester option:selected').val();
-//            			            helper.scheduleToAllWeeks(services_id, tutor_id, week, semester);
-//            			            $('#message_box').dialog('close');
-//            			        }
-//            			    },
-//            			    {
-//            			        text: EALang.cancel,
-//            			        click: function () {
-//            			            $('#message_box').dialog('close');
-//            			        }
-//            			    }
-//            			];
-//            			GeneralFunctions.displayMessageBox(EALang.schedule_to_all_title,
-//														   EALang.schedule_to_all_prompt, buttons);
+						//	Update the modal box
+						var cb_field = $('#stsw_cb_field');
+						cb_field.html('');	// Clear
+						var html, id, title, parity;
+						for (var wn = 1; wn <= $('#calendar_week_number option').length; ++wn) {	// Load
+							id = "stsw_" + wn;
+							title = "Week " + wn;
+							parity = (wn % 2 === 0) ? 'even' : 'odd';
+							html = cbfpre;
+							html += "<input name='stsw' value='" + wn + "' id='" + id + "' type='checkbox' title='" + title + "' data-parity='" + parity + "' />";
+							html += "<label class='control-label' for='" + id + "' style='cursor:pointer;'>" + title + "</label>";
+							html += cbfpost;
+							cb_field.append(html);
+						}
+						$('#scheduleToSome').modal('show');	// Show
 					}
 				}
 			},

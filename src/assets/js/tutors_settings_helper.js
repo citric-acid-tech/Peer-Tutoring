@@ -187,12 +187,12 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 								$alert.fadeIn().addClass('alert-warning').text(response.msg);
 							}
 							
-							$alert.fadeIn().addClass('alert-success').text('Upload success');
+							$alert.fadeIn().addClass('alert-success').text(EALang.upload_success);
 						},
 						
 						error: function() {
 							avatar.src = initialAvatarURL;
-							$alert.fadeIn().addClass('alert-warning').text('Upload error');
+							$alert.fadeIn().addClass('alert-warning').text(EALang.upload_error);
 						},
 						
 						complete: function() {

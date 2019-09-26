@@ -74,25 +74,38 @@
 			<div id="admin-full-calendar"></div>
 			<!-- modal for batch scheduling -->
 			<div class="modal fade" id="scheduleToSome" tabindex="-1" role="dialog" aria-labelledby="scheduleToSomeModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="scheduleToSomeModalLabel" style="display: inline-block;">Schedule to Selected Weeks</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block;">
+							<h5 class="modal-title" id="scheduleToSomeModalLabel" style="display: inline-block;"><?= lang('schedule_to_selected_weeks') ?></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block;padding:8px 0 0 0;">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body" style="padding:0 15px;">
 							<form>
 								<div class="form-group">
-									<input id="enable_email_notification" type="checkbox" data-field="enable_email_notification" title="<?= lang('enable_email_notification') ?>" />
-									<label class="control-label" for="enable_email_notification" style="cursor:pointer;"><?= lang('enable_email_notification') ?><span></span></label>
+									<div class="container">
+										<div class="container">
+											<div class="btn-group" style="margin: 0 10px 0 0;">
+												<button type="button" class="btn btn-info" id="stsw_all"><?= lang('all') ?></button>
+												<button type="button" class="btn btn-default" id="stsw_none"><?= lang('none') ?></button>
+											</div>
+											<div class="btn-group" style="margin: 0 10px 0 0;">
+												<button type="button" class="btn btn-info" id="stsw_odd" title="Function Confusing" disabled>Odd Weeks</button>
+												<button type="button" class="btn btn-info" id="stsw_even" title="Function Confusing" disabled>Even Weeks</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="container-fluid" id="stsw_cb_field"></div>
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Schedule</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal"><?= lang('close') ?></button>
+							<button type="button" class="btn btn-primary" id="stsw_schedule"><strong><?= lang('schedule') ?></strong></button>
 						</div>
 					</div>
 				</div>
@@ -299,14 +312,14 @@
 								</div>
 								
 								<!-- Alert box -->
-								<div class="alert alert-warning" role="alert" style="display:none;">Upload Error</div>
+								<div class="alert alert-warning" role="alert" style="display:none;"><?= lang('upload_error') ?></div>
 								
 								<!-- A cropping modal -->
 								<div class="modal fade" id="avatar_modal" tabindex="-1" role="dialog" aria-labelledby="avatar_modalLabel" aria-hidden="true" style="display:none;">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="avatar_modalLabel" style="display:inline-block;">Crop the image</h5>
+												<h5 class="modal-title" id="avatar_modalLabel" style="display:inline-block;"><?= lang('crop_the_image') ?></h5>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:inline-block;padding:8px 0 0 0;">
 													<span aria-hidden="true">&times;</span>
 												</button>
@@ -318,7 +331,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-dismiss="modal"><?= lang('cancel') ?></button>
-												<button type="button" class="btn btn-primary" id="crop-avatar">Crop</button>
+												<button type="button" class="btn btn-primary" id="crop-avatar"><?= lang('crop') ?></button>
 											</div>
 										</div>
 									</div>

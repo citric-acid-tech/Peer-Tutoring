@@ -162,6 +162,78 @@
 			instance.calendar.gotoDate(date.toDate());
 		});
 		
+   		/**
+   		 * Event: Schedule button in modal clicked
+   		 */
+		$('#stsw_schedule').click(function() {
+			//	Prompt: you really want to do this???
+			var buttons = [
+				{
+					text: EALang.confirm,
+					click: function () {
+						var services = instance.calendar.getEvents();
+						var services_id = [];
+						$.each(services, function(index, service) {
+							services_id.push(service.id);
+						});
+						//	Check a bug
+						if (services_id.length === 0) {
+							services_id = "ALL";
+						}
+						var tutor_id = $('select#calendar_tutor option:selected').val();
+						var week = $('select#calendar_week_number option:selected').val();
+						var semester = $('select#calendar_semester option:selected').val();
+						var sel_weeks = $('input[name="stsw"]:checked');
+						var plan_weeks = [];
+						$.each(sel_weeks, function(index, item) {
+							plan_weeks.push(item.value);
+						});
+						$('#scheduleToSome').modal('hide');	// Hide
+						instance.scheduleToAllWeeks(services_id, tutor_id, week, semester, plan_weeks);
+						$('#message_box').dialog('close');
+					}
+				},
+				{
+					text: EALang.cancel,
+					click: function () {
+						$('#message_box').dialog('close');
+					}
+				}
+			];
+			GeneralFunctions.displayMessageBox(EALang.schedule_to_all_title,
+														   EALang.schedule_to_all_prompt, buttons);
+		});
+		
+   		/**
+   		 * Event: All button in modal clicked
+   		 */
+		$('#stsw_all').click(function() {
+			$('input[name="stsw"]').prop('checked', true);
+		});
+		
+   		/**
+   		 * Event: None button in modal clicked
+   		 */
+		$('#stsw_none').click(function() {
+			$('input[name="stsw"]:checked').prop('checked', false);
+		});
+		
+   		/**
+   		 * Event: Odd Weeks button in modal clicked
+   		 */
+		$('#stsw_odd').click(function() {
+			$('input[name="stsw"]:checked').prop('checked', false);
+			$('input[name="stsw"][data-parity="odd"]').prop('checked', true);
+		});
+		
+   		/**
+   		 * Event: Even Weeks button in modal clicked
+   		 */
+		$('#stsw_even').click(function() {
+			$('input[name="stsw"]:checked').prop('checked', false);
+			$('input[name="stsw"][data-parity="even"]').prop('checked', true);
+		});
+		
 	};
 	
     /**
@@ -655,14 +727,15 @@
     /**
      * Schedule to all weeks
      */
-   	AdminServiceConfigServiceCalendarHelper.prototype.scheduleToAllWeeks = function(services_id, tutor_id, week, semester) {
+   	AdminServiceConfigServiceCalendarHelper.prototype.scheduleToAllWeeks = function(services_id, tutor_id, week, semester, plan_weeks) {
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_schedule_current_schema_to_all_weeks';
         var postData = {
             csrfToken:		GlobalVariables.csrfToken,
 			services_id:	JSON.stringify(services_id),
 			tutor_id:		JSON.stringify((tutor_id === undefined || tutor_id === '-1') ? 'ALL' : tutor_id),
 			week:			JSON.stringify(week),
-			semester:		JSON.stringify(semester)
+			semester:		JSON.stringify(semester),
+			plan_weeks:		JSON.stringify(plan_weeks)
         };
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
