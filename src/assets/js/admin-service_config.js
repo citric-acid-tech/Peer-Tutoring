@@ -385,7 +385,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					}
 				},
 				scheduleToAllWeeks: {
-					text: EALang.schedule_to_all_weeks,
+					text: EALang.schedule_to_selected_weeks,
 					click: function() {
 						//	Update the modal box
 						var cb_field = $('#stsw_cb_field');
