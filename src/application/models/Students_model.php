@@ -198,7 +198,7 @@ class Students_model extends CI_Model{
      * 
      * @return array         the result array containing the result of the query
      */
-    public function get_available_appointments($tutor_id){
+    public function get_available_appointments($tutor_id, $user_id){
         // tutor_name
         $MIN_BOOK_AHEAD_MINS = $this->db->select('value')
             ->from('ea_settings')
@@ -261,6 +261,7 @@ class Students_model extends CI_Model{
                 ->where('ea_services.start_datetime < ', $latest_available_start_time)
                 ->where('ea_services.start_datetime > ', $now)
                 ->where('ea_users.id', $tutor_id)
+                ->where('ea_appointments.id_users_customer', $user_id)
                 ->order_by('service_id', 'ASC')
                 ->get()
                 ->result_array();

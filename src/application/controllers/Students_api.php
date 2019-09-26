@@ -123,9 +123,10 @@ class Students_api extends CI_Controller{
             
             // Get input
             $tutor_id = json_decode($this->input->post('tutor_id'), TRUE);
+            $user_id = $this->session->userdata('user_id');
 
             // Query
-            $result = $this->students_model->get_available_appointments($tutor_id);
+            $result = $this->students_model->get_available_appointments($tutor_id, $user_id);
 
             $this->output
                 ->set_content_type('application/json')
