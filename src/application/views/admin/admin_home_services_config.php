@@ -72,6 +72,31 @@
 			</div>
 			<!-- Guess what, a large calendar! -->
 			<div id="admin-full-calendar"></div>
+			<!-- modal for batch scheduling -->
+			<div class="modal fade" id="scheduleToSome" tabindex="-1" role="dialog" aria-labelledby="scheduleToSomeModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="scheduleToSomeModalLabel" style="display: inline-block;">Schedule to Selected Weeks</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block;">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body" style="padding:0 15px;">
+							<form>
+								<div class="form-group">
+									<input id="enable_email_notification" type="checkbox" data-field="enable_email_notification" title="<?= lang('enable_email_notification') ?>" />
+									<label class="control-label" for="enable_email_notification" style="cursor:pointer;"><?= lang('enable_email_notification') ?><span></span></label>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Schedule</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="popup">
 				<div class="curtain"></div>
 				<div id="cal_edit_popup">
