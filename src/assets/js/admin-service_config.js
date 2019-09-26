@@ -324,7 +324,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				}
 			} else if ($(this).attr('href') === '#tutor_config') {
 				$('#avatar_file_input').prop('disabled', true);
-				$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+				$('#avatar_setting .avatar_label').css({
+					'cursor': 'not-allowed',
+					'opacity': '1'
+				});
 				helper = adminServiceConfigTutorHelper;
 				helper.resetForm();				
 				helper.getAllTutors();				

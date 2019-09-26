@@ -181,7 +181,10 @@
 			$('.tutor-details-form').find('input, textarea').attr('readonly', false);
 			$('.admin-page .no-edit').attr('readonly', true);
 			$('#avatar_file_input').prop('disabled', false);
-			$('#avatar_setting .avatar_label').css('cursor', 'pointer');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'pointer',
+				'opacity': '0.6'
+			});
 		});
         /**
          * Event: New Tutor Button "Click"
@@ -307,7 +310,10 @@
 			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
 			$('#avatar_file_input').prop('disabled', true);
-			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'not-allowed',
+				'opacity': '1'
+			});
 		});
         /**
          * Event: Cancel Button "Click"
@@ -322,7 +328,10 @@
 			$('ul.nav-tabs li').removeClass('disabled');
 			$('.admin-page #tutor_config #tutor-name').attr('readonly', false);
 			$('#avatar_file_input').prop('disabled', true);
-			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'not-allowed',
+				'opacity': '1'
+			});
 		});		
 			
 		var t = null;
@@ -411,7 +420,10 @@
 		$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + "default.png");
 		$('.alert').fadeOut();
 		$('#avatar_file_input').prop('disabled', true);
-		$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+		$('#avatar_setting .avatar_label').css({
+			'cursor': 'not-allowed',
+			'opacity': '1'
+		});
 		
 		//	Handle the button group
         $('#tutor-save, #tutor-cancel, #tutor-dismiss').hide();
@@ -444,7 +456,10 @@
 		$('#flexible-column').val(tutor.flexible_column);
 		$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + tutor.avatar_url);
 		$('#avatar_file_input').prop('disabled', true);
-		$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+		$('#avatar_setting .avatar_label').css({
+			'cursor': 'not-allowed',
+			'opacity': '1'
+		});
 		$('.alert').fadeOut();
     };
 

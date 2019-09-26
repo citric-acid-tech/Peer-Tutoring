@@ -66,7 +66,10 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + response);
 			
 			$('#avatar_file_input').prop('disabled', true);
-			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'not-allowed',
+				'opacity': '1'
+			});
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 		
@@ -203,7 +206,10 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			$('#edit, #go_to_personal_page').hide();
 			$('#save, #cancel').fadeIn(360);
 			$('#avatar_file_input').prop('disabled', false);
-			$('#avatar_setting .avatar_label').css('cursor', 'pointer');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'pointer',
+				'opacity': '0.6'
+			});
 		});
 		
 		$('#save').click(function() {
@@ -254,7 +260,10 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			$('#edit, #go_to_personal_page').fadeIn(360);
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', true);
 			$('#avatar_file_input').prop('disabled', true);
-			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'not-allowed',
+				'opacity': '1'
+			});
 		});
 		
 		$('#cancel').click(function() {
@@ -263,7 +272,10 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			$('#edit, #go_to_personal_page').fadeIn(360);
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', true);
 			$('#avatar_file_input').prop('disabled', true);
-			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+			$('#avatar_setting .avatar_label').css({
+				'cursor': 'not-allowed',
+				'opacity': '1'
+			});
 		});
 	});
 	
