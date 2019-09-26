@@ -384,36 +384,37 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				scheduleToAllWeeks: {
 					text: EALang.schedule_to_all_weeks,
 					click: function() {
-						//	Prompt: you really want to do this???
-            			var buttons = [
-            			    {
-            			        text: EALang.confirm,
-            			        click: function () {
-									var services = calendar.getEvents();
-									var services_id = [];
-									$.each(services, function(index, service) {
-										services_id.push(service.id);
-									});
-									//	Check a bug
-									if (services_id.length === 0) {
-										services_id = "ALL";
-									}
-									var tutor_id = $('select#calendar_tutor option:selected').val();
-									var week = $('select#calendar_week_number option:selected').val();
-									var semester = $('select#calendar_semester option:selected').val();
-            			            helper.scheduleToAllWeeks(services_id, tutor_id, week, semester);
-            			            $('#message_box').dialog('close');
-            			        }
-            			    },
-            			    {
-            			        text: EALang.cancel,
-            			        click: function () {
-            			            $('#message_box').dialog('close');
-            			        }
-            			    }
-            			];
-            			GeneralFunctions.displayMessageBox(EALang.schedule_to_all_title,
-														   EALang.schedule_to_all_prompt, buttons);
+						$('#scheduleToSome').modal('show');
+//						//	Prompt: you really want to do this???
+//            			var buttons = [
+//            			    {
+//            			        text: EALang.confirm,
+//            			        click: function () {
+//									var services = calendar.getEvents();
+//									var services_id = [];
+//									$.each(services, function(index, service) {
+//										services_id.push(service.id);
+//									});
+//									//	Check a bug
+//									if (services_id.length === 0) {
+//										services_id = "ALL";
+//									}
+//									var tutor_id = $('select#calendar_tutor option:selected').val();
+//									var week = $('select#calendar_week_number option:selected').val();
+//									var semester = $('select#calendar_semester option:selected').val();
+//            			            helper.scheduleToAllWeeks(services_id, tutor_id, week, semester);
+//            			            $('#message_box').dialog('close');
+//            			        }
+//            			    },
+//            			    {
+//            			        text: EALang.cancel,
+//            			        click: function () {
+//            			            $('#message_box').dialog('close');
+//            			        }
+//            			    }
+//            			];
+//            			GeneralFunctions.displayMessageBox(EALang.schedule_to_all_title,
+//														   EALang.schedule_to_all_prompt, buttons);
 					}
 				}
 			},
@@ -600,6 +601,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					$("select#calendar_semester option[value='Out of Semester']").prop('selected', true);
 					$('#calendar_week_number').css('display', 'none');
 					$('#calendar_tutor').css('display', 'none');
+					$(".fc-scheduleToAllWeeks-button").prop('disabled', true);
 					successCallback([]);
 				} else {
 					//	From "Out of Semester"
@@ -616,6 +618,11 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						}
 						$('#calendar_week_number').css('display', 'inline-block');
 						$('#calendar_tutor').css('display', 'inline-block');
+						if ($('select#calendar_tutor option:selected').val() === '-1') {
+							$(".fc-scheduleToAllWeeks-button").prop('disabled', true);
+						} else {
+							$(".fc-scheduleToAllWeeks-button").prop('disabled', false);
+						}
 					}
 					$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
 					$("select#calendar_week_number option[value='" + weekNumAndSem.weekNumber + "']").prop('selected', true);

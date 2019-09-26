@@ -123,7 +123,8 @@
 							}
 							
 							if (response.result == true) {
-								//	Do nothing is okay
+								//	avoid auto-caching
+								avatar.src = GlobalVariables.avatarPrefix + response.msg + "?" + moment().format("YYYYMMDDHHmmss");
 							} else {
 								avatar.src = initialAvatarURL;
 								$alert.fadeIn().addClass('alert-warning').text(response.msg);
@@ -454,7 +455,8 @@
 		$('#personal-page').val(tutor.personal_page);
 		$('#introduction').val(tutor.introduction);
 		$('#flexible-column').val(tutor.flexible_column);
-		$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + tutor.avatar_url);
+		//	avoid auto-caching by adding parameters
+		$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + tutor.avatar_url + "?" + moment().format("YYYYMMDDHHmmss"));
 		$('#avatar_file_input').prop('disabled', true);
 		$('#avatar_setting .avatar_label').css({
 			'cursor': 'not-allowed',
