@@ -50,6 +50,26 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			}
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+		
+        postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_get_tutor_avatar_url';
+        postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			tutor_id:  GlobalVariables.tutor_id
+        };
+		
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			$('#avatar, #avatar_modal_image').prop('src', GlobalVariables.avatarPrefix + response);
+			
+			$('#avatar_file_input').prop('disabled', true);
+			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+		
 	};
 	
 	$(document).ready(function() {
@@ -113,8 +133,9 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			
 			if (cropper) {
 				canvas = cropper.getCroppedCanvas({
-					width: 160,
-					height: 160
+					width: 300,
+					height: 300,
+					aspectRatio: 1 / 1
 				});
 				initialAvatarURL = avatar.src;
 				avatar.src = canvas.toDataURL();
@@ -149,7 +170,18 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 							return xhr;
 						},
 						
-						success: function() {
+						success: function(response) {
+							if (!GeneralFunctions.handleAjaxExceptions(response)) {
+								return;
+							}
+							
+							if (response.result == true) {
+								//	Do nothing is okay
+							} else {
+								avatar.src = initialAvatarURL;
+								$alert.fadeIn().addClass('alert-warning').text(response.msg);
+							}
+							
 							$alert.fadeIn().addClass('alert-success').text('Upload success');
 						},
 						
@@ -166,15 +198,12 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			}
 		});
 		
-		
-		
-		
-		
-		
 		$('#edit').click(function() {
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', false);
 			$('#edit, #go_to_personal_page').hide();
 			$('#save, #cancel').fadeIn(360);
+			$('#avatar_file_input').prop('disabled', false);
+			$('#avatar_setting .avatar_label').css('cursor', 'pointer');
 		});
 		
 		$('#save').click(function() {
@@ -211,6 +240,8 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			$('#save, #cancel').hide();
 			$('#edit, #go_to_personal_page').fadeIn(360);
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', true);
+			$('#avatar_file_input').prop('disabled', true);
+			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
 		});
 		
 		$('#cancel').click(function() {
@@ -218,6 +249,8 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 			$('#save, #cancel').hide();
 			$('#edit, #go_to_personal_page').fadeIn(360);
 			$('#tutor-settings-page .form-group input, #tutor-settings-page .form-group textarea').attr('readonly', true);
+			$('#avatar_file_input').prop('disabled', true);
+			$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
 		});
 	});
 	
