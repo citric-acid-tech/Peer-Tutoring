@@ -323,11 +323,15 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 					calendar_needs_retrieval = false;
 				}
 			} else if ($(this).attr('href') === '#tutor_config') {
+				$('#avatar_file_input').prop('disabled', true);
+				$('#avatar_setting .avatar_label').css('cursor', 'not-allowed');
 				helper = adminServiceConfigTutorHelper;
+				helper.resetForm();				
 				helper.getAllTutors();				
 				$('.admin-page #tutor-edit').prop('disabled', true);
 			} else if ($(this).attr('href') === '#service_type_config') {
 				helper = adminServiceConfigServiceTypeHelper;
+				helper.resetForm();
 				helper.getAllServiceTypes();
 				$('.admin-page #service_type-edit').prop('disabled', true);
 			} else {

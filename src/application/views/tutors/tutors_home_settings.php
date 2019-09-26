@@ -137,18 +137,18 @@
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="avatar_modalLabel">Crop the image</h5>
-									<button type="button" class="close" data-dismiss="avatar_modal" aria-label="Close">
-										<span aria-hidden="true">x</span>
+									<h5 class="modal-title" id="avatar_modalLabel" style="display:inline-block;">Crop the image</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:inline-block;padding:8px 0 0 0;">
+										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<div class="modal-body">
+								<div class="modal-body" style="padding:0 15px;">
 									<div class="avatar-container">
 										<img id="avatar_modal_image" src="<?= base_url('assets/img/default.png') ?>" style="max-width:100%;" />
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="avatar_modal"><?= lang('cancel') ?></button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal"><?= lang('cancel') ?></button>
 									<button type="button" class="btn btn-primary" id="crop-avatar">Crop</button>
 								</div>
 							</div>
