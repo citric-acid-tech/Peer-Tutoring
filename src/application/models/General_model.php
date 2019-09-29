@@ -44,7 +44,7 @@ class General_model extends CI_Model{
             CONCAT(ea_users.first_name, \' \', ea_users.last_name)  AS name
             ')
             ->from('ea_users')
-            ->where('ea_users.id_roles <', 3)
+            ->where('ea_users.id_roles', 2)
             ->get()
             ->result_array();
     }

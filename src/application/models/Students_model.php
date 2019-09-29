@@ -431,11 +431,8 @@ class Students_model extends CI_Model{
         //:: Check if this appointment can be booked or not.
         $upload_result = $this->upload_file($user_id, $service_id, $file);
 
-        if($upload_result['result'] == FALSE){
-            return $upload_result['msg'];
-        }
-
         $attachment_url = $upload_result['msg'];
+
 
         //:: Check if it is full.
         $number = $this->db

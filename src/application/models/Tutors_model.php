@@ -108,13 +108,10 @@ class Tutors_model extends CI_Model{
         // email
         // phone_number
         // address
-        if($language && $language == '简体中文'){
-            $first_name = $surname;
-            $last_name = $given_name;
-        }else{
-            $first_name = $given_name;
-            $last_name = $surname;
-        }
+        
+        $first_name = $given_name;
+        $last_name = $surname;
+        
 
         $data = [
             'first_name' => $first_name,
