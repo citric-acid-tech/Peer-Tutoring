@@ -1,25 +1,56 @@
 
 <?php
 
-echo 'nice try';
-// class Test extends CI_Controller{
+class Test extends CI_Controller{
 
-//     public function __construct(){
-//         parent::__construct();
-//         $this->load->library('session');
-//         $this->load->helper(array('form', 'url'));
-//     }
-//     /**
-//      * This controller is written for testing models. Now you can call test_<model method name> to test
-//      * all the methods in models, or create your own test method. Access index.php/test to call this controller.
-//      * 
-//      * Also you can create accounts here, modify the arguments in test_create_account and then call it directly.
-//      */
-//     public function index(){
-//         // $this->test_download();?
-//         // echo $this->test_phpmailer() ? '1' : '0';
-//         echo $this->test_send_email() ? '1' : '0';
-//     }
+    public function __construct(){
+        parent::__construct();
+        $this->load->library('session');
+        $this->load->helper(array('form', 'url'));
+    }
+    /**
+     * This controller is written for testing models. Now you can call test_<model method name> to test
+     * all the methods in models, or create your own test method. Access index.php/test to call this controller.
+     * 
+     * Also you can create accounts here, modify the arguments in test_create_account and then call it directly.
+     */
+    public function index(){
+        // $this->test_download();?
+        // echo $this->test_phpmailer() ? '1' : '0';
+        echo 'Test';
+    }
+
+    // public function test_phpmailer(){
+    //     require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
+    //     require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
+    //     require_once("vendor/phpmailer/phpmailer/class.smtp.php");
+
+    //     $mail = new PHPMailer();
+
+    //     $mail->SMTPDebug = 1;
+
+    //     $mail->isSMTP();
+    //     $mail->isHTML(true);
+    //     $mail->SMTPAuth = true;
+    //     $mail->SMTPSecure = 'ssl';
+    //     $mail->CharSet = 'UTF-8';
+
+    //     $mail->Host = Config::SMTP_HOST;
+    //     $mail->Port = Config::SMTP_PORT;
+    //     $mail->FromName = Config::SMTP_FROMNAME;
+    //     $mail->Username = Config::SMTP_SMTPUSER;
+    //     $mail->Password = Config::SMTP_PASSWORD;
+    //     $mail->From = Config::SMTP_FROM;
+
+    //     $mail->addAddress('11710403@mail.sustech.edu.cn');
+    //     $mail->Subject = 'Test Subject';
+    //     $mail->Body = '<h1>test content.</h1>';
+    //     // $mail->addAttachment('./example.pdf');
+        
+    //     $status = $mail->send(); 
+    //     echo $status;
+    // }
+}
 
 //     public function test_download(){
 //         $this->load->helper('download');
