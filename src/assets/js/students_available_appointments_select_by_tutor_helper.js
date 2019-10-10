@@ -157,6 +157,7 @@
          */
 		$(document).on('click', '.students-page #aa_tn_display .filter-item--close, .students-page #aa_tn_display .filter-item--find', function() {
 			$('.students-page #available_appointments_tutor').val($(this).attr("data-tut_name"));
+//			alert($(this).attr("data-tut_name"));
 			$('#filter-aa_tutors #aa_tn_display').slideUp(360);
 			instance.filterList('.students-page #filter-tutor-name span li', $('.students-page #available_appointments_tutor').val().toLowerCase());
 			//	enable two buttons
@@ -213,10 +214,11 @@
 		if (cas_sid === null) {
 			tutor_display = tutor.tutor_name; 
 		} else {
-			tutor_display = cas_sid + " " + tutor.tutor_name;
+			tutor_display = /*cas_sid + " " + */tutor.tutor_name;
 		}
 		$('#tutor_name').val(tutor_display);
 		$('#tutor_page').val(tutor.personal_page);
+		$('#introduction').val(tutor.introduction);
 		$('#earliest_start_datetime').val(GeneralFunctions.formatDate(Date.parse(tutor.earliest_start_datetime), GlobalVariables.dateFormat, true));
 		
 		$('#avatar').prop('src', GlobalVariables.avatarPrefix + tutor.avatar_url);
@@ -367,7 +369,7 @@
 				} else {
 					space_or_not = ' ';
 				}
-				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + space_or_not + tutor.name.substring(0,20) + "...") : (cas_sid + space_or_not + tutor.name);
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (/*cas_sid + space_or_not + */tutor.name.substring(0,20) + "...") : (/*cas_sid + space_or_not + */tutor.name);
 				var html = "<li class='filter-item filter-item--find' data-tut_name='" + tutor.name + "' title='" + cas_sid + space_or_not + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-aa_tutors #filter-tutor-name span').append(html);
 			}.bind(this));

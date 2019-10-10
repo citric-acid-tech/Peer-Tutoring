@@ -389,3 +389,9 @@ li.language:hover {
 #message_box pre {
     max-height: 250px;
 }
+
+.currently-not-needed {
+	display: none!important;
+	pointer-events: none!important;
+	cursor: not-allowed!important;
+}

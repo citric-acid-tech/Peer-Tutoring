@@ -354,6 +354,7 @@ class Students_model extends CI_Model{
             ea_users.personal_page                                  AS personal_page,
             MIN(ea_services.start_datetime)                         AS earliest_start_datetime,
             ea_users.flexible_column                                AS flexible_column,
+			ea_users.introduction                                   AS introduction,
 			ea_users.avatar_url                                     AS avatar_url
             ')
             ->from('ea_services')

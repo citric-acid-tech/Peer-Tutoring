@@ -351,7 +351,7 @@
 		$('#description').val(appointment.appointment_description);
 		$('#service_type').val(appointment.service_type);
 		
-		$('#tutor').val(appointment.tutor_sid + " " + appointment.first_name + " " + appointment.last_name);
+		$('#tutor').val(/*appointment.tutor_sid + " " + */appointment.first_name + " " + appointment.last_name);
 		$('#notes').val(appointment.notes);
 		
 		$('#book_datetime').val(GeneralFunctions.formatDate(Date.parse(appointment.book_datetime), GlobalVariables.dateFormat, true));
@@ -549,7 +549,7 @@
 				if (cas_sid === null) {
 					cas_sid = '';
 				}
-				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (cas_sid + " " + tutor.name.substring(0,20) + "...") : cas_sid + " " + tutor.name;
+				var display_tutor = (tutor.name !== null && tutor.name.length >= 25) ? (/*cas_sid + " " + */tutor.name.substring(0,20) + "...") : /*cas_sid + " " + */tutor.name;
 				var html = "<li class='filter-item filter-item--find' data-tut_name='" + tutor.name + "' title='" + cas_sid + " " + tutor.name + "'>" + display_tutor + "</li>";
 				$('#filter-my_appointments #filter-tutor-name span').append(html);
 			}.bind(this));
