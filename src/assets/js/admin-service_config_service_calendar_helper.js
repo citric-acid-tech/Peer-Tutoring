@@ -20,6 +20,16 @@
     AdminServiceConfigServiceCalendarHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 		
+		$('.curtain').click(function() {
+			$('.popup').find('#cal_edit_popup, #cal_add_popup').fadeOut();
+			$(this).fadeOut();
+			//	Clear inputs!
+			setTimeout(function() {
+				instance.resetEditPopup();
+				instance.resetAddPopup();
+			}, 200);
+		});
+		
    		/**
    		 * Event: Edit Service Confirm button pressed
    		 */

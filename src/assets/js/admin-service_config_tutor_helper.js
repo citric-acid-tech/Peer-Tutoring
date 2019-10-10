@@ -213,7 +213,15 @@
 			setTimeout(function() {
 				instance.clearNewPopup();
 			}, 300);
-		});		
+		});
+		$('.curtain').click(function() {
+			$('.popup').find('#tutor_new_tutor_popup').fadeOut();
+			$(this).fadeOut();
+			//	Clear popup with some Timeout
+			setTimeout(function() {
+				instance.clearNewPopup();
+			}, 300);
+		});
         /**
          * Event: New Tutor Popup Confirm Button "Click"
          */

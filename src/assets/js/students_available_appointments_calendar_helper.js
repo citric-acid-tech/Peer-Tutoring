@@ -46,6 +46,15 @@
 			}, 200);
 		});
 		
+		$('.curtain').click(function() {
+			$('.popup').find('#cal_appointment_popup').fadeOut();
+			$(this).fadeOut();
+			//	Clear inputs!
+			setTimeout(function() {
+				instance.resetAppointmentPopup();
+			}, 200);
+		});
+		
    		/**
    		 * Event: Check by tutor clicked
    		 */

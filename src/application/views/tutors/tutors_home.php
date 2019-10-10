@@ -95,7 +95,7 @@
                         <i class="glyphicon glyphicon-pencil"></i>&nbsp;
                         <?= lang('modify_service_status') ?>
                     </button>
-                    <button id="provide_feedback_and_suggestions" class="btn btn-primary">
+                    <button id="provide_feedback_and_suggestions" class="btn btn-primary currently-not-needed">
                         <i class="glyphicon glyphicon-pencil"></i>&nbsp;
                         <?= lang('provide_feedback_and_suggestions') ?>
                     </button>
