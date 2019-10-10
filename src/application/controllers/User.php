@@ -228,9 +228,8 @@ class User extends CI_Controller {
                 $mail_arr = array($this->input->post('email'));
                 $subject = 'Regenerate New Password';
                 $body = 'Your new password is: ' . $new_password;
-                if( !$this->general_model->_sendemail($mail_arr, $subject, $body) ){
-                    $this->general_model->_buffer_failed_email($mail_arr, $subject, $body);
-                }
+                $this->general_model->_sendemail($mail_arr, $subject, $body);
+                
                 
                 // $email->sendPassword(new NonEmptyText($new_password), new Email($this->input->post('email')),
                 //     $company_settings);
