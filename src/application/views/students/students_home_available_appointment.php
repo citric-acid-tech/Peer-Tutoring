@@ -37,7 +37,12 @@
 <div id="available_appointments-page" class="container-fluid students-page">
 
 	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active">
+		<li role="presentation" class="active no-longer-disabled">
+			<a id="check-calendar-tabnav" href="#check-available-time-in-calendar" aria-controls="check-available-time-in-calendar" role="tab" data-toggle="tab">
+				<?= lang('calendar') ?>
+			</a>
+		</li>
+		<li role="presentation" class="no-longer-active">
 			<a href="#select-by-tutor-tab" aria-controls="select-by-tutor-tab" role="tab" data-toggle="tab">
 				<?= lang('select_by_tutor_tab') ?>
 			</a>
@@ -47,16 +52,102 @@
 				<?= lang('select_by_time_tab') ?>
 			</a>
 		</li>
-		<li role="presentation" class="disabled">
-			<a id="check-calendar-tabnav" href="#check-available-time-in-calendar" aria-controls="check-available-time-in-calendar" role="tab" data-toggle="tab">
-				<?= lang('calendar') ?>
-			</a>
-		</li>
 	</ul>   
 
 	<div class="tab-content">
+		<!-- Check Available Time in Calendar Tab -->
+		<div role="tabpanel" class="active tab-pane no-longer-fade" id="check-available-time-in-calendar">
+			<!-- toolbar -->
+			<div class="container calendar_upper_header" style="text-align:center;">
+				<div class="col-xs-12">
+					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);padding: 10px 0;">
+						<span id="calendar_semester" style="min-width:150px;"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span id="calendar_week_number" style="min-width:150px;"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span id="calendar_tutor" style="min-width:150px;"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button id="sel_tutor_by_name" class="btn btn-primary">
+						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
+						    <?= lang('select_by_tutor_tab') ?>
+						</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button id="sel_tutor_by_time" class="btn btn-primary">
+						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
+						    <?= lang('select_by_time_tab') ?>
+						</button>
+					</h4>
+				</div>
+			</div>
+			<!-- Guess what, a large calendar! -->
+			<div id="student-full-calendar"></div>
+			<div class="popup">
+				<div class="curtain"></div>
+				<div id="cal_appointment_popup">
+					<a href="#popup_apply_title_change" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div></a>
+					<hr />
+					<ul class="appoint_list">
+						<li>
+							<strong><?= lang('service') ?></strong>: <span id="appointment_service_service_type"></span>
+						</li>
+						<li>
+							<strong><?= lang('service_type_description') ?></strong>: <span id="appointment_service_type_description"></span>
+						</li>
+						<li>
+							<strong><?= lang('service_description') ?></strong>: <span id="appointment_service_description"></span>
+						</li>
+						<li>
+							<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong><?= lang('tutor') ?></strong>: <span id="appointment_service_tutor"></span></a>
+						</li>
+						<li id="capacity_check">
+							<strong><?= lang('capacity') ?></strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
+						</li>
+						<li>
+							<strong><?= lang('time') ?></strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
+						</li>
+						<li>
+							<strong><?= lang('address') ?></strong>: <span id="appointment_service_address"></span>
+						</li>
+					</ul>
+					
+					<input id="appointment_service_id" type="hidden" />
+					
+					<hr />
+					<!-- Remark & Note -->
+					<div class="popup-container">
+						<a href="#popup_appointment_cancel" style="text-decoration:none;"><h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong><?= lang('apply_now') ?></strong></h4></a>
+						<hr style="width:60%;margin: 20px auto;" />
+						<div style="width:43%;display:inline-block;">
+							<textarea id="appointment_service_remark" type="text" placeholder="<?= lang('stu_aa_cal_remark_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_remark_hint') ?>" style="resize:none;width:100%;"></textarea>
+						</div>
+						<div style="width:43%;display:inline-block;">
+							<textarea id="appointment_service_note" type="text" placeholder="<?= lang('stu_aa_cal_note_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_note_hint') ?>" style="resize:none;width:100%;"></textarea>
+						</div>
+						<div style="width:90%;margin:5px auto;" class="help-block"><?= lang('stu_aa_cal_gen_hint') ?></div>
+					</div>
+					<div class="popup-container">
+						<!-- size: KB -->
+						<!-- i class="fas fa-upload"></i -->
+						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" accept=".doc,.docx,.md,.pdf,.png,.zip,.jar,.7z" />
+						<label for="appointment_service_attach"><strong><?= lang('attach_a_file') ?></strong></label>
+						<div style="width:90%;margin:5px auto;" class="help-block">
+							<?= lang('restricted_formats') ?>: <?php echo str_replace('|', ', ', DOCUMENT_FORMAT); ?>
+						</div>
+					</div>
+					
+					<hr />
+					<!-- Buttons -->
+					<div class="popup-container">
+						<button id="popup_appointment_confirm" type="button" class="popup_buttons" title="<?= lang('confirm') ?>"><?= lang('confirm') ?></button>
+						<button id="popup_appointment_cancel" type="button" class="popup_buttons" title="<?= lang('cancel') ?>"><?= lang('cancel') ?></button>
+					</div>
+				</div>
+			</div>
+			<br />
+		</div>
+		
 		<!-- Select by Tutor Tab -->
-		<div role="tabpanel" class="tab-pane active" id="select-by-tutor-tab">
+		<div role="tabpanel" class="tab-pane no-longer-active fade" id="select-by-tutor-tab">
 			<div class="container" style="width:90%;">
 				<div id="filter-aa_tutors" class="filter-records column col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-2">
 					<form>
@@ -200,97 +291,6 @@
 						</h4>
 						<hr />
 						<div class="available-tutors-at-time"></div>
-					</div>
-				</div>
-			</div>
-			<br />
-		</div>
-		
-		<!-- Check Available Time in Calendar Tab -->
-		<div role="tabpanel" class="tab-pane fade" id="check-available-time-in-calendar">
-			<!-- toolbar -->
-			<div class="container calendar_upper_header" style="text-align:center;">
-				<div class="col-xs-12">
-					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);padding: 10px 0;">
-						<span id="calendar_semester" style="min-width:150px;"></span>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-						<span id="calendar_week_number" style="min-width:150px;"></span>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-						<span id="calendar_tutor" style="min-width:150px;"></span>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-						<button id="sel_tutor_by_name" class="btn btn-primary">
-						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
-						    <?= lang('select_by_tutor_tab') ?>
-						</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-						<button id="sel_tutor_by_time" class="btn btn-primary">
-						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
-						    <?= lang('select_by_time_tab') ?>
-						</button>
-					</h4>
-				</div>
-			</div>
-			<!-- Guess what, a large calendar! -->
-			<div id="student-full-calendar"></div>
-			<div class="popup">
-				<div class="curtain"></div>
-				<div id="cal_appointment_popup">
-					<a href="#popup_apply_title_change" style="text-decoration:none;"><div class="popup-title"><h2><?= lang('make_an_appointment') ?></h2></div></a>
-					<hr />
-					<ul class="appoint_list">
-						<li>
-							<strong><?= lang('service') ?></strong>: <span id="appointment_service_service_type"></span>
-						</li>
-						<li>
-							<strong><?= lang('service_type_description') ?></strong>: <span id="appointment_service_type_description"></span>
-						</li>
-						<li>
-							<strong><?= lang('service_description') ?></strong>: <span id="appointment_service_description"></span>
-						</li>
-						<li>
-							<a id="appointment_service_tutor_page" href="javascript:void(0);" target="_blank"><strong><?= lang('tutor') ?></strong>: <span id="appointment_service_tutor"></span></a>
-						</li>
-						<li id="capacity_check">
-							<strong><?= lang('capacity') ?></strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
-						</li>
-						<li>
-							<strong><?= lang('time') ?></strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
-						</li>
-						<li>
-							<strong><?= lang('address') ?></strong>: <span id="appointment_service_address"></span>
-						</li>
-					</ul>
-					
-					<input id="appointment_service_id" type="hidden" />
-					
-					<hr />
-					<!-- Remark & Note -->
-					<div class="popup-container">
-						<a href="#popup_appointment_cancel" style="text-decoration:none;"><h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong><?= lang('apply_now') ?></strong></h4></a>
-						<hr style="width:60%;margin: 20px auto;" />
-						<div style="width:43%;display:inline-block;">
-							<textarea id="appointment_service_remark" type="text" placeholder="<?= lang('stu_aa_cal_remark_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_remark_hint') ?>" style="resize:none;width:100%;"></textarea>
-						</div>
-						<div style="width:43%;display:inline-block;">
-							<textarea id="appointment_service_note" type="text" placeholder="<?= lang('stu_aa_cal_note_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_note_hint') ?>" style="resize:none;width:100%;"></textarea>
-						</div>
-						<div style="width:90%;margin:5px auto;" class="help-block"><?= lang('stu_aa_cal_gen_hint') ?></div>
-					</div>
-					<div class="popup-container">
-						<!-- size: KB -->
-						<!-- i class="fas fa-upload"></i -->
-						<input id="appointment_service_attach" type="file" name="attach" class="inputfile" accept=".doc,.docx,.md,.pdf,.png,.zip,.jar,.7z" />
-						<label for="appointment_service_attach"><strong><?= lang('attach_a_file') ?></strong></label>
-						<div style="width:90%;margin:5px auto;" class="help-block">
-							<?= lang('restricted_formats') ?>: <?php echo str_replace('|', ', ', DOCUMENT_FORMAT); ?>
-						</div>
-					</div>
-					
-					<hr />
-					<!-- Buttons -->
-					<div class="popup-container">
-						<button id="popup_appointment_confirm" type="button" class="popup_buttons" title="<?= lang('confirm') ?>"><?= lang('confirm') ?></button>
-						<button id="popup_appointment_cancel" type="button" class="popup_buttons" title="<?= lang('cancel') ?>"><?= lang('cancel') ?></button>
 					</div>
 				</div>
 			</div>

@@ -26,9 +26,10 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 	
 	var calendar;
 	//	Rendered First?
-	var firstLoad = false;
-	var selected_tutor_id;
-	var selected_tutor;
+	var selected_tutor_id = 'ALL';
+	var selected_tutor = 'All Tutors';
+	
+	var cal_first = true;
 	
     /**
      * This method initializes the Students My Appointment page.
@@ -39,10 +40,37 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 		
-		//	Select by Tutor by default
-        helper = studentsAvailableAppointmentsTutorHelper;
-        helper.resetForm();
-        helper.filter(undefined, undefined, undefined, undefined, 'true');
+		if (!cal_first) {
+			//	Select by Tutor by default
+        	helper = studentsAvailableAppointmentsTutorHelper;
+        	helper.resetForm();
+        	helper.filter(undefined, undefined, undefined, undefined, 'true');
+		} else {
+			//	Select in Large Calendar by default
+			//	This may not happens, cause it cannot be changed directly
+			//	This may still happen if privileges are added
+			helper = studentsAvailableAppointmentsCalendarHelper;
+			//	Guess what, a large calendar!!!
+			//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
+//			helper.pond = pond;
+			helper.getAllServiceTypes();
+			//	Guess what, a large calendar!!!
+			var calendarEl = document.getElementById('student-full-calendar');
+			calendar = StudentsAvailableAppointments.initCalendar(calendarEl);
+			switch(GlobalVariables.curLanguage) {
+				case "english": calendar.setOption('locale', Students.CALENDAR_LOCALES_ENGLISH); break;
+				case "简体中文": calendar.setOption('locale', Students.CALENDAR_LOCALES_ZH_CN); break;
+				default: calendar.setOption('locale', Students.CALENDAR_LOCALES_ENGLISH);
+			}
+			helper.calendar = calendar;
+			calendar.render();
+			var mql = window.matchMedia("screen and (max-width: 1100px)");
+			if (mql.matches) {
+				setTimeout(function() {
+					calendar.changeView('listWeek');
+				}, 50);
+			}
+		}
 		
 		//	File Input Settings
 		var inputs = $('.inputfile');
@@ -76,6 +104,10 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 		
 		//	Prevent Calendar from being clicked in the main page
 		$('.students-page .disabled').click(function(e) {
+			//	Now the logic has changed, this one is no longer needed
+			if (cal_first) {
+				return true;
+			}
 			Students.displayNotification(EALang.stu_aa_changeTab_prior_warning, undefined, "failure");
 			e.preventDefault();
 			return false;
@@ -99,10 +131,14 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
 			if ($(this).attr('href') === '#select-by-tutor-tab') {
 				helper = studentsAvailableAppointmentsTutorHelper;
+				helper.selected_tutor = selected_tutor;
+				helper.selected_tutor_id = selected_tutor_id;
 				helper.resetForm();
 				helper.filter(undefined, undefined, undefined, undefined, 'true');
 			} else if ($(this).attr('href') === '#select-by-time-tab') {
 				helper = studentsAvailableAppointmentsTimeHelper;
+				helper.selected_tutor = selected_tutor;
+				helper.selected_tutor_id = selected_tutor_id;
 				//	Guess what, a date picker!
 				//	beforeShowDay: $.datepicker.noWeekends
 				$('#sel_calendar').datepicker({
@@ -129,29 +165,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				helper = studentsAvailableAppointmentsCalendarHelper;
 				//	Guess what, a large calendar!!!
 				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
-				if (!firstLoad) {
-//					helper.pond = pond;
-					helper.getAllServiceTypes();
-					//	Guess what, a large calendar!!!
-					var calendarEl = document.getElementById('student-full-calendar');
-					calendar = StudentsAvailableAppointments.initCalendar(calendarEl);
-					switch(GlobalVariables.curLanguage) {
-						case "english": calendar.setOption('locale', Students.CALENDAR_LOCALES_ENGLISH); break;
-						case "简体中文": calendar.setOption('locale', Students.CALENDAR_LOCALES_ZH_CN); break;
-						default: calendar.setOption('locale', Students.CALENDAR_LOCALES_ENGLISH);
-					}
-					helper.calendar = calendar;
-					calendar.render();
-					var mql = window.matchMedia("screen and (max-width: 1100px)");
-					if (mql.matches) {
-						setTimeout(function() {
-							calendar.changeView('listWeek');
-						}, 50);
-					}
-					firstLoad = true;
-				} else {
-					calendar.refetchEvents();
-				}
+				calendar.refetchEvents();
 			} else {
 				alert(EALang.genius_unknown_op);
 			}
