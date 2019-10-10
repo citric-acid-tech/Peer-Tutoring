@@ -221,6 +221,7 @@ class Students_api extends CI_Controller{
             $service_id = json_decode($this->input->post('service_id'), TRUE);
             $note = json_decode($this->input->post('note'), TRUE);
             $remark = json_decode($this->input->post('remark'), TRUE);
+            $file_attached = json_decode($this->input->post('file_attached'), TRUE);
             $file = $_FILES['file'];
             
             $user_id = $this->session->userdata('user_id');
@@ -228,7 +229,7 @@ class Students_api extends CI_Controller{
             // Upload File? TODO
             
             // Query
-            $result = $this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file);
+            $result = $this->students_model->new_appointment($user_id, $service_id, $note, $remark, $file, $file_attached);
             $this->output
                     ->set_content_type('application/json')
                     ->set_output(json_encode($result));
