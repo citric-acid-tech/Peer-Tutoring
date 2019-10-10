@@ -86,7 +86,7 @@
             $(this).addClass('selected');
 			
 			//	If Finished or Cancelled, disable two buttons
-			if (appointment.booking_status === '2' || appointment.booking_status === '3') {
+			if (appointment.booking_status === '1' || appointment.booking_status === '2' || appointment.booking_status === '3') {
 				$('#modify_service_status').prop('disabled', true);
 				$('#provide_feedback_and_suggestions').prop('disabled', true);
 			} else {
@@ -109,10 +109,12 @@
 			if (service_status_data === EALang.bs0) {
 				service_status_to = '1';
 				service_status_lang = EALang.bs1;
-			} else if (service_status_data === EALang.bs1) {
-				service_status_to = '2';
-				service_status_lang = EALang.bs2;
-			} else {
+			} 
+//			else if (service_status_data === EALang.bs1) {
+//				service_status_to = '2';
+//				service_status_lang = EALang.bs2;
+//			} 
+			else {
 				Tutors.displayNotification(EALang.tut_aa_modstatus_404, undefined, "failure");
 				return false;
 			}
