@@ -43,7 +43,7 @@
                   			<option value="2" class='bs2'><?= lang("bs2") ?></option>
                   			<option value="3" class='bs3'><?= lang("bs3") ?></option>
                   		</select>
-                  		<input type="text" class="form-control" id="my_appointments_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
+                  		<input type="text" class="form-control currently-not-needed" id="my_appointments_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
                   		<div id="ma_sc_display">
                   			<!-- Notice: If category is longer than 35 characters, scale it -->
                   			<ul id="filter-service-category" class="filter-list">
@@ -55,7 +55,7 @@
                    		<input type="text" class="key form-control" id="my_appointments_tutor" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
                   		<div id="ma_tn_display">
                   			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_tutors') ?> -"><strong><?= lang('search_all_tutors') ?></strong></li>
+                  				<li class="filter-item filter-item--close" data-tut_name="- <?= lang('search_all_tutors') ?> -" title="- <?= lang('search_all_tutors') ?> -"><strong>- <?= lang('search_all_tutors') ?> -</strong></li>
                   				<span></span>
                   			</ul>
                   		</div>

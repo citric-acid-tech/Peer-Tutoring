@@ -153,7 +153,7 @@
 					<form>
 			            <div class="input-group">
 			               <div class="input-group-selection">
-			              		<input type="text" class="form-control" id="available_appointments_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
+			              		<input type="text" class="form-control currently-not-needed" id="available_appointments_service_category" placeholder="<?= lang('type_for_a_service_category') ?>" title="<?= lang('type_for_a_service_category') ?>" autocomplete="off" />
 			              		<div id="aa_sc_display">
 			              			<!-- Notice: If category is longer than 35 characters, scale it -->
 			              			<ul id="filter-service-category" class="filter-list">
@@ -165,7 +165,7 @@
 			               		<input type="text" class="key form-control" id="available_appointments_tutor" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
 			              		<div id="aa_tn_display">
 			              			<ul id="filter-tutor-name" class="filter-list">
-			              				<li class="filter-item filter-item--close" title="- <?= lang('search_all_tutors') ?> -"><strong><?= lang('search_all_tutors') ?></strong></li>
+			              				<li class="filter-item filter-item--close" data-tut_name="- <?= lang('search_all_tutors') ?> -" title="- <?= lang('search_all_tutors') ?> -"><strong>- <?= lang('search_all_tutors') ?> -</strong></li>
 			              				<span></span>
 			              			</ul>
 			              		</div>
@@ -177,9 +177,7 @@
 			                   			<button id="search-filter" class="filter btn btn-default" type="submit" title="<?= lang('filter') ?>">
 			                   			    <span class="glyphicon glyphicon-search"></span>
 			                   			</button>
-			                   		</div>
-			                   		<br />
-									<div>
+		                        		&nbsp;
 			                        	<button id="clear-filter" class="clear btn btn-default" type="button" title="<?= lang('clear') ?>">
 			                        	    <i class="fas fa-times"></i>
 			                        	</button>
@@ -193,7 +191,7 @@
 			        
 			        <!-- Here are the results on the left -->
 			        <div class="results"></div>
-				</div>	
+				</div>
 
 				<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 			
@@ -211,7 +209,7 @@
 					        </div>
 					        <br />
 					        
-					        <div class="form-group">
+					        <div class="form-group currently-not-needed">
 				            	<button id="go-to-tutor-personal-page" class="btn btn-info" style="font-size:12px;">
 				            		<i class="fas fa-home"></i>
 				            	</button>
@@ -219,11 +217,17 @@
 					            <label class="control-label" for="tutor_page"><?= lang('tutor_page') ?></label>
 					            <input id="tutor_page" class="form-control" readonly>
 					        </div>
-					        <br />
+					        <br class="currently-not-needed" />
 					        
 					        <div class="form-group">
 					            <label class="control-label" for="earliest_start_datetime"><?= lang('earliest_start_datetime') ?></label>
 					            <input id="earliest_start_datetime" class="form-control" readonly>
+					        </div>
+					        <br />
+					        
+					        <div class="form-group">
+					            <label class="control-label" for="introduction"><?= lang('introduction') ?></label>
+					            <textarea id="introduction" class="form-control" readonly rows="3" style="resize:none;" title="<?= lang('introduction') ?>"></textarea>
 					        </div>
 					        <br />
 					        

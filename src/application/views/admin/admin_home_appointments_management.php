@@ -56,7 +56,7 @@
                    		<input type="text" class="key form-control" id="appointments_management_tutor" placeholder="<?= lang('type_for_a_tutor') ?>" title="<?= lang('type_for_a_tutor') ?>" autocomplete="off" />
                   		<div id="am_tn_display">
                   			<ul id="filter-tutor-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_tutors') ?> -"><strong><?= lang('search_all_tutors') ?></strong></li>
+                  				<li class="filter-item filter-item--close" data-tut_name="- <?= lang('search_all_tutors') ?> -" title="- <?= lang('search_all_tutors') ?> -"><strong>- <?= lang('search_all_tutors') ?> -</strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
@@ -64,7 +64,7 @@
                    		<input type="text" class="form-control" id="appointments_management_students" placeholder="<?= lang('type_for_a_student') ?>" title="<?= lang('type_for_a_student') ?>" autocomplete="off" />
                   		<div id="am_sn_display">
                   			<ul id="filter-student-name" class="filter-list">
-                  				<li class="filter-item filter-item--close" title="- <?= lang('search_all_students') ?> -"><strong><?= lang('search_all_students') ?></strong></li>
+                  				<li class="filter-item filter-item--close" data-stu_name="- <?= lang('search_all_students') ?> -" title="- <?= lang('search_all_students') ?> -"><strong>- <?= lang('search_all_students') ?> -</strong></li>
                   				<span></span>
                   			</ul>
                   		</div>
