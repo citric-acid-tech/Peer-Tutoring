@@ -148,7 +148,7 @@
 		
 		<!-- Select by Tutor Tab -->
 		<div role="tabpanel" class="tab-pane no-longer-active fade" id="select-by-tutor-tab">
-			<div class="container" style="width:90%;">
+			<div class="container" style="width:90%;margin-top:25px;">
 				<div id="filter-aa_tutors" class="filter-records column col-xs-12 col-sm-6 col-md-5 col-lg-4 col-xl-2">
 					<form>
 			            <div class="input-group">
@@ -200,7 +200,7 @@
 					<input id="tutor-id" type="hidden">
 
 					<div class="row">
-				    	<h3><?= lang('details') ?></h3>
+				    	<h3 style="margin-top:5px;"><?= lang('details') ?></h3>
 				    
 					    <div class="col-xs-12 col-md-12 col-lg-6" style="margin-left: 0;">
 					        <div class="form-group">
@@ -229,7 +229,6 @@
 					            <label class="control-label" for="introduction"><?= lang('introduction') ?></label>
 					            <textarea id="introduction" class="form-control" readonly rows="3" style="resize:none;" title="<?= lang('introduction') ?>"></textarea>
 					        </div>
-					        <br />
 					        
 							<div class="btn-toolbar">
 							     <div id="check-available-time-group-tutor" class="btn-group">
@@ -239,7 +238,6 @@
 							         </button>
 							     </div>
 							</div>
-				    		<br />
 					    </div>
 					    
 					    <div class="col-xs-12 col-md-12 col-lg-6" style="margin-left: 0;">
@@ -247,9 +245,7 @@
 								<img id="avatar" src="<?= base_url('assets/img/default.png') ?>" style="width:100%;" />
 							</div>
 					    </div>
-					</div>
-
-					<br />   	
+					</div> 	
 				</div>	
 			</div>
 			<br />

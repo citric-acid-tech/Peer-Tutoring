@@ -239,8 +239,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				omitZeroMinute: false,	//	Do not omit zeros
 				meridiem: 'short'
 			},
-			minTime: "07:00:00",
-			maxTime: "23:00:00",
+			minTime: "09:00:00",
+			maxTime: "17:00:00",
 			dayRender: function() {
 				Students.placeFooterToBottom();	//	Fix the footer gg problem
 			},

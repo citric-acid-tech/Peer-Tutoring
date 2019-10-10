@@ -84,7 +84,7 @@ window.AdminStatistics = window.AdminStatistics || {};
 					start_date: JSON.stringify((sd === undefined || sd === '' || sd === EALang.start_date) ? 'ALL' : sd),
 					end_date: JSON.stringify((ed === undefined || ed === '' || ed === EALang.end_date) ? 'ALL' : ed)
 				};
-
+				
 				$.post(postUrl, postData, function (response) {
 					//	Test whether response is an exception or a warning
 					if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -98,7 +98,7 @@ window.AdminStatistics = window.AdminStatistics || {};
 					var subArray = [];
 					for (var i = 0; i < response.length; ++i) {
 						var item = response[i];
-						subArray = [(++cnt).toString(), item.name, item.not_started, item.service_completed, item.service_finished, item.cancelled];
+						subArray = [(++cnt).toString(), item.name, item.not_started, item.service_completed, item.cancelled];
 						dataArray.push(subArray);
 					}
 					

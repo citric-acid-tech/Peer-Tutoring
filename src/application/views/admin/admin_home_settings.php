@@ -52,7 +52,7 @@
 				<?= lang('email_configurations') ?>
 			</a>
 		</li>
-		<li role="presentation">
+		<li role="presentation" class="currently-not-needed">
 			<a href="#survey_configurations" aria-controls="survey_configurations" role="tab" data-toggle="tab">
 				<?= lang('survey_configurations') ?>
 			</a>

@@ -42,14 +42,13 @@
 				<tr>
 					<th>#</th>
 					<th><?= lang('service_type') ?></th>
-					<th><?= lang('bs0') ?></th>
-					<th><?= lang('bs1') ?></th>
-					<th><?= lang('bs2') ?></th>
-					<th><?= lang('bs3') ?></th>
+					<th class="bs0"><?= lang('bs0') ?></th>
+					<th class="bs1"><?= lang('bs1') ?></th>
+					<th class="bs3"><?= lang('bs3') ?></th>
 				</tr>
 			</thead>
 			<tfoot>
-				<tr><td colspan="6"><strong><?= lang('ad_set_stat_former_half_hint') ?><a href="mailto:11710116@mail.sustech.edu.cn"><?= lang('contact_us') ?></a></strong></td></tr>
+				<tr><td colspan="5"><strong><?= lang('ad_set_stat_former_half_hint') ?><a href="mailto:11710116@mail.sustech.edu.cn"><?= lang('contact_us') ?></a></strong></td></tr>
 			</tfoot>
 			<tbody></tbody>
 		</table>

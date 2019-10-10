@@ -274,7 +274,7 @@ body::-webkit-scrollbar-thumb {
 /* Watch this, not yet adjusted */
 .tutors-page .filter-records .results {
     overflow-y: auto;
-    max-height: 520px;
+    max-height: 420px;
     outline: none;
 }
 .tutors-page .filter-records .results::-webkit-scrollbar {
@@ -563,7 +563,8 @@ textarea:read-only {
 	font-weight: bold;
 }
 .tutors-page .bs1 {
-	color: #948c19;
+/*	color: #948c19;*/
+	color: green;
 	font-weight: bold;
 }
 .tutors-page .bs2 {

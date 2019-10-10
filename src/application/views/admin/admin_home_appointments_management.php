@@ -40,7 +40,7 @@
                   			<option class="default_bs" value="ALL" selected>- <?= lang('select_a_booking_status') ?> -</option>
                   			<option value="0" class="bs0"><?= lang("bs0") ?></option>
                   			<option value="1" class="bs1"><?= lang("bs1") ?></option>
-                  			<option value="2" class="bs2"><?= lang("bs2") ?></option>
+                  			<option value="2" class="bs2 currently-not-needed"><?= lang("bs2") ?></option>
                   			<option value="3" class="bs3"><?= lang("bs3") ?></option>
                   		</select>
                   		<!-- Filter Service Type -->
@@ -97,8 +97,10 @@
             <div class="results"></div>
     	</div>
 
-    	<div class="record-details col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-10">
-			<h3><?= lang('details') ?></h3>
+    	<div class="record-details col-xs-12 col-sm-6 col-md-7 col-lg-8 col-xl-10" style="margin-bottom:0;">
+			<h3 style="margin-top:5px;"><?= lang('details') ?></h3>
+          
+          	<hr />
           
 			<div class="row">
 			    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
@@ -107,40 +109,46 @@
 			            <label class="control-label" for="appointment-id"><?= lang('appointment_id') ?></label>
 			            <input id="appointment-id" class="form-control" readonly>
 			        </div>
-			        <div class="form-group">
-			            <label class="control-label" for="booking_status"><?= lang('booking_status') ?></label>
-			            <input id="booking_status" class="form-control" readonly>
-			        </div>
+			        <br />
 			        <div class="form-group">
 			            <label class="control-label" for="service_type"><?= lang('service_type') ?></label>
 			            <input id="service_type" class="form-control" readonly>
 			        </div>
+			        <br />
 			        <div class="form-group">
 			            <label class="control-label" for="tutor"><?= lang('tutor') ?></label>
 			            <input id="tutor" class="form-control" readonly>
 			        </div>
+			        <br />
 			        <div class="form-group">
 			            <label class="control-label" for="student"><?= lang('student') ?></label>
 			            <input id="student" class="form-control" readonly>
 			        </div>
+			    </div>
+			    <!-- Another column -->
+			    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
+			        <div class="form-group">
+			            <label class="control-label" for="booking_status"><?= lang('booking_status') ?></label>
+			            <input id="booking_status" class="form-control" readonly>
+			        </div>
+			        <br />
 			        <!-- Date Time -->
 			        <div class="form-group">
 			            <label class="control-label" for="book_datetime"><?= lang('book_datetime') ?></label>
 			            <input id="book_datetime" class="form-control" readonly>
 			        </div>
+			        <br />
 			        <div class="form-group">
 			            <label class="control-label" for="start_datetime"><?= lang('start_datetime') ?></label>
 			            <input id="start_datetime" class="form-control" readonly>
 			        </div>
+			        <br />
 			        <div class="form-group">
 			            <label class="control-label" for="end_datetime"><?= lang('end_datetime') ?></label>
 			            <input id="end_datetime" class="form-control" readonly>
 			        </div>
-			    </div>
-			    <!-- Another column -->
-			    <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
 		        	<!-- Communications -->
-			        <div class="form-group">
+			        <div class="form-group currently-not-needed">
 			            <label class="control-label" for="stars"><?= lang('stars') ?></label>
 			            <input id="stars" class="form-control" readonly>
 						<span class="stars" id="stars-displays">
@@ -176,20 +184,20 @@
 							<input class="rating__input" id="rating--5" type="radio" />
 						</span>
 			        </div>
-			        <div class="form-group">
+			        <div class="form-group currently-not-needed">
 			            <label class="control-label" for="com_or_sug"><?= lang('comment_or_suggestion') ?></label>
 			            <textarea id="com_or_sug" rows="3" class="form-control" style="resize: none;" readonly></textarea>
 			        </div>
-			        <div class="form-group">
+			        <div class="form-group currently-not-needed">
 			            <label class="control-label" for="feedback"><?= lang('feedback') ?></label>
 			            <textarea id="feedback" rows="5" class="form-control" style="resize: none;" readonly></textarea>
 			        </div>
-			        <div class="form-group">
+			        <div class="form-group currently-not-needed">
 			            <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
 			            <textarea id="suggestion" rows="5" class="form-control" style="resize: none;" readonly></textarea>
 			        </div>
 			        <!-- Download -->
-			        <div class="form-group" style="padding:10px;text-align:center;">
+			        <div class="form-group" style="padding:10px;text-align:center;margin-bottom:0;">
 		            	<button id="download" class="btn btn-primary">
 		            		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
 		            			<i class="fas fa-download"></i>

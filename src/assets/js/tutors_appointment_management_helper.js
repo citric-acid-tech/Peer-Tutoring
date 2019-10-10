@@ -509,7 +509,7 @@
 		var start_time = GeneralFunctions.formatDate(Date.parse(appointment.start_datetime), GlobalVariables.dateFormat, true);
 		var end_time = GeneralFunctions.formatDate(Date.parse(appointment.end_datetime), GlobalVariables.dateFormat, true);
 		
-		var line1 = "<strong>" + service_type + "</strong>" + " " + "<sup>" + stars + "</sup>";
+		var line1 = "<strong>" + service_type + "</strong>"/* + " " + "<sup>" + stars + "</sup>"*/;
 		var line2 = student + " " + "-" + " <span class='bs" + appointment.booking_status + "'>" + booking_status + "</span>";
 		var line3 = start_time + " " + "~" + " " + end_time;
 			

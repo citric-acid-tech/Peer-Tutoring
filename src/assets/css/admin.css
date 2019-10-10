@@ -327,6 +327,9 @@ iframe::-webkit-scrollbar-thumb {
     max-height: 450px;
     outline: none;
 }
+.admin-page#appointments_management-page .results {
+	max-height: 250px;
+}
 .admin-page .results::-webkit-scrollbar {
     width: 1.2em;
 }
@@ -892,7 +895,8 @@ ul#sem_info .sem_item .sem_delete_row {
 	font-weight: bold;
 }
 .admin-page .bs1 {
-	color: #948c19;
+/*	color: #948c19;*/
+	color: green;
 	font-weight: bold;
 }
 .admin-page .bs2 {
