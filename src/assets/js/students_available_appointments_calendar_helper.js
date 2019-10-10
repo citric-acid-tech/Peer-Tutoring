@@ -232,6 +232,7 @@
 				} else if (response === 'no_file') {
 					Students.displayNotification(EALang.ap_resp_no_file);
 				} else {
+					console.log(response);
 					Students.displayNotification(EALang.ap_resp_unknown_error);
 				}
 				

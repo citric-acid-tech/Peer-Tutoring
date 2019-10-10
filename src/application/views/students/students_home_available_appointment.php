@@ -90,10 +90,10 @@
 						<li>
 							<strong><?= lang('service') ?></strong>: <span id="appointment_service_service_type"></span>
 						</li>
-						<li>
+						<li class="currently-not-needed">
 							<strong><?= lang('service_type_description') ?></strong>: <span id="appointment_service_type_description"></span>
 						</li>
-						<li>
+						<li class="currently-not-needed">
 							<strong><?= lang('service_description') ?></strong>: <span id="appointment_service_description"></span>
 						</li>
 						<li>
@@ -117,10 +117,10 @@
 					<div class="popup-container">
 						<a href="#popup_appointment_cancel" style="text-decoration:none;"><h4 id="popup_apply_title_change" style="color:#296d97;letter-spacing:3px;"><strong><?= lang('apply_now') ?></strong></h4></a>
 						<hr style="width:60%;margin: 20px auto;" />
-						<div style="width:43%;display:inline-block;">
+						<div style="width:43%;display:inline-block;" class="currently-not-needed">
 							<textarea id="appointment_service_remark" type="text" placeholder="<?= lang('stu_aa_cal_remark_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_remark_hint') ?>" style="resize:none;width:100%;"></textarea>
 						</div>
-						<div style="width:43%;display:inline-block;">
+						<div style="width:86%;display:inline-block;">
 							<textarea id="appointment_service_note" type="text" placeholder="<?= lang('stu_aa_cal_note_hint') ?>" rows="2" title="<?= lang('stu_aa_cal_note_hint') ?>" style="resize:none;width:100%;"></textarea>
 						</div>
 						<div style="width:90%;margin:5px auto;" class="help-block"><?= lang('stu_aa_cal_gen_hint') ?></div>

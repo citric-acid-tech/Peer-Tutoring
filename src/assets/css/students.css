@@ -699,7 +699,8 @@ body::-webkit-scrollbar-thumb {
 	box-sizing: border-box;
 	margin: 5px 26px;
 	font-size: 18px;
-	height: 265px;
+/*	height: 265px;*/
+	height: 180px;
 	overflow: auto;
 }
 .students-page .popup .appoint_list::-webkit-scrollbar {
