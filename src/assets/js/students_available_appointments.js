@@ -412,7 +412,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				});
 				if (info.event.extendedProps.capacity === info.event.extendedProps.appointed) {
 					//	equal value, as strings and as numbers, change to red
-					console.log(info.event);
+//					console.log(info.event);
 					el.css('background-color', 'red');
 				}
 				if (info.event.extendedProps.is_booked === '1') {

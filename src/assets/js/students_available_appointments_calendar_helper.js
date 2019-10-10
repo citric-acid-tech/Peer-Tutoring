@@ -170,22 +170,23 @@
      * Validate inputs of appointment popup
      */
    	StudentsAvailableAppointmentsCalendarHelper.prototype.validateAppointmentPopup = function() {
-		//	Check file size
 		var file = $('#appointment_service_attach').prop('files')[0];
 		var allowedExtensions = /(\.doc|\.docx|\.md|\.pdf|\.png|\.zip|\.jar|\.7z)$/i;
 //		alert(allowedExtensions.exec(file.name));
 		
-		if (file === undefined) {
-			Students.displayNotification(EALang.empty_file_warning, undefined, "failure");
-			$('#appointment_service_attach + label').addClass('gg');
-			setTimeout(function() {
-				$('#appointment_service_attach + label').removeClass('gg');
-			}, 300);
-			return false;
+//		//	Check if a file is uploaded
+//		if (file === undefined) {
+//			Students.displayNotification(EALang.empty_file_warning, undefined, "failure");
+//			$('#appointment_service_attach + label').addClass('gg');
+//			setTimeout(function() {
+//				$('#appointment_service_attach + label').removeClass('gg');
+//			}, 300);
+//			return false;
 //			file = new File([""], "filename");
-		}
+//		}
 		
-		if (allowedExtensions.exec(file.name) === null) {
+		//	Check file extension
+		if (file !== undefined && allowedExtensions.exec(file.name) === null) {
 			Students.displayNotification(EALang.file_format_warning, undefined, "failure");
 			$('#appointment_service_attach + label').addClass('gg');
 			setTimeout(function() {
@@ -206,6 +207,12 @@
 		var remark = GeneralFunctions.superEscapeHTML($('#appointment_service_remark').val());
 		var note = GeneralFunctions.superEscapeHTML($('#appointment_service_note').val());
 		var file = $('#appointment_service_attach').prop('files')[0];
+		var file_attached = 1;
+		//	Check if a file is uploaded
+		if (file === undefined) {
+			file_attached = 0;
+			file = new File([""], "filename");
+		}
 
 		var path = GlobalVariables.baseUrl + '/index.php/students_api/ajax_new_appointment';
 		//	Create a new FormData object
@@ -215,6 +222,7 @@
 		formData.append('service_id', JSON.stringify(id));
 		formData.append('remark', JSON.stringify(remark === '' ? 'ALL' : remark));
 		formData.append('note', JSON.stringify(note === '' ? 'ALL' : note));
+		formData.append('file_attached', JSON.stringify(file_attached));
 		
 		var obj = this;
 		
