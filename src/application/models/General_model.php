@@ -221,9 +221,7 @@ class General_model extends CI_Model{
         $subject = $ec['subject'];
         $body    = $ec['body'];
 
-        if( ! $this->_sendemail($mail_arr, $subject, $body)){
-            $this->_buffer_failed_email($mail_arr, $subject, $body);
-        }
+        $this->_sendemail($mail_arr, $subject, $body);
     }
 
     // $SERV_TYPE$, $DATE$, $ADDRESS$, $LEFT$
