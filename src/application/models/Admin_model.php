@@ -389,7 +389,7 @@ class Admin_model extends CI_Model{
         }
 
         return $this->db
-            ->order_by('ea_services.start_datetime')->get()->result_array();
+            ->order_by('ea_services.start_datetime', 'DESC')->get()->result_array();
 
     }
 
