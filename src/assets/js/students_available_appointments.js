@@ -255,7 +255,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			//	Define the placement of the header
 			header: {
 				left: 'title',	// put title in the first line
-				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+//				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+				center: 'timeGridWeek listWeek',	// buttons for switching between views
 				right: 'prev,today,next'	// buttons for locating a date
 			},
 			//	View Rendering Callbacks

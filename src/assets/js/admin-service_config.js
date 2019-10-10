@@ -460,7 +460,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			firstDay: 1,
 			//	Define the placement of the header
 			header: {
-				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+//				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+				left: 'timeGridWeek listWeek',	// buttons for switching between views
 				center: 'title',	// put title in the center
 				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
 			},
@@ -715,13 +716,15 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 		if (mql.matches) {
 			calendar.setOption('header', {
 				left: 'title',	// put title in the first line
-				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+//				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+				center: 'timeGridWeek listWeek',	// buttons for switching between views
 				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
 			});
 			return true;
 		} else {
 			calendar.setOption('header', {
-				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+//				left: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
+				left: 'timeGridWeek listWeek',	// buttons for switching between views
 				center: 'title',	// put title in the center
 				right: 'scheduleToAllWeeks addService prev,today,next'	// buttons for locating a date
 			});
