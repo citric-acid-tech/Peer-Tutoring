@@ -281,23 +281,23 @@ class General_model extends CI_Model{
         return $mail->send(); 
     }
 
-    protected function _buffer_failed_email($mail_arr, $subject, $body){
+    // protected function _buffer_failed_email($mail_arr, $subject, $body){
 
-        if(is_null($mail_arr)){
-            return;
-        }
+    //     if(is_null($mail_arr)){
+    //         return;
+    //     }
 
-        $data = array();
-        $now_datetimeObj = new DateTime();
-        $now = $now_datetimeObj->format('Y-m-d H:i:s');
-        $data = [
-            'email' => json_encode($mail_arr),
-            'subject' => json_encode($subject),
-            'email_body' => json_encode($body),
-            'timestamp' => $now
-       ];
+    //     $data = array();
+    //     $now_datetimeObj = new DateTime();
+    //     $now = $now_datetimeObj->format('Y-m-d H:i:s');
+    //     $data = [
+    //         'email' => json_encode($mail_arr),
+    //         'subject' => json_encode($subject),
+    //         'email_body' => json_encode($body),
+    //         'timestamp' => $now
+    //    ];
 
-        $this->db->insert('ea_buffer_failed_email', $data);
-    }
+    //     $this->db->insert('ea_buffer_failed_email', $data);
+    // }
 }
 ?>
