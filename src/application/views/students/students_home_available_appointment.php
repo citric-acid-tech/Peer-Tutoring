@@ -103,7 +103,7 @@
 							<strong><?= lang('capacity') ?></strong>: <span id="appointment_service_appointed"></span> / <span id="appointment_service_capacity"></span>
 						</li>
 						<li>
-							<strong><?= lang('time') ?></strong>: <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
+							<strong><?= lang('time') ?></strong>: <span id="appointment_service_date"></span> <span id="appointment_service_st"></span> ~ <span id="appointment_service_et"></span>
 						</li>
 						<li>
 							<strong><?= lang('address') ?></strong>: <span id="appointment_service_address"></span>

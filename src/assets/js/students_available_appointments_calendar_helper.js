@@ -157,8 +157,11 @@
 		//	Date
 		var start = moment(event.start);
 		var end = moment(event.end);
-		$('#appointment_service_st').html(start.format('YYYY-MM-DD HH:mm'));
-		$('#appointment_service_et').html(end.format('YYYY-MM-DD HH:mm'));
+//		$('#appointment_service_st').html(start.format('YYYY-MM-DD HH:mm'));
+//		$('#appointment_service_et').html(end.format('YYYY-MM-DD HH:mm'));
+		$('#appointment_service_date').html(start.format('YYYY-MM-DD'));
+		$('#appointment_service_st').html(start.format('HH:mm'));
+		$('#appointment_service_et').html(end.format('HH:mm'));
 		//	Rest
 		$('#appointment_service_address').html(event.extendedProps.address);
     };
