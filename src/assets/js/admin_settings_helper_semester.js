@@ -31,7 +31,7 @@
 							" " + " " +
 							"<span> weeks.</span>" +
 							" " + " " +
-							"<span> national holiday week is on week </span>" +
+							"<span> National holiday week is on week </span>" +
 							" " + " " +
 							"<input class='sem_national_holiday_week' title='National Holiday Week' placeholder='National Holiday Week' value='0' type='number' min='0' step='1' />" +
 							" " + " " +
