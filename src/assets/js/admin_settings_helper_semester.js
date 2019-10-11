@@ -232,7 +232,7 @@
 			semester_json: JSON.stringify(sem_info)
         };
 		
-		alert(JSON.stringify(sem_info));
+//		alert(JSON.stringify(sem_info));
 		
 		var obj = this;
         $.post(postUrl, postData, function (response) {
@@ -295,6 +295,7 @@
 					}
 				});
 				newLI.find('.sem_last_weeks').val(datetime_info.last_weeks);
+				newLI.find('.sem_national_holiday_week').val(datetime_info.national_holiday_week);
 				newLI.fadeIn(500);
 //				console.log(newLI);
 			});
