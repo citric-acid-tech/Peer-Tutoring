@@ -19,7 +19,11 @@ class Students extends CI_Controller{
     /** my appointments page */
     public function index(){
 
+        $this->available_appointment();
+        
+    }
 
+    public function my_appointment(){
         $this->session->set_userdata('dest_url', site_url('students'));
 
         if ( ! $this->_has_privileges(PRIV_MY_APPOINTMENTS)){
