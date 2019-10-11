@@ -176,7 +176,7 @@
      */
     StudentsAvailableAppointmentsTutorHelper.prototype.resetForm = function () {
 		//	Clear all inputs
-        $('.record-details').find('input').val('');
+        $('.record-details').find('input, textarea').val('');
 
         //	Disable all operation buttons when the form is reset
 		$('#go-to-tutor-personal-page, #check-available-time-tutor').prop('disabled', true);

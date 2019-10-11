@@ -207,7 +207,6 @@
 					            <label class="control-label" for="tutor_name"><?= lang('tutor_name') ?></label>
 					            <input id="tutor_name" class="form-control" readonly>
 					        </div>
-					        <br />
 					        
 					        <div class="form-group currently-not-needed">
 				            	<button id="go-to-tutor-personal-page" class="btn btn-info" style="font-size:12px;">
@@ -223,13 +222,25 @@
 					            <label class="control-label" for="earliest_start_datetime"><?= lang('earliest_start_datetime') ?></label>
 					            <input id="earliest_start_datetime" class="form-control" readonly>
 					        </div>
-					        <br />
-					        
-					        <div class="form-group">
-					            <label class="control-label" for="introduction"><?= lang('introduction') ?></label>
-					            <textarea id="introduction" class="form-control" readonly rows="3" style="resize:none;" title="<?= lang('introduction') ?>"></textarea>
-					        </div>
-					        
+					    </div>
+					    
+					    <div class="col-xs-12 col-md-12 col-lg-1"></div>
+					    
+					    <div class="col-xs-12 col-md-12 col-lg-5" style="margin-left: 0;text-align:center;">
+							<div id="avatar_setting">
+								<img id="avatar" src="<?= base_url('assets/img/default.png') ?>" style="width:60%;" />
+							</div>
+					    </div>
+					</div>
+					
+					<div class="row">
+						<br />
+						<div class="col-xs-12">
+							<div class="form-group">
+							    <label class="control-label" for="introduction"><?= lang('introduction') ?></label>
+							    <textarea id="introduction" class="form-control" readonly rows="4" style="resize:none;text-align:justify;" title="<?= lang('introduction') ?>"></textarea>
+							</div>
+							
 							<div class="btn-toolbar">
 							     <div id="check-available-time-group-tutor" class="btn-group">
 							         <button id="check-available-time-tutor" class="btn btn-primary">
@@ -238,14 +249,8 @@
 							         </button>
 							     </div>
 							</div>
-					    </div>
-					    
-					    <div class="col-xs-12 col-md-12 col-lg-6" style="margin-left: 0;">
-							<div id="avatar_setting">
-								<img id="avatar" src="<?= base_url('assets/img/default.png') ?>" style="width:100%;" />
-							</div>
-					    </div>
-					</div> 	
+						</div>
+					</div>
 				</div>	
 			</div>
 			<br />
