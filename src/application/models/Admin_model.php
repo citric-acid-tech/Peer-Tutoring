@@ -94,7 +94,7 @@ class Admin_model extends CI_Model{
                     'first_name' => $sid,
                     'last_name' => ' ',
                     'email' => $sid . '@mail.sustech.edu.cn',
-                    'cas_hash_id' => 'not_register_yet',
+                    'cas_hash_id' => 'not_register_yet' . $sid,
                     'cas_sid' => $sid,
                     'id_roles' => '2'
                 );
