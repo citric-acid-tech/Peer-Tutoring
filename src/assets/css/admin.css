@@ -868,7 +868,8 @@ ul#sem_info .sem_item .sem_start_date:active, ul#sem_info .sem_item .sem_last_we
 	border: 1px solid #296d97;
 }
 ul#sem_info .sem_item .sem_year.sem_modify, ul#sem_info .sem_item .sem_season.sem_modify,
-ul#sem_info .sem_item .sem_start_date.sem_modify, ul#sem_info .sem_item .sem_last_weeks.sem_modify {
+ul#sem_info .sem_item .sem_start_date.sem_modify, ul#sem_info .sem_item .sem_last_weeks.sem_modify,
+ul#sem_info .sem_item .sem_national_holiday_week.sem_modify{
 	background-color: #296d97;
 	color: snow;
 	border-radius: 5px;

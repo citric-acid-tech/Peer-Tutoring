@@ -59,7 +59,7 @@
 			}
 			
 			var itemSet = $('ul#sem_info .sem_item');
-			var year, season, start_date, last_weeks;
+			var year, season, start_date, last_weeks, national_holiday_week;
 			var sem_info = {};
 			
 //			//	Test: Replicate JSON: NICE!
@@ -119,7 +119,7 @@
 			var newLI = $('ul#sem_info li:last-of-type');
 //			console.log(season + " - " + datetime_info);
 			//	Set values
-			newLI.find('.sem_year, .sem_season, .sem_start_date, .sem_last_weeks').addClass('sem_modify');
+			newLI.find('.sem_year, .sem_season, .sem_start_date, .sem_last_weeks, .sem_national_holiday_week').addClass('sem_modify');
 			newLI.find('.sem_start_date').datepicker({
 				dateFormat: "yy-mm-dd",
 				constrainInput: true,
@@ -214,7 +214,7 @@
         /**
          * Event: Modify Hint
          */
-		$(document).on('change', 'ul#sem_info .sem_item .sem_year, ul#sem_info .sem_item .sem_season, ul#sem_info .sem_item .sem_start_date, ul#sem_info .sem_item .sem_last_weeks', function() {
+		$(document).on('change', 'ul#sem_info .sem_item .sem_year, ul#sem_info .sem_item .sem_season, ul#sem_info .sem_item .sem_start_date, ul#sem_info .sem_item .sem_last_weeks, ul#sem_info .sem_item .sem_national_holiday_week', function() {
 			$(this).addClass('sem_modify');
 		});
 		
@@ -226,12 +226,13 @@
      */
     AdminSettingsHelperSemester.prototype.saveInfo = function (sem_info) {		
 		//	AJAX
-//		alert(JSON.stringify(sem_info));
         var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_save_semester_json';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
 			semester_json: JSON.stringify(sem_info)
         };
+		
+		alert(JSON.stringify(sem_info));
 		
 		var obj = this;
         $.post(postUrl, postData, function (response) {
