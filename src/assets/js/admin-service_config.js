@@ -77,13 +77,14 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			var year = weekNumAndSem.year;
 			var season = weekNumAndSem.season;
 			var last_weeks = parseInt(sem_info[year][season].last_weeks);
-			var nation_holiday_week = parseInt(sem_info[year][season].nation_holiday_week);
+			var national_holiday_week = parseInt(sem_info[year][season].national_holiday_week);
 			$('#calendar_week_number').html('');
 			for (var i = 1, j = 1; i <= last_weeks; ++i) {
-				if(i == nation_holiday_week){
-					var html = "<option value='" + i + "'>" + "National Holiday Week" + "</option>";
+				var html;
+				if(i === national_holiday_week){
+					html = "<option value='" + i + "'>" + "National Holiday Week" + "</option>";
 				}else{
-					var html = "<option value='" + i + "'>Week " + (j++) + "</option>";
+					html = "<option value='" + i + "'>Week " + (j++) + "</option>";
 				}
 				$('#calendar_week_number').append(html);
 			}
@@ -574,13 +575,13 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			businessHours: [
 				{
 					daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday, Tuesday, Wednesday, Thursday, Friday
-					startTime: '06:00', // 6am
-					endTime: '24:00' // 12pm
+					startTime: '09:00', // 9am
+					endTime: '17:00' // 5pm
 				},
 				{
 					daysOfWeek: [ 0, 6 ], // Saturday, Sunday
-					startTime: '07:00', // 7am
-					endTime: '19:00' // 7pm
+					startTime: '09:00', // 9am
+					endTime: '17:00' // 5pm
 				}
 			],
 			//	nowIndicator
@@ -604,9 +605,15 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						var year = weekNumAndSem.year;
 						var season = weekNumAndSem.season;
 						var last_weeks = parseInt(sem_info[year][season].last_weeks);
+						var national_holiday_week = parseInt(sem_info[year][season].national_holiday_week);
 						$('#calendar_week_number').html('');
-						for (var i = 1; i <= last_weeks; ++i) {
-							var html = "<option value='" + i + "'>Week " + i + "</option>";
+						for (var i = 1, j = 1; i <= last_weeks; ++i) {
+							var html;
+							if(i === national_holiday_week){
+								html = "<option value='" + i + "'>" + "National Holiday Week" + "</option>";
+							}else{
+								html = "<option value='" + i + "'>Week " + (j++) + "</option>";
+							}
 							$('#calendar_week_number').append(html);
 						}
 						$('#calendar_week_number').css('display', 'inline-block');

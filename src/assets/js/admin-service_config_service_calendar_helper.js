@@ -144,13 +144,14 @@
 			var year = sem_opt.attr('data-year');
 			var season = sem_opt.attr('data-season');
 			var last_weeks = parseInt(sem_info[year][season].last_weeks);
-			var nation_holiday_week = parseInt(sem_info[year][season].nation_holiday_week);
+			var national_holiday_week = parseInt(sem_info[year][season].national_holiday_week);
 			$('#calendar_week_number').html('');
 			for (var i = 1, j = 1; i <= last_weeks; ++i) {
-				if(i == nation_holiday_week){
-					var html = "<option value='" + i + "'>" + "National Holiday Week" + "</option>";
+				var html;
+				if(i === national_holiday_week){
+					html = "<option value='" + i + "'>" + "National Holiday Week" + "</option>";
 				}else{
-					var html = "<option value='" + i + "'>Week " + (j++) + "</option>";
+					html = "<option value='" + i + "'>Week " + (j++) + "</option>";
 				}
 				$('#calendar_week_number').append(html);
 			}
@@ -329,7 +330,7 @@
 			var html_spr = "<option value='" + comb_sem_spr +"' title='" + comb_sem_spr + "' data-year='" + year + "' data-season='Spring'>" + comb_sem_spr + "</option>";
 			var html_sum = "<option value='" + comb_sem_sum +"' title='" + comb_sem_sum + "' data-year='" + year + "' data-season='Summer'>" + comb_sem_sum + "</option>";
 			var html_fal = "<option value='" + comb_sem_fal +"' title='" + comb_sem_fal + "' data-year='" + year + "' data-season='Fall'>" + comb_sem_fal + "</option>";
-			$('.admin-page select#calendar_semester').html("<option value='Out of Semester' title='Out of Semester' data-year='" + year + "' data-season='None'>Out of Semester</option>");
+			$('.admin-page select#calendar_semester').html("<option value='Out of Semester' title='Out of Semester' data-year='" + year + "' data-season='None' disabled>Out of Semester</option>");
 			$('.admin-page select#calendar_semester').append(html_spr);
 			$('.admin-page select#calendar_semester').append(html_sum);
 			$('.admin-page select#calendar_semester').append(html_fal);

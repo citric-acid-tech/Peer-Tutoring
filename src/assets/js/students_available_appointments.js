@@ -360,19 +360,18 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					var sem_info = GlobalVariables.semester_json;
 					var year = weekNumAndSem.year;
 					var season = weekNumAndSem.season;
-					var nation_holiday_week = parseInt(sem_info[year][season].nation_holiday_week);
-					if(nation_holiday_week != 0){
-						if(weekNumAndSem.weekNumber < nation_holiday_week){
+					var national_holiday_week = parseInt(sem_info[year][season].national_holiday_week);
+					if( national_holiday_week !== 0){
+						if(weekNumAndSem.weekNumber < national_holiday_week){
 							$('span#calendar_week_number').html("Week " + weekNumAndSem.weekNumber);
-						}else if (weekNumAndSem.weekNumber == nation_holiday_week){
+						} else if (weekNumAndSem.weekNumber === national_holiday_week){
 							$('span#calendar_week_number').html("National Holiday Week");
-						}else{
+						} else{
 							$('span#calendar_week_number').html("Week " + (weekNumAndSem.weekNumber - 1));
 						}
-					}else{
+					} else{
 						$('span#calendar_week_number').html("Week " + weekNumAndSem.weekNumber);
 					}
-					
 					
 					$('.students-page span#calendar_tutor').html(tutor);
 					var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_available_appointments';

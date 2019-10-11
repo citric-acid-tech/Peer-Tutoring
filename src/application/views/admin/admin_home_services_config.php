@@ -62,7 +62,7 @@
 					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);padding: 10px 0;">
 						<select id="calendar_semester" title="<?= lang('semester') ?>" style="min-width:150px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<select id="calendar_week_number" title="<?= lang('week_number') ?>" style="min-width:150px;"></select>
+						<select id="calendar_week_number" title="<?= lang('week_number') ?>" style="min-width:180px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<select id="calendar_tutor" title="<?= lang('tutor') ?>" style="min-width:150px;"></select>
 						&nbsp;&nbsp;&nbsp;&nbsp;
