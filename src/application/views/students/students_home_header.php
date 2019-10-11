@@ -73,17 +73,17 @@
 
 			<div id="header-menu" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<?php $active = ($active_menu == PRIV_MY_APPOINTMENTS) ? 'active' : '' ?>
-					<li class="<?= $active ?>">
-						<a href="<?= site_url('students') ?>" class="menu-item" title="<?= lang('my_appointment_hint') ?>">
-							<?= lang('my_appointments') ?>
-						</a>
-					</li>
-
 					<?php $active = ($active_menu == PRIV_AVAILABLE_APPOINTMENTS) ? 'active' : '' ?>
 					<li class="<?= $active ?>">
 						<a href="<?= site_url('students/available_appointment') ?>" class="menu-item" title="<?= lang('available-appointments_hint') ?>">
 							<?= lang('available_appointments') ?>
+						</a>
+					</li>
+					
+					<?php $active = ($active_menu == PRIV_MY_APPOINTMENTS) ? 'active' : '' ?>
+					<li class="<?= $active ?>">
+						<a href="<?= site_url('students') ?>" class="menu-item" title="<?= lang('my_appointment_hint') ?>">
+							<?= lang('my_appointments') ?>
 						</a>
 					</li>
 
