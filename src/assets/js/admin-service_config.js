@@ -635,7 +635,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						$.each(response, function(index, service) {
 							var eve  = {
 								id: service.id,
-								title: service.service_type,
+								title: service.service_type + " - " + service.tutor_name,
 								start: service.start_datetime,
 								end: service.end_datetime,
 								extendedProps: {
@@ -655,7 +655,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				}
 			},
 			eventRender: function(info) {
-				var hover_message = info.event.title + " - " + info.event.extendedProps.tutor;
+				var hover_message = info.event.title;
 				var el = $(info.el);
 				el.prop('title', hover_message);
 				el.qtip({

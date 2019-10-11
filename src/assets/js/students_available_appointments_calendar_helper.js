@@ -106,7 +106,7 @@
 		//	Load ID
 		$('#appointment_service_id').val(event.id);
 		//	Others from appoint-list
-		$("#appointment_service_service_type").html(event.title);
+		$("#appointment_service_service_type").html(event.title.split(' - ')[0]);
 		$('#appointment_service_type_description').html(event.extendedProps.service_type_description);
 		$('#appointment_service_description').html(event.extendedProps.service_description);
 		$("#appointment_service_tutor").html(event.extendedProps.tutor);

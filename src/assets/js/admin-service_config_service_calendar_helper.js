@@ -527,7 +527,7 @@
 		
 		//	sync service_type
 		service.setProp('title', 
-						$("select#edit_service_service_type option[value='" + newData.service_type_id + "']").html());
+						$("select#edit_service_service_type option[value='" + newData.service_type_id + "']").html() + " - " + $("select#edit_service_tutor option[value='" + newData.tutor_id + "']").html());
 		//	sync start time, end time
 		//	start
 		var start_datetime = moment(newData.date, 'YYYY-MM-DD');
