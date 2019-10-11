@@ -92,8 +92,8 @@
 												<button type="button" class="btn btn-default" id="stsw_none"><?= lang('none') ?></button>
 											</div>
 											<div class="btn-group" style="margin: 0 10px 0 0;">
-												<button type="button" class="btn btn-info" id="stsw_odd" title="Function Confusing" disabled>Odd Weeks</button>
-												<button type="button" class="btn btn-info" id="stsw_even" title="Function Confusing" disabled>Even Weeks</button>
+												<button type="button" class="btn btn-info" id="stsw_odd" title="Odd Weeks">Odd Weeks</button>
+												<button type="button" class="btn btn-info" id="stsw_even" title="Even Weeks">Even Weeks</button>
 											</div>
 										</div>
 									</div>

@@ -396,11 +396,36 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						//	Update the modal box
 						var cb_field = $('#stsw_cb_field');
 						cb_field.html('');	// Clear
+						var sem_opt = $('select#calendar_semester option:selected');
 						var html, id, title, parity;
-						for (var wn = 1; wn <= $('#calendar_week_number option').length; ++wn) {	// Load
+						var sem_info = GlobalVariables.semester_json;
+						var year = sem_opt.attr('data-year');
+						var season = sem_opt.attr('data-season');
+						var last_weeks = parseInt(sem_info[year][season].last_weeks);
+						var national_holiday_week = parseInt(sem_info[year][season].national_holiday_week);
+						for (var wn = 1; wn <= last_weeks; ++wn) {	// Load
 							id = "stsw_" + wn;
-							title = "Week " + wn;
-							parity = (wn % 2 === 0) ? 'even' : 'odd';
+							if (national_holiday_week === 0) {
+								//	There is no national holiday week
+								title = "Week " + wn;
+								parity = (wn % 2 === 0) ? 'even' : 'odd';
+							} else {
+								//	There is a national holiday week
+								if (wn < national_holiday_week) {
+									//	Just same as supposed
+									title = "Week " + wn;
+									parity = (wn % 2 === 0) ? 'even' : 'odd';
+								} else if (wn === national_holiday_week) {
+									//	National Holiday Week, parity has 'none' value
+									title = ' <i class="fas fa-flag"></i>';
+									parity = 'none';
+								} else {
+									//	>
+									//	After, each week is displayed as natural week-1
+									title = "Week " + (wn-1);
+									parity = ((wn-1) % 2 === 0) ? 'even' : 'odd';
+								}
+							}
 							html = cbfpre;
 							html += "<input name='stsw' value='" + wn + "' id='" + id + "' type='checkbox' title='" + title + "' data-parity='" + parity + "' />";
 							html += "<label class='control-label' for='" + id + "' style='cursor:pointer;'>" + title + "</label>";
