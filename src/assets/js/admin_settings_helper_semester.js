@@ -31,6 +31,10 @@
 							" " + " " +
 							"<span> weeks.</span>" +
 							" " + " " +
+							"<span> national holiday week is on week </span>" +
+							" " + " " +
+							"<input class='sem_national_holiday_week' title='National Holiday Week' placeholder='National Holiday Week' value='0' type='number' min='0' step='1' />" +
+							" " + " " +
 							"<button class='sem_delete_row btn btn-danger' title='Delete this row'>" +
 							"<i class='fas fa-times'></i>" +
 							"</button>" +
@@ -86,6 +90,7 @@
 				season = $(item).find('.sem_season option:selected').val();
 				start_date = $(item).find('.sem_start_date').val();
 				last_weeks = $(item).find('.sem_last_weeks').val();
+				national_holiday_week = $(item).find('.sem_national_holiday_week').val();
 				
 				//	if overlap, then override
 				if (sem_info[year] === undefined) {
@@ -93,7 +98,8 @@
 				}
 				sem_info[year][season] = {
 					first_Monday: start_date,
-					last_weeks: last_weeks
+					last_weeks: last_weeks,
+					national_holiday_week: national_holiday_week
 				};
 			});
 			

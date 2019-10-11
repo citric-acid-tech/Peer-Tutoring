@@ -813,6 +813,7 @@ ul#sem_info .sem_item strong {
 	transition: all 0.3s;
 }
 ul#sem_info .sem_item .sem_year {
+	width: 80px;
 	text-align: center;
 	font-weight: bold;
 	color: #296d97;
@@ -841,8 +842,15 @@ ul#sem_info .sem_item .sem_start_date:disabled {
 	cursor: not-allowed;
 }
 ul#sem_info .sem_item .sem_last_weeks {
+	width: 40px;
 	text-align: center;
 	font-weight: bold;
+	color: #296d97;
+	transition: all 0.3s;
+}
+ul#sem_info .sem_item .sem_national_holiday_week{
+	width: 40px;
+	text-align: center;
 	color: #296d97;
 	transition: all 0.3s;
 }

@@ -77,9 +77,14 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 			var year = weekNumAndSem.year;
 			var season = weekNumAndSem.season;
 			var last_weeks = parseInt(sem_info[year][season].last_weeks);
+			var nation_holiday_week = parseInt(sem_info[year][season].nation_holiday_week);
 			$('#calendar_week_number').html('');
-			for (var i = 1; i <= last_weeks; ++i) {
-				var html = "<option value='" + i + "'>Week " + i + "</option>";
+			for (var i = 1, j = 1; i <= last_weeks; ++i) {
+				if(i == nation_holiday_week){
+					var html = "<option value='" + i + "'>" + "National Holiday Week" + "</option>";
+				}else{
+					var html = "<option value='" + i + "'>Week " + (j++) + "</option>";
+				}
 				$('#calendar_week_number').append(html);
 			}
 			$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
