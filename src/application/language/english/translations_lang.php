@@ -590,3 +590,4 @@ $lang['crop'] = 'Crop';
 $lang['crop_the_image'] = 'Crop the image';
 $lang['upload_success'] = 'Upload Success';
 $lang['upload_error'] = 'Upload Error';
+$lang['national_holiday_week'] = 'Holiday Week';

@@ -587,3 +587,4 @@ $lang['crop'] = '裁剪';
 $lang['crop_the_image'] = '裁剪图像';
 $lang['upload_success'] = '上传成功';
 $lang['upload_error'] = '上传时发生错误';
+$lang['national_holiday_week'] = '国庆周';
