@@ -200,18 +200,15 @@ class Students_model extends CI_Model{
      */
     public function get_available_appointments($tutor_id, $user_id){
         // tutor_name
-        $MIN_BOOK_AHEAD_MINS = $this->db->select('value')
+        $MIN_BOOK_AHEAD_DAYS = $this->db->select('value')
             ->from('ea_settings')
             ->where('name', 'max_services_checking_ahead_day')
             ->get()
             ->row_array()['value'];
 
-        $MIN_BOOK_AHEAD_MINS *= 24 * 60;
-        // Get the latest available start datetime
-        $latest_available_start_time = 
-            $this->db->select('TIMESTAMPADD(MINUTE, ' . $MIN_BOOK_AHEAD_MINS . ', now() ) AS result' )
-                      ->get()
-                      ->row_array()['result'];
+        $now_datetimeObj = new DateTime();
+        $latest_available_datetimeObj = new DateTime();
+        $latest_available_datetimeObj->add( new DateInterval('P' . ($MIN_BOOK_AHEAD_DAYS + 1). 'D') );
 
         // Get current datetime
         $now =  $this->db
@@ -239,7 +236,7 @@ class Students_model extends CI_Model{
             ->from('ea_services')
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
-            ->where('ea_services.start_datetime < ', $latest_available_start_time)
+            ->where('ea_services.start_datetime < ', $latest_available_datetimeObj->format('Y-m-d') . ' 00:00')
             ->where('ea_services.start_datetime > ', $now);
         if($tutor_id != 'ALL'){
             $this->db->where('ea_users.id', $tutor_id);
@@ -261,7 +258,7 @@ class Students_model extends CI_Model{
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
             ->where('ea_appointments.booking_status !=', '3')
-            ->where('ea_services.start_datetime < ', $latest_available_start_time)
+            ->where('ea_services.start_datetime < ', $latest_available_datetimeObj->format('Y-m-d') . ' 00:00')
             ->where('ea_services.start_datetime > ', $now);
         if($tutor_id != 'ALL'){
             $this->db->where('ea_users.id', $tutor_id);
