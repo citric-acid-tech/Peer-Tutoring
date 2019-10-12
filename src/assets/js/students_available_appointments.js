@@ -197,10 +197,13 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			//	Some Customized Buttons
 //			customButtons: {
 //			},
+			//	no weekends plz
+			weekends: false,
 			//	views customizations
 			views: {
 				timeGridWeek: {
 					buttonText: "week - time"
+					
 				},
 				timeGridDay: {
 					buttonText: "day - time"
@@ -231,7 +234,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				}
 			},
 			//	Date & Time Options
-//			slotDuration: '01:00',	//	Slot Time Duration: 2 hours
+			slotDuration: '00:20',	//	Slot Time Duration: 2 hours. Impact the height of the events.
 //			slotLabelInterval: "02:00",
 			slotLabelFormat: {
 				hour: 'numeric',
