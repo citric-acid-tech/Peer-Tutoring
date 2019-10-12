@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--
-这是整个网站的首页面，在这里，用户可以选择登陆三个客户端.
-基本逻辑:
-选择教师端->CAS认证->获得学生信息->是否是注册教师(peer tutor)? 进入页面 : 拒绝访问
-选择学生端->CAS认证->获得学生信息->认证成功? 进入页面 : 拒绝访问
-选择管理员->认证(账号密码?)->是否是管理员身份? 进入页面 : 拒绝访问
--->
 
 <head>
 	<title>CLE Peer Tutoring | <?= $company_name ?></title>
@@ -107,7 +100,7 @@
 			</a>
 			&nbsp;|&nbsp;
 			<a href="https://cle.sustech.edu.cn/" target="_blank">
-				CENTER FOR LANGUAGE EDUCATION
+				CLE Website
 			</a>
 			&nbsp;|&nbsp;
 			<span id="select-language" class="label label-success sl_but">

@@ -2,7 +2,7 @@
 		<div id="footer">
 			<div id="footer-content" class="col-xs-12 col-sm-8">
 		        <a href="https://cle.sustech.edu.cn/" target="_blank">
-		        	CENTER FOR LANGUAGE EDUCATION
+					CLE Website
 		        </a>
 		        &nbsp;|&nbsp;
 		        <span id="select-language" class="label label-success sl_but">

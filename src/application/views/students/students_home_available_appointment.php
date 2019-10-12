@@ -67,12 +67,12 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="calendar_tutor" style="min-width:150px;"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<button id="sel_tutor_by_name" class="btn btn-primary">
+						<button id="sel_tutor_by_name" class="btn btn-primary" style="display:none">
 						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
 						    <?= lang('select_by_tutor_tab') ?>
 						</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<button id="sel_tutor_by_time" class="btn btn-primary">
+						<button id="sel_tutor_by_time" class="btn btn-primary" style="display:none">
 						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
 						    <?= lang('select_by_time_tab') ?>
 						</button>
