@@ -451,34 +451,50 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 			console.log("GeneralFunctions.getSemAndWeeks() --> No such year: " + year);
 			return false;
 		}
-		
-		var spring_begin = moment(sem_info[year].Spring.first_Monday, 'YYYY-MM-DD');
-		var spring_last = parseInt(sem_info[year].Spring.last_weeks) * 7;
-		var spring_end = moment(spring_begin).add(spring_last, 'days');
-		
-		var summer_begin = moment(sem_info[year].Summer.first_Monday, 'YYYY-MM-DD');
-		var summer_last = parseInt(sem_info[year].Summer.last_weeks) * 7;
-		var summer_end = moment(summer_begin).add(summer_last, 'days');
-		
-		var fall_begin = moment(sem_info[year].Fall.first_Monday, 'YYYY-MM-DD');
-		var fall_last = parseInt(sem_info[year].Fall.last_weeks) * 7;
-		var fall_end = moment(fall_begin).add(fall_last, 'days');
+        
+        var spring_exist = true;
+        if (sem_info[year].Spring === undefined) {
+            spring_exist = false;
+        } else {
+            var spring_begin = moment(sem_info[year].Spring.first_Monday, 'YYYY-MM-DD');
+            var spring_last = parseInt(sem_info[year].Spring.last_weeks) * 7;
+            var spring_end = moment(spring_begin).add(spring_last, 'days');
+        }
+        
+        var summer_exist = true;
+        if (sem_info[year].Summer === undefined) {
+            summer_exist = false;
+        } else {
+            var summer_begin = moment(sem_info[year].Summer.first_Monday, 'YYYY-MM-DD');
+            var summer_last = parseInt(sem_info[year].Summer.last_weeks) * 7;
+            var summer_end = moment(summer_begin).add(summer_last, 'days');
+        }
 
-		if (GeneralFunctions.inInterval(spring_begin, spring_end, format_date)) {
+        var fall_exist = true;
+        if (sem_info[year].Fall === undefined) {
+            fall_exist = false;
+        } else {
+            var fall_begin = moment(sem_info[year].Fall.first_Monday, 'YYYY-MM-DD');
+            var fall_last = parseInt(sem_info[year].Fall.last_weeks) * 7;
+            var fall_end = moment(fall_begin).add(fall_last, 'days');
+        }
+
+
+		if (spring_exist && GeneralFunctions.inInterval(spring_begin, spring_end, format_date)) {
 			return {
 				weekNumber: (Math.floor(moment.duration(format_date.diff(spring_begin)).asDays() / 7) + 1).toString(),
 				semester: year + "-Spring",
 				year: year,
 				season: "Spring"
 			};
-		} else if (GeneralFunctions.inInterval(summer_begin, summer_end, format_date)) {
+		} else if (summer_exist && GeneralFunctions.inInterval(summer_begin, summer_end, format_date)) {
 			return {
 				weekNumber: (Math.floor(moment.duration(format_date.diff(summer_begin)).asDays() / 7) + 1).toString(),
 				semester: year + "-Summer",
 				year: year,
 				season: "Summer"
 			};
-		} else if (GeneralFunctions.inInterval(fall_begin, fall_end, format_date)) {
+		} else if (fall_exist && GeneralFunctions.inInterval(fall_begin, fall_end, format_date)) {
 			return {
 				weekNumber: (Math.floor(moment.duration(format_date.diff(fall_begin)).asDays() / 7) + 1).toString(),
 				semester: year + "-Fall",

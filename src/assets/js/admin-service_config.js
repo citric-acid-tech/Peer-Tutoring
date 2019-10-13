@@ -649,6 +649,7 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 							$(".fc-scheduleToAllWeeks-button").prop('disabled', false);
 						}
 					}
+					// alert(weekNumAndSem.semester);
 					$("select#calendar_semester option[value='" + weekNumAndSem.semester + "']").prop('selected', true);
 					$("select#calendar_week_number option[value='" + weekNumAndSem.weekNumber + "']").prop('selected', true);
 					var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_filter_services';
