@@ -56,10 +56,21 @@ window.Backend = window.Backend || {};
 		var $sel_lang = $('#select-language');
         GeneralFunctions.enableLanguageSelection($sel_lang);
 		
-		if (Backend.getCookie('language_hint') !== 'present') {
+		$(document).on('click', '.mask', function() {
+			$sel_lang.popover('hide').removeClass('active');
+			$(this).fadeOut();
+			setTimeout(function() {
+				$(this).remove();
+			}, 200);
+		});
+    });
+
+	window.addEventListener('load', function() {
+		if (GeneralFunctions.getCookie('language_hint') !== 'present') {
 			//	Below will be done if cookie is present
-			Backend.setCookie('language_hint', 'present', 21);
+			GeneralFunctions.setCookie('language_hint', 'present', 21);
 			
+			var $sel_lang = $('#select-language');
 			var mask = "<div class='mask' style='z-index:1;background-color:rgba(0,0,0,0.6);position:fixed;width:100%;height:100%;left:0;top:0;'></div>";
 			$('body').append(mask);
 			$sel_lang.popover('show').addClass('active');
@@ -90,16 +101,8 @@ window.Backend = window.Backend || {};
 				}, 200);
 			}, 3000);
 		}
-		
-		$(document).on('click', '.mask', function() {
-			$sel_lang.popover('hide').removeClass('active');
-			$(this).fadeOut();
-			setTimeout(function() {
-				$(this).remove();
-			}, 200);
-		});
-    });
-
+	});
+	
     /**
      * Backend Constants
      */
@@ -119,25 +122,6 @@ window.Backend = window.Backend || {};
     exports.PRIV_USERS = 'users';
     exports.PRIV_SYSTEM_SETTINGS = 'system_settings';
     exports.PRIV_USER_SETTINGS = 'user_settings';
-
-	exports.setCookie = function (cname, cvalue, exdays) {
-		var d = new Date();
-		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-		var expires = "expires=" + d.toGMTString();
-		document.cookie = cname + "=" + cvalue + "; " + expires;
-	};
-	
-	exports.getCookie = function (cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for (var i = 0; i < ca.length; i++) {
-			var c = ca[i].trim();
-			if (c.indexOf(name) === 0) {
-				return c.substring(name.length, c.length);
-			}
-		}
-		return "";
-	};
 	
     /**
      * Place the backend footer always on the bottom of the page.
