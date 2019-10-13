@@ -61,7 +61,16 @@
 .sl_but {
 	background-color: rgba(41, 109, 151, 0.8);
 	font-size: 80%;
+	z-index: 10;
+	position: relative;
 	transition: background-color 0.3s;
+}
+.popover {
+	outline: 0 solid orange;
+	transition: outline 0.1s;
+}
+.popover.blink {
+	outline: 5px solid orange;
 }
 .sl_but:hover, .sl_but:focus, .sl_but.active {
 	background-color: #35b66f;

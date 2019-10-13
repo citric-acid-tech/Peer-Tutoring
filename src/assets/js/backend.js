@@ -53,7 +53,46 @@ window.Backend = window.Backend || {};
             }
         });
 
-        GeneralFunctions.enableLanguageSelection($('#select-language'));
+		var $sel_lang = $('#select-language');
+        GeneralFunctions.enableLanguageSelection($sel_lang);
+		var mask = "<div class='mask' style='z-index:1;background-color:rgba(0,0,0,0.6);position:fixed;width:100%;height:100%;left:0;top:0;'></div>";
+		$('body').append(mask);
+		$sel_lang.popover('show').addClass('active');
+		
+		setTimeout(function() {
+			$('.popover').addClass('blink');
+		}, 100);
+		setTimeout(function() {
+			$('.popover').removeClass('blink');
+		}, 400);
+		setTimeout(function() {
+			$('.popover').addClass('blink');
+		}, 700);
+		setTimeout(function() {
+			$('.popover').removeClass('blink');
+		}, 1000);
+		setTimeout(function() {
+			$('.popover').addClass('blink');
+		}, 1300);
+		setTimeout(function() {
+			$('.popover').removeClass('blink');
+		}, 1600);
+		
+		setTimeout(function() {
+			$sel_lang.popover('hide').removeClass('active');
+			$('.mask').fadeOut();
+			setTimeout(function() {
+				$('.mask').remove();
+			}, 200);
+		}, 3000);
+		
+		$(document).on('click', '.mask', function() {
+			$sel_lang.popover('hide').removeClass('active');
+			$(this).fadeOut();
+			setTimeout(function() {
+				$(this).remove();
+			}, 200);
+		});
     });
 
     /**
@@ -129,7 +168,7 @@ window.Backend = window.Backend || {};
         var notificationHtml =
             '<div class="notification alert">' +
             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-            '<span aria-hidden="true">&times;</span>' +
+            '<span aria-hidden="true">×</span>' +
             '</button>' +
             '<strong>' + message + '</strong>' +
             customActionsHtml +
