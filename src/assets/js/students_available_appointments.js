@@ -70,6 +70,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					calendar.changeView('listWeek');
 				}, 50);
 			}
+			$('#calendar_tutor').hide();
 		}
 		
 		//	File Input Settings
@@ -162,6 +163,12 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				selected_tutor = helper.selected_tutor;
 				selected_tutor_id = helper.selected_tutor_id;
 				
+				if (selected_tutor === 'All Tutors') {
+					$('#calendar_tutor').hide();
+				} else {
+					$('#calendar_tutor').show();
+				}
+				
 				helper = studentsAvailableAppointmentsCalendarHelper;
 				//	Guess what, a large calendar!!!
 				//	defaultView: 'dayGridMonth', 'dayGridWeek', 'timeGridDay', 'listWeek'
@@ -202,8 +209,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			//	views customizations
 			views: {
 				timeGridWeek: {
-					buttonText: "week - time"
-					
+					buttonText: "time"
 				},
 				timeGridDay: {
 					buttonText: "day - time"
@@ -215,7 +221,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					buttonText: "day - grid"
 				},
 				listWeek: {
-					buttonText: "week - list"
+					buttonText: "list"
 				},
 				listDay: {
 					buttonText: "day - list"
@@ -257,10 +263,10 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			firstDay: 1,
 			//	Define the placement of the header
 			header: {
-				left: 'title',	// put title in the first line
+				left: 'title',	// put title
 //				center: 'timeGridWeek,timeGridDay dayGridWeek,dayGridDay listWeek,listDay',	// buttons for switching between views
-				center: 'timeGridWeek listWeek',	// buttons for switching between views
-				right: 'prev,today,next'	// buttons for locating a date
+				center: '',	// buttons for switching between views
+				right: 'timeGridWeek,listWeek prev,today,next'	// buttons for locating a date
 			},
 			//	View Rendering Callbacks
 			viewSkeletonRender: function() {

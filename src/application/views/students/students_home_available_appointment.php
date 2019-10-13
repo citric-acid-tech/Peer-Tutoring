@@ -47,7 +47,7 @@
 				<?= lang('select_by_tutor_tab') ?>
 			</a>
 		</li>
-		<li role="presentation">
+		<li role="presentation" style="display: none;">
 			<a href="#select-by-time-tab" aria-controls="select-by-time-tab" role="tab" data-toggle="tab">
 				<?= lang('select_by_time_tab') ?>
 			</a>
@@ -60,18 +60,18 @@
 			<!-- toolbar -->
 			<div class="container calendar_upper_header" style="text-align:center;">
 				<div class="col-xs-12">
-					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);padding: 10px 0;">
+					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);">
 						<span id="calendar_semester" style="min-width:150px;"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="calendar_week_number" style="min-width:150px;"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="calendar_tutor" style="min-width:150px;"></span>
-						&nbsp;&nbsp;&nbsp;&nbsp;
+<!--						&nbsp;&nbsp;&nbsp;&nbsp;-->
 						<button id="sel_tutor_by_name" class="btn btn-primary" style="display:none">
 						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
 						    <?= lang('select_by_tutor_tab') ?>
 						</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;
+<!--						&nbsp;&nbsp;&nbsp;&nbsp;-->
 						<button id="sel_tutor_by_time" class="btn btn-primary" style="display:none">
 						    <i class="fas fa-chalkboard-teacher"></i>&nbsp;
 						    <?= lang('select_by_time_tab') ?>

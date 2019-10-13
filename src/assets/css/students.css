@@ -891,8 +891,12 @@ body::-webkit-scrollbar-thumb {
 	#calendar_semester, #calendar_week_number, #calendar_tutor, #calendar_gotodate,
 	#sel_tutor_by_name, #sel_tutor_by_time {
 		display: block;
-		margin: 3px auto;
+		margin-top: 20px;
+		margin-bottom: 3px;
 		text-align-last: center;
+	}
+	#calendar_semester, #calendar_week_number {
+		display: inline;
 	}
 }
 /* CALENDAR: HEADER */
