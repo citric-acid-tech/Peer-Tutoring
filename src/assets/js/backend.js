@@ -56,10 +56,9 @@ window.Backend = window.Backend || {};
 		var $sel_lang = $('#select-language');
         GeneralFunctions.enableLanguageSelection($sel_lang);
 		
-//		alert($.cookie('language_hint'));
-//		if ($.cookie('language_hint') === 'present') {
+		if (Backend.getCookie('language_hint') !== 'present') {
 			//	Below will be done if cookie is present
-//			$.cookie('language_hint', 'present', {expires: 21});
+			Backend.setCookie('language_hint', 'present', 21);
 			
 			var mask = "<div class='mask' style='z-index:1;background-color:rgba(0,0,0,0.6);position:fixed;width:100%;height:100%;left:0;top:0;'></div>";
 			$('body').append(mask);
@@ -90,7 +89,7 @@ window.Backend = window.Backend || {};
 					$('.mask').remove();
 				}, 200);
 			}, 3000);
-//		}
+		}
 		
 		$(document).on('click', '.mask', function() {
 			$sel_lang.popover('hide').removeClass('active');
@@ -121,6 +120,25 @@ window.Backend = window.Backend || {};
     exports.PRIV_SYSTEM_SETTINGS = 'system_settings';
     exports.PRIV_USER_SETTINGS = 'user_settings';
 
+	exports.setCookie = function (cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		var expires = "expires=" + d.toGMTString();
+		document.cookie = cname + "=" + cvalue + "; " + expires;
+	};
+	
+	exports.getCookie = function (cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i].trim();
+			if (c.indexOf(name) === 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	};
+	
     /**
      * Place the backend footer always on the bottom of the page.
      */
