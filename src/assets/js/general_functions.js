@@ -328,7 +328,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      */
     exports.enableLanguageSelection = function ($element, calendar) {
         // Select Language
-        var html = '<ul id="language-list">';
+        var html = '<ul id="language-list" style="z-index:9999;">';
         $.each(availableLanguages, function () {
 			//	Filter out some languages
 			if (this === '简体中文' || this === 'english') {
