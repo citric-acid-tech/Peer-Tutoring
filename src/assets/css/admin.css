@@ -918,6 +918,13 @@ ul#sem_info .sem_item .sem_delete_row {
 }
 
 
+/* Try to fix an issue */
+.admin-page .fc-time-grid .fc-slats td {
+  height: 2.6em;
+  border-bottom: 0;
+}
+
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

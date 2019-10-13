@@ -122,9 +122,9 @@
 							&nbsp;&nbsp;
 							<input id="edit_service_date" type="text" placeholder="<?= lang('date') ?> *" title="<?= lang('date') ?> *" style="height:28px;width:16%" readonly />
 							&nbsp;<strong>-</strong>&nbsp;
-							<input id="edit_service_st" type="time" style="width:18%;height:28px;" />
+							<input id="edit_service_st" type="time"width:18%;height:28px;" />
 							<strong>~</strong>
-							<input id="edit_service_et" type="time" style="width:18%;height:28px;" />
+							<input id="edit_service_et" type="time" :18%;height:28px;" />
 						</div>
 						<div class="popup-container">
 							<select id="edit_service_tutor" title="<?= lang('tutor') ?> *" style="height:28px;width:42%;"></select>

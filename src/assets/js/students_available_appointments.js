@@ -243,6 +243,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			slotDuration: '00:20',	//	Slot Time Duration: 2 hours. Impact the height of the events.
 //			slotLabelInterval: "02:00",
 			slotLabelFormat: {
+				hour12: false,
 				hour: 'numeric',
 				minute: '2-digit',
 				omitZeroMinute: false,	//	Do not omit zeros

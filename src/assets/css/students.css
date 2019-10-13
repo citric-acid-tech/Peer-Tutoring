@@ -867,6 +867,12 @@ body::-webkit-scrollbar-thumb {
 	font-weight: bold;
 }
 
+/* Try to fix an issue */
+.students-page .fc-time-grid .fc-slats td {
+  height: 2.6em;
+  border-bottom: 0;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
