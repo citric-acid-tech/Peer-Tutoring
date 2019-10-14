@@ -101,11 +101,21 @@
                         <?= lang('assess') ?>
                     </button>
                 </div>
+			    <!-- Download -->
+			    <div class="btn-group">
+		        	<button id="download" class="btn btn-primary">
+		        		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
+		        			<i class="fas fa-download"></i>
+		        			&nbsp;
+		        			<strong><?= lang('download_attachment') ?></strong>
+		        		</a>
+		        	</button>			            
+			    </div>
            </div>
 			
            <h3><?= lang('details') ?></h3>
           	
-          	<hr />
+          	<hr style="margin-top:5px;margin-bottom:5px;" />
           	
            <!-- hide appointment id for data transfer -->
            <input id="appointment-id" type="hidden">       
@@ -175,11 +185,6 @@
                        <label class="control-label" for="tutor"><?= lang('tutor') ?></label>
                        <input id="tutor" class="form-control" readonly>
                    </div>
-                   <br />
-                   <div class="form-group">
-                       <label class="control-label" for="notes"><?= lang('notes') ?></label>
-                       <input id="notes" class="form-control" readonly>
-                   </div>
                </div>
                <!-- Another column -->
                <div class="col-xs-12 col-sm-6" style="margin-left: 0;">
@@ -207,18 +212,16 @@
                        <label class="control-label" for="suggestion"><?= lang('suggestion') ?></label>
                        <textarea id="suggestion" rows="2" class="form-control" style="resize: none;" readonly></textarea>
                    </div>
-			        <br />
-			        <!-- Download -->
-			        <div class="form-group" style="padding:10px;text-align:center;">
-		            	<button id="download" class="btn btn-primary">
-		            		<a href="javascript:void(0);" target="_blank" style="text-decoration:none;color:snow;">
-		            			<i class="fas fa-download"></i>
-		            			&nbsp;
-		            			<strong><?= lang('download_attachment') ?></strong>
-		            		</a>
-		            	</button>			            
-			        </div>
                </div>
+           </div>
+           
+           <div class="row" style="margin-top:5px;">
+           	<div class="col-xs-12">
+           		<div class="form-group">
+           		    <label class="control-label" for="notes"><?= lang('notes') ?></label>
+           		    <textarea id="notes" class="form-control" rows="3" style="resize:none;" readonly></textarea>
+           		</div>
+           	</div>
            </div>
     	</div>
     </div>
