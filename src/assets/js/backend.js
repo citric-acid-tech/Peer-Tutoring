@@ -57,6 +57,7 @@ window.Backend = window.Backend || {};
         GeneralFunctions.enableLanguageSelection($sel_lang);
 		
 		$(document).on('click', '.mask', function() {
+			$('.popover').removeClass('blink');
 			$sel_lang.popover('hide').removeClass('active');
 			$(this).fadeOut();
 			setTimeout(function() {
@@ -94,6 +95,7 @@ window.Backend = window.Backend || {};
 			}, 1600);
 			
 			setTimeout(function() {
+				$('.popover').removeClass('blink');
 				$sel_lang.popover('hide').removeClass('active');
 				$('.mask').fadeOut();
 				setTimeout(function() {
