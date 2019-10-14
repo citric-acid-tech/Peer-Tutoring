@@ -209,7 +209,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			//	views customizations
 			views: {
 				timeGridWeek: {
-					buttonText: "time"
+					// buttonText: "time"
 				},
 				timeGridDay: {
 					buttonText: "day - time"
@@ -221,7 +221,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					buttonText: "day - grid"
 				},
 				listWeek: {
-					buttonText: "list"
+					// buttonText: "list"
 				},
 				listDay: {
 					buttonText: "day - list"

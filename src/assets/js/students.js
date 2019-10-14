@@ -75,7 +75,7 @@ window.Students = window.Students || {};
     exports.PRIV_AVAILABLE_APPOINTMENTS = 'available_appointments';
 	
 	//	Locales for calendar
-	exports.CALENDAR_LOCALES_ENGLISH = 'english';
+	exports.CALENDAR_LOCALES_ENGLISH = 'en-gb';
 	exports.CALENDAR_LOCALES_ZH_CN = 'zh-cn';
 	
     /**
