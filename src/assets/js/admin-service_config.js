@@ -479,6 +479,15 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				omitZeroMinute: false,	//	Do not omit zeros
 				meridiem: 'short'
 			},
+			displayEventTime: true,
+			eventTimeFormat: {
+				hour12: false,
+				hour: 'numeric',
+				minute: '2-digit',
+				omitZeroMinute: false,	//	Do not omit zeros
+				meridiem: 'short'
+			},
+			displayEventEnd: true,
 			minTime: "09:00:00",
 			maxTime: "17:00:00",
 			dayRender: function() {
