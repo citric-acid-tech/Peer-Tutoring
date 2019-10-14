@@ -86,6 +86,12 @@ class Tutors_model extends CI_Model{
         $data = array('appointment_id' => $appointment_id, 'service_status' => $service_status);
         $this->log_operation('modify_status', $data, $result);
 
+        $this->load->model('general_model');
+        if($this->general_model->is_enable_email_notification()){
+            $row = $this->general_model->get_appointment_info($appointment_id);
+            $this->general_model->send_email('ec_comsug_comple_stu', array($row['student_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
+        }
+
         return $result;
     }
 
@@ -164,7 +170,7 @@ class Tutors_model extends CI_Model{
                 $row = $this->general_model->get_appointment_info($appointment_id);
                 
                 $this->general_model->send_email('ec_comsug_comple_stu', array($row['student_email']), $row['service_type'], $row['date'], $row['address'], $row['left']);
-            }   
+            }
         }
 
         return $result;
