@@ -208,7 +208,7 @@ class Students_model extends CI_Model{
 
         $now_datetimeObj = new DateTime();
         $latest_available_datetimeObj = new DateTime();
-        $latest_available_datetimeObj->add( new DateInterval('P' . ($MIN_BOOK_AHEAD_DAYS + 1). 'D') );
+        $latest_available_datetimeObj->add( new DateInterval('P' . ($MIN_BOOK_AHEAD_DAYS). 'D') );
 
         // Get current datetime
         $now =  $this->db

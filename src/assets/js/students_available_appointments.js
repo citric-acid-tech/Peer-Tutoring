@@ -84,12 +84,12 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					label.innerHTML = "<strong>" + fileName + "</strong>";
 					$('.inputfile + label').css({
 						"background-color": "snow",
-						"color": "#296d97"
+						"color": "#4169E1"
 					});
 				} else {
 					label.innerHTML = labelVal;
 					$('.inputfile + label').css({
-						"background-color": "#296d97",
+						"background-color": "#4169E1",//#296d97
 						"color": "snow"
 					});
 				}
@@ -123,7 +123,6 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
      * Default event handlers declaration for Students My Appointment page.
      */
     function _bindEventHandlers() {
-		
         /**
          * Event: Page Tab Button "Click"
 		 *
@@ -146,7 +145,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					dateFormat: "yy-mm-dd",
 					altField: "#show_calendar_date, #date-title",
 					autoSize: true,
-					firstDay: 1,
+					firstDay: parseInt(moment().format('d')),
 					showOtherMonths: true,
 					hideIfNoPrevNext: true,
 					minDate: "0",
@@ -160,6 +159,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			} else if ($(this).attr('href') === '#check-available-time-in-calendar') {
 				//	This may not happens, cause it cannot be changed directly
 				//	This may still happen if privileges are added
+				
 				selected_tutor = helper.selected_tutor;
 				selected_tutor_id = helper.selected_tutor_id;
 				
@@ -209,7 +209,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			//	views customizations
 			views: {
 				timeGridWeek: {
-					// buttonText: "time"
+					buttonText: "Calendar"
 				},
 				timeGridDay: {
 					buttonText: "day - time"
@@ -221,7 +221,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					buttonText: "day - grid"
 				},
 				listWeek: {
-					// buttonText: "list"
+					buttonText: "Event List"
 				},
 				listDay: {
 					buttonText: "day - list"
@@ -240,8 +240,8 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				}
 			},
 			//	Date & Time Options
-			slotDuration: '00:20',	//	Slot Time Duration: 2 hours. Impact the height of the events.
-//			slotLabelInterval: "02:00",
+			slotDuration: '00:30',	//	Slot Time Duration: 2 hours. Impact the height of the events.
+			slotLabelInterval: "00:30",
 			slotLabelFormat: {
 				hour12: false,
 				hour: 'numeric',
@@ -265,12 +265,12 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			},
 			validRange: function(nowDate) {
 				return {
-					start:	nowDate,
-					end:	moment(nowDate).add(parseInt(GlobalVariables.max_check_ahead_day), 'days').toDate()
+					start:	moment(nowDate).format('YYYY-MM-DD'),
+					end:	moment(nowDate).add(parseInt(GlobalVariables.max_check_ahead_day), 'days').format('YYYY-MM-DD')
 				};
 			},
 			//	Locale
-			firstDay: 1,
+			firstDay: parseInt(moment().format('d')),
 			//	Define the placement of the header
 			header: {
 				left: 'title',	// put title
@@ -278,6 +278,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				center: '',	// buttons for switching between views
 				right: 'timeGridWeek,listWeek prev,today,next'	// buttons for locating a date
 			},
+			buttonIcons : false, //default : true. If this variable is true, the "prev week" button will be a icon '<'.
 			//	View Rendering Callbacks
 			viewSkeletonRender: function() {
 				Students.placeFooterToBottom();	//	Fix the footer gg problem
@@ -447,13 +448,13 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 					'transition': 'all 0.2s'
 				});
 				if (info.event.extendedProps.capacity === info.event.extendedProps.appointed) {
-					//	equal value, as strings and as numbers, change to red
+					//	equal value, as strings and as numbers, change to red #FFB6C1
 //					console.log(info.event);
-					el.css('background-color', 'red');
+					el.css('background-color', '#FFB6C1');
 				}
 				if (info.event.extendedProps.is_booked === '1') {
-					//	Booked, change to green #35B66F
-					el.css('background-color', '#35B66F');
+					//	Booked, change to green #35B66F 
+					el.css('background-color', '#F0FFF0'); //very slight green #F0FFF0
 				}
 				el.hover(function() {
 					el.toggleClass('service_hover');

@@ -56,15 +56,17 @@
 
 	<div class="tab-content">
 		<!-- Check Available Time in Calendar Tab -->
-		<div role="tabpanel" class="active tab-pane no-longer-fade" id="check-available-time-in-calendar">
+		<div role="tabpanel" class="active tab-pane no-longer-fade" id="check-available-time-in-calendar" style="width:90%;margin:0 auto">
 			<!-- toolbar -->
 			<div class="container calendar_upper_header" style="text-align:center;">
 				<div class="col-xs-12">
 					<h4 style="font-weight: bolder; font-family: Gill Sans, Gill Sans MT, Myriad Pro, DejaVu Sans Condensed, Helvetica, Arial,' sans-serif';color: rgb(41, 109, 151);">
+						<!--
 						<span id="calendar_semester" style="min-width:150px;"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span id="calendar_week_number" style="min-width:150px;"></span>
 						&nbsp;&nbsp;&nbsp;&nbsp;
+						-->
 						<span id="calendar_tutor" style="min-width:150px;"></span>
 <!--						&nbsp;&nbsp;&nbsp;&nbsp;-->
 						<button id="sel_tutor_by_name" class="btn btn-primary" style="display:none">
