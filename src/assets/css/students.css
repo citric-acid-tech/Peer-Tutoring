@@ -467,6 +467,9 @@ body::-webkit-scrollbar-thumb {
 	font-weight: bolder;
 }
 
+.fc-button-primary:disabled{
+	display: none;
+}
 
 
 
@@ -975,17 +978,20 @@ body::-webkit-scrollbar-thumb {
 
     #users-page #providers .switch-view div {
         width: 48%;
-    }
+	}
 }
 
 /* CALENDAR: HEADER */
 @media (max-width: 450px) {
 	.fc-button-group {
-		display: block;
+		display: block; 
 		margin: 10px auto;
 	}
 	.fc-toolbar>*>:not(:first-child) {
 		margin-left: 0;
+	}
+	#footer{
+		display: none;/*Since the footer will crush after deleting the pre-today-next button, I make the footer disappear..*/
 	}
 }
 /* CALENDAR: HEADER */
