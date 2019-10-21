@@ -907,6 +907,9 @@ body::-webkit-scrollbar-thumb {
 	#calendar_semester, #calendar_week_number {
 		display: inline;
 	}
+	#footer{
+		display: none;/*Since the footer will crush after deleting the pre-today-next button, I make the footer disappear..*/
+	}
 }
 /* CALENDAR: HEADER */
 
@@ -933,7 +936,7 @@ body::-webkit-scrollbar-thumb {
 @media (max-width: 768px) {
     #footer #footer-content, #footer #footer-user-display-name {
         text-align: center;
-    }
+	}
 }
 
 @media (max-width: 750px) {
@@ -989,9 +992,6 @@ body::-webkit-scrollbar-thumb {
 	}
 	.fc-toolbar>*>:not(:first-child) {
 		margin-left: 0;
-	}
-	#footer{
-		display: none;/*Since the footer will crush after deleting the pre-today-next button, I make the footer disappear..*/
 	}
 }
 /* CALENDAR: HEADER */
