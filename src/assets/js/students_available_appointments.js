@@ -201,6 +201,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			defaultView: 'timeGridWeek',
 			//	Locales
 			locale: 'zh-cn',	//	Default 简体中文
+			allDaySlot : false,
 			//	Some Customized Buttons
 //			customButtons: {
 //			},
