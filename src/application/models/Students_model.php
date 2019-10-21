@@ -236,7 +236,7 @@ class Students_model extends CI_Model{
             ->from('ea_services')
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
-            ->where('ea_services.start_datetime < ', $latest_available_datetimeObj->format('Y-m-d') . ' 00:00')
+            ->where('ea_services.start_datetime < ', $latest_available_datetimeObj->format('Y-m-d') . ' 23:59')
             ->where('ea_services.start_datetime > ', $now);
         if($tutor_id != 'ALL'){
             $this->db->where('ea_users.id', $tutor_id);
@@ -258,7 +258,7 @@ class Students_model extends CI_Model{
             ->join('ea_service_categories', 'ea_service_categories.id = ea_services.id_service_categories', 'inner')
             ->join('ea_users', 'ea_users.id = ea_services.id_users_provider', 'inner')
             ->where('ea_appointments.booking_status !=', '3')
-            ->where('ea_services.start_datetime < ', $latest_available_datetimeObj->format('Y-m-d') . ' 00:00')
+            ->where('ea_services.start_datetime < ', $latest_available_datetimeObj->format('Y-m-d') . ' 23:59')
             ->where('ea_services.start_datetime > ', $now);
         if($tutor_id != 'ALL'){
             $this->db->where('ea_users.id', $tutor_id);
