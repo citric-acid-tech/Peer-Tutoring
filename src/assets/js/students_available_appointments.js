@@ -268,7 +268,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				return {
 					start:	moment(nowDate).format('YYYY-MM-DD') + ' 09:00',
 					end:	moment(nowDate).add(parseInt(GlobalVariables.max_check_ahead_day - 1), 'days').format('YYYY-MM-DD') + ' 00:00'
-					// end:	moment(nowDate).add(parseInt(1), 'days').format('YYYY-MM-DD') + ' 00:00' //for test
+					// end:	moment(nowDate).add(parseInt(1), 'days').format('YYYY-MM-DD') + ' 00:00'
 				};
 			},
 			//	Locale

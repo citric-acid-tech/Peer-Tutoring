@@ -470,8 +470,8 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				}
 			},
 			//	Date & Time Options
-			slotDuration: '00:20',	//	Slot Time Duration
-//			slotLabelInterval: "02:00",
+			slotDuration: '00:30',	//	Slot Time Duration
+			slotLabelInterval: "00:30",
 			slotLabelFormat: {
 				hour12: false,
 				hour: 'numeric',
