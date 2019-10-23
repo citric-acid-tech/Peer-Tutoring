@@ -460,11 +460,11 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				if (info.event.extendedProps.capacity === info.event.extendedProps.appointed) {
 					//	equal value, as strings and as numbers, change to red #FFB6C1
 //					console.log(info.event);
-					el.css('background-color', '#FFB6C1');
+					el.css('background-color', '#FF6A6A');
 				}
 				if (info.event.extendedProps.is_booked === '1') {
 					//	Booked, change to green #35B66F 
-					el.css('background-color', '#F0FFF0'); //very slight green #F0FFF0
+					el.css('background-color', '#32cd4a'); 
 				}
 				el.hover(function() {
 					el.toggleClass('service_hover');
