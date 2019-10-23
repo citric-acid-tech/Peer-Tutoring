@@ -261,7 +261,7 @@
             $('#filter-aa_tutors .results').html('');
 				
 			//	Iterate through all appointments, generate htmls for them and
-			//	add them to the results
+            //	add them to the results
             $.each(response, function (index, tutor) {
                 var html = this.getFilterHtml(index, tutor);
                 $('#filter-aa_tutors .results').append(html);
@@ -270,6 +270,9 @@
 			//	If there are no match, print a message in the result block
             if (response.length === 0) {
                 $('#filter-aa_tutors .results').html('<em>' + EALang.no_records_found + '</em>');
+            }else{
+                var button = document.getElementById('0');
+                button.click();
             }
 			
 			//	If selectId is provided, show it
@@ -296,12 +299,13 @@
 
 		var line1 = "<strong>" + tutor_name + "</strong>";
 		var line2 = EALang.earliest_service_starts_on + ": " + earliest_start_datetime;
-			
+            
         var html =
-            '<div class="entry" data-id="' + tutor.tutor_id + '">' +	//	Starting <div> block
+            '<div class="entry" data-id="' + tutor.tutor_id + '" id="'+index+'">' +	//	Starting <div> block
             line1 + "<br />" +	//	line1
             line2 +	//	line2
             '</div>	<hr />';		//	Ending </div> and a horizontal line
+        
 		
         return html;
     };

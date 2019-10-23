@@ -896,6 +896,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 
+
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
     #header #header-menu .menu-item {
