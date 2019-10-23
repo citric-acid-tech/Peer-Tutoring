@@ -612,18 +612,22 @@ body::-webkit-scrollbar-thumb {
 	background-color: #f3f3f3;
 	cursor: pointer;
 }
-.fc-time{
+.fc-content{
+	font-size: 15px;
+}
+/* .fc-time{
 	font-size: 15px !important;
-	float:left;
+	display: inline-block;
 	line-height: 52px !important;
 	
 }
-
 .fc-title{
 	font-size: 15px !important;
-	float:left;
-	line-height: 52px !important;
-}
+	display: inline-block;
+	/* float:left; */
+	/* line-height: 52px !important;
+} 
+*/
 
 .fc-widget-content{
 	height: 50px !important;

@@ -288,7 +288,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				center: '',	// buttons for switching between views
 				right: 'timeGridWeek,listWeek prev,today,next'	// buttons for locating a date
 			},
-			buttonIcons : false, //default : true. If this variable is true, the "prev week" button will be a icon '<'.
+			// buttonIcons : false, //default : true. If this variable is true, the "prev week" button will be a icon '<'.
 			//	View Rendering Callbacks
 			viewSkeletonRender: function() {
 				Students.placeFooterToBottom();	//	Fix the footer gg problem
