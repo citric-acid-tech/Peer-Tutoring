@@ -370,7 +370,7 @@ class Students_model extends CI_Model{
         return 
             $this->db
                 ->group_by('tutor_name, tutor_id')
-                ->order_by('tutor_name', 'ASC')
+                ->order_by('ea_users.last_name', 'ASC')
                 ->get()
                 ->result_array();
     }
