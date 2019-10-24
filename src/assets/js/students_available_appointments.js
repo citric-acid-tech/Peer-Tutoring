@@ -442,7 +442,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 			eventRender: function(info) {
 				var hover_message = info.event.extendedProps.service_type + " - " + info.event.extendedProps.tutor;
 				var el = $(info.el);
-				el.prop('title', hover_message);
+				// el.prop('title', hover_message);
 				el.qtip({
 					position: {
 						my: 'bottom center',
