@@ -622,28 +622,18 @@ body::-webkit-scrollbar-thumb {
 }
 
 .fc-content .fc-time{
-	line-height: 52px !important;
-	display: inline-block;
-}
+	line-height: 0px !important;
+	/* float: left; */
+	display: none;
+} 
 
 .fc-content .fc-title{
 	line-height: 52px !important;
+	/* float: left; */
 	display: inline-block;
-}
-
-/* .fc-time{
-	font-size: 15px !important;
-	display: inline-block;
-	line-height: 52px !important;
-	
-}
-.fc-title{
-	font-size: 15px !important;
-	display: inline-block;
-	/* float:left; */
-	/* line-height: 52px !important;
 } 
-*/
+
+
 
 
 
@@ -909,6 +899,17 @@ body::-webkit-scrollbar-thumb {
   border-bottom: 0;
 }
 
+@media (max-width:1490px){
+	/* .fc-content .fc-time{
+		line-height: 0px !important;
+		display: none;
+	} */
+	
+	/* .fc-content .fc-title{
+		line-height: 0px !important;
+		display: block;
+	}   */
+}
 
 
 
