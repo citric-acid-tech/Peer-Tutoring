@@ -315,7 +315,7 @@ body::-webkit-scrollbar-thumb {
     margin-bottom: 20px;
 }
 .record-details .form-group label.control-label {
-	font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
+	/* font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace; */
 	font-size: 15px;
 	font-weight: bold;
 }
@@ -614,7 +614,23 @@ body::-webkit-scrollbar-thumb {
 }
 .fc-content{
 	font-size: 15px;
+	display: inline-block;
 }
+
+.fc-widget-content{
+	height: 50px !important;
+}
+
+.fc-content .fc-time{
+	line-height: 52px !important;
+	display: inline-block;
+}
+
+.fc-content .fc-title{
+	line-height: 52px !important;
+	display: inline-block;
+}
+
 /* .fc-time{
 	font-size: 15px !important;
 	display: inline-block;
@@ -629,9 +645,7 @@ body::-webkit-scrollbar-thumb {
 } 
 */
 
-.fc-widget-content{
-	height: 50px !important;
-}
+
 
 
 /* Select by time */

@@ -418,7 +418,7 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 						$.each(response, function(index, service) {
 							var eve  = {
 								id: service.service_id,
-								title: service.tutor_name,
+								title: "-" + service.tutor_name,
 								start: service.start_datetime,
 								end: service.end_datetime,
 								extendedProps: {
