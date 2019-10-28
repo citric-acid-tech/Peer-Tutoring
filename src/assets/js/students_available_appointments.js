@@ -475,6 +475,10 @@ window.StudentsAvailableAppointments = window.StudentsAvailableAppointments || {
 				helper.loadAppointmentPopup(info.event);
 				$('.students-page .popup .curtain').fadeIn();
 				$('.students-page .popup #cal_appointment_popup').fadeIn();
+				//	Prevent page from scrolling
+				// When the modal is shown, we want a fixed body
+				document.body.style.position = 'fixed';
+				document.body.style.top = '-' + window.scrollY + 'px';
 			},
 			//	Advance: Draggables
 //			editable: true,

@@ -40,6 +40,11 @@
 		$('.students-page .popup .popup_buttons#popup_appointment_cancel').click(function() {
 			$('.students-page .popup .curtain').fadeOut();
 			$('.students-page .popup #cal_appointment_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			//	Clear inputs!
 			setTimeout(function() {
 				instance.resetAppointmentPopup();
@@ -48,6 +53,11 @@
 		
 		$('.curtain').click(function() {
 			$('.popup').find('#cal_appointment_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			$(this).fadeOut();
 			//	Clear inputs!
 			setTimeout(function() {
@@ -260,6 +270,11 @@
 				//	Hide with TimeOut - See Tutor Appointments Management
 				$('.students-page .popup .curtain').fadeOut();
 				$('.students-page .popup #cal_appointment_popup').fadeOut();
+				//	Bring back scrolling functionalities on modal hidden
+				var scrollY = document.body.style.top;
+				document.body.style.position = '';
+				document.body.style.top = '';
+				window.scrollTo(0, parseInt(scrollY || '0') * -1);
 				
 				if (response === 'success') {
 					//	sync the modified event

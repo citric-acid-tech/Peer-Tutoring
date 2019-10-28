@@ -23,6 +23,11 @@
 		$('.curtain').click(function() {
 			$('.popup').find('#cal_edit_popup, #cal_add_popup').fadeOut();
 			$(this).fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			//	Clear inputs!
 			setTimeout(function() {
 				instance.resetEditPopup();
@@ -51,6 +56,11 @@
 		$('.admin-page .popup .popup_buttons#popup_edit_cancel').click(function() {
 			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			//	Clear inputs!
 			setTimeout(function() {
 				instance.resetEditPopup();
@@ -110,6 +120,11 @@
 		$('.admin-page .popup .popup_buttons#popup_add_cancel').click(function() {
 			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_add_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			//	Clear inputs!
 			setTimeout(function() {
 				instance.resetAddPopup();
@@ -494,6 +509,11 @@
 			//	Hide with TimeOut - See Tutor Appointments Management
 			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			
 			//	sync the modified event
 			obj.syncEdited(id, {
@@ -581,6 +601,11 @@
 			//	Fade
 			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_edit_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			
 			//	Remove event from calendar
 			cal.getEventById(id).remove();
@@ -716,6 +741,11 @@
 			//	Hide with TimeOut - See Tutor Appointments Management
 			$('.admin-page #service-calendar .popup .curtain').fadeOut();
 			$('.admin-page .popup #cal_add_popup').fadeOut();
+			//	Bring back scrolling functionalities on modal hidden
+			var scrollY = document.body.style.top;
+			document.body.style.position = '';
+			document.body.style.top = '';
+			window.scrollTo(0, parseInt(scrollY || '0') * -1);
 			
 			//	sync the modified event
 			obj.syncAdded();

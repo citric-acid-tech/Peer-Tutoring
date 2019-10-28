@@ -388,6 +388,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 						//	Show
 						$('.admin-page #service-calendar .popup .curtain').fadeIn();
 						$('.admin-page .popup #cal_add_popup').fadeIn();
+						//	Prevent page from scrolling
+						// When the modal is shown, we want a fixed body
+						document.body.style.position = 'fixed';
+						document.body.style.top = '-' + window.scrollY + 'px';
 					}
 				},
 				scheduleToAllWeeks: {
@@ -602,6 +606,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				//	Show
 				$('.admin-page #service-calendar .popup .curtain').fadeIn();
 				$('.admin-page .popup #cal_add_popup').fadeIn();
+				//	Prevent page from scrolling
+				// When the modal is shown, we want a fixed body
+				document.body.style.position = 'fixed';
+				document.body.style.top = '-' + window.scrollY + 'px';
 			},
 //			unselect: function(jsEvent, view) {	//	callback when a region is unselected
 //					
@@ -747,6 +755,10 @@ window.AdminServiceConfig = window.AdminServiceConfig || {};
 				helper.loadEditPopup(info.event);
 				$('.admin-page #service-calendar .popup .curtain').fadeIn();
 				$('.admin-page .popup #cal_edit_popup').fadeIn();
+				//	Prevent page from scrolling
+				// When the modal is shown, we want a fixed body
+				document.body.style.position = 'fixed';
+				document.body.style.top = '-' + window.scrollY + 'px';
 			},
 			//	Advance: Draggables
 //			editable: true,
