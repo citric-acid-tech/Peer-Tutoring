@@ -1010,6 +1010,7 @@ class Admin_model extends CI_Model{
         $data = array();
         $now_datetimeObj = new DateTime();
         $now = $now_datetimeObj->format('Y-m-d H:i:s');
+        $input_arr['ip_addr']  = $_SERVER["REMOTE_ADDR"];
         $data = [
             'id_users' => $this->session->userdata('user_id'),
             'operation' => $op,
