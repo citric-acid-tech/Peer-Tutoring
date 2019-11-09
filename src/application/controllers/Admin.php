@@ -212,7 +212,25 @@ class Admin extends CI_Controller{
         }
 
         // Check if the user has the required privileges for viewing the selected page.
-        $role_slug = $this->session->userdata('role_slug');
+
+        // DOUBLE CHECK in case of fake identification
+        $role_slug = $this->db
+            ->select('ea_roles.slug AS role_slug')
+            ->from('ea_users')
+            ->join('ea_roles', 'ea_roles.id = ea_users.id_roles', 'inner')
+            ->where('ea_users.cas_sid', $cas_user_data['sid'])
+            ->get()->row_array()['role_slug'];
+
+        if($role_slug == FALSE){
+            if ($redirect)
+            {
+                header('Location: ' . site_url('user/login'));
+            }
+            return FALSE;
+        }
+        // End of DOUBLE CHECK
+
+        $this->session->set_userdata(['role_slug' => $role_slug]);
         $role_priv = $this->db->get_where('ea_roles', ['slug' => $role_slug])->row_array();
 
 
