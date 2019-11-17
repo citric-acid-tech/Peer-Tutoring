@@ -103,6 +103,7 @@ class User extends CI_Controller {
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('dest_url');
         $this->session->unset_userdata('user_sid');
+        $this->session->unset_userdata('dummy');
 
         $view['base_url'] = $this->config->item('base_url');
         $view['company_name'] = $this->settings_model->get_setting('company_name');
