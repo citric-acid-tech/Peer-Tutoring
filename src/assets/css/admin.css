@@ -925,6 +925,23 @@ ul#sem_info .sem_item .sem_delete_row {
 }
 
 
+#blacklist_tab {
+	border: 2px solid #296d97;
+	width: 100%;
+}
+#blacklist_tab th, #blacklist_tab td {
+	text-align: center;
+	border: 1px solid #296d97;
+	padding: 10px 5px;
+	font-size: 1.5rem;
+}
+#blacklist_tab th {
+	user-select: none;
+}
+#blacklist_add_sid {
+	padding: 3px 10px;
+	transition: all 0.3s;
+}
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

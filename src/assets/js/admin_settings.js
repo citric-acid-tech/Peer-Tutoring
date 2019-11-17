@@ -24,11 +24,14 @@ window.AdminSettings = window.AdminSettings || {};
 	var adminSettingsHelperSemester = new AdminSettingsHelperSemester();
 	var adminSettingsHelperEmail = new AdminSettingsHelperEmail();
 	var adminSettingsHelperSurvey = new AdminSettingsHelperSurvey();
+	var adminSettingsHelperBlacklist = new AdminSettingsHelperBlacklist();
 	
 	var firstload_email = true;
 	var trumbowyg;
 	
 	var firstload_semester = true;
+	
+	var firstload_blacklist = true;
 	
     /**
      * This method initializes the Admin Settings page.
@@ -208,6 +211,13 @@ window.AdminSettings = window.AdminSettings || {};
 			} else if ($(this).attr('href') === '#survey_configurations') {
 				helper = adminSettingsHelperSurvey;
 				//	IFame, no need yet...
+			} else if ($(this).attr('href') === '#blacklist_settings') {
+				helper = adminSettingsHelperBlacklist;
+				if (firstload_blacklist) {
+					//	Load
+					helper.getBlacklist();
+					firstload_blacklist = false;
+				}
 			} else {
 				alert(EALang.genius_unknown_op);
 			}
@@ -220,6 +230,7 @@ window.AdminSettings = window.AdminSettings || {};
         adminSettingsHelperSemester.bindEventHandlers();
         adminSettingsHelperEmail.bindEventHandlers();
         adminSettingsHelperSurvey.bindEventHandlers();
+        adminSettingsHelperBlacklist.bindEventHandlers();
     }
 	
 })(window.AdminSettings);

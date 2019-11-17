@@ -2,6 +2,7 @@
 <script src="<?= asset_url('assets/js/admin_settings_helper_semester.js') ?>"></script>
 <script src="<?= asset_url('assets/js/admin_settings_helper_email.js') ?>"></script>
 <script src="<?= asset_url('assets/js/admin_settings_helper_survey.js') ?>"></script>
+<script src="<?= asset_url('assets/js/admin_settings_helper_blacklist.js') ?>"></script>
 <script src="<?= asset_url('assets/js/admin_settings.js') ?>"></script>
 <script>
 	//	csrfToken is for safety, a random hash value --> hard-to-guess string, to protect a form
@@ -50,6 +51,11 @@
 		<li role="presentation">
 			<a href="#email_configurations" aria-controls="email_configurations" role="tab" data-toggle="tab">
 				<?= lang('email_configurations') ?>
+			</a>
+		</li>
+		<li role="presentation">
+			<a href="#blacklist_settings" aria-controls="blacklist_settings" role="tab" data-toggle="tab">
+				<?= lang('blacklist') ?>
 			</a>
 		</li>
 		<li role="presentation" class="currently-not-needed">
@@ -336,6 +342,45 @@
 				
 				<div class="wrapper row">
 					<iframe src="https://www.wjx.cn/jq/36404176.aspx" width="100%" height="450px" allowfullscreen></iframe>
+				</div>
+			</div>
+			<br />
+		</div>
+		
+		<!-- Blacklist Settings -->
+		<div role="tabpanel" class="tab-pane fade" id="blacklist_settings">
+			<div class="container" style="width:90%;">			
+				<div class="wrapper row">
+					<div class="col-xs-12">
+						<h3 style="margin-bottom:0;"><?= lang('blacklist') ?></h3>
+					</div>
+				</div>
+				<hr />
+				
+				<div class="wrapper row">
+					<button type="button" class="btn btn-primary" id="blacklist_add">
+							<i class="fas fa-plus"></i>&ensp;<?= lang('add') ?>
+					</button>
+					&ensp;
+					<input type="input" id="blacklist_add_sid" placeholder="sid" title="sid" />
+				</div>
+				<br />
+				
+				<div class="wrapper row">
+					<table id="blacklist_tab">
+						<thead>
+							<tr>
+								<th>sid</th>
+								<th>X</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+						<tfoot>
+							<tr>
+								<td colspan="2"><div class="help-block"><?= lang('blacklist_helper') ?></div></td>
+							</tr>
+						</tfoot>
+					</table>
 				</div>
 			</div>
 			<br />
