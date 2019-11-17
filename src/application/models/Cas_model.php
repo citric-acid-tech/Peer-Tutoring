@@ -36,7 +36,7 @@ class Cas_model extends CI_Model{
                     'first_name' => $cas_user_data['name'],
                     'last_name' => ' ',
                     'email' => $cas_user_data['email'],
-                    'cas_hash_id' => $cas_user_data['id'],
+                    'cas_hash_id' => $cas_user_data['id']
                 );
                 $this->db->set($data);
                 $this->db->where('cas_sid', $cas_user_data['sid']);
@@ -74,8 +74,12 @@ class Cas_model extends CI_Model{
 
         // Get user data
         $user_data = $this->db
-            ->select('ea_users.cas_sid AS user_sid, ea_users.id AS user_id, ea_users.email AS user_email, '
-                . 'ea_roles.slug AS role_slug, ea_user_settings.username')
+            ->select('
+                ea_users.cas_sid AS user_sid, 
+                ea_users.id      AS user_id,
+                ea_users.email   AS user_email, 
+                ea_roles.slug    AS role_slug, 
+                ea_user_settings.username')
             ->from('ea_users')
             ->join('ea_roles', 'ea_roles.id = ea_users.id_roles', 'inner')
             ->join('ea_user_settings', 'ea_user_settings.id_users = ea_users.id', 'inner')

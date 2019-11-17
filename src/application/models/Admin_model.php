@@ -60,12 +60,12 @@ class Admin_model extends CI_Model{
             ->result_array();
     }
 
-    public function in_blacklist($user_id){
+    public function in_blacklist($sid){
         $exist = $this->db->select('
                 COUNT(*) AS cnt
             ')
             ->from('ea_blacklist')
-            ->where('sid', $user_id)
+            ->where('ea_blacklist.sid', $sid)
             ->get()
             ->row_array()['cnt'];
 

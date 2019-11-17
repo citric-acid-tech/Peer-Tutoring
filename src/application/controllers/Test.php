@@ -19,11 +19,11 @@ class Test extends CI_Controller{
         echo 'Test';
     }
 
-    // public function test_blacklist(){
-    //     $this->load->model('admin_model');
-    //     $result = $this->admin_model->in_blacklist('274272');
-    //     echo $result;
-    // }
+    public function test_blacklist(){
+        $this->load->model('admin_model');
+        $result = $this->admin_model->in_blacklist('11710403');
+        echo $result;
+    }
 
     //  public function test_phpmailer(){
     //      require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");

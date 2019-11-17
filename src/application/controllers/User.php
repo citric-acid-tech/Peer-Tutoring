@@ -84,12 +84,7 @@ class User extends CI_Controller {
         $this->load->model('settings_model');
 
         $view['base_url'] = $this->config->item('base_url');
-        $view['dest_url'] = $this->session->userdata('dest_url');
-
-        if ( ! $view['dest_url'])
-        {
-            $view['dest_url'] = site_url('admin');
-        }
+        $view['dest_url'] = site_url('admin');
 
         $view['company_name'] = $this->settings_model->get_setting('company_name');
         $this->load->view('user/login', $view);
@@ -162,7 +157,7 @@ class User extends CI_Controller {
 
             if ($user_data)
             {
-                $user_data['role_slug'] = 'admin';
+                $user_data['dummy'] = 'dummy';
                 $user_data['user_id'] = $this->session->userdata('user_id');
                 $user_data['user_sid'] = $this->session->userdata('user_sid');
 

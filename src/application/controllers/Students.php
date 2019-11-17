@@ -5,6 +5,7 @@ class Students extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->library('session');
+        $this->load->model('admin_model');
 
         // Set user's selected language.
         if ($this->session->userdata('language')){
@@ -121,6 +122,15 @@ class Students extends CI_Controller{
             return FALSE;
         }
 
+        // Check if the user is in blacklist
+        if ($this->admin_model->in_blacklist($this->session->userdata('user_sid')) == 'true'){
+            if ($redirect)
+            {
+                header('Location: ' . site_url('user/no_privileges'));
+            }
+            return FALSE;
+        }
+
         // Check if the user has the required privileges for viewing the selected page.
         // $role_slug = $this->session->userdata('role_slug');
         
@@ -129,7 +139,7 @@ class Students extends CI_Controller{
             ->select('ea_roles.slug AS role_slug')
             ->from('ea_users')
             ->join('ea_roles', 'ea_roles.id = ea_users.id_roles', 'inner')
-            ->where('ea_users.cas_sid', $cas_user_data['sid'])
+            ->where('ea_users.cas_sid', $this->session->userdata('user_sid'))
             ->get()->row_array()['role_slug'];
 
         if($role_slug == FALSE){
