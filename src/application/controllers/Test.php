@@ -15,41 +15,46 @@ class Test extends CI_Controller{
      * Also you can create accounts here, modify the arguments in test_create_account and then call it directly.
      */
     public function index(){
-        // $this->test_download();?
-        $this->test_phpmailer();
+        $this->test_blacklist();
         echo 'Test';
     }
 
-     public function test_phpmailer(){
-         require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
-         require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
-         require_once("vendor/phpmailer/phpmailer/class.smtp.php");
+    // public function test_blacklist(){
+    //     $this->load->model('admin_model');
+    //     $result = $this->admin_model->in_blacklist('274272');
+    //     echo $result;
+    // }
 
-         $mail = new PHPMailer();
+    //  public function test_phpmailer(){
+    //      require_once("vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
+    //      require_once("vendor/phpmailer/phpmailer/class.phpmailer.php");
+    //      require_once("vendor/phpmailer/phpmailer/class.smtp.php");
 
-         $mail->SMTPDebug = 1;
+    //      $mail = new PHPMailer();
 
-         $mail->isSMTP();
-         $mail->isHTML(true);
-         $mail->SMTPAuth = true;
-         $mail->SMTPSecure = 'ssl';
-         $mail->CharSet = 'UTF-8';
+    //      $mail->SMTPDebug = 1;
 
-         $mail->Host = Config::SMTP_HOST;
-         $mail->Port = Config::SMTP_PORT;
-         $mail->FromName = Config::SMTP_FROMNAME;
-         $mail->Username = Config::SMTP_SMTPUSER;
-         $mail->Password = Config::SMTP_PASSWORD;
-         $mail->From = Config::SMTP_FROM;
+    //      $mail->isSMTP();
+    //      $mail->isHTML(true);
+    //      $mail->SMTPAuth = true;
+    //      $mail->SMTPSecure = 'ssl';
+    //      $mail->CharSet = 'UTF-8';
 
-         $mail->addAddress('11710403@mail.sustech.edu.cn');
-         $mail->Subject = 'Test Subject';
-         $mail->Body = '<h1>test content.</h1>';
-         // $mail->addAttachment('./example.pdf');
+    //      $mail->Host = Config::SMTP_HOST;
+    //      $mail->Port = Config::SMTP_PORT;
+    //      $mail->FromName = Config::SMTP_FROMNAME;
+    //      $mail->Username = Config::SMTP_SMTPUSER;
+    //      $mail->Password = Config::SMTP_PASSWORD;
+    //      $mail->From = Config::SMTP_FROM;
+
+    //      $mail->addAddress('11710403@mail.sustech.edu.cn');
+    //      $mail->Subject = 'Test Subject';
+    //      $mail->Body = '<h1>test content.</h1>';
+    //      // $mail->addAttachment('./example.pdf');
         
-         $status = $mail->send(); 
-         echo $status;
-     }
+    //      $status = $mail->send(); 
+    //      echo $status;
+    //  }
 }
 
 //     public function test_download(){

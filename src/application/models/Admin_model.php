@@ -46,7 +46,7 @@ class Admin_model extends CI_Model{
         $this->db->where('sid', $sid);
         $result = $this->db->delete('ea_blacklist');
 
-        $this->log_operation('remove_from_blacklist', $data, $result);
+        $this->log_operation('remove_from_blacklist', array('sid' => $sid), $result);
         
         return $result ? 'success' : 'failed';
     }
@@ -65,7 +65,7 @@ class Admin_model extends CI_Model{
                 COUNT(*) AS cnt
             ')
             ->from('ea_blacklist')
-            ->where('sid', $sid)
+            ->where('sid', $user_id)
             ->get()
             ->row_array()['cnt'];
 
