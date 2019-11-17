@@ -23,6 +23,103 @@ class Admin_api extends CI_Controller{
             $this->lang->load('translations', $this->config->item('language'));
         }
     }
+/** Ajax interface for blacklist */
+    public function ajax_append_to_blacklist(){
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $sid = json_decode($this->input->post('sid'), TRUE);
+
+            // Query
+            $result = $this->admin_model->append_to_blacklist($sid);
+            
+            // Output
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_remove_from_blacklist(){
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $sid = json_decode($this->input->post('sid'), TRUE);
+
+            // Query
+            $result = $this->admin_model->remove_from_blacklist($sid);
+            
+            // Output
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_get_blacklist(){
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+               // No input
+
+            // Query
+            $result = $this->admin_model->get_blacklist();
+            
+            // Output
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_in_blacklist(){
+        try{
+            
+            $this->load->model('admin_model');
+            
+            // Get input
+            $user_id = json_decode($this->input->post('user_id'), TRUE);
+            
+            // Query
+            $result = $this->admin_model->in_blacklist($user_id);
+            
+            // Output
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result), TRUE);
+            
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 
 /** Ajax interface for Tutor */
 

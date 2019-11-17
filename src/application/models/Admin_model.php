@@ -1,7 +1,81 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model{
+
+    /**
+     * Blacklist
+     */
+    public function append_to_blacklist($sid){
+        $exist = $this->db->select('
+                COUNT(*) AS cnt
+            ')
+            ->from('ea_blacklist')
+            ->where('sid', $sid)
+            ->get()
+            ->row_array()['cnt'];
+
+        if($exist != 0){
+            return 'already_added';
+        }
+
+        $data = array(
+            'sid' => $sid
+        );
+
+        $result = $this->db->insert('ea_blacklist', $data);
+
+        $this->log_operation('append_to_blacklist', $data, $result);
+        
+        return $result ? 'success' : 'failed';
     
+    }
+    
+    public function remove_from_blacklist($sid){
+        $exist = $this->db->select('
+                COUNT(*) AS cnt
+            ')
+            ->from('ea_blacklist')
+            ->where('sid', $sid)
+            ->get()
+            ->row_array()['cnt'];
+
+        if($exist == 0){
+            return 'already_removed';
+        }
+
+        $this->db->where('sid', $sid);
+        $result = $this->db->delete('ea_blacklist');
+
+        $this->log_operation('remove_from_blacklist', $data, $result);
+        
+        return $result ? 'success' : 'failed';
+    }
+
+    public function get_blacklist(){
+        return $this->db->select('
+            ea_blacklist.sid AS sid
+            ')
+            ->from('ea_blacklist')
+            ->get()
+            ->result_array();
+    }
+
+    public function in_blacklist($user_id){
+        $exist = $this->db->select('
+                COUNT(*) AS cnt
+            ')
+            ->from('ea_blacklist')
+            ->where('sid', $sid)
+            ->get()
+            ->row_array()['cnt'];
+
+        if($exist == 0){
+            return 'false';
+        }else{
+            return 'true';
+        }
+    }
+
     /**
      * For testing
      */
