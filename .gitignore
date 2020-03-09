@@ -22,4 +22,5 @@
 data/
 /src/application/controllers/Test.php
 /src/application/views/test/
-
+/src/phpCAS.log
+/src/upload/*.png
