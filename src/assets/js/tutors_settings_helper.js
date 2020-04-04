@@ -243,7 +243,7 @@ window.TutorsSettingsHelper = window.TutorsSettingsHelper || {};
 					$('#personal-page').val(pp);
 				} else {
 					//	Nothing works, gg
-					Admin.displayNotification(EALang.invalid_url, undefined, "failure");
+					Tutors.displayNotification(EALang.invalid_url, undefined, "failure");
 					$('#personal-page').addClass('gg');
 					setTimeout(function() {
 						$('#personal-page').removeClass('gg');
