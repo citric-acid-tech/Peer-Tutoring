@@ -37,7 +37,7 @@
     "fullcalendar": "^3.6.1",
     "jquery": "^3.5.0",
     "jquery-ui": "^1.13.2",
-    "moment": "^2.21.0",
+    "moment": "^2.29.4",
     "qtip2": "^3.0.3",
     "sticky-table-headers": "^0.1.19",
     "trumbowyg": "^2.10.0"
